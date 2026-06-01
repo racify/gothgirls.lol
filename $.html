@@ -116,7 +116,7 @@
 		.tabs-header {
 			display: flex;
 			align-items: center;
-			padding: 8px;
+			padding: 12px;
 			border-bottom: 1px solid rgba(39, 39, 42, 0.3);
 			background-color: rgba(0, 0, 0, 0.7);
 			gap: 8px;
@@ -428,7 +428,7 @@
 			content: "";
 			position: absolute;
 			inset: 0;
-			background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.12) 100%);
+			background: transparent;
 			box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 			pointer-events: none;
 			border-radius: 6px;
@@ -891,6 +891,20 @@
 			text-overflow: ellipsis;
 		}
 
+		.spotify-artist-row {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			margin-top: 4px;
+		}
+
+		.spotify-icon {
+			color: #fff;
+			flex-shrink: 0;
+			width: 10px;
+			height: 10px;
+		}
+
 		.spotify-actions {
 			display: flex;
 			align-items: center;
@@ -900,9 +914,16 @@
 
 		.spotify-time {
 			font-size: 8.32px;
-			color: #52525b;
+			color: #d4d4d8;
 			font-variant-numeric: tabular-nums;
 			flex-shrink: 0;
+		}
+
+		.spotify-progress-container {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			margin: 0 8px 8px;
 		}
 
 		.spotify-toggle {
@@ -937,15 +958,18 @@
 			position: relative;
 			height: 2px;
 			background: #27272a;
-			margin: 0 8px 8px;
 			overflow: hidden;
+			display: block;
+			width: 100%;
+			margin: 0;
+			box-sizing: border-box;
 		}
 
 		.spotify-progress-fill {
 			height: 100%;
 			width: 0%;
 			background: #fff;
-			transition: width 0.25s linear;
+			transition: width linear;
 		}
 
 		.spotify-embed-wrap {
@@ -984,6 +1008,268 @@
 			color: #71717a;
 		}
 
+		.spotify-card-inline {
+			margin-top: 10px;
+			padding-top: 10px;
+			border-top: 1px solid rgba(255, 255, 255, 0.08);
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			width: 100%;
+		}
+
+		.spotify-card-inline:empty {
+			display: none;
+			margin-top: 0;
+			padding-top: 0;
+			border-top: none;
+		}
+
+		.spotify-card-inline .spotify-row {
+			padding: 0;
+			gap: 6px;
+			align-items: flex-start;
+			width: 100%;
+		}
+
+		.spotify-card-inline .spotify-art {
+			width: 32px;
+			height: 32px;
+			border-radius: 4px;
+			flex-shrink: 0;
+			margin-top: 2px;
+		}
+
+		.spotify-card-inline .spotify-info {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.spotify-card-inline .spotify-song {
+			font-size: 11px;
+			font-weight: 500;
+			line-height: 1.3;
+		}
+
+		.spotify-card-inline .spotify-artist-row {
+			margin-top: 3px;
+			gap: 4px;
+		}
+
+		.spotify-card-inline .spotify-artist {
+			font-size: 9px;
+		}
+
+		.spotify-card-inline .spotify-icon {
+			width: 10px;
+			height: 10px;
+		}
+
+		.spotify-card-inline .spotify-actions {
+			gap: 6px;
+			flex-wrap: wrap;
+		}
+
+		.spotify-card-inline .spotify-time {
+			font-size: 8px;
+			min-width: fit-content;
+			order: 2;
+		}
+
+		.spotify-card-inline .spotify-toggle {
+			width: 16px;
+			height: 16px;
+			order: 1;
+		}
+
+		.spotify-card-inline .spotify-progress {
+			margin: 0;
+			height: 2px;
+			width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
+		}
+
+		.spotify-progress-box {
+			padding: 10px;
+			border-radius: 8px;
+			background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			margin-top: 10px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.spotify-progress-box {
+			padding: 10px;
+			border-radius: 8px;
+			background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			margin-top: 10px;
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.spotify-song-box {
+			padding: 10px;
+			border-radius: 8px;
+			background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			width: 100%;
+			box-sizing: border-box;
+		}
+
+		.spotify-time-center {
+			font-size: 8.32px;
+			color: #d4d4d8;
+			font-variant-numeric: tabular-nums;
+			text-align: center;
+			margin-bottom: 8px;
+		}
+
+		.spotify-card-inline .spotify-embed-wrap {
+			width: 100%;
+			margin-top: 8px;
+		}
+
+		.spotify-card-inline .spotify-empty {
+			display: none;
+		}
+
+		.activity-display {
+			margin-top: 10px;
+			padding-top: 10px;
+			border-top: 1px solid rgba(255, 255, 255, 0.08);
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			width: 100%;
+		}
+
+		.activity-display:empty {
+			display: none;
+			margin-top: 0;
+			padding-top: 0;
+			border-top: none;
+		}
+
+		.activity-row {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			width: 100%;
+			padding: 12px;
+			border-radius: 8px;
+			background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			transition: background 0.2s ease, border-color 0.2s ease;
+			margin-bottom: 8px;
+		}
+
+		.activity-row:hover {
+			background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
+			border-color: rgba(255, 255, 255, 0.12);
+		}
+
+		.activity-art {
+			width: 48px;
+			height: 48px;
+			border-radius: 6px;
+			flex-shrink: 0;
+			background: #18181b;
+			object-fit: cover;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+		}
+
+		.activity-status-line {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+			gap: 8px;
+		}
+
+		.activity-time {
+			font-size: 9px;
+			color: #22c55e;
+			font-variant-numeric: tabular-nums;
+			flex-shrink: 0;
+			white-space: nowrap;
+		}
+
+		.activity-detail-line {
+			font-size: 8px;
+			color: #f5f5f5;
+			line-height: 1.2;
+			font-weight: 400;
+		}
+
+		.activity-state-line {
+			font-size: 8px;
+			color: #e0e0e0;
+			line-height: 1.2;
+			font-weight: 400;
+		}
+
+		.activity-time-line {
+			font-size: 8px;
+			color: #22c55e;
+			font-variant-numeric: tabular-nums;
+			line-height: 1.2;
+		}
+
+		.activity-info {
+			flex: 1;
+			min-width: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 3px;
+		}
+
+		.activity-label {
+			font-size: 8px;
+			color: #71717a;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			margin-bottom: 2px;
+			display: none;
+		}
+
+		.activity-name {
+			font-size: 12px;
+			font-weight: 600;
+			color: #e5e7eb;
+			line-height: 1.3;
+			letter-spacing: 0.01em;
+		}
+
+		.activity-status-text {
+			font-size: 9px;
+			color: #9ca3af;
+			line-height: 1.4;
+			font-weight: 400;
+			display: flex;
+			gap: 6px;
+			flex-wrap: wrap;
+			align-items: center;
+		}
+
+		.activity-status-text span {
+			display: inline-block;
+		}
+
+		.activity-status-text span + span::before {
+			content: "• ";
+			margin-right: 6px;
+		}
+
+		.activity-details {
+			font-size: 9px;
+			color: #9ca3af;
+			line-height: 1.3;
+			font-weight: 400;
+		}
+
 		body.is-loading #username,
 		body.is-loading #discord-tag,
 		body.is-loading #avatar,
@@ -997,6 +1283,8 @@
 		#spotify-card {
 			transition: opacity 0.18s ease;
 		}
+
+
 
 		@media (max-width: 520px) {
 			body {
@@ -1152,6 +1440,9 @@
 								<span class="discord-tag" id="discord-tag">&nbsp;</span>
 							</button>
 						</div>
+
+						<div id="spotify-card" class="spotify-card-inline"></div>
+						<div id="activity-display" class="activity-display"></div>
 					</div>
 				</div>
 			</div>
@@ -1274,8 +1565,6 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="spotify-card" id="spotify-card"></div>
 		</div>
 	</div>
 
@@ -1359,6 +1648,7 @@
 		const discordTagEl = document.getElementById("discord-tag");
 		const spotifyCardEl = document.getElementById("spotify-card");
 
+		let currentActivities = [];
 		let currentSpotify = null;
 		let currentSpotifyTrackId = null;
 		let progressTimer = null;
@@ -1366,6 +1656,12 @@
 		let heartbeatInterval = null;
 		let reconnectTimer = null;
 		let spotifyEmbedOpen = false;
+
+		function updateActivityTimes() {
+			if (currentActivities.length > 0) {
+				renderActivity(currentActivities);
+			}
+		}
 
 		function escapeHTML(value) {
 			return String(value ?? "")
@@ -1418,7 +1714,11 @@
 			const progressEl = document.getElementById("spotify-progress-fill");
 			const timeEl = document.getElementById("spotify-time");
 
-			if (progressEl) progressEl.style.width = `${progress}%`;
+			if (progressEl) {
+				const remaining = Math.max(0, (duration - elapsed) / 1000);
+				progressEl.style.transitionDuration = `${remaining}s`;
+				progressEl.style.width = `${progress}%`;
+			}
 			if (timeEl) timeEl.textContent = `${formatTime(safeElapsed)} / ${formatTime(duration)}`;
 		}
 
@@ -1454,10 +1754,15 @@
 			const smallImage = activity.assets?.small_image;
 			const image = largeImage || smallImage;
 
-			if (!image) return null;
+			if (!image) {
+				if (activity.application_id) {
+					return `https://cdn.discordapp.com/app-icons/${activity.application_id}/0.png`;
+				}
+				return null;
+			}
 
 			if (image.startsWith("mp:external/")) {
-				return `https://media.discordapp.net/${image.replace("mp:", "")}`;
+				return `https://media.discordapp.net/external/${image.substring(12)}`;
 			}
 
 			if (image.startsWith("spotify:")) {
@@ -1486,25 +1791,57 @@
 			return parts.join(" • ");
 		}
 
-		function renderActivity(activities = []) {
-			const statusLineEl = document.getElementById("discord-status-line");
-			if (!statusLineEl) return;
+		function renderActivity(activities = [], customStatus = null) {
+			const activityDisplayEl = document.getElementById("activity-display");
+			if (!activityDisplayEl) return;
 
-			const activity = activities.find((item) => {
+			currentActivities = activities;
+
+			const validActivities = activities.filter((item) => {
 				if (!item) return false;
 				if (item.name === "Spotify") return false;
-				if (item.type === 4) return false;
 				return true;
 			});
 
-			if (!activity) {
-				statusLineEl.textContent = "Online";
+			if (!validActivities.length) {
+				activityDisplayEl.innerHTML = "";
 				return;
 			}
 
-			const activityName = activity.name || "Activity";
-			const activityDetails = getActivityDetails(activity);
-			statusLineEl.textContent = `${activityName} • ${activityDetails}`;
+			activityDisplayEl.innerHTML = validActivities.map(activity => {
+				const activityName = activity.name || "Activity";
+				const activityDetails = activity.details || "";
+				const activityState = activity.state || "";
+				const activityImage = getActivityImage(activity);
+				
+				let elapsedTime = "";
+				if (activity.timestamps && activity.timestamps.start) {
+					const elapsed = Date.now() - activity.timestamps.start;
+					const seconds = Math.floor(elapsed / 1000);
+					const minutes = Math.floor(seconds / 60);
+					const hours = Math.floor(minutes / 60);
+					
+					if (hours > 0) {
+						elapsedTime = `${hours}h ${minutes % 60}m`;
+					} else if (minutes > 0) {
+						elapsedTime = `${minutes}m ${seconds % 60}s`;
+					} else {
+						elapsedTime = `${seconds}s`;
+					}
+				}
+
+				return `
+					<div class="activity-row">
+						${activityImage ? `<img class="activity-art" src="${escapeHTML(activityImage)}" alt="${escapeHTML(activityName)}" onerror="this.style.display='none'"/>` : '<div class="activity-art"></div>'}
+						<div class="activity-info">
+							<div class="activity-name">${escapeHTML(activityName)}</div>
+							${activityDetails ? `<div class="activity-detail-line">${escapeHTML(activityDetails)}</div>` : ""}
+							${activityState ? `<div class="activity-state-line">${escapeHTML(activityState)}</div>` : ""}
+							${elapsedTime ? `<div class="activity-time-line">${elapsedTime}</div>` : ""}
+						</div>
+					</div>
+				`;
+			}).join("");
 		}
 
 		function renderSpotify(spotify) {
@@ -1530,7 +1867,8 @@
 			: null;
 
 		spotifyCardEl.innerHTML = `
-			<div class="spotify-row">
+			<div class="spotify-song-box">
+				<div class="spotify-row">
 				<img
 					class="spotify-art"
 					src="${escapeHTML(spotify.album_art_url)}"
@@ -1539,13 +1877,15 @@
 
 				<div class="spotify-info">
 					<div class="spotify-song">${escapeHTML(spotify.song)}</div>
-					<div class="spotify-artist">${escapeHTML(spotify.artist)}</div>
-					<div class="spotify-label">listening on spotify</div>
+					<div class="spotify-artist-row">
+						<svg class="spotify-icon" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-12.061-1.409-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15.079 10.561 18.303 12.979c.361.21.599.659.301 1.1zm.12-3.36C15.419 8.169 8.879 7.86 5.4 9.291c-.589.23-1.159-.196-1.379-.75-.199-.617.061-1.298.649-1.528 4.383-1.591 11.46-1.23 15.738 2.247.471.361.619 1.029.219 1.5-.401.469-1.08.619-1.559.199z"/>
+						</svg>
+						<div class="spotify-artist">${escapeHTML(spotify.artist)}</div>
+					</div>
 				</div>
 
 				<div class="spotify-actions">
-					<div class="spotify-time" id="spotify-time">0:00 / 0:00</div>
-
 					${
 						spotifyEmbedUrl
 							? `
@@ -1567,8 +1907,11 @@
 				</div>
 			</div>
 
-			<div class="spotify-progress">
-				<div class="spotify-progress-fill" id="spotify-progress-fill"></div>
+			<div class="spotify-progress-box">
+				<div class="spotify-time-center" id="spotify-time">0:00 / 0:00</div>
+				<div class="spotify-progress">
+					<div class="spotify-progress-fill" id="spotify-progress-fill"></div>
+				</div>
 			</div>
 
 			${
@@ -1619,7 +1962,7 @@
 			}
 
 			setStatus(data.discord_status);
-			renderActivity(data.activities || []);
+			renderActivity(data.activities || [], data.discord_user?.custom_status);
 
 			const incomingSpotify = data.spotify || null;
 			const incomingTrackId = incomingSpotify
@@ -1865,18 +2208,14 @@
 		connectLanyardSocket();
 		createConstellationBackground();
 
+		setInterval(updateActivityTimes, 1000);
+
 
 		window.addEventListener("DOMContentLoaded", () => {
 			const progressEl = document.getElementById("loader-progress");
 			const overlayEl = document.getElementById("loading-overlay");
 
-			// Trigger fast progress bar animation to 100%
-			setTimeout(() => {
-				if (progressEl) {
-					progressEl.style.width = "100%";
-				}
-			}, 50);
-
+			if (progressEl) progressEl.style.width = "100%";
 
 			setTimeout(() => {
 				if (overlayEl) {
@@ -1887,6 +2226,10 @@
 				}
 			}, 1300);
 		});
+
+
 	</script>
+
+
 </body>
 </html>
