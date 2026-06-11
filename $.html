@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -46,17 +47,17 @@
 			z-index: 0;
 			pointer-events: none;
 			background:
-				radial-gradient(circle at 6% 52%, rgba(255,255,255,0.7) 0 1px, transparent 2px),
-				radial-gradient(circle at 12% 25%, rgba(255,255,255,0.5) 0 1px, transparent 2px),
-				radial-gradient(circle at 18% 68%, rgba(255,255,255,0.35) 0 1px, transparent 2px),
-				radial-gradient(circle at 24% 17%, rgba(255,255,255,0.35) 0 1px, transparent 2px),
-				radial-gradient(circle at 35% 80%, rgba(255,255,255,0.65) 0 1px, transparent 2px),
-				radial-gradient(circle at 51% 8%, rgba(255,255,255,0.65) 0 1px, transparent 2px),
-				radial-gradient(circle at 62% 62%, rgba(255,255,255,0.4) 0 1px, transparent 2px),
-				radial-gradient(circle at 72% 43%, rgba(255,255,255,0.35) 0 1px, transparent 2px),
-				radial-gradient(circle at 84% 70%, rgba(255,255,255,0.85) 0 1px, transparent 2px),
-				radial-gradient(circle at 92% 20%, rgba(255,255,255,0.42) 0 1px, transparent 2px),
-				radial-gradient(circle at 77% 84%, rgba(255,255,255,0.42) 0 1px, transparent 2px);
+				radial-gradient(circle at 6% 52%, rgba(255, 255, 255, 0.7) 0 1px, transparent 2px),
+				radial-gradient(circle at 12% 25%, rgba(255, 255, 255, 0.5) 0 1px, transparent 2px),
+				radial-gradient(circle at 18% 68%, rgba(255, 255, 255, 0.35) 0 1px, transparent 2px),
+				radial-gradient(circle at 24% 17%, rgba(255, 255, 255, 0.35) 0 1px, transparent 2px),
+				radial-gradient(circle at 35% 80%, rgba(255, 255, 255, 0.65) 0 1px, transparent 2px),
+				radial-gradient(circle at 51% 8%, rgba(255, 255, 255, 0.65) 0 1px, transparent 2px),
+				radial-gradient(circle at 62% 62%, rgba(255, 255, 255, 0.4) 0 1px, transparent 2px),
+				radial-gradient(circle at 72% 43%, rgba(255, 255, 255, 0.35) 0 1px, transparent 2px),
+				radial-gradient(circle at 84% 70%, rgba(255, 255, 255, 0.85) 0 1px, transparent 2px),
+				radial-gradient(circle at 92% 20%, rgba(255, 255, 255, 0.42) 0 1px, transparent 2px),
+				radial-gradient(circle at 77% 84%, rgba(255, 255, 255, 0.42) 0 1px, transparent 2px);
 			opacity: 0.8;
 		}
 
@@ -107,6 +108,7 @@
 				opacity: 0;
 				transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(-50px) scale(0.96);
 			}
+
 			to {
 				opacity: 1;
 				transform: perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1);
@@ -163,6 +165,7 @@
 				opacity: 0;
 				transform: translateY(-10px);
 			}
+
 			to {
 				opacity: 1;
 				transform: translateY(0);
@@ -204,9 +207,9 @@
 			border-radius: 8px;
 			border: 1px solid rgba(255, 255, 255, 0.08);
 			overflow: hidden;
-			background: radial-gradient(at left top, #10151A 0%, transparent 55%), 
-						radial-gradient(at right bottom, #10151A 0%, transparent 55%), 
-						rgba(10, 10, 10, 0.5);
+			background: radial-gradient(at left top, #10151A 0%, transparent 55%),
+				radial-gradient(at right bottom, #10151A 0%, transparent 55%),
+				rgba(10, 10, 10, 0.5);
 			backdrop-filter: blur(24px);
 			box-shadow: rgba(255, 255, 255, 0.05) 0 1px 0 inset;
 			margin-bottom: 16px;
@@ -214,9 +217,9 @@
 		}
 
 		.project-card:hover {
-			background: radial-gradient(at left top, #10151A 0%, transparent 55%), 
-						radial-gradient(at right bottom, #10151A 0%, transparent 55%), 
-						rgba(15, 15, 15, 0.55);
+			background: radial-gradient(at left top, #10151A 0%, transparent 55%),
+				radial-gradient(at right bottom, #10151A 0%, transparent 55%),
+				rgba(15, 15, 15, 0.55);
 		}
 
 		.project-header {
@@ -623,9 +626,9 @@
 			height: 28px;
 			border-radius: 7px;
 			background:
-				radial-gradient(circle at 50% 50%, rgba(255,255,255,0.55) 0 2px, transparent 3px),
+				radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.55) 0 2px, transparent 3px),
 				rgba(255, 255, 255, 0.045);
-			border: 1px solid rgba(255,255,255,0.06);
+			border: 1px solid rgba(255, 255, 255, 0.06);
 			flex-shrink: 0;
 			box-shadow: rgba(0, 0, 0, 0.25) 0 4px 10px;
 		}
@@ -775,38 +778,254 @@
 
 		.notification {
 			position: fixed;
-			top: 20px;
-			right: 20px;
-			background: rgba(34, 197, 94, 0.9);
-			color: #fff;
-			padding: 12px 16px;
-			border-radius: 6px;
+			bottom: 24px;
+			left: 50%;
+			transform: translateX(-50%) translateY(0);
+			background:
+				linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+				rgba(0, 0, 0, 0.75);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			color: #e5e7eb;
+			padding: 10px 16px;
+			border-radius: 999px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow:
+				rgba(255, 255, 255, 0.06) 0 1px 0 inset,
+				rgba(0, 0, 0, 0.4) 0 8px 24px;
 			font-size: 12px;
-			backdrop-filter: blur(8px);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-			animation: slideIn 0.3s ease-out;
-			z-index: 100;
+			white-space: nowrap;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+			z-index: 9999;
 		}
 
-		@keyframes slideIn {
+		.notification-icon {
+			width: 14px;
+			height: 14px;
+			color: #a1a1aa;
+			flex-shrink: 0;
+		}
+
+		/* ── Music Player ── */
+		.music-player-title {
+			font-size: 11px;
+			color: #a1a1aa;
+			margin-top: 16px;
+			margin-bottom: 6px;
+			padding-left: 2px;
+		}
+
+		.music-player {
+			border-radius: 8px;
+			border: 1px solid rgba(255, 255, 255, 0.04);
+			background: rgba(10, 10, 10, 0.6);
+			backdrop-filter: blur(12px);
+			overflow: hidden;
+		}
+
+		.mp-top {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 12px;
+		}
+
+		.mp-art {
+			width: 42px;
+			height: 42px;
+			border-radius: 4px;
+			object-fit: cover;
+			background: #18181b;
+			flex-shrink: 0;
+		}
+
+		.mp-meta {
+			flex: 1;
+			min-width: 0;
+		}
+
+		.mp-title {
+			font-size: 13px;
+			font-weight: 500;
+			color: #fff;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			line-height: 1.2;
+		}
+
+		.mp-artist {
+			font-size: 11px;
+			color: #71717a;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin-top: 4px;
+		}
+
+		.mp-controls {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			flex-shrink: 0;
+		}
+
+		.mp-counter {
+			font-size: 10px;
+			color: #3f3f46;
+			font-variant-numeric: tabular-nums;
+			margin-right: 4px;
+			white-space: nowrap;
+		}
+
+		.mp-btn {
+			background: none;
+			border: none;
+			padding: 4px;
+			cursor: pointer;
+			color: #71717a;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 4px;
+			transition: color 0.15s ease;
+		}
+
+		.mp-btn:hover {
+			color: #e5e7eb;
+		}
+
+		.mp-btn-play {
+			width: 28px;
+			height: 28px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.05);
+			color: #e5e7eb;
+		}
+
+		.mp-btn-play:hover {
+			background: rgba(255, 255, 255, 0.1);
+		}
+
+		.mp-divider {
+			height: 1px;
+			background: rgba(255, 255, 255, 0.04);
+			margin: 0 12px;
+		}
+
+		.mp-bottom {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 10px 12px;
+		}
+
+		.mp-time-combined {
+			font-size: 10px;
+			color: #3f3f46;
+			font-variant-numeric: tabular-nums;
+			white-space: nowrap;
+			flex-shrink: 0;
+			width: 55px;
+		}
+
+		.mp-progress-wrap {
+			flex: 1;
+			height: 2px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 999px;
+			cursor: pointer;
+			position: relative;
+			transition: height 0.15s ease;
+		}
+
+		.mp-progress-wrap:hover {
+			height: 3px;
+		}
+
+		.mp-progress-fill {
+			height: 100%;
+			width: 0%;
+			background: #a1a1aa;
+			border-radius: 999px;
+			pointer-events: none;
+			transition: width 0.2s linear;
+		}
+
+		.mp-vol-wrap {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			flex-shrink: 0;
+		}
+
+		.mp-vol-icon {
+			color: #52525b;
+			width: 12px;
+			height: 12px;
+			flex-shrink: 0;
+			cursor: pointer;
+			transition: color 0.15s ease;
+		}
+
+		.mp-vol-icon:hover {
+			color: #a1a1aa;
+		}
+
+		.mp-vol-slider {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 40px;
+			height: 2px;
+			border-radius: 999px;
+			background: #3f3f46;
+			outline: none;
+			cursor: pointer;
+		}
+
+		.mp-vol-slider::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: #a1a1aa;
+			cursor: pointer;
+		}
+
+		.mp-vol-slider::-moz-range-thumb {
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background: #a1a1aa;
+			border: none;
+			cursor: pointer;
+		}
+
+		@keyframes toastIn {
 			from {
-				transform: translateX(400px);
 				opacity: 0;
+				transform: translateX(-50%) translateY(12px);
 			}
+
 			to {
-				transform: translateX(0);
 				opacity: 1;
+				transform: translateX(-50%) translateY(0);
 			}
 		}
 
-		@keyframes slideOut {
+		@keyframes toastOut {
 			from {
-				transform: translateX(0);
 				opacity: 1;
+				transform: translateX(-50%) translateY(0);
 			}
+
 			to {
-				transform: translateX(400px);
 				opacity: 0;
+				transform: translateX(-50%) translateY(12px);
 			}
 		}
 
@@ -814,12 +1033,10 @@
 			border-radius: 8px;
 			border: 1px solid rgba(20, 20, 20, 0.35);
 			overflow: hidden;
-			background: linear-gradient(
-				160deg,
-				rgba(20, 20, 20, 0.62) 0%,
-				rgba(20, 20, 20, 0.32) 50%,
-				rgba(10, 10, 10, 0.22) 100%
-			);
+			background: linear-gradient(160deg,
+					rgba(20, 20, 20, 0.62) 0%,
+					rgba(20, 20, 20, 0.32) 50%,
+					rgba(10, 10, 10, 0.22) 100%);
 			backdrop-filter: blur(24px);
 			box-shadow:
 				rgba(255, 255, 255, 0.06) 0 1px 0 inset,
@@ -935,7 +1152,7 @@
 			justify-content: center;
 			color: #71717a;
 			background: rgba(255, 255, 255, 0.04);
-			box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+			box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06);
 			transition:
 				color 0.2s ease,
 				background 0.2s ease;
@@ -1258,7 +1475,7 @@
 			display: inline-block;
 		}
 
-		.activity-status-text span + span::before {
+		.activity-status-text span+span::before {
 			content: "• ";
 			margin-right: 6px;
 		}
@@ -1331,6 +1548,12 @@
 			flex-direction: column;
 			align-items: center;
 			gap: 12px;
+			transition: opacity 0.5s ease, visibility 0.5s ease;
+		}
+
+		.loader-content.fade-out {
+			opacity: 0;
+			visibility: hidden;
 		}
 
 		.loader-logo {
@@ -1361,21 +1584,85 @@
 			transition: width 1.2s cubic-bezier(0.65, 0, 0.35, 1);
 		}
 
-		@keyframes loaderPulse {
-			0%, 100% { opacity: 0.6; }
-			50% { opacity: 1; }
+		.enter-button {
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			visibility: hidden;
+			transition: opacity 0.8s ease, visibility 0.8s ease;
+			z-index: 10;
 		}
+
+		.enter-button.show {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.pulse-text {
+			font-family: "MinecraftRegular", "Courier New", monospace;
+			font-size: 16px;
+			color: #fff;
+			text-transform: lowercase;
+			letter-spacing: 0.1em;
+			animation: loaderPulse 1.5s infinite ease-in-out;
+		}
+
+		.enter-button:hover .pulse-text {
+			text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+		}
+
+		@keyframes loaderPulse {
+
+			0%,
+			100% {
+				opacity: 0.6;
+			}
+
+			50% {
+				opacity: 1;
+			}
+		}
+
+
+		.gothgirls-card {
+	background:
+		radial-gradient(at left top, #181818 0%, transparent 55%),
+		radial-gradient(at right bottom, #2a2a2a 0%, transparent 55%),
+		rgba(10, 10, 10, 0.5);
+
+	backdrop-filter: blur(24px);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: rgba(255, 255, 255, 0.05) 0 1px 0 inset;
+}
+
+.gothgirls-card:hover {
+	background:
+		radial-gradient(at left top, #252525 0%, transparent 55%),
+		radial-gradient(at right bottom, #3d3d3d 0%, transparent 55%),
+		rgba(15, 15, 15, 0.55);
+}
 	</style>
 </head>
 
 <body class="is-loading">
 	<div class="loading-overlay" id="loading-overlay">
-		<div class="loader-content">
+		<div class="loader-content" id="loader-content">
 			<div class="loader-logo">racify</div>
 			<div class="loader-bar">
 				<div class="loader-progress" id="loader-progress"></div>
 			</div>
 		</div>
+		<button class="enter-button" id="enter-button" onclick="enterSite()">
+			<span class="pulse-text">[ click to enter ]</span>
+		</button>
 	</div>
 
 	<canvas class="constellation-bg" id="constellation-bg"></canvas>
@@ -1388,7 +1675,8 @@
 				<button class="tab-button" data-tab="socials" onclick="switchTab('socials')">socials</button>
 			</div>
 			<button class="views-button">
-				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+					stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 					<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
 					<circle cx="12" cy="12" r="3"></circle>
 				</svg>
@@ -1413,155 +1701,180 @@
 				<div class="discord-shell">
 					<div class="discord-card">
 						<div class="avatar-wrap">
-							<img
-								id="avatar"
-								class="avatar"
-								src="https://cdn.discordapp.com/embed/avatars/0.png"
-								alt="avatar"
-								referrerpolicy="no-referrer"
-							/>
+							<img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png"
+								alt="avatar" referrerpolicy="no-referrer" />
 							<div id="status-dot" class="status-dot status-offline"></div>
 						</div>
 
 						<div class="discord-info">
 							<div class="discord-top">
 								<span class="discord-name" id="username">&nbsp;</span>
-							<span class="badges">
-								<img
-									class="badge-img"
-									src="https://cdn.discordapp.com/badge-icons/2ba85e8026a8614b640c2837bcdfe21b.png"
-									alt="Subscriber"
-								/>
+								<span class="badges">
+									<img class="badge-img"
+										src="https://cdn.discordapp.com/badge-icons/2ba85e8026a8614b640c2837bcdfe21b.png"
+										alt="Subscriber" />
+								</span>
+							</div>
+
+							<div class="discord-tag-row">
+								<button class="discord-tag-btn">
+									<span class="discord-tag" id="discord-tag">&nbsp;</span>
+								</button>
+							</div>
+
+							<div id="spotify-card" class="spotify-card-inline"></div>
+							<div id="activity-display" class="activity-display"></div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+			</div>
+
+<div class="tab-content" id="tab-projects">
+	<h2 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #fff;">projects</h2>
+
+<div class="project-card gothgirls-card">
+	<div class="project-header">
+		<div class="project-top">
+			<img src="gothgirlsicn.png" alt="gothgirls.lol" class="project-icon" />
+			<div class="project-info">
+				<div class="project-title-row">
+					<span class="project-title">gothgirls.lol</span>
+					<a href="https://gothgirls.lol" target="_blank" rel="noopener noreferrer"
+						style="color: #71717a; text-decoration: none; transition: color 0.2s ease;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+							viewBox="0 0 24 24" fill="none" stroke="currentColor"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M15 3h6v6"></path>
+							<path d="M10 14 21 3"></path>
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<p class="project-description">private biolink</p>
+	</div>
+</div>
+
+	<div class="project-card">
+		<div class="project-header">
+			<div class="project-top">
+				<img src="server.png" alt="disgusting" class="project-icon" />
+				<div class="project-info">
+					<div class="project-title-row">
+						<span class="project-title">/disgusting</span>
+						<a href="https://discord.gg/disgusting" target="_blank" rel="noopener noreferrer"
+							style="color: #71717a; text-decoration: none; transition: color 0.2s ease;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+								viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round">
+								<path d="M15 3h6v6"></path>
+								<path d="M10 14 21 3"></path>
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+			<p class="project-description">massive gws</p>
+			<div class="project-footer">
+				<div class="project-server">
+					<div class="server-info" style="flex: 1;">
+						<div class="server-stats">
+							<span class="server-stat">
+								<span class="status-indicator status-online"></span>
+								<span id="server-online">0</span> online
+							</span>
+							<span class="server-stat">
+								<span class="status-indicator status-offline"></span>
+								<span id="server-members">0</span> members
 							</span>
 						</div>
-
-						<div class="discord-tag-row">
-							<button class="discord-tag-btn">
-								<span class="discord-tag" id="discord-tag">&nbsp;</span>
-							</button>
-						</div>
-
-						<div id="spotify-card" class="spotify-card-inline"></div>
-						<div id="activity-display" class="activity-display"></div>
 					</div>
+					<a href="https://discord.gg/disgusting" target="_blank" rel="noopener noreferrer"
+						class="server-join">join</a>
 				</div>
 			</div>
-
-			<div class="socials-dropdown">
-				<button
-					class="socials-toggle"
-					id="socials-toggle"
-					type="button"
-					aria-expanded="false"
-					onclick="toggleSocials()"
-				>
-					<span class="socials-toggle-left">
-						<svg class="social-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-							<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93Zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39Z"></path>
-						</svg>
-						socials
-					</span>
-
-					<svg class="socials-chevron" width="12" height="12" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-						<polyline points="2,4 5,7 8,4"></polyline>
-					</svg>
-				</button>
-
-				<div class="socials-panel" id="socials-panel">
-					<div class="socials-wrap">
-						<div class="social-list">
-
-							<div class="social-row">
-								<svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-									<path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"></path>
-								</svg>
-
-								<a href="https://discord.com/users/1186067973547495498" target="_blank" rel="noopener noreferrer">
-									@racify
-								</a>
-							</div>
-
-							<div class="social-row">
-								<svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-									<path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.023c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path>
-								</svg>
-
-								<a href="https://t.me/Iibertys" target="_blank" rel="noopener noreferrer">
-									@Iibertys
-								</a>
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-
-			</div>
-
-			<div class="tab-content" id="tab-projects">
-				<h2 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #fff;">projects</h2>
-				
-				<div class="project-card">
-					<div class="project-header">
-						<div class="project-top">
-							<img src="server.png" alt="disgusting" class="project-icon" />
-							<div class="project-info">
-								<div class="project-title-row">
-									<span class="project-title">/disgusting</span>
-									<a href="https://discord.gg/disgusting" target="_blank" rel="noopener noreferrer" style="color: #71717a; text-decoration: none; transition: color 0.2s ease;">
-										<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-											<path d="M15 3h6v6"></path>
-											<path d="M10 14 21 3"></path>
-											<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-										</svg>
-									</a>
-								</div>
-							</div>
-						</div>
-						<p class="project-description">massive gws</p>
-						<div class="project-footer">
-							<div class="project-server">
-								<div class="server-info" style="flex: 1;">
-									<div class="server-stats">
-										<span class="server-stat">
-											<span class="status-indicator status-online"></span>
-											<span id="server-online">0</span> online
-										</span>
-										<span class="server-stat">
-											<span class="status-indicator status-offline"></span>
-											<span id="server-members">0</span> members
-										</span>
-									</div>
-								</div>
-								<a href="https://discord.gg/disgusting" target="_blank" rel="noopener noreferrer" class="server-join">join</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
+		</div>
+	</div>
+</div>
 			<div class="tab-content" id="tab-socials">
 				<h2 style="font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #fff;">socials</h2>
 				<div class="socials-wrap">
 					<div class="social-list">
-						
+
 						<div class="social-row">
 							<svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"></path>
+								<path
+									d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 00-5.487 0 12.64 12.64 0 00-.617-1.25.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.041-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.292.074.074 0 01.077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 01.078.01c.12.098.246.198.373.292a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.077.077 0 00-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z">
+								</path>
 							</svg>
-							<a href="https://discord.com/users/1186067973547495498" target="_blank" rel="noopener noreferrer">
+							<button onclick="copyToClipboard('racify', this)"
+								style="background:none;border:none;padding:0;cursor:pointer;color:inherit;font:inherit;text-align:left;">
 								@racify
-							</a>
+							</button>
 						</div>
 
 						<div class="social-row">
 							<svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
-								<path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.023c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path>
+								<path
+									d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
 							</svg>
-							<a href="https://t.me/Iibertys" target="_blank" rel="noopener noreferrer">
-								@Iibertys
+							<a href="https://github.com/racify" target="_blank" rel="noopener noreferrer">
+								@racify
 							</a>
 						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="music-player-title">Songs ive been listening to lately</div>
+			<div class="music-player" id="music-player">
+				<div class="mp-top">
+					<img class="mp-art" id="mp-art" src="" alt="art" />
+					<div class="mp-meta">
+						<div class="mp-title" id="mp-title">—</div>
+						<div class="mp-artist" id="mp-artist">—</div>
+					</div>
+					<div class="mp-controls">
+						<button class="mp-btn" id="mp-prev" onclick="mpPrev()" aria-label="Previous">
+							<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M6 6h2v12H6zm3.5 6 8.5 6V6z" />
+							</svg>
+						</button>
+						<button class="mp-btn mp-btn-play" id="mp-play" onclick="mpToggle()" aria-label="Play">
+							<svg id="mp-play-icon" width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M8 5v14l11-7z" />
+							</svg>
+						</button>
+						<button class="mp-btn" id="mp-next" onclick="mpNext()" aria-label="Next">
+							<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M6 18l8.5-6L6 6v12zm2.5-6 8.5 6V6z" style="display:none" />
+								<path d="M16 6h2v12h-2zm-2.5 6L5 6v12z" />
+							</svg>
+						</button>
+					</div>
+				</div>
+				<div class="mp-divider"></div>
+				<div class="mp-bottom">
+					<span class="mp-time-combined" id="mp-time-combined">0:00 / 0:00</span>
+					<div class="mp-progress-wrap" id="mp-progress-wrap">
+						<div class="mp-progress-fill" id="mp-progress-fill"></div>
+					</div>
+					<div class="mp-vol-wrap">
+						<svg class="mp-vol-icon" id="mp-vol-icon" viewBox="0 0 24 24" fill="currentColor"
+							onclick="mpToggleMute()">
+							<path
+								d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+						</svg>
+						<input class="mp-vol-slider" id="mp-vol-slider" type="range" min="0" max="1" step="0.01"
+							value="0.8" oninput="mpSetVolume(this.value)" />
 					</div>
 				</div>
 			</div>
@@ -1590,7 +1903,7 @@
 		function updateServerStats(onlineCount = 0, memberCount = 0) {
 			const onlineEl = document.getElementById("server-online");
 			const membersEl = document.getElementById("server-members");
-			
+
 			if (onlineEl) onlineEl.textContent = onlineCount.toLocaleString();
 			if (membersEl) membersEl.textContent = memberCount.toLocaleString();
 		}
@@ -1598,9 +1911,9 @@
 		async function fetchDiscordGuildData() {
 			try {
 				const guildInvite = "disgusting";
-				
+
 				const response = await fetch(`https://discordapp.com/api/invite/${guildInvite}?with_counts=true`);
-				
+
 				if (response.ok) {
 					const data = await response.json();
 					if (data.approximate_member_count && data.approximate_presence_count) {
@@ -1615,10 +1928,10 @@
 
 		function copyToClipboard(text, element) {
 			navigator.clipboard.writeText(text).then(() => {
-				showNotification(`Copied: ${text}`);
+				showNotification(`Copied to clipboard`);
 				if (element) {
 					const originalColor = element.style.color;
-					element.style.color = "#22c55e";
+					element.style.color = "#e5e7eb";
 					setTimeout(() => {
 						element.style.color = originalColor || "inherit";
 					}, 1000);
@@ -1635,7 +1948,7 @@
 			document.body.appendChild(notification);
 
 			setTimeout(() => {
-				notification.style.animation = "slideOut 0.3s ease-out";
+				notification.style.animation = "toastOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards";
 				setTimeout(() => {
 					notification.remove();
 				}, 300);
@@ -1800,6 +2113,7 @@
 			const validActivities = activities.filter((item) => {
 				if (!item) return false;
 				if (item.name === "Spotify") return false;
+				if (item.type === 4) return false;
 				return true;
 			});
 
@@ -1813,14 +2127,14 @@
 				const activityDetails = activity.details || "";
 				const activityState = activity.state || "";
 				const activityImage = getActivityImage(activity);
-				
+
 				let elapsedTime = "";
 				if (activity.timestamps && activity.timestamps.start) {
 					const elapsed = Date.now() - activity.timestamps.start;
 					const seconds = Math.floor(elapsed / 1000);
 					const minutes = Math.floor(seconds / 60);
 					const hours = Math.floor(minutes / 60);
-					
+
 					if (hours > 0) {
 						elapsedTime = `${hours}h ${minutes % 60}m`;
 					} else if (minutes > 0) {
@@ -1855,18 +2169,18 @@
 			if (!spotify) {
 				currentSpotifyTrackId = null;
 				spotifyEmbedOpen = false;
-			spotifyCardEl.innerHTML = "";
-			return;
-		}
+				spotifyCardEl.innerHTML = "";
+				return;
+			}
 
-		const trackId = spotify.track_id || `${spotify.song}-${spotify.artist}-${spotify.album}`;
-		currentSpotifyTrackId = trackId;
+			const trackId = spotify.track_id || `${spotify.song}-${spotify.artist}-${spotify.album}`;
+			currentSpotifyTrackId = trackId;
 
-		const spotifyEmbedUrl = spotify.track_id
-			? `https://open.spotify.com/embed/track/${spotify.track_id}?utm_source=generator&theme=0`
-			: null;
+			const spotifyEmbedUrl = spotify.track_id
+				? `https://open.spotify.com/embed/track/${spotify.track_id}?utm_source=generator&theme=0`
+				: null;
 
-		spotifyCardEl.innerHTML = `
+			spotifyCardEl.innerHTML = `
 			<div class="spotify-song-box">
 				<div class="spotify-row">
 				<img
@@ -1886,9 +2200,8 @@
 				</div>
 
 				<div class="spotify-actions">
-					${
-						spotifyEmbedUrl
-							? `
+					${spotifyEmbedUrl
+					? `
 								<button
 									class="spotify-toggle ${spotifyEmbedOpen ? "open" : ""}"
 									id="spotify-toggle"
@@ -1902,8 +2215,8 @@
 									</svg>
 								</button>
 							`
-							: ""
-					}
+					: ""
+				}
 				</div>
 			</div>
 
@@ -1914,8 +2227,7 @@
 				</div>
 			</div>
 
-			${
-				spotifyEmbedUrl
+			${spotifyEmbedUrl
 					? `
 						<div
 							class="spotify-embed-wrap ${spotifyEmbedOpen ? "open" : ""}"
@@ -1934,11 +2246,11 @@
 							Spotify embed unavailable for this track.
 						</div>
 					`
-			}
+				}
 		`;
 
-		updateSpotifyProgress();
-		progressTimer = setInterval(updateSpotifyProgress, 16);
+			updateSpotifyProgress();
+			progressTimer = setInterval(updateSpotifyProgress, 16);
 		}
 
 		function applyLanyardData(data) {
@@ -2213,23 +2525,181 @@
 
 		window.addEventListener("DOMContentLoaded", () => {
 			const progressEl = document.getElementById("loader-progress");
-			const overlayEl = document.getElementById("loading-overlay");
+			const loaderContent = document.getElementById("loader-content");
+			const enterBtn = document.getElementById("enter-button");
 
 			if (progressEl) progressEl.style.width = "100%";
 
 			setTimeout(() => {
-				if (overlayEl) {
-					overlayEl.classList.add("fade-out");
-					setTimeout(() => {
-						overlayEl.remove();
-					}, 400);
-				}
+				if (loaderContent) loaderContent.classList.add("fade-out");
+				setTimeout(() => {
+					if (loaderContent) loaderContent.style.display = "none";
+					if (enterBtn) enterBtn.classList.add("show");
+				}, 500);
 			}, 1300);
 		});
 
+		function enterSite() {
+			const overlayEl = document.getElementById("loading-overlay");
+			if (overlayEl) {
+				overlayEl.classList.add("fade-out");
+				setTimeout(() => {
+					overlayEl.remove();
+				}, 400);
+			}
 
+			if (mpTracks.length > 0) {
+				mpIsPlaying = true;
+				mpAudio.play().catch(e => console.log("Autoplay blocked:", e));
+				const playIcon = document.getElementById("mp-play-icon");
+				if (playIcon) playIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+			}
+		}
+
+
+
+		const mpTracks = [
+
+			{ title: "Lust", artist: "Lil Skies", src: "lust.mp3", art: "song1.png" },
+			{ title: "City", artist: "packrunner", src: "City.mp3", art: "song2.png" },
+			{ title: "Homecoming", artist: "Mike Sherm", src: "Homecoming.mp3", art: "song3.png" },
+			{ title: "Love Letter", artist: "FRosTydaSnowMann", src: "loveletter.mp3", art: "song4.png" },
+		];
+
+		let mpIndex = 0;
+		let mpAudio = new Audio();
+		let mpIsPlaying = false;
+		let mpIsDragging = false;
+
+		const elMpTitle = document.getElementById("mp-title");
+		const elMpArtist = document.getElementById("mp-artist");
+		const elMpArt = document.getElementById("mp-art");
+		const elMpTimeCombined = document.getElementById("mp-time-combined");
+		const elMpProgressFill = document.getElementById("mp-progress-fill");
+		const elMpProgressWrap = document.getElementById("mp-progress-wrap");
+		const elMpPlayIcon = document.getElementById("mp-play-icon");
+		const elMpVolSlider = document.getElementById("mp-vol-slider");
+
+		function formatMpTime(seconds) {
+			if (isNaN(seconds)) return "0:00";
+			const m = Math.floor(seconds / 60);
+			const s = Math.floor(seconds % 60);
+			return `${m}:${s < 10 ? "0" : ""}${s}`;
+		}
+
+		function loadMpTrack(index) {
+			if (mpTracks.length === 0) return;
+			const track = mpTracks[index];
+			mpAudio.src = track.src;
+			elMpTitle.textContent = track.title;
+			elMpArtist.textContent = track.artist;
+			elMpArt.src = track.art || "";
+
+			if (mpIsPlaying) {
+				const playPromise = mpAudio.play();
+				if (playPromise !== undefined) {
+					playPromise.catch(error => {
+						console.log("Autoplay prevented by browser:", error);
+						mpIsPlaying = false;
+						elMpPlayIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+					});
+				}
+			}
+		}
+
+		function mpToggle() {
+			if (mpTracks.length === 0) return;
+			if (mpIsPlaying) {
+				mpAudio.pause();
+			} else {
+				mpAudio.play();
+			}
+		}
+
+		function mpNext() {
+			if (mpTracks.length === 0) return;
+			mpIndex = (mpIndex + 1) % mpTracks.length;
+			loadMpTrack(mpIndex);
+		}
+
+		function mpPrev() {
+			if (mpTracks.length === 0) return;
+			mpIndex = (mpIndex - 1 + mpTracks.length) % mpTracks.length;
+			loadMpTrack(mpIndex);
+		}
+
+		function mpSetVolume(val) {
+			mpAudio.volume = val;
+			mpAudio.muted = false;
+		}
+
+		function mpToggleMute() {
+			mpAudio.muted = !mpAudio.muted;
+		}
+
+		mpAudio.addEventListener("play", () => {
+			mpIsPlaying = true;
+			elMpPlayIcon.innerHTML = `<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>`;
+		});
+
+		mpAudio.addEventListener("pause", () => {
+			if (!mpAudio.ended) {
+				mpIsPlaying = false;
+				elMpPlayIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+			}
+		});
+
+		mpAudio.addEventListener("ended", mpNext);
+
+		mpAudio.addEventListener("timeupdate", () => {
+			if (mpIsDragging) return;
+			const duration = mpAudio.duration;
+			const currentTime = mpAudio.currentTime;
+			if (duration > 0) {
+				elMpProgressFill.style.width = `${(currentTime / duration) * 100}%`;
+				elMpTimeCombined.textContent = `${formatMpTime(currentTime)} / ${formatMpTime(duration)}`;
+			}
+		});
+
+		mpAudio.addEventListener("loadedmetadata", () => {
+			elMpTimeCombined.textContent = `0:00 / ${formatMpTime(mpAudio.duration)}`;
+		});
+
+		elMpProgressWrap.addEventListener("mousedown", (e) => {
+			if (mpTracks.length === 0) return;
+			mpIsDragging = true;
+			mpUpdateSeek(e);
+		});
+
+		window.addEventListener("mousemove", (e) => {
+			if (mpIsDragging) mpUpdateSeek(e);
+		});
+
+		window.addEventListener("mouseup", (e) => {
+			if (mpIsDragging) {
+				mpUpdateSeek(e);
+				mpIsDragging = false;
+			}
+		});
+
+		function mpUpdateSeek(e) {
+			if (!mpAudio.duration) return;
+			const rect = elMpProgressWrap.getBoundingClientRect();
+			let pos = (e.clientX - rect.left) / rect.width;
+			pos = Math.max(0, Math.min(1, pos));
+			elMpProgressFill.style.width = `${pos * 100}%`;
+			mpAudio.currentTime = pos * mpAudio.duration;
+		}
+
+		if (mpTracks.length > 0) {
+			loadMpTrack(mpIndex);
+			mpAudio.volume = parseFloat(elMpVolSlider.value);
+		} else {
+			elMpTitle.textContent = "No tracks added";
+		}
 	</script>
 
 
 </body>
+
 </html>
