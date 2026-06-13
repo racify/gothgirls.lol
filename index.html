@@ -1,209 +1,1027 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>gothgirls.lol</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>gothgirls.lol</title>
+	<link rel="icon" type="image/png" href="favicon3.png">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+		body {
+			font-family: 'Space Grotesk', sans-serif;
+			min-height: 100vh;
+			background: #000;
+			color: #fff;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+			overflow-x: hidden;
+			overflow-y: auto;
+			position: relative;
+			padding: 80px 24px;
+			scroll-behavior: smooth;
+		}
 
-body {
-    font-family: Inter, sans-serif;
-    height: 100vh;
-    background: #000;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
+		.hero-section {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: calc(100vh - 120px);
+			min-height: 500px;
+			width: 100%;
+			position: relative;
+			z-index: 10;
+		}
 
+		.scroll-indicator {
+			position: absolute;
+			bottom: 24px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 6px;
+			color: rgba(255, 255, 255, 0.3);
+			font-size: 11px;
+			font-weight: 500;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			cursor: pointer;
+			transition: color 0.2s ease;
+			animation: bounce 2s infinite;
+		}
 
-.bg {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-}
+		.scroll-indicator:hover {
+			color: rgba(255, 255, 255, 0.7);
+		}
 
-.glow1, .glow2 {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: #fff;
-    filter: blur(160px);
-    opacity: 0.18;
-}
+		@keyframes bounce {
 
-.glow1 {
-    top: -220px;
-    left: -220px;
-}
+			0%,
+			20%,
+			50%,
+			80%,
+			100% {
+				transform: translateY(0);
+			}
 
-.glow2 {
-    bottom: -260px;
-    right: -260px;
-}
+			40% {
+				transform: translateY(-6px);
+			}
 
+			60% {
+				transform: translateY(-3px);
+			}
+		}
 
-.container {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    max-width: 520px;
-    padding: 20px;
-}
+		.features-section {
+			width: 100%;
+			max-width: 900px;
+			margin-top: 360px;
+			padding-top: 120px;
+			margin-bottom: 160px;
+			border-top: 1px solid rgba(255, 255, 255, 0.05);
+			position: relative;
+			z-index: 10;
+		}
 
+		.feature-tech-icon {
+			width: 36px;
+			height: 36px;
+			border-radius: 10px;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: rgba(255, 255, 255, 0.7);
+			margin-bottom: 4px;
+		}
 
-.brand {
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 24px;
-}
+		.features-subtitle {
+			font-size: 14px;
+			font-weight: 700;
+			letter-spacing: -0.01em;
+			color: rgba(255, 255, 255, 0.35);
+			margin-top: 48px;
+			margin-bottom: 24px;
+			text-align: center;
+			width: 100%;
+		}
 
+		.section-title {
+			font-size: 18px;
+			font-weight: 700;
+			letter-spacing: -0.01em;
+			color: rgba(255, 255, 255, 0.5);
+			margin-bottom: 32px;
+			text-align: center;
+		}
 
-.claim-box {
-    margin-top: 28px;
-    display: flex;
-    justify-content: center;
-}
+		.features-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+			gap: 24px;
+			width: 100%;
+		}
 
-.input-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    border: 1px solid #222;
-    background: rgba(255,255,255,0.03);
-    border-radius: 999px;
-    padding: 6px 6px 6px 14px;
-    backdrop-filter: blur(12px);
-}
+		.capabilities-grid {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 24px;
+			width: 100%;
+		}
 
-.prefix {
-    font-size: 12px;
-    color: #aaa;
-    font-family: monospace;
-}
+		.capabilities-grid .feature-card:nth-child(3) {
+			grid-column: span 2;
+			justify-self: center;
+			width: calc(50% - 12px);
+		}
 
-input {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #fff;
-    font-size: 13px;
-    width: 130px;
-}
+		@media (max-width: 768px) {
+			.features-grid {
+				grid-template-columns: 1fr;
+			}
 
-button {
-    background: #fff;
-    border: none;
-    color: #000;
-    font-size: 12px;
-    padding: 8px 16px;
-    border-radius: 999px;
-    cursor: pointer;
-    transition: 0.2s;
-}
+			.capabilities-grid {
+				grid-template-columns: 1fr;
+			}
 
-button:hover {
-    opacity: 0.85;
-    transform: scale(1.03);
-}
+			.capabilities-grid .feature-card:nth-child(3) {
+				grid-column: auto;
+				width: 100%;
+			}
+		}
 
+		.feature-card {
+			padding: 28px;
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.015);
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			box-shadow:
+				0 20px 50px rgba(0, 0, 0, 0.5),
+				inset 0 1px 0 rgba(255, 255, 255, 0.05);
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		}
 
-.popup {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.92);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
-    z-index: 999;
-}
+		.feature-card:hover {
+			border-color: rgba(255, 255, 255, 0.12);
+			transform: translateY(-2px);
+			background: rgba(255, 255, 255, 0.025);
+		}
 
-.popup.active {
-    opacity: 1;
-    pointer-events: all;
-}
+		.feature-header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+		}
 
-.popup-box {
-    width: 320px;
-    padding: 26px;
-    border-radius: 18px;
-    background: #0f0f0f;
-    border: 1px solid #333;
-    text-align: center;
+		.feature-profile {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
 
-    transform: translateY(8px) scale(0.96);
-    transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
+		.feature-avatar {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			object-fit: cover;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+		}
 
-.popup.active .popup-box {
-    transform: translateY(0) scale(1);
-}
+		.feature-title-wrap {
+			display: flex;
+			flex-direction: column;
+		}
 
-.popup-text {
-    font-size: 15px;
-    color: #fff;
-}
+		.feature-name {
+			font-size: 16px;
+			font-weight: 700;
+			color: #fff;
+		}
 
-.popup-text::before {
-    content: "";
-    display: block;
-    height: 1px;
-    background: #2a2a2a;
-    margin-bottom: 14px;
-}
-</style>
+		.feature-tagline {
+			font-size: 11px;
+			color: rgba(255, 255, 255, 0.45);
+			font-weight: 500;
+		}
+
+		.feature-link {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			text-decoration: none;
+			font-size: 11px;
+			font-weight: 600;
+			color: rgba(255, 255, 255, 0.6);
+			padding: 6px 12px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			transition: all 0.2s ease;
+		}
+
+		.feature-link:hover {
+			color: #fff;
+			background: rgba(255, 255, 255, 0.08);
+			border-color: rgba(255, 255, 255, 0.15);
+		}
+
+		.feature-desc {
+			font-size: 13px;
+			line-height: 1.6;
+			color: rgba(255, 255, 255, 0.5);
+		}
+
+		.grid-overlay {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+			pointer-events: none;
+			background-image:
+				linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+			background-size: 50px 50px;
+			background-position: center;
+		}
+
+		.grid-overlay-glow {
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+			pointer-events: none;
+			background-image:
+				linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+			background-size: 50px 50px;
+			background-position: center;
+			mask-image: radial-gradient(circle 300px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 0%, rgba(0, 0, 0, 0.15) 60%, transparent 100%);
+			-webkit-mask-image: radial-gradient(circle 300px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), black 0%, rgba(0, 0, 0, 0.15) 60%, transparent 100%);
+		}
+
+		.glow-backdrop {
+			position: absolute;
+			inset: 0;
+			z-index: 2;
+			pointer-events: none;
+			background: radial-gradient(circle 450px at var(--mouse-x, -1000px) var(--mouse-y, -1000px), rgba(255, 255, 255, 0.02), transparent 80%);
+		}
+
+		.ambient-glow {
+			position: absolute;
+			width: 600px;
+			height: 600px;
+			background: radial-gradient(circle, rgba(255, 255, 255, 0.006) 0%, transparent 70%);
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 0;
+			pointer-events: none;
+		}
+
+		.claim-card {
+			position: relative;
+			z-index: 10;
+			width: 100%;
+			max-width: 440px;
+			padding: 40px 36px;
+			border-radius: 16px;
+			background: rgba(255, 255, 255, 0.01);
+			border: 1px solid rgba(255, 255, 255, 0.05);
+			backdrop-filter: blur(24px);
+			-webkit-backdrop-filter: blur(24px);
+			box-shadow: 0 30px 100px rgba(0, 0, 0, 0.9);
+			text-align: left;
+			opacity: 0;
+			transform: translateY(20px);
+			animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		}
+
+		@keyframes cardEntrance {
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.logo-container {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			margin-bottom: 28px;
+			gap: 8px;
+		}
+
+		.logo-subtitle {
+			font-size: 13px;
+			line-height: 1.6;
+			color: rgba(255, 255, 255, 0.45);
+			margin-top: 4px;
+			max-width: 350px;
+			font-weight: 400;
+		}
+
+		.logo {
+			font-size: 24px;
+			font-weight: 700;
+			letter-spacing: -0.03em;
+			color: #fff;
+		}
+
+		.badge {
+			background: rgba(255, 255, 255, 0.06);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			color: rgba(255, 255, 255, 0.55);
+			font-size: 9px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.12em;
+			padding: 4px 10px;
+			border-radius: 999px;
+		}
+
+		.input-line-container {
+			display: flex;
+			align-items: center;
+			gap: 16px;
+			width: 100%;
+		}
+
+		.input-group-underline {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+			padding: 6px 0;
+			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.input-group-underline:focus-within {
+			border-color: rgba(255, 255, 255, 0.6);
+		}
+
+		.claim-btn {
+			font-family: inherit;
+			background: #fff;
+			color: #000;
+			border: none;
+			outline: none;
+			font-size: 13px;
+			font-weight: 600;
+			padding: 10px 24px;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.claim-btn:hover {
+			background: rgba(255, 255, 255, 0.9);
+			transform: translateY(-1px);
+		}
+
+		.claim-btn:active {
+			transform: translateY(0);
+		}
+
+		.prefix {
+			font-size: 14px;
+			color: rgba(255, 255, 255, 0.35);
+			padding-left: 0;
+			user-select: none;
+			font-weight: 500;
+		}
+
+		input {
+			flex: 1;
+			background: transparent;
+			border: none;
+			outline: none;
+			color: #fff;
+			font-size: 14px;
+			padding: 8px 8px 8px 2px;
+			font-family: inherit;
+			font-weight: 500;
+		}
+
+		input::placeholder {
+			color: rgba(255, 255, 255, 0.2);
+		}
+
+		button {
+			font-family: inherit;
+			background: #fff;
+			color: #000;
+			border: none;
+			outline: none;
+			font-size: 13px;
+			font-weight: 600;
+			padding: 10px 20px;
+			border-radius: 12px;
+			cursor: pointer;
+			transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		button:hover {
+			background: rgba(255, 255, 255, 0.9);
+			transform: translateY(-1px);
+		}
+
+		button:active {
+			transform: translateY(0);
+		}
+
+		.preview-container {
+			margin-top: 16px;
+			height: 18px;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+		}
+
+		.preview-text {
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.3);
+			opacity: 0;
+			transform: translateY(-4px);
+			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.preview-text.active {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.preview-highlight {
+			color: rgba(255, 255, 255, 0.7);
+			font-weight: 600;
+		}
+
+		.popup-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.75);
+			backdrop-filter: blur(16px);
+			-webkit-backdrop-filter: blur(16px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+			z-index: 999;
+		}
+
+		.popup-overlay.active {
+			opacity: 1;
+			pointer-events: all;
+		}
+
+		.popup-card {
+			width: 380px;
+			padding: 40px 28px;
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.015);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(30px);
+			-webkit-backdrop-filter: blur(30px);
+			box-shadow:
+				0 30px 100px rgba(0, 0, 0, 0.9),
+				inset 0 1px 0 rgba(255, 255, 255, 0.05);
+			text-align: center;
+			transform: translateY(20px) scale(0.95);
+			transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.popup-overlay.active .popup-card {
+			transform: translateY(0) scale(1);
+		}
+
+		.popup-icon-wrap {
+			width: 48px;
+			height: 48px;
+			border-radius: 14px;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 24px auto;
+			color: rgba(255, 255, 255, 0.6);
+		}
+
+		.popup-title {
+			font-size: 18px;
+			font-weight: 700;
+			margin-bottom: 10px;
+			color: #fff;
+			letter-spacing: -0.01em;
+		}
+
+		.popup-description {
+			font-size: 13px;
+			line-height: 1.6;
+			color: rgba(255, 255, 255, 0.45);
+			margin-bottom: 28px;
+		}
+
+		.btn-close {
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			color: #fff;
+			width: 100%;
+			padding: 12px;
+			font-size: 13px;
+			font-weight: 600;
+			border-radius: 12px;
+			cursor: pointer;
+			transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.btn-close:hover {
+			background: rgba(255, 255, 255, 0.1);
+			border-color: rgba(255, 255, 255, 0.15);
+		}
+
+		.navbar {
+			position: fixed;
+			top: 20px;
+			left: 50%;
+			transform: translateX(-50%) translateY(-20px);
+			z-index: 100;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: calc(100% - 48px);
+			max-width: 320px;
+			padding: 6px 6px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.015);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			box-shadow:
+				0 12px 40px rgba(0, 0, 0, 0.6),
+				inset 0 1px 0 rgba(255, 255, 255, 0.05);
+			opacity: 0;
+			animation: navEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+			animation-delay: 0.1s;
+		}
+
+		@keyframes navEntrance {
+			to {
+				opacity: 1;
+				transform: translateX(-50%) translateY(0);
+			}
+		}
+
+		.nav-left {
+			display: flex;
+			align-items: center;
+		}
+
+		.nav-btn {
+			display: flex;
+			align-items: center;
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			color: rgba(255, 255, 255, 0.8);
+			font-size: 12px;
+			font-weight: 600;
+			padding: 6px 14px;
+			border-radius: 999px;
+			cursor: pointer;
+			transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.nav-btn:hover {
+			background: rgba(255, 255, 255, 0.08);
+			color: #fff;
+			border-color: rgba(255, 255, 255, 0.15);
+		}
+
+		.nav-right {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.nav-profile-link {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			text-decoration: none;
+			padding: 4px 12px 4px 6px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.02);
+			border: 1px solid rgba(255, 255, 255, 0.04);
+			transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.nav-profile-link:hover {
+			background: rgba(255, 255, 255, 0.06);
+			border-color: rgba(255, 255, 255, 0.1);
+			transform: translateY(-1px);
+		}
+
+		.nav-avatar {
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			object-fit: cover;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		.nav-name {
+			font-size: 12px;
+			font-weight: 600;
+			color: rgba(255, 255, 255, 0.7);
+			transition: color 0.2s ease;
+		}
+
+		.nav-profile-link:hover .nav-name {
+			color: #fff;
+		}
+	</style>
 </head>
 
 <body>
+	<div class="grid-overlay"></div>
+	<div class="grid-overlay-glow"></div>
+	<div class="glow-backdrop"></div>
+	<div class="ambient-glow"></div>
 
-<div class="bg">
-    <div class="glow1"></div>
-    <div class="glow2"></div>
-</div>
+	<nav class="navbar">
+		<div class="nav-left">
+			<button class="nav-btn" onclick="handleDashboard()">
+				<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+					stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+					<polyline points="4 17 10 11 4 5"></polyline>
+					<line x1="12" y1="19" x2="20" y2="19"></line>
+				</svg>
+				dashboard
+			</button>
+		</div>
+		<div class="nav-right">
+			<button class="nav-btn" onclick="scrollToProfiles()">
+				<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+					stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;">
+					<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+					<circle cx="9" cy="7" r="4"></circle>
+					<path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+					<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+				</svg>
+				profiles
+			</button>
+		</div>
+	</nav>
 
-<div class="container">
-    <div class="brand">gothgirls.lol</div>
+	<div class="hero-section">
+		<div class="claim-card">
+			<div class="logo-container">
+				<span class="logo">gothgirls.lol</span>
+			</div>
 
-    <div class="claim-box">
-        <div class="input-wrapper">
-            <span class="prefix">gothgirls.lol/</span>
-            <input type="text" placeholder="username"/>
-            <button onclick="handleClaim()">claim</button>
-        </div>
-    </div>
-</div>
+			<div class="input-line-container">
+				<div class="input-group-underline">
+					<span class="prefix">gothgirls.lol/</span>
+					<input type="text" id="username-input" placeholder="username" autocomplete="off"
+						spellcheck="false" />
+				</div>
+				<button onclick="handleClaim()" class="claim-btn">claim</button>
+			</div>
 
-<div class="popup" id="popup">
-    <div class="popup-box">
-        <div class="popup-text">closed access as of right now</div>
-    </div>
-</div>
+			<div class="preview-container">
+				<div class="preview-text" id="preview-text">
+					your link will be <span class="preview-highlight" id="preview-url">gothgirls.lol/</span>
+				</div>
+			</div>
+		</div>
 
-<script>
-function handleClaim() {
-    document.getElementById("popup").classList.add("active");
-}
+		<div class="scroll-indicator">
+			<span>click me</span>
+			<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+				stroke-linecap="round" stroke-linejoin="round">
+				<polyline points="6,9 12,15 18,9"></polyline>
+			</svg>
+		</div>
+	</div>
 
-document.getElementById("popup").addEventListener("click", (e) => {
-    if (e.target.id === "popup") {
-        document.getElementById("popup").classList.remove("active");
-    }
-});
-</script>
+	<div class="features-section" id="features">
+		<h2 class="section-title">featured profiles</h2>
+		<div class="features-grid">
+			<div class="feature-card">
+				<div class="feature-header">
+					<div class="feature-profile">
+						<img class="feature-avatar" id="feat-avatar-pray"
+							src="https://cdn.discordapp.com/embed/avatars/0.png" alt="pray" />
+						<div class="feature-title-wrap">
+							<h3 class="feature-name">pray</h3>
+							<span class="feature-tagline">co-owner</span>
+						</div>
+					</div>
+					<a href="@.html" class="feature-link">
+						visit profile
+						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15,3 21,3 21,9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</div>
+				<p class="feature-desc">
+					something
+				</p>
+			</div>
 
+			<div class="feature-card">
+				<div class="feature-header">
+					<div class="feature-profile">
+						<img class="feature-avatar" id="feat-avatar-racify"
+							src="https://cdn.discordapp.com/embed/avatars/0.png" alt="racify" />
+						<div class="feature-title-wrap">
+							<h3 class="feature-name">racify</h3>
+							<span class="feature-tagline">developer & founder</span>
+						</div>
+					</div>
+					<a href="$.html" class="feature-link">
+						visit profile
+						<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+							<polyline points="15,3 21,3 21,9"></polyline>
+							<line x1="10" y1="14" x2="21" y2="3"></line>
+						</svg>
+					</a>
+				</div>
+				<p class="feature-desc">
+					hi idk waht to put here
+				</p>
+			</div>
+		</div>
+
+		<div class="features-subtitle">some of our features we provide</div>
+
+		<div class="features-grid capabilities-grid">
+			<div class="feature-card">
+				<div class="feature-header">
+					<div class="feature-profile">
+						<div class="feature-tech-icon">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+							</svg>
+						</div>
+						<div class="feature-title-wrap">
+							<h3 class="feature-name">discord status</h3>
+						</div>
+					</div>
+				</div>
+				<p class="feature-desc">
+					show off your real-time status, custom activities, and active games.
+				</p>
+			</div>
+
+			<div class="feature-card">
+				<div class="feature-header">
+					<div class="feature-profile">
+						<div class="feature-tech-icon">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path
+									d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14 3 16 5 18C7 20 9 22 12 22Z">
+								</path>
+								<circle cx="7.5" cy="10.5" r="1.5"></circle>
+								<circle cx="11.5" cy="7.5" r="1.5"></circle>
+								<circle cx="16.5" cy="9.5" r="1.5"></circle>
+								<circle cx="15.5" cy="14.5" r="1.5"></circle>
+							</svg>
+						</div>
+						<div class="feature-title-wrap">
+							<h3 class="feature-name">customization</h3>
+						</div>
+					</div>
+				</div>
+				<p class="feature-desc">
+					design a custom profile page that fits your layout and styling preferences.
+				</p>
+			</div>
+
+			<div class="feature-card">
+				<div class="feature-header">
+					<div class="feature-profile">
+						<div class="feature-tech-icon">
+							<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+								</path>
+							</svg>
+						</div>
+						<div class="feature-title-wrap">
+							<h3 class="feature-name">show off your projects</h3>
+						</div>
+					</div>
+				</div>
+				<p class="feature-desc">
+					showcase your projects using organized tabs.
+				</p>
+			</div>
+		</div>
+
+		<div class="popup-overlay" id="popup-overlay">
+			<div class="popup-card">
+				<div class="popup-icon-wrap">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						stroke-linecap="round" stroke-linejoin="round">
+						<rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+						<path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+					</svg>
+				</div>
+				<div class="popup-title">Registration is closed</div>
+				<div class="popup-description">gothgirls.lol is currently in a limited closed beta. registration is
+					restricted to approved members only.</div>
+				<button class="btn-close" onclick="closePopup()">Close</button>
+			</div>
+		</div>
+
+		<div class="popup-overlay" id="dashboard-overlay">
+			<div class="popup-card">
+				<div class="popup-icon-wrap">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						stroke-linecap="round" stroke-linejoin="round">
+						<circle cx="12" cy="12" r="10"></circle>
+						<polyline points="12,6 12,12 16,14"></polyline>
+					</svg>
+				</div>
+				<div class="popup-title">Coming soon</div>
+				<div class="popup-description">The dashboard management panel is currently under development.</div>
+				<button class="btn-close" onclick="closeDashboard()">Close</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		let targetX = -1000;
+		let targetY = -1000;
+		let currentX = targetX;
+		let currentY = targetY;
+
+		window.addEventListener('mousemove', (e) => {
+			targetX = e.pageX;
+			targetY = e.pageY;
+		});
+
+		window.addEventListener('touchmove', (e) => {
+			if (e.touches.length > 0) {
+				targetX = e.touches[0].pageX;
+				targetY = e.touches[0].pageY;
+			}
+		});
+
+		function updateGlow() {
+			if (targetX !== -1000) {
+				if (currentX === -1000) {
+					currentX = targetX;
+					currentY = targetY;
+				}
+				const dx = targetX - currentX;
+				const dy = targetY - currentY;
+				currentX += dx * 0.085;
+				currentY += dy * 0.085;
+				document.body.style.setProperty('--mouse-x', `${currentX}px`);
+				document.body.style.setProperty('--mouse-y', `${currentY}px`);
+			}
+			requestAnimationFrame(updateGlow);
+		}
+		updateGlow();
+
+		const input = document.getElementById('username-input');
+		const previewText = document.getElementById('preview-text');
+		const previewUrl = document.getElementById('preview-url');
+
+		input.addEventListener('input', () => {
+			const value = input.value.trim().toLowerCase();
+			if (value.length > 0) {
+				previewUrl.textContent = `gothgirls.lol/${value}`;
+				previewText.classList.add('active');
+			} else {
+				previewText.classList.remove('active');
+			}
+		});
+
+		function handleClaim() {
+			document.getElementById("popup-overlay").classList.add("active");
+		}
+
+		function closePopup() {
+			document.getElementById("popup-overlay").classList.remove("active");
+		}
+
+		document.getElementById("popup-overlay").addEventListener("click", (e) => {
+			if (e.target.id === "popup-overlay") {
+				closePopup();
+			}
+		});
+
+		const USER_ID_PRAY = "1499523183794061563";
+		const USER_ID_RACIFY = "1186067973547495498";
+
+		async function fetchNavAvatars() {
+			try {
+				const resPray = await fetch("https://api.lanyard.rest/v1/users/" + USER_ID_PRAY);
+				const dataPray = await resPray.json();
+				if (dataPray.success && dataPray.data && dataPray.data.discord_user.avatar) {
+					const user = dataPray.data.discord_user;
+					const ext = user.avatar.startsWith("a_") ? "gif" : "png";
+					const url = "https://cdn.discordapp.com/avatars/" + USER_ID_PRAY + "/" + user.avatar + "." + ext + "?size=128";
+					document.getElementById("feat-avatar-pray").src = url;
+				}
+			} catch (err) {
+			}
+
+			try {
+				const resRacify = await fetch("https://api.lanyard.rest/v1/users/" + USER_ID_RACIFY);
+				const dataRacify = await resRacify.json();
+				if (dataRacify.success && dataRacify.data && dataRacify.data.discord_user.avatar) {
+					const user = dataRacify.data.discord_user;
+					const ext = user.avatar.startsWith("a_") ? "gif" : "png";
+					const url = "https://cdn.discordapp.com/avatars/" + USER_ID_RACIFY + "/" + user.avatar + "." + ext + "?size=128";
+					document.getElementById("feat-avatar-racify").src = url;
+				}
+			} catch (err) {
+			}
+		}
+
+		fetchNavAvatars();
+
+		function smoothScrollTo(targetEl, duration) {
+			const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset;
+			const startPosition = window.pageYOffset;
+			const distance = targetPosition - startPosition;
+			let startTime = null;
+
+			function animation(currentTime) {
+				if (startTime === null) startTime = currentTime;
+				const timeElapsed = currentTime - startTime;
+				const run = easeInOutQuart(timeElapsed, startPosition, distance, duration);
+				window.scrollTo(0, run);
+				if (timeElapsed < duration) {
+					requestAnimationFrame(animation);
+				} else {
+					window.scrollTo(0, targetPosition);
+				}
+			}
+
+			function easeInOutQuart(t, b, c, d) {
+				t /= d / 2;
+				if (t < 1) return c / 2 * t * t * t * t + b;
+				t -= 2;
+				return -c / 2 * (t * t * t * t - 2) + b;
+			}
+
+			requestAnimationFrame(animation);
+		}
+
+		function handleDashboard() {
+			document.getElementById("dashboard-overlay").classList.add("active");
+		}
+
+		function closeDashboard() {
+			document.getElementById("dashboard-overlay").classList.remove("active");
+		}
+
+		document.getElementById("dashboard-overlay").addEventListener("click", (e) => {
+			if (e.target.id === "dashboard-overlay") {
+				closeDashboard();
+			}
+		});
+
+		function scrollToProfiles() {
+			smoothScrollTo(document.getElementById('features'), 1500);
+		}
+
+		document.querySelector('.scroll-indicator').addEventListener('click', () => {
+			smoothScrollTo(document.getElementById('features'), 1500);
+		});
+	</script>
 </body>
+
 </html>
