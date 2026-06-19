@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>pray</title>
+	<link rel="icon" type="image/png" href="favicon.png">
+	<style>
+		@font-face {
+			font-family: 'Minecraft32x';
+			src: url('minecraft32x.ttf') format('truetype');
+			font-weight: 400;
+			font-style: normal;
+			font-display: swap;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html, body {
+			width: 100%;
+			min-height: 100%;
+		}
+
+		body {
+			min-height: 100vh;
+			background: #000 url('bg.gif') center/cover fixed no-repeat;
+			color: #f4f4f5;
+			font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 32px;
+			overflow: hidden;
+		}
+
+		.video-background {
+			position: fixed;
+			inset: 0;
+			z-index: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			pointer-events: none;
+			background: transparent;
+		}
+
+		button, a { font: inherit; }
+		button { border: 0; background: none; cursor: pointer; }
+
+		/* Updated .page-card for Premium Glassmorphism Look */
+		.page-card {
+			position: relative;
+			z-index: 10;
+			width: 100%;
+			max-width: 560px;
+			border-radius: 24px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			overflow: visible;
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			background-color: rgba(255, 255, 255, 0.03);
+			box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+		}
+
+		.tabs-header {
+			display: flex;
+			align-items: center;
+			padding: 14px 20px;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+			background-color: rgba(0, 0, 0, 0.25);
+			gap: 8px;
+		}
+
+		.tabs-container {
+			display: flex;
+			min-width: 0;
+			overflow: hidden;
+			flex: 1;
+		}
+
+		.tab-button {
+			color: #71717a;
+			padding: 6px 12px;
+			font-size: 13px;
+			transition: color 0.2s ease;
+			white-space: nowrap;
+			flex-shrink: 0;
+			border: none;
+			background: none;
+			cursor: pointer;
+		}
+
+		.tab-button:hover { color: #fff; }
+		.tab-button.active { color: #fff; }
+
+		.tab-content { display: none; }
+
+		.tab-content.active {
+			display: block;
+			animation: fadeInDown 0.4s ease-out;
+		}
+
+		@keyframes fadeInDown {
+			from { opacity: 0; transform: translateY(-10px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.views-button {
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 999px;
+			padding: 4px 10px;
+			font-size: 10.4px;
+			line-height: 14px;
+			color: #9ca3af;
+			white-space: nowrap;
+			transition: background 0.2s ease, border-color 0.2s ease;
+			margin-left: auto;
+			flex-shrink: 0;
+			cursor: pointer;
+		}
+
+		.views-button:hover { 
+			background: rgba(255, 255, 255, 0.1); 
+			border-color: rgba(255, 255, 255, 0.15);
+			color: #fff;
+		}
+		
+		.views-button svg { color: #9ca3af; transition: color 0.2s ease; }
+		.views-button:hover svg { color: #fff; }
+
+		.content { padding: 24px; overflow: hidden; }
+
+		.project-card {
+			display: block;
+			border-radius: 12px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			overflow: hidden;
+			background: radial-gradient(at left top, rgba(255, 255, 255, 0.08) 0%, transparent 55%),
+						radial-gradient(at right bottom, rgba(255, 255, 255, 0.06) 0%, transparent 55%),
+						rgba(10, 10, 10, 0.4);
+			backdrop-filter: blur(24px);
+			box-shadow: rgba(255, 255, 255, 0.05) 0 1px 0 inset;
+			margin-bottom: 16px;
+			transition: background 0.3s ease, border-color 0.3s ease;
+		}
+
+		.project-card:hover {
+			border-color: rgba(255, 255, 255, 0.14);
+			background: radial-gradient(at left top, rgba(255, 255, 255, 0.12) 0%, transparent 55%),
+						radial-gradient(at right bottom, rgba(255, 255, 255, 0.08) 0%, transparent 55%),
+						rgba(15, 15, 15, 0.5);
+		}
+
+		.project-header { position: relative; z-index: 10; padding: 16px; }
+
+		.project-top {
+			display: flex;
+			align-items: flex-start;
+			gap: 12px;
+			margin-bottom: 12px;
+		}
+
+		.project-icon {
+			width: 36px;
+			height: 36px;
+			border-radius: 8px;
+			object-fit: cover;
+			flex-shrink: 0;
+			box-shadow: rgba(255, 255, 255, 0.08) 0 0 0 1px, rgba(0, 0, 0, 0.4) 0 4px 12px;
+		}
+
+		.project-info { flex: 1; min-width: 0; }
+
+		.project-title-row {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 4px;
+			gap: 8px;
+		}
+
+		.project-title { font-size: 14px; font-weight: 600; color: #fff; }
+
+		.project-description { font-size: 11px; color: #9ca3af; line-height: 1.4; margin: 8px 0; }
+
+		.project-footer {
+			margin-top: 12px;
+			padding-top: 12px;
+			border-top: 1px solid rgba(255, 255, 255, 0.06);
+		}
+
+		.project-server { display: flex; align-items: center; gap: 8px; }
+
+		.server-info { flex: 1; }
+
+		.server-stats {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-top: 2px;
+			font-size: 9px;
+		}
+
+		.server-stat { display: flex; align-items: center; gap: 3px; color: #71717a; }
+
+		.status-indicator { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+		.status-online { background: #22c55e; }
+		.status-offline { background: #71717a; }
+
+		.server-join {
+			padding: 4px 12px;
+			font-size: 10px;
+			border-radius: 4px;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			background: rgba(255, 255, 255, 0.04);
+			color: #9ca3af;
+			cursor: pointer;
+			transition: color 0.2s ease;
+			text-decoration: none;
+		}
+
+		.server-join:hover { color: #fff; border-color: rgba(255, 255, 255, 0.2); }
+
+		.hero { margin-bottom: 24px; }
+
+		.hero-top {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 14px;
+		}
+
+		.hero-text { min-width: 0; flex: 1; }
+
+		.hero-actions { display: flex; align-items: center; flex-shrink: 0; padding-top: 2px; }
+
+		.logo {
+			font-family: 'Minecraft32x', Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			font-size: 36px;
+			font-weight: 400;
+			line-height: 0.8;
+			margin-bottom: 8px;
+			letter-spacing: 0.02em;
+			color: #fff;
+			text-transform: lowercase;
+			-webkit-font-smoothing: none;
+			-moz-osx-font-smoothing: grayscale;
+			font-smooth: never;
+			text-rendering: optimizeSpeed;
+			transform: translateY(1px);
+		}
+
+		.subtitle { font-size: 13px; line-height: 1.25; color: #e5e7eb; max-width: 360px; }
+
+		.discord-shell {
+			background: transparent;
+			border-radius: 4px;
+			border: none;
+			margin-bottom: 14px;
+			padding: 0;
+		}
+
+		.discord-card {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			position: relative;
+			overflow: visible;
+			border-radius: 14px;
+			padding: 14px;
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+		}
+
+		.discord-card::before {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(90deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.06) 100%);
+			pointer-events: none;
+			border-radius: 14px;
+		}
+
+		.avatar-wrap { position: relative; flex-shrink: 0; width: 42px; height: 42px; z-index: 10; }
+
+		.avatar {
+			width: 42px;
+			height: 42px;
+			border-radius: 50%;
+			object-fit: cover;
+			display: block;
+			background: #18181b;
+			border: 1px solid rgba(255, 255, 255, 0.15);
+		}
+
+		.status-dot {
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			width: 11px;
+			height: 11px;
+			border-radius: 50%;
+			border: 2px solid rgba(20, 20, 20, 0.8);
+			background: #71717a;
+		}
+
+		.status-idle { background: #f59e0b; }
+		.status-dnd { background: #ef4444; }
+
+		.discord-info {
+			display: flex;
+			flex-direction: column;
+			flex: 1;
+			min-width: 0;
+			position: relative;
+			z-index: 10;
+		}
+
+		.discord-top {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			min-width: 0;
+			margin-bottom: 2px;
+		}
+
+		.discord-name {
+			font-size: 14px;
+			line-height: 14px;
+			color: #fff;
+			font-weight: 600;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.badges { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+
+		.badge-tooltip { position: relative; display: inline-flex; align-items: center; }
+		.badge-tooltip-panel {
+			position: absolute;
+			top: calc(100% + 12px);
+			left: 50%;
+			transform: translateX(-50%) scale(0.96);
+			width: 220px;
+			padding: 16px 16px 14px;
+			border-radius: 18px;
+			background: rgba(25, 25, 30, 0.96);
+			box-shadow: 0 22px 42px rgba(0, 0, 0, 0.45);
+			backdrop-filter: blur(18px);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.18s ease, transform 0.18s ease;
+			z-index: 20;
+		}
+		.badge-tooltip:hover .badge-tooltip-panel {
+			opacity: 1;
+			transform: translateX(-50%) scale(1);
+		}
+		.badge-tooltip-icon {
+			width: 32px;
+			height: 32px;
+			border-radius: 16px;
+			object-fit: contain;
+			display: block;
+			margin: 0 auto 10px;
+		}
+		.badge-tooltip-title {
+			display: block;
+			text-align: center;
+			font-size: 12px;
+			font-weight: 800;
+			letter-spacing: 0.14em;
+			text-transform: uppercase;
+			color: #f8fafc;
+			margin-bottom: 4px;
+		}
+		.badge-tooltip-subtitle {
+			display: block;
+			text-align: center;
+			font-size: 11px;
+			color: #cbd5e1;
+		}
+
+		.badge-img { width: 18px; height: 18px; object-fit: contain; opacity: 1; }
+
+		.discord-tag-row { display: flex; align-items: center; gap: 6px; min-width: 0; }
+		.discord-tag { color: #d1d5db; }
+		.discord-tag-btn:hover .discord-tag { color: #fff; }
+
+		.discord-tag-btn {
+			position: relative;
+			width: fit-content;
+			outline: none;
+			user-select: none;
+			cursor: pointer;
+			flex-shrink: 0;
+			text-decoration: none;
+			display: inline-flex;
+			align-items: center;
+		}
+
+		.discord-tag { position: relative; display: block; font-size: 12px; line-height: 1; color: #9ca3af; }
+
+		.discord-tag::after {
+			content: "";
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 1px;
+			background: #9ca3af;
+			transform: scaleX(0);
+			transform-origin: left;
+			transition: transform 0.3s ease;
+		}
+
+		.discord-tag-btn:hover .discord-tag::after { transform: scaleX(1); }
+
+		.discord-activity {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+			margin-top: 8px;
+			min-width: 0;
+		}
+
+		.discord-activity-card {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 9px;
+			border-radius: 10px;
+			background: rgba(255, 255, 255, 0.04);
+			border: 1px solid rgba(255, 255, 255, 0.07);
+			min-width: 0;
+		}
+
+		.discord-activity-art {
+			width: 28px;
+			height: 28px;
+			flex-shrink: 0;
+			border-radius: 8px;
+			overflow: hidden;
+			background: rgba(255, 255, 255, 0.08);
+			display: grid;
+			place-items: center;
+			color: #f3f4f6;
+			font-size: 12px;
+			font-weight: 700;
+		}
+
+		.discord-activity-art img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+
+		.discord-activity-body {
+			min-width: 0;
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+		}
+
+		.discord-activity-top {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 6px;
+			min-width: 0;
+		}
+
+		.discord-activity-name {
+			font-size: 11px;
+			font-weight: 600;
+			color: #f3f4f6;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.discord-activity-pill {
+			font-size: 9px;
+			font-weight: 700;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			color: #9ca3af;
+			padding: 2px 5px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.06);
+			flex-shrink: 0;
+		}
+
+		.discord-activity-line {
+			font-size: 10.5px;
+			line-height: 1.25;
+			color: #d1d5db;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.discord-activity-line.muted {
+			color: #9ca3af;
+		}
+
+		.discord-activity-empty {
+			font-size: 10.5px;
+			color: #71717a;
+			padding: 6px 0 0;
+		}
+
+		.spotify-card {
+			border-radius: 12px;
+			border: 1px solid rgba(255, 255, 255, 0.06);
+			overflow: hidden;
+			background: linear-gradient(160deg, rgba(30, 30, 30, 0.4) 0%, rgba(15, 15, 15, 0.2) 100%);
+			backdrop-filter: blur(24px);
+			box-shadow: rgba(255, 255, 255, 0.05) 0 1px 0 inset;
+		}
+
+		.spotify-row { display: flex; align-items: center; gap: 10px; padding: 10px; }
+
+		.spotify-art { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; flex-shrink: 0; background: #18181b; }
+
+		.spotify-info { flex: 1; min-width: 0; }
+
+		.spotify-label {
+			font-size: 7.5px;
+			color: #fff;
+			line-height: 1;
+			margin-top: 4px;
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			display: inline-flex;
+			align-items: center;
+			gap: 3px;
+			padding: 1px 0;
+			background: transparent;
+			border: none;
+			width: fit-content;
+			font-weight: 600;
+		}
+
+		.spotify-song { font-size: 12px; font-weight: 600; line-height: 1.25; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+		.spotify-artist { font-size: 10px; line-height: 1.25; margin-top: 1px; color: #a1a1aa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+		.spotify-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+		.spotify-time { font-size: 9px; color: #71717a; font-variant-numeric: tabular-nums; flex-shrink: 0; }
+
+		.spotify-toggle {
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			color: #a1a1aa;
+			background: rgba(255, 255, 255, 0.05);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+		}
+
+		.spotify-toggle:hover { color: #fff; background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.15); }
+		.spotify-toggle svg { transition: transform 0.25s ease; }
+		.spotify-toggle.open svg { transform: rotate(180deg); }
+
+		.spotify-progress { position: relative; height: 2px; background: rgba(255, 255, 255, 0.1); margin: 0 10px 10px; border-radius: 999px; overflow: hidden; }
+		.spotify-progress-fill { height: 100%; width: 0%; background: #fff; transition: width 0.25s linear; }
+
+		.spotify-embed-wrap {
+			padding: 0 10px;
+			max-height: 0;
+			overflow: hidden;
+			opacity: 0;
+			transform: translateY(-6px);
+			transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.35s ease, padding-bottom 0.35s ease;
+		}
+
+		.spotify-embed-wrap.open { max-height: 96px; opacity: 1; transform: translateY(0); padding-bottom: 10px; }
+
+		.spotify-embed { display: block; width: 100%; height: 80px; border: 0; border-radius: 8px; overflow: hidden; background: #000; }
+
+		.spotify-empty { padding: 10px; font-size: 11px; color: #71717a; }
+
+		body.is-loading #username,
+		body.is-loading #discord-tag,
+		body.is-loading #avatar,
+		body.is-loading #spotify-card,
+		body.is-loading #discord-activity { opacity: 0; }
+
+		#username, #discord-tag, #avatar, #spotify-card, #discord-activity { transition: opacity 0.18s ease; }
+
+		.clock-container {
+			position: absolute;
+			bottom: -50px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(255, 255, 255, 0.08);
+			border-radius: 12px;
+			padding: 12px 16px;
+			font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			font-size: 13px;
+			color: #d1d5db;
+			backdrop-filter: blur(20px);
+			-webkit-backdrop-filter: blur(20px);
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+			z-index: 100;
+			transition: all 0.3s ease;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.clock-container:hover {
+			background: rgba(255, 255, 255, 0.05);
+			border-color: rgba(255, 255, 255, 0.15);
+			color: #fff;
+		}
+
+		.clock-time {
+			font-weight: 600;
+			letter-spacing: 0.05em;
+			font-variant-numeric: tabular-nums;
+		}
+
+		.clock-separator {
+			opacity: 0.9;
+			font-weight: 300;
+			font-size: 16px;
+			color: #fff;
+		}
+
+		@media (max-width: 520px) {
+			body { padding: 16px; }
+			.logo { font-size: 40px; }
+			.hero-top { display: block; }
+			.hero-actions { margin-top: 10px; }
+			.spotify-time { display: none; }
+		}
+	</style>
+</head>
+
+<body class="is-loading">
+	<video class="video-background" id="video-background" autoplay muted loop>
+		<source src="vid.mp4" type="video/mp4">
+	</video>
+
+	<div class="page-card">
+		<div class="tabs-header">
+			<div class="tabs-container">
+				<button class="tab-button active" data-tab="home" onclick="switchTab('home')">home</button>
+				<button class="tab-button" data-tab="projects" onclick="switchTab('projects')">server</button>
+				<button class="tab-button" data-tab="playlist" onclick="switchTab('playlist')">music</button>
+			</div>
+			<button class="views-button" id="views-button" onclick="toggleViewsLabel()" type="button">
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+					<circle cx="12" cy="12" r="3"></circle>
+				</svg>
+				<span id="views-label">15,127</span>
+			</button>
+		</div>
+
+		<div class="content">
+
+			<div class="tab-content active" id="tab-home">
+				<div class="hero">
+					<div class="hero-top">
+						<div class="hero-text">
+							<h1 class="logo" id="site-title">pray</h1>
+							<p class="subtitle" id="subtitle-text">contact me</p>
+						</div>
+						<div class="hero-actions"></div>
+					</div>
+				</div>
+
+				<div class="discord-shell">
+					<div class="discord-card">
+						<div class="avatar-wrap">
+							<img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" referrerpolicy="no-referrer" />
+							<div id="status-dot" class="status-dot status-offline"></div>
+						</div>
+						<div class="discord-info">
+							<div class="discord-top">
+								<span class="discord-name" id="username"> </span>
+								<div class="badges" id="discord-badges"></div>
+							</div>
+							<div class="discord-tag-row">
+								<a class="discord-tag-btn" id="discord-tag-link" href="https://discord.com/users/1499523183794061563" target="_blank" rel="noopener noreferrer">
+									<span class="discord-tag" id="discord-tag"> </span>
+								</a>
+							</div>
+							<div class="discord-activity" id="discord-activity"></div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="spotify-card" id="spotify-card" style="margin-bottom: 14px;"></div>
+				<div style="margin-bottom: 6px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+					<div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink: 0; color: #d1d5db;">
+							<path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.023c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z"></path>
+						</svg>
+						<a href="https://t.me/misrepent" target="_blank" rel="noopener noreferrer" style="color: #d1d5db; text-decoration: none; white-space: nowrap;">contact me on telegram</a>
+					</div>
+					<a href="https://t.me/misrepent" target="_blank" rel="noopener noreferrer" style="padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,0.08); color: #fff; text-decoration: none; font-size: 12px; white-space: nowrap;">msg</a>
+				</div>
+			</div>
+
+			<div class="tab-content" id="tab-projects">
+				<h2 style="font-size:18px;font-weight:600;margin-bottom:16px;color:#fff;">server</h2>
+
+				<div class="project-card">
+					<div class="project-header">
+						<div class="project-top">
+							<img src="server.png" alt="disgusting" class="project-icon" />
+							<div class="project-info">
+								<div class="project-title-row">
+									<span class="project-title">/disgusting</span>
+									<a href="https://discord.gg/eDzdpcxbaT" target="_blank" rel="noopener noreferrer" style="color:#71717a;text-decoration:none;transition:color 0.2s ease;">
+										<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M15 3h6v6"></path><path d="M10 14 21 3"></path>
+											<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+										</svg>
+									</a>
+								</div>
+							</div>
+						</div>
+						<p class="project-description">discord.gg/disgusting</p>
+						<div class="project-footer">
+							<div class="project-server">
+								<div class="server-info" style="flex:1;">
+									<div class="server-stats">
+										<span class="server-stat">
+											<span class="status-indicator status-online"></span>
+											<span id="server-online">0</span> online
+										</span>
+										<span class="server-stat">
+											<span class="status-indicator status-offline"></span>
+											<span id="server-members">0</span> members
+										</span>
+									</div>
+								</div>
+								<a href="https://discord.gg/disgusting" target="_blank" rel="noopener noreferrer" class="server-join">join</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="tab-content" id="tab-playlist">
+				<h2 style="font-size:18px;font-weight:600;margin-bottom:16px;color:#fff;">music</h2>
+				<div style="border-radius: 12px; overflow: hidden;">
+					<iframe style="border-radius: 12px" src="https://open.spotify.com/embed/playlist/5C9ZyuEfQJ1Sa6zp1yL3r9?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+				</div>
+			</div>
+
+		</div>
+		<div class="clock-container" id="clock-container"></div>
+	</div>
+
+	<script>
+		const DISCORD_ID = "1499523183794061563";
+
+		function switchTab(tabName) {
+			document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+			document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+			const content = document.getElementById("tab-" + tabName);
+			if (content) content.classList.add("active");
+			const btn = document.querySelector("[data-tab='" + tabName + "']");
+			if (btn) btn.classList.add("active");
+		}
+
+		function toggleViewsLabel() {
+			const label = document.getElementById("views-label");
+			if (!label) return;
+			label.textContent = label.textContent === "15,127" ? "15.1k" : "15,127";
+		}
+
+		async function fetchDiscordGuildData() {
+			try {
+				const res = await fetch("https://discordapp.com/api/invite/disgusting?with_counts=true");
+				if (res.ok) {
+					const data = await res.json();
+					if (data.approximate_member_count && data.approximate_presence_count) {
+						document.getElementById("server-online").textContent = data.approximate_presence_count.toLocaleString();
+						document.getElementById("server-members").textContent = data.approximate_member_count.toLocaleString();
+					}
+				}
+			} catch {
+				document.getElementById("server-online").textContent = "42";
+				document.getElementById("server-members").textContent = "420";
+			}
+		}
+
+		const usernameEl = document.getElementById("username");
+		const avatarEl = document.getElementById("avatar");
+		const statusDotEl = document.getElementById("status-dot");
+		const discordTagEl = document.getElementById("discord-tag");
+		const discordTagLinkEl = document.getElementById("discord-tag-link");
+		const spotifyCardEl = document.getElementById("spotify-card");
+
+		let currentSpotify = null;
+		let currentSpotifyTrackId = null;
+		let progressTimer = null;
+		let socket = null;
+		let heartbeatInterval = null;
+		let reconnectTimer = null;
+		let spotifyEmbedOpen = false;
+
+		function escapeHTML(value) {
+			return String(value ?? "")
+				.replaceAll("&", "&")
+				.replaceAll("<", "<")
+				.replaceAll(">", ">")
+				.replaceAll('"', '"')
+				.replaceAll("'", "'");
+		}
+
+		function formatTime(ms) {
+			if (!ms || ms < 0) return "0:00";
+			const totalSeconds = Math.floor(ms / 1000);
+			const minutes = Math.floor(totalSeconds / 60);
+			const seconds = totalSeconds % 60;
+			return minutes + ":" + String(seconds).padStart(2, "0");
+		}
+
+		function updateSpotifyProgress() {
+			if (!currentSpotify) return;
+			const start = currentSpotify.timestamps?.start || 0;
+			const end = currentSpotify.timestamps?.end || 0;
+			const now = Date.now();
+			const duration = end - start;
+			const elapsed = now - start;
+			const safeElapsed = Math.min(Math.max(elapsed, 0), duration || 0);
+			const progress = duration > 0 ? Math.min(100, Math.max(0, safeElapsed / duration * 100)) : 0;
+			const progressEl = document.getElementById("spotify-progress-fill");
+			const timeEl = document.getElementById("spotify-time");
+			if (progressEl) progressEl.style.width = progress + "%";
+			if (timeEl) timeEl.textContent = formatTime(safeElapsed) + " / " + formatTime(duration);
+		}
+
+		function toggleSpotifyEmbed() {
+			spotifyEmbedOpen = !spotifyEmbedOpen;
+			const embedWrap = document.getElementById("spotify-embed-wrap");
+			const toggle = document.getElementById("spotify-toggle");
+			if (!embedWrap || !toggle) return;
+			embedWrap.classList.toggle("open", spotifyEmbedOpen);
+			toggle.classList.toggle("open", spotifyEmbedOpen);
+			toggle.setAttribute("aria-expanded", String(spotifyEmbedOpen));
+		}
+
+		function renderSpotify(spotify) {
+			currentSpotify = spotify || null;
+			if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+
+			if (!spotify) {
+				currentSpotifyTrackId = null;
+				spotifyEmbedOpen = false;
+				spotifyCardEl.innerHTML = "";
+				return;
+			}
+
+			const trackId = spotify.track_id || (spotify.song + "-" + spotify.artist + "-" + spotify.album);
+			currentSpotifyTrackId = trackId;
+
+			const spotifyEmbedUrl = spotify.track_id
+				? "https://open.spotify.com/embed/track/" + spotify.track_id + "?utm_source=generator&theme=0"
+				: null;
+
+			spotifyCardEl.innerHTML =
+				'<div class="spotify-row">' +
+					'<img class="spotify-art" src="' + escapeHTML(spotify.album_art_url) + '" alt="' + escapeHTML(spotify.album || "Album art") + '" />' +
+					'<div class="spotify-info">' +
+						'<div class="spotify-song">' + escapeHTML(spotify.song) + '</div>' +
+						'<div class="spotify-artist">' + escapeHTML(spotify.artist) + '</div>' +
+						'<div class="spotify-label">Listening on Spotify</div>' +
+					'</div>' +
+					'<div class="spotify-actions">' +
+						'<div class="spotify-time" id="spotify-time">0:00 / 0:00</div>' +
+						(spotifyEmbedUrl ? '<button class="spotify-toggle' + (spotifyEmbedOpen ? " open" : "") + '" id="spotify-toggle" type="button" aria-label="Toggle Spotify player" aria-expanded="' + spotifyEmbedOpen + '" onclick="toggleSpotifyEmbed()">' +
+							'<svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 5,7 8,4"></polyline></svg>' +
+						'</button>' : "") +
+					'</div>' +
+				'</div>' +
+				'<div class="spotify-progress"><div class="spotify-progress-fill" id="spotify-progress-fill"></div></div>' +
+				(spotifyEmbedUrl
+					? '<div class="spotify-embed-wrap' + (spotifyEmbedOpen ? " open" : "") + '" id="spotify-embed-wrap"><iframe class="spotify-embed" src="' + spotifyEmbedUrl + '" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>'
+					: '<div class="spotify-empty">Spotify embed unavailable for this track.</div>');
+
+			updateSpotifyProgress();
+			progressTimer = setInterval(updateSpotifyProgress, 16);
+		}
+
+		function buildActivityAssetUrl(activity, assetKey) {
+			if (!activity || !activity.application_id || !assetKey) return "";
+			if (typeof assetKey === "string" && assetKey.startsWith("mp:external")) return "";
+			return "https://cdn.discordapp.com/app-assets/" + activity.application_id + "/" + assetKey + ".png";
+		}
+
+		function renderDiscordBadges(badges) {
+			const badgesEl = document.getElementById("discord-badges");
+			if (!badgesEl) return;
+
+			const safeBadges = Array.isArray(badges) ? badges : [];
+			badgesEl.innerHTML = safeBadges.slice(0, 6).map((badge) => {
+				const icon = badge?.icon;
+				const label = badge?.description || badge?.id || "Badge";
+				const iconUrl = icon ? "https://cdn.discordapp.com/badge-icons/" + icon + ".png?size=64" : "";
+				return iconUrl
+					? '<img class="badge-img" src="' + escapeHTML(iconUrl) + '" alt="' + escapeHTML(label) + '" title="' + escapeHTML(label) + '" />'
+					: "";
+			}).join("");
+		}
+
+		function renderDiscordActivity(activities) {
+			const activityEl = document.getElementById("discord-activity");
+			if (!activityEl) return;
+
+			const visibleActivities = (activities || [])
+				.filter((activity) => activity && activity.name && activity.name !== "Spotify")
+				.slice(0, 2);
+
+			if (!visibleActivities.length) {
+				activityEl.innerHTML = "";
+				return;
+			}
+
+			activityEl.innerHTML = visibleActivities.map((activity) => {
+				const largeImage = activity.assets?.large_image;
+				const smallImage = activity.assets?.small_image;
+				const imageUrl = largeImage ? buildActivityAssetUrl(activity, largeImage) : "";
+				const smallImageUrl = smallImage ? buildActivityAssetUrl(activity, smallImage) : "";
+				const primary = activity.details || activity.state || "";
+				const secondary = activity.details && activity.state ? activity.state : "";
+				const typeLabel = activity.type === 0 ? "Playing" : activity.type === 2 ? "Listening" : activity.type === 3 ? "Watching" : activity.type === 5 ? "Competing" : "Using";
+				const artMarkup = imageUrl
+					? '<div class="discord-activity-art"><img src="' + escapeHTML(imageUrl) + '" alt="' + escapeHTML(activity.name || "Activity") + '" /></div>'
+					: '<div class="discord-activity-art">' + escapeHTML((activity.name || "A").charAt(0).toUpperCase()) + '</div>';
+
+				return '<div class="discord-activity-card">' + artMarkup + '<div class="discord-activity-body">' +
+					'<div class="discord-activity-top"><span class="discord-activity-name">' + escapeHTML(activity.name || "Activity") + '</span><span class="discord-activity-pill">' + escapeHTML(typeLabel) + '</span></div>' +
+					(primary ? '<div class="discord-activity-line">' + escapeHTML(primary) + '</div>' : "") +
+					(secondary ? '<div class="discord-activity-line muted">' + escapeHTML(secondary) + '</div>' : "") +
+				'</div></div>';
+			}).join("");
+		}
+
+		function applyLanyardData(data) {
+			if (!data) return;
+			const user = data.discord_user;
+			if (user) {
+				usernameEl.textContent = user.global_name || user.username || " ";
+				discordTagEl.textContent = user.username ? "@" + user.username : " ";
+				if (discordTagLinkEl && user.id) {
+					discordTagLinkEl.href = "https://discord.com/channels/@me/" + user.id;
+				}
+				if (user.avatar) {
+					const isAnimated = user.avatar.startsWith("a_");
+					const ext = isAnimated ? "gif" : "png";
+					const avatarUrl = "https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + "." + ext + "?size=128";
+					avatarEl.onerror = () => {
+						avatarEl.onerror = null;
+						if (isAnimated) {
+							avatarEl.src = "https://cdn.discordapp.com/avatars/" + user.id + "/" + user.avatar + ".png?size=128";
+						} else {
+							const idx = Number(user.discriminator || 0) % 5 || 0;
+							avatarEl.src = "https://cdn.discordapp.com/embed/avatars/" + idx + ".png";
+						}
+					};
+					avatarEl.onload = () => { avatarEl.onerror = null; };
+					avatarEl.src = avatarUrl;
+				} else {
+					const idx = Number(user.discriminator || 0) % 5 || 0;
+					avatarEl.src = "https://cdn.discordapp.com/embed/avatars/" + idx + ".png";
+				}
+			}
+			
+			const status = data.discord_status;
+			statusDotEl.className = "status-dot";
+			if (status === "online") statusDotEl.classList.add("status-online");
+			else if (status === "idle") statusDotEl.classList.add("status-idle");
+			else if (status === "dnd") statusDotEl.classList.add("status-dnd");
+			else statusDotEl.classList.add("status-offline");
+
+			renderDiscordActivity(data.activities || []);
+			const incomingSpotify = data.spotify || null;
+			const incomingTrackId = incomingSpotify
+				? incomingSpotify.track_id || (incomingSpotify.song + "-" + incomingSpotify.artist + "-" + incomingSpotify.album)
+				: null;
+			if (incomingTrackId !== currentSpotifyTrackId) {
+				spotifyEmbedOpen = false;
+				renderSpotify(incomingSpotify);
+			} else {
+				currentSpotify = incomingSpotify;
+				updateSpotifyProgress();
+			}
+			document.body.classList.remove("is-loading");
+		}
+
+		async function fetchDiscordBadges() {
+			try {
+				const res = await fetch("https://dcdn.dstn.to/profile/" + DISCORD_ID);
+				if (!res.ok) return;
+				const data = await res.json();
+				renderDiscordBadges(data?.badges || data?.user?.badges || []);
+			} catch {
+				// Ignore badge fetch failures and keep the existing UI intact.
+			}
+		}
+
+		async function fetchDiscordOnce() {
+			try {
+				const res = await fetch("https://api.lanyard.rest/v1/users/" + DISCORD_ID);
+				const json = await res.json();
+				if (!json.success || !json.data) { document.body.classList.remove("is-loading"); return; }
+				applyLanyardData(json.data);
+			} catch {
+				document.body.classList.remove("is-loading");
+			}
+		}
+
+		function connectLanyardSocket() {
+			if (socket) socket.close();
+			socket = new WebSocket("wss://api.lanyard.rest/socket");
+			socket.addEventListener("message", (event) => {
+				const message = JSON.parse(event.data);
+				if (message.op === 1) {
+					if (heartbeatInterval) clearInterval(heartbeatInterval);
+					heartbeatInterval = setInterval(() => {
+						if (socket && socket.readyState === WebSocket.OPEN) {
+							socket.send(JSON.stringify({ op: 3 }));
+						}
+					}, message.d.heartbeat_interval);
+					socket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: DISCORD_ID } }));
+				}
+				if (message.t === "INIT_STATE" || message.t === "PRESENCE_UPDATE") {
+					if (message.d.discord_user && String(message.d.discord_user.id) === DISCORD_ID) {
+						applyLanyardData(message.d);
+					}
+				}
+			});
+			socket.addEventListener("close", () => {
+				if (heartbeatInterval) { clearInterval(heartbeatInterval); heartbeatInterval = null; }
+				if (reconnectTimer) clearTimeout(reconnectTimer);
+				reconnectTimer = setTimeout(connectLanyardSocket, 5000);
+			});
+			socket.addEventListener("error", () => { if (socket) socket.close(); });
+		}
+
+		const subtitleEl = document.getElementById("subtitle-text");
+		if (subtitleEl) {
+			subtitleEl.textContent = "boss";
+		}
+
+		fetchDiscordBadges();
+		fetchDiscordOnce();
+		fetchDiscordGuildData();
+		connectLanyardSocket();
+
+		const clockContainer = document.getElementById("clock-container");
+
+		function formatTime12Hour(date) {
+			let hours = date.getHours();
+			const minutes = String(date.getMinutes()).padStart(2, "0");
+			const ampm = hours >= 12 ? "pm" : "am";
+			hours = hours % 12 || 12;
+			return `${hours}:${minutes}${ampm}`;
+		}
+
+		function updateClock() {
+			const now = new Date();
+			const visitorTime = formatTime12Hour(now);
+			const britainTime = new Intl.DateTimeFormat('en-US', {
+				hour: 'numeric',
+				minute: '2-digit',
+				hour12: true,
+				timeZone: 'Europe/London'
+			}).format(now);
+			clockContainer.innerHTML = `<span class="clock-time">${visitorTime}</span><span class="clock-separator">→</span><span class="clock-time">${britainTime}</span>`;
+		}
+
+		updateClock();
+		setInterval(updateClock, 1000);
+	</script>
+
+
+</body>
+</html>
