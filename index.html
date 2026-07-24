@@ -21,9 +21,9 @@
 			height: 100vh;
 			width: 100vw;
 			overflow: hidden;
-			background-color: #0b0d12;
-			background-image: radial-gradient(circle at 50% 50%, rgba(20, 24, 35, 0.7) 0%, rgba(10, 12, 17, 1) 100%);
-			color: #e2e8f0;
+			background-color: #050505;
+			background-image: radial-gradient(circle at 50% 50%, rgba(20, 20, 22, 0.8) 0%, rgba(5, 5, 5, 1) 100%);
+			color: #e4e4e7;
 			font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 			display: flex;
 			align-items: center;
@@ -41,7 +41,7 @@
 
 		.top-grid {
 			display: grid;
-			grid-template-columns: 0.8fr 1.2fr;
+			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
 			gap: 20px;
 			align-items: stretch;
 			position: relative;
@@ -49,52 +49,62 @@
 
 		.bottom-grid {
 			display: grid;
-			grid-template-columns: 1fr 1fr;
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
 			gap: 20px;
 			position: relative;
 		}
 
 		.card {
-			background: rgba(18, 22, 31, 0.75);
-			border: 1px solid rgba(255, 255, 255, 0.06);
+			background: rgba(13, 13, 15, 0.85);
+			border: 1px solid rgba(255, 255, 255, 0.07);
 			border-radius: 18px;
 			padding: 20px;
 			position: relative;
 			overflow: hidden;
 			backdrop-filter: blur(16px);
-			box-shadow: 0 14px 35px rgba(0, 0, 0, 0.55);
+			box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75);
+			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+			            border-color 0.25s ease, 
+			            box-shadow 0.25s ease;
+		}
+
+		.card:hover {
+			border-color: rgba(255, 255, 255, 0.18);
+			transform: translateY(-2px);
+			box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85);
 		}
 
 		.profile-card {
 			padding: 0;
 			display: flex;
 			flex-direction: column;
+			background: #0d0d0f;
 		}
 
 		.banner-container {
 			width: 100%;
-			height: 100px;
+			height: 105px;
 			position: relative;
 			overflow: hidden;
-			background: rgba(18, 22, 31, 1);
+			background: #0d0d0f;
 		}
 
 		.banner-img {
 			width: 100%;
 			height: 100%;
 			object-fit: cover;
-			-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 100%);
-			mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 15%, rgba(0,0,0,0) 100%);
+			-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0.8) 70%, rgba(0,0,0,0) 100%);
+			mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 45%, rgba(0,0,0,0.8) 70%, rgba(0,0,0,0) 100%);
 		}
 
 		.profile-body {
-			padding: 0 20px 20px 20px;
-			margin-top: -38px;
+			padding: 0 18px 14px 18px;
+			margin-top: -64px;
 			position: relative;
 			z-index: 2;
 			display: flex;
 			flex-direction: column;
-			gap: 12px;
+			gap: 8px;
 		}
 
 		.profile-header-row {
@@ -105,8 +115,8 @@
 
 		.avatar-container {
 			position: relative;
-			width: 88px;
-			height: 88px;
+			width: 82px;
+			height: 82px;
 			flex-shrink: 0;
 		}
 
@@ -115,15 +125,15 @@
 			height: 100%;
 			border-radius: 50%;
 			object-fit: cover;
-			border: 3.5px solid #12161f;
-			background: #18181b;
+			border: 3.5px solid #0d0d0f;
+			background: #121214;
 		}
 
 		.uk-time-box {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-end;
-			gap: 3px;
+			gap: 2px;
 			margin-bottom: 2px;
 		}
 
@@ -131,29 +141,30 @@
 			display: flex;
 			align-items: center;
 			gap: 6px;
-			background: rgba(0, 0, 0, 0.35);
-			border: 1px solid rgba(255, 255, 255, 0.1);
+			background: rgba(0, 0, 0, 0.5);
+			border: 1px solid rgba(255, 255, 255, 0.08);
 			border-radius: 8px;
-			padding: 4px 10px;
-			font-size: 13px;
+			padding: 3px 8px;
+			font-size: 12px;
 			font-weight: 600;
-			color: #e2e8f0;
+			color: #e4e4e7;
 		}
 
 		.time-pill i {
-			font-size: 12px;
-			color: #94a3b8;
+			font-size: 11px;
+			color: #a1a1aa;
 		}
 
 		.time-offset-sub {
-			font-size: 11px;
-			color: #64748b;
+			font-size: 10.5px;
+			color: #71717a;
 		}
 
 		.profile-details {
 			display: flex;
 			flex-direction: column;
 			gap: 2px;
+			margin-top: 2px;
 		}
 
 		.username-row {
@@ -164,7 +175,7 @@
 		}
 
 		.username {
-			font-size: 20px;
+			font-size: 19px;
 			font-weight: 700;
 			color: #fff;
 		}
@@ -182,10 +193,13 @@
 		}
 
 		.status-text {
-			font-size: 12.5px;
-			color: #cbd5e1;
-			margin-top: 4px;
+			font-size: 12px;
+			color: #a1a1aa;
+			margin-top: 2px;
 			font-style: italic;
+			display: flex;
+			align-items: center;
+			gap: 4px;
 		}
 
 		.status-badge {
@@ -195,7 +209,7 @@
 			width: 22px;
 			height: 22px;
 			border-radius: 50%;
-			background-color: #12161f;
+			background-color: #0d0d0f;
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -204,13 +218,21 @@
 
 		.activity-card {
 			display: flex;
-			align-items: center;
-			gap: 18px;
+			flex-direction: column;
+			gap: 16px;
 			position: relative;
 			padding: 20px 24px;
 			height: auto;
 			align-self: center;
-			transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.activity-row {
+			display: flex;
+			align-items: center;
+			gap: 18px;
+			position: relative;
+			z-index: 2;
+			width: 100%;
 		}
 
 		.activity-icon-bg {
@@ -224,11 +246,39 @@
 			pointer-events: none;
 		}
 
+		.open-song-btn {
+			position: absolute;
+			right: 18px;
+			top: 18px;
+			z-index: 10;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			background: transparent;
+			border: none;
+			color: #a1a1aa;
+			font-size: 18px;
+			text-decoration: none;
+			transition: color 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+		}
+
+		.open-song-btn.spotify-btn:hover {
+			color: #1ed760;
+			filter: drop-shadow(0 0 8px rgba(30, 215, 96, 0.8));
+			transform: scale(1.18);
+		}
+
+		.open-song-btn.soundcloud-btn:hover {
+			color: #ff5500;
+			filter: drop-shadow(0 0 8px rgba(255, 85, 0, 0.8));
+			transform: scale(1.18);
+		}
+
 		.activity-art-wrap {
 			width: 72px;
 			height: 72px;
 			border-radius: 12px;
-			background: rgba(255, 255, 255, 0.03);
+			background: rgba(255, 255, 255, 0.02);
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -251,6 +301,7 @@
 			gap: 3px;
 			min-width: 0;
 			flex: 1;
+			padding-right: 35px;
 		}
 
 		.activity-header-lbl {
@@ -258,7 +309,7 @@
 			font-weight: 700;
 			text-transform: uppercase;
 			letter-spacing: 0.1em;
-			color: #94a3b8;
+			color: #a1a1aa;
 		}
 
 		.activity-title {
@@ -272,7 +323,7 @@
 
 		.activity-sub {
 			font-size: 12px;
-			color: #64748b;
+			color: #71717a;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -280,10 +331,15 @@
 
 		.about-card {
 			position: relative;
+			height: 290px;
 			min-height: 290px;
+			max-height: 290px;
 			display: flex;
 			flex-direction: column;
 			gap: 12px;
+			flex-shrink: 0;
+			width: 100%;
+			min-width: 0;
 		}
 
 		.about-bg-anime {
@@ -291,10 +347,10 @@
 			right: -10px;
 			bottom: -10px;
 			height: 95%;
-			opacity: 0.22;
+			opacity: 0.18;
 			pointer-events: none;
 			z-index: 1;
-			filter: grayscale(30%);
+			filter: grayscale(80%);
 		}
 
 		.card-title {
@@ -317,15 +373,16 @@
 
 		.about-text {
 			font-size: 13px;
-			color: #94a3b8;
+			color: #a1a1aa;
 			line-height: 1.5;
 		}
 
 		.socials-column {
 			display: flex;
 			flex-direction: column;
-			gap: 8px;
-			margin-top: 10px;
+			gap: 6px;
+			margin-top: 16px;
+			width: 100%;
 			max-width: 160px;
 			position: relative;
 			z-index: 2;
@@ -335,54 +392,56 @@
 			position: relative;
 			display: flex;
 			align-items: center;
-			gap: 10px;
-			padding: 7px 12px;
-			border-radius: 10px;
+			gap: 8px;
+			padding: 5px 10px;
+			border-radius: 8px;
 			background: rgba(255, 255, 255, 0.03);
 			border: 1px solid rgba(255, 255, 255, 0.08);
-			color: #94a3b8;
-			font-size: 11.5px;
+			color: #a1a1aa;
+			font-size: 11px;
 			font-weight: 600;
 			text-decoration: none;
 			overflow: hidden;
 			backdrop-filter: blur(8px);
 			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 		}
 
-		.social-btn i, .social-btn svg {
-			font-size: 14px;
-			width: 14px;
-			height: 14px;
-			fill: currentColor;
+		.social-btn-icon {
+			width: 15px;
+			height: 15px;
+			object-fit: contain;
+			flex-shrink: 0;
 			transition: transform 0.2s ease;
 		}
 
 		.social-btn.spotify:hover {
-			background: rgba(30, 215, 96, 0.25) !important;
-			border-color: rgba(30, 215, 96, 0.8) !important;
+			background: rgba(30, 215, 96, 0.2) !important;
+			border-color: rgba(30, 215, 96, 0.6) !important;
 			color: #ffffff !important;
-			box-shadow: 0 0 18px rgba(30, 215, 96, 0.6) !important;
+			box-shadow: 0 0 16px rgba(30, 215, 96, 0.4) !important;
 			transform: translateX(5px);
 		}
 
-		.social-btn.roblox:hover {
-			background: rgba(192, 192, 192, 0.2) !important;
-			border-color: #c0c0c0 !important;
-			color: #e2e8f0 !important;
-			box-shadow: 0 0 18px rgba(192, 192, 192, 0.6) !important;
+		.social-btn.tiktok:hover {
+			background: 
+				linear-gradient(rgba(13, 13, 15, 0.95), rgba(13, 13, 15, 0.95)) padding-box,
+				linear-gradient(90deg, hsla(178, 87%, 55%, 1) 0%, hsla(347, 99%, 58%, 1) 100%) border-box !important;
+			border: 1px solid transparent !important;
+			color: #ffffff !important;
+			box-shadow: 0 0 16px rgba(42, 240, 234, 0.25), 0 0 16px rgba(254, 40, 88, 0.25) !important;
 			transform: translateX(5px);
 		}
 
 		.social-btn.telegram:hover {
-			background: rgba(0, 136, 204, 0.35) !important;
-			border-color: rgba(56, 189, 248, 0.8) !important;
+			background: rgba(0, 136, 204, 0.25) !important;
+			border-color: rgba(56, 189, 248, 0.6) !important;
 			color: #ffffff !important;
-			box-shadow: 0 0 18px rgba(56, 189, 248, 0.5) !important;
+			box-shadow: 0 0 16px rgba(56, 189, 248, 0.4) !important;
 			transform: translateX(5px);
 		}
 
-		.social-btn:hover i, .social-btn:hover svg {
+		.social-btn:hover .social-btn-icon {
 			transform: scale(1.15);
 		}
 
@@ -402,7 +461,7 @@
 			font-family: 'VT323', monospace;
 			font-size: 16px;
 			letter-spacing: 2px;
-			color: #94a3b8;
+			color: #71717a;
 			text-transform: uppercase;
 			text-shadow: 0 0 4px rgba(0,0,0,0.8);
 		}
@@ -432,12 +491,12 @@
 			display: inline-block;
 			position: relative;
 			font-weight: 800;
-			background: linear-gradient(90deg, #ff5555, #ffaa55, #ffff55, #55ff55, #55ffff, #5555ff, #aa55ff);
+			background: linear-gradient(90deg, #d4d4d8, #a1a1aa, #e4e4e7, #71717a, #ffffff);
 			background-size: 200% auto;
 			color: transparent;
 			-webkit-background-clip: text;
 			animation: rainbowShift 6s linear infinite;
-			filter: drop-shadow(0 0 4px rgba(255, 100, 255, 0.35));
+			filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
 		}
 
 		@keyframes rainbowShift {
@@ -445,33 +504,63 @@
 			100% { background-position: 200% center; }
 		}
 
-		.particle-uwu {
+		.particle-face {
 			position: absolute;
-			font-size: 9px;
-			color: #ff88ff;
+			font-size: 10px;
+			color: #e4e4e7;
 			font-weight: 700;
 			pointer-events: none;
 			animation: burstOut 2.2s ease-out forwards;
 			opacity: 0;
-			text-shadow: 0 0 5px #ff44ff;
+			text-shadow: 0 0 5px #ffffff;
 		}
 
 		.glowing-love {
 			display: inline-block;
 			position: relative;
-			color: #ff2255;
+			color: #ff2a5f;
 			font-weight: 800;
-			text-shadow: 0 0 10px #ff0044, 0 0 20px #ff0044;
+			text-shadow: 0 0 8px #ff2a5f, 0 0 16px rgba(255, 42, 95, 0.6);
 		}
 
 		.particle-heart {
 			position: absolute;
 			font-size: 10px;
-			color: #ff3366;
+			color: #ff2a5f;
 			pointer-events: none;
 			animation: burstOut 2s ease-out forwards;
 			opacity: 0;
-			text-shadow: 0 0 8px #ff0033;
+			text-shadow: 0 0 8px #ff2a5f;
+		}
+
+		.glowing-puppygirls {
+			display: inline-block;
+			position: relative;
+			color: #e2e8f0;
+			font-weight: 700;
+			text-shadow: 0 0 8px rgba(226, 232, 240, 0.8), 0 0 16px rgba(161, 161, 170, 0.5);
+		}
+
+		.particle-puppygirl {
+			position: absolute;
+			font-size: 9px;
+			color: #e2e8f0;
+			pointer-events: none;
+			animation: burstOut 2.4s ease-out forwards;
+			opacity: 0;
+			text-shadow: 0 0 6px #ffffff;
+			white-space: nowrap;
+		}
+
+		.particle-puppygirl-overlay {
+			position: absolute;
+			font-size: 10px;
+			font-weight: 700;
+			pointer-events: none;
+			animation: burstOut 2.5s ease-out forwards;
+			opacity: 0;
+			white-space: nowrap;
+			z-index: 12;
 		}
 
 		@keyframes burstOut {
@@ -487,17 +576,29 @@
 
 		.gibberish-text {
 			font-family: monospace;
-			color: #a855f7;
+			color: #a1a1aa;
 			letter-spacing: 1px;
-			text-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
+			text-shadow: 0 0 6px rgba(161, 161, 170, 0.4);
+		}
+
+		#age-target {
+			font-family: monospace;
+			color: #e4e4e7;
+			font-weight: 700;
+			text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
 		}
 
 		.recent-card {
 			position: relative;
+			height: 290px;
 			min-height: 290px;
 			max-height: 290px;
 			display: flex;
 			flex-direction: column;
+			overflow: visible;
+			flex-shrink: 0;
+			width: 100%;
+			min-width: 0;
 		}
 
 		.anime-resting-overlay {
@@ -507,7 +608,7 @@
 			height: 150px;
 			z-index: 10;
 			pointer-events: none;
-			filter: drop-shadow(0 10px 14px rgba(0,0,0,0.6));
+			filter: drop-shadow(0 10px 14px rgba(0,0,0,0.8));
 		}
 
 		.recent-header-row {
@@ -516,32 +617,34 @@
 			align-items: center;
 			margin-bottom: 14px;
 			flex-shrink: 0;
+			min-width: 0;
 		}
 
 		.search-mock {
 			display: flex;
 			align-items: center;
 			gap: 6px;
-			background: rgba(0, 0, 0, 0.35);
+			background: rgba(0, 0, 0, 0.4);
 			border: 1px solid rgba(255, 255, 255, 0.08);
 			border-radius: 6px;
 			padding: 4px 10px;
 			font-size: 11px;
-			color: #64748b;
+			color: #71717a;
+			flex-shrink: 0;
 		}
 
 		.search-input {
 			background: transparent;
 			border: none;
 			outline: none;
-			color: #e2e8f0;
+			color: #e4e4e7;
 			font-size: 11px;
 			width: 90px;
 			font-family: inherit;
 		}
 
 		.search-input::placeholder {
-			color: #64748b;
+			color: #71717a;
 		}
 
 		.tracks-feed {
@@ -549,24 +652,27 @@
 			flex-direction: column;
 			gap: 10px;
 			overflow-y: auto;
+			overflow-x: hidden;
 			padding-right: 4px;
 			touch-action: pan-y;
+			height: calc(100% - 35px);
 			flex: 1;
+			min-width: 0;
 		}
 
 		.tracks-feed::-webkit-scrollbar {
 			width: 4px;
 		}
 		.tracks-feed::-webkit-scrollbar-track {
-			background: rgba(0, 0, 0, 0.2);
+			background: rgba(0, 0, 0, 0.3);
 			border-radius: 4px;
 		}
 		.tracks-feed::-webkit-scrollbar-thumb {
-			background: rgba(255, 255, 255, 0.15);
+			background: rgba(255, 255, 255, 0.12);
 			border-radius: 4px;
 		}
 		.tracks-feed::-webkit-scrollbar-thumb:hover {
-			background: rgba(168, 85, 247, 0.5);
+			background: rgba(255, 255, 255, 0.3);
 		}
 
 		.track-item {
@@ -574,10 +680,12 @@
 			align-items: center;
 			justify-content: space-between;
 			padding: 8px 12px;
-			background: rgba(0, 0, 0, 0.25);
+			background: rgba(0, 0, 0, 0.3);
 			border: 1px solid rgba(255, 255, 255, 0.04);
 			border-radius: 10px;
 			transition: all 0.2s ease;
+			min-width: 0;
+			width: 100%;
 		}
 
 		.track-item:hover {
@@ -590,6 +698,7 @@
 			align-items: center;
 			gap: 12px;
 			min-width: 0;
+			flex: 1;
 		}
 
 		.track-art-container {
@@ -599,7 +708,7 @@
 			flex-shrink: 0;
 			border-radius: 6px;
 			overflow: hidden;
-			background: #18181b;
+			background: #121214;
 		}
 
 		.track-art {
@@ -611,7 +720,7 @@
 		.track-play-overlay {
 			position: absolute;
 			inset: 0;
-			background: rgba(0, 0, 0, 0.5);
+			background: rgba(0, 0, 0, 0.6);
 			display: flex;
 			align-items: center;
 			justify-content: center;
@@ -629,12 +738,13 @@
 			flex-direction: column;
 			gap: 2px;
 			min-width: 0;
+			flex: 1;
 		}
 
 		.track-name {
 			font-size: 13px;
 			font-weight: 600;
-			color: #f1f5f9;
+			color: #f4f4f5;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -642,7 +752,7 @@
 
 		.track-artist {
 			font-size: 11px;
-			color: #64748b;
+			color: #71717a;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -653,6 +763,7 @@
 			align-items: center;
 			gap: 10px;
 			flex-shrink: 0;
+			margin-left: 10px;
 		}
 
 		.service-icon {
@@ -665,7 +776,7 @@
 
 		.track-time {
 			font-size: 10px;
-			color: #475569;
+			color: #52525b;
 		}
 
 		.audio-player-bar {
@@ -673,9 +784,9 @@
 			bottom: 24px;
 			left: 50%;
 			transform: translateX(-50%) translateY(160px);
-			background: rgba(18, 22, 31, 0.88);
-			border: 1px solid rgba(255, 255, 255, 0.12);
-			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.85);
+			background: rgba(13, 13, 15, 0.92);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
 			backdrop-filter: blur(20px);
 			border-radius: 16px;
 			padding: 10px 16px;
@@ -687,7 +798,7 @@
 			width: 90%;
 			max-width: 620px;
 			transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-			background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 2px, transparent 2px, transparent 6px);
+			background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 6px);
 		}
 
 		.audio-player-bar.active { 
@@ -708,7 +819,7 @@
 			border-radius: 8px;
 			object-fit: cover;
 			flex-shrink: 0;
-			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 		}
 
 		.player-info {
@@ -730,7 +841,7 @@
 
 		.player-artist {
 			font-size: 11px;
-			color: #94a3b8;
+			color: #a1a1aa;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -746,7 +857,7 @@
 		.player-toggle-btn {
 			background: transparent;
 			border: none;
-			color: #e2e8f0;
+			color: #e4e4e7;
 			font-size: 16px;
 			cursor: pointer;
 			display: flex;
@@ -771,7 +882,7 @@
 			align-items: center;
 			gap: 8px;
 			font-size: 10px;
-			color: #94a3b8;
+			color: #a1a1aa;
 		}
 
 		.player-slider {
@@ -780,7 +891,7 @@
 			width: 100%;
 			height: 4px;
 			border-radius: 2px;
-			background: rgba(255, 255, 255, 0.15);
+			background: rgba(255, 255, 255, 0.12);
 			outline: none;
 			cursor: pointer;
 		}
@@ -791,12 +902,23 @@
 			width: 10px;
 			height: 10px;
 			border-radius: 50%;
-			background: #cbd5e1;
+			background: #a1a1aa;
 			cursor: pointer;
 			transition: transform 0.1s ease;
 		}
 
-		.player-slider::-webkit-slider-thumb:hover {
+		.player-slider::-moz-range-thumb {
+			width: 10px;
+			height: 10px;
+			border: none;
+			border-radius: 50%;
+			background: #a1a1aa;
+			cursor: pointer;
+			transition: transform 0.1s ease;
+		}
+
+		.player-slider::-webkit-slider-thumb:hover,
+		.player-slider::-moz-range-thumb:hover {
 			transform: scale(1.25);
 			background: #ffffff;
 		}
@@ -816,7 +938,7 @@
 		.player-close-btn {
 			background: transparent;
 			border: none;
-			color: #64748b;
+			color: #71717a;
 			font-size: 16px;
 			cursor: pointer;
 			padding: 4px;
@@ -835,7 +957,7 @@
 		<div class="top-grid">
 			<div class="card profile-card">
 				<div class="banner-container">
-					<img class="banner-img" id="banner-img" src="banner.png" alt="" onerror="tryNextBannerFormat(this)" />
+					<img class="banner-img" id="banner-img" alt="" />
 				</div>
 				<div class="profile-body">
 					<div class="profile-header-row">
@@ -858,20 +980,21 @@
 							<span class="username" id="username">pray</span>
 							<div class="discord-badges-inline" id="discord-badges"></div>
 						</div>
-						<div class="status-text">teto 4 life</div>
+						<div class="status-text" id="status-text"></div>
 					</div>
 				</div>
 			</div>
 
 			<div class="card activity-card" id="activity-card">
-				<i class="fa-solid fa-moon activity-icon-bg" id="activity-bg-icon"></i>
-				<div class="activity-art-wrap" id="activity-art-wrap">
-					<i class="fa-regular fa-image" style="color: #475569; font-size: 22px;"></i>
-				</div>
-				<div class="activity-info">
-					<div class="activity-header-lbl" id="activity-header-lbl">LISTENING TO SPOTIFY</div>
-					<div class="activity-title" id="activity-title">No Current Activity</div>
-					<div class="activity-sub" id="activity-sub"></div>
+				<i class="fa-solid fa-moon activity-icon-bg"></i>
+				<div class="activity-row">
+					<div class="activity-art-wrap">
+						<i class="fa-regular fa-image" style="color: #52525b; font-size: 21px;"></i>
+					</div>
+					<div class="activity-info">
+						<div class="activity-header-lbl">NO CURRENT ACTIVITY</div>
+						<div class="activity-title">No Current Activity</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -884,25 +1007,25 @@
 				<div class="about-section">
 					<div class="about-heading">Who am I?</div>
 					<div class="about-text">
-						i'm <span class="rainbow-zack" id="zack-target">pray</span> - im <span class="gibberish-text" id="gibberish-target">‡πçø═‡...</span>
+						i'm <span class="rainbow-zack" id="zack-target">pray</span> im from <span class="gibberish-text" id="gibberish-target">‡πçø═‡...</span> and im <span id="age-target">00</span> years old
 					</div>
 				</div>
 
 				<div class="about-section">
 					<div class="about-heading">My Interests</div>
 					<div class="about-text">
-						i <span class="glowing-love" id="love-target">LOVE</span> puppygirls, im also pretty good at minecraft
+						i <span class="glowing-love" id="love-target">LOVE</span> <span class="glowing-puppygirls" id="puppygirls-target">puppygirls</span> , minecraft and hypercore
 					</div>
 
 					<div class="socials-column">
 						<a href="https://open.spotify.com/playlist/5C9ZyuEfQJ1Sa6zp1yL3r9?si=rYg-YT9RRYqY6W69AgWaog&utm_source=copy-link" target="_blank" class="social-btn spotify" onmousemove="spawnButtonSparkle(event, this, '#1ed760')">
-							<svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm5.521 17.341c-.217.357-.68.473-1.037.256-2.837-1.733-6.408-2.126-10.612-1.163-.404.093-.811-.161-.904-.565-.093-.404.161-.811.565-.904 4.606-1.053 8.563-.604 11.733 1.336.357.217.473.68.255 1.036zm1.474-3.277c-.273.444-.853.585-1.297.312-3.246-1.996-8.196-2.574-12.036-1.408-.495.15-1.018-.129-1.168-.623-.15-.494.129-1.018.623-1.168 4.385-1.332 9.844-.688 13.566 1.6 1.6 1.6 1.6.444 1.297-.273.444zM19.123 10.74c-.328.528-1.02.695-1.548.368-3.712-2.204-9.873-2.411-13.435-1.33-.593.18-1.22-.16-1.4-.753-.18-.593.16-1.22.753-1.4 4.1-1.245 10.916-.998 15.262 1.58.528.327.695 1.02.368 1.545z"/></svg> Spotify
+							<img src="spotifyicon.png" class="social-btn-icon" alt="" /> Spotify
 						</a>
-						<a href="https://www.roblox.com/users/9769080868/profile" target="_blank" class="social-btn roblox" onmousemove="spawnButtonSparkle(event, this, '#c0c0c0')">
-							<svg viewBox="0 0 24 24"><path d="M18.5 5.5L5.5 1.5 1.5 14.5 14.5 18.5 5.5zM10.5 11.5L9 11l.5-1.5 1.5.5-.5 1.5z"/></svg> Roblox
+						<a href="https://www.tiktok.com/@moralst" target="_blank" class="social-btn tiktok" onmousemove="spawnTikTokSparkle(event, this)">
+							<img src="tiktokicon.png" class="social-btn-icon" alt="" /> TikTok
 						</a>
 						<a href="https://t.me/misrepent" target="_blank" class="social-btn telegram" onmousemove="spawnButtonSparkle(event, this, '#38bdf8')">
-							<i class="fa-brands fa-telegram"></i> Telegram
+							<img src="telegramicon.png" class="social-btn-icon" alt="" /> Telegram
 						</a>
 					</div>
 				</div>
@@ -913,9 +1036,8 @@
 				</div>
 			</div>
 
-			<img class="anime-resting-overlay" src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG34.png" alt="" />
-
 			<div class="card recent-card">
+				<img class="anime-resting-overlay" src="puppygirl.png" alt="" />
 				<div class="recent-header-row">
 					<div class="card-title" style="margin-bottom:0;">Recent <span style="color:#fff;">Streams</span></div>
 					<div class="search-mock">
@@ -925,7 +1047,7 @@
 				</div>
 
 				<div class="tracks-feed" id="tracks-feed">
-					<div style="color: #475569; font-size: 11px; text-align: center; padding: 15px;">
+					<div style="color: #52525b; font-size: 11px; text-align: center; padding: 15px;">
 						Fetching plays...
 					</div>
 				</div>
@@ -949,7 +1071,7 @@
 
 			<div class="player-controls-stack">
 				<div class="player-ctrl-row">
-					<i class="fa-solid fa-volume-high" style="font-size: 11px;"></i>
+					<i class="fa-solid fa-volume-high" style="font-size: 10.5px;"></i>
 					<input type="range" class="player-slider" id="volume-slider" min="0" max="100" value="67" oninput="setVolume(this.value)" />
 					<span class="vol-percent-lbl" id="volume-val">67%</span>
 				</div>
@@ -977,16 +1099,12 @@
 		let allFetchedTracks = [];
 
 		const usernameEl = document.getElementById("username");
+		const statusTextEl = document.getElementById("status-text");
 		const avatarEl = document.getElementById("avatar");
 		const statusBadgeEl = document.getElementById("status-badge");
 		const badgesContainer = document.getElementById("discord-badges");
 		const tracksFeed = document.getElementById("tracks-feed");
-
-		const activityArtWrap = document.getElementById("activity-art-wrap");
-		const activityHeaderLbl = document.getElementById("activity-header-lbl");
-		const activityTitle = document.getElementById("activity-title");
-		const activitySub = document.getElementById("activity-sub");
-		const activityBgIcon = document.getElementById("activity-bg-icon");
+		const activityCard = document.getElementById("activity-card");
 
 		const playerBar = document.getElementById("audio-player-bar");
 		const playerArt = document.getElementById("player-art");
@@ -1003,8 +1121,8 @@
 		const STATUS_SVGS = {
 			online: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#22c55e"/></svg>`,
 			idle: `<svg viewBox="0 0 16 16"><path fill="#f59e0b" d="M12 10a6 6 0 0 1-6-6 6.07 6.07 0 0 1 .53-2.43A8 8 0 1 0 14 11.47 6.07 6.07 0 0 1 12 10z"/></svg>`,
-			dnd: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#ef4444"/><rect x="3" y="6.5" width="10" height="3" rx="1.5" fill="#12161f"/></svg>`,
-			offline: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#71717a"/><circle cx="8" cy="8" r="4" fill="#12161f"/></svg>`
+			dnd: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#ef4444"/><rect x="3" y="6.5" width="10" height="3" rx="1.5" fill="#0d0d0f"/></svg>`,
+			offline: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/><circle cx="8" cy="8" r="4" fill="#0d0d0f"/></svg>`
 		};
 
 		const faviconExtensions = ["favicon.png", "favicon.gif", "favicon.ico", "favicon.jpg", "favicon.jpeg", "favicon.webp"];
@@ -1029,16 +1147,33 @@
 		}
 		initFavicon();
 
-		const bannerExtensions = ["banner.png", "banner.gif", "banner.jpeg", "banner.jpg", "banner.webp"];
+		const bannerExtensions = ["banner.gif", "banner.png", "banner.jpeg", "banner.jpg", "banner.webp"];
 		let bannerIdx = 0;
-		function tryNextBannerFormat(img) {
-			bannerIdx++;
-			if (bannerIdx < bannerExtensions.length) {
-				img.src = bannerExtensions[bannerIdx];
-			} else {
-				img.style.display = 'none';
+		function initBanner() {
+			const bannerImg = document.getElementById("banner-img");
+			const bannerContainer = document.querySelector(".banner-container");
+			const img = new Image();
+			
+			function tryNextBanner() {
+				if (bannerIdx >= bannerExtensions.length) {
+					bannerImg.style.display = 'none';
+					bannerContainer.style.background = '#0d0d0f';
+					return;
+				}
+				const currentSrc = bannerExtensions[bannerIdx];
+				img.src = currentSrc;
+				img.onload = () => {
+					bannerImg.src = currentSrc;
+					bannerImg.style.display = 'block';
+				};
+				img.onerror = () => {
+					bannerIdx++;
+					tryNextBanner();
+				};
 			}
+			tryNextBanner();
 		}
+		initBanner();
 
 		function updateUKTime() {
 			const now = new Date();
@@ -1083,39 +1218,135 @@
 				}
 			}
 
+			// Custom Status vs Username Handle logic
+			const customStatus = data.activities ? data.activities.find(a => a.type === 4) : null;
+			if (customStatus && (customStatus.state || customStatus.emoji)) {
+				let statusHTML = "";
+				if (customStatus.emoji) {
+					if (customStatus.emoji.id) {
+						const ext = customStatus.emoji.animated ? "gif" : "png";
+						statusHTML += `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${ext}" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;" alt="" />`;
+					} else if (customStatus.emoji.name) {
+						statusHTML += `${customStatus.emoji.name} `;
+					}
+				}
+				if (customStatus.state) {
+					statusHTML += escapeHTML(customStatus.state);
+				}
+				statusTextEl.innerHTML = statusHTML;
+			} else if (user && user.username) {
+				statusTextEl.textContent = `@${user.username}`;
+			}
+
 			const st = data.discord_status || "offline";
 			statusBadgeEl.innerHTML = STATUS_SVGS[st] || STATUS_SVGS.offline;
 
+			// Gather all active activities dynamically
+			let activityList = [];
+
 			if (data.spotify) {
-				activityBgIcon.className = "fa-brands fa-spotify activity-icon-bg";
-				activityHeaderLbl.textContent = "LISTENING TO SPOTIFY";
-				activityTitle.textContent = data.spotify.song;
-				activitySub.textContent = `by ${data.spotify.artist}`;
-				activityArtWrap.innerHTML = `<img src="${data.spotify.album_art_url}" alt="" />`;
-			} 
-			else if (data.activities && data.activities.length > 0) {
-				const act = data.activities.find(a => a.type !== 4) || data.activities[0];
-				activityHeaderLbl.textContent = act.type === 0 ? "PLAYING A GAME" : (act.type === 3 ? "WATCHING" : "ACTIVE NOW");
-				activityTitle.textContent = act.name || "Custom Activity";
-				activitySub.textContent = act.details || act.state || "Active on Discord";
-				activityBgIcon.className = "fa-solid fa-gamepad activity-icon-bg";
-				
-				if (act.assets && act.assets.large_image) {
-					const imgId = act.assets.large_image;
-					const artUrl = imgId.startsWith("spotify:") 
-						? `https://i.scdn.co/image/${imgId.replace('spotify:', '')}`
-						: `https://cdn.discordapp.com/app-assets/${act.application_id}/${imgId}.png`;
-					activityArtWrap.innerHTML = `<img src="${artUrl}" alt="" />`;
-				} else {
-					activityArtWrap.innerHTML = `<i class="fa-solid fa-headset" style="color:#a855f7; font-size:24px;"></i>`;
-				}
-			} 
-			else {
-				activityBgIcon.className = "fa-solid fa-moon activity-icon-bg";
-				activityHeaderLbl.textContent = "LISTENING TO SPOTIFY";
-				activityTitle.textContent = "No Current Activity";
-				activitySub.textContent = "";
-				activityArtWrap.innerHTML = `<i class="fa-regular fa-image" style="color: #475569; font-size: 22px;"></i>`;
+				const spUrl = data.spotify.track_id 
+					? `https://open.spotify.com/track/${data.spotify.track_id}` 
+					: `https://open.spotify.com/search/${encodeURIComponent(data.spotify.artist + ' ' + data.spotify.song)}`;
+
+				activityList.push({
+					header: 'LISTENING TO SPOTIFY',
+					title: data.spotify.song,
+					sub: `by ${data.spotify.artist}`,
+					artUrl: data.spotify.album_art_url,
+					iconClass: 'fa-brands fa-spotify',
+					songUrl: spUrl,
+					platform: 'spotify'
+				});
+			}
+
+			if (data.activities && data.activities.length > 0) {
+				const nonStatusActs = data.activities.filter(a => a.type !== 4);
+				nonStatusActs.forEach(act => {
+					if (act.name && act.name.toLowerCase() === "spotify" && data.spotify) return;
+
+					let header = "ACTIVE NOW";
+					let isMusic = false;
+					if (act.type === 0) header = "PLAYING A GAME";
+					else if (act.type === 1) header = "STREAMING";
+					else if (act.type === 2) { header = "LISTENING TO"; isMusic = true; }
+					else if (act.type === 3) header = "WATCHING";
+					else if (act.type === 5) header = "COMPETING IN";
+
+					let artUrl = null;
+					if (act.assets && act.assets.large_image) {
+						const imgId = act.assets.large_image;
+						artUrl = imgId.startsWith("spotify:") 
+							? `https://i.scdn.co/image/${imgId.replace('spotify:', '')}`
+							: `https://cdn.discordapp.com/app-assets/${act.application_id}/${imgId}.png`;
+					}
+
+					let songUrl = null;
+					let platform = 'soundcloud';
+					if (isMusic || (act.name && act.name.toLowerCase().includes("soundcloud"))) {
+						songUrl = `https://soundcloud.com/search?q=${encodeURIComponent((act.details || '') + ' ' + (act.state || act.name || ''))}`;
+					}
+
+					activityList.push({
+						header: header,
+						title: act.name || "Custom Activity",
+						sub: act.details || act.state || "",
+						artUrl: artUrl,
+						iconClass: 'fa-solid fa-gamepad',
+						songUrl: songUrl,
+						platform: platform
+					});
+				});
+			}
+
+			if (activityList.length === 0) {
+				activityCard.innerHTML = `
+					<i class="fa-solid fa-moon activity-icon-bg"></i>
+					<div class="activity-row">
+						<div class="activity-art-wrap">
+							<i class="fa-regular fa-image" style="color: #52525b; font-size: 21px;"></i>
+						</div>
+						<div class="activity-info">
+							<div class="activity-header-lbl">NO CURRENT ACTIVITY</div>
+							<div class="activity-title">No Current Activity</div>
+						</div>
+					</div>
+				`;
+			} else {
+				let html = `<i class="fa-solid fa-bolt activity-icon-bg"></i>`;
+				activityList.forEach(act => {
+					const artContent = act.artUrl 
+						? `<img src="${act.artUrl}" alt="" />`
+						: `<i class="${act.iconClass}" style="color:#d4d4d8; font-size:22px;"></i>`;
+
+					let buttonHTML = "";
+					if (act.songUrl) {
+						if (act.platform === 'spotify') {
+							buttonHTML = `
+								<a class="open-song-btn spotify-btn" href="${act.songUrl}" target="_blank" title="Open on Spotify">
+									<i class="fa-brands fa-spotify"></i>
+								</a>`;
+						} else {
+							buttonHTML = `
+								<a class="open-song-btn soundcloud-btn" href="${act.songUrl}" target="_blank" title="Open on SoundCloud">
+									<i class="fa-brands fa-soundcloud"></i>
+								</a>`;
+						}
+					}
+
+					html += `
+						${buttonHTML}
+						<div class="activity-row">
+							<div class="activity-art-wrap">${artContent}</div>
+							<div class="activity-info">
+								<div class="activity-header-lbl">${escapeHTML(act.header)}</div>
+								<div class="activity-title">${escapeHTML(act.title)}</div>
+								${act.sub ? `<div class="activity-sub">${escapeHTML(act.sub)}</div>` : ''}
+							</div>
+						</div>
+					`;
+				});
+				activityCard.innerHTML = html;
 			}
 		}
 
@@ -1155,47 +1386,92 @@
 			};
 		}
 
+		// Comprehensive artwork & audio preview fallback engine
 		async function fetchTrackData(trackName, artistName) {
-			const cleanTitle = trackName.replace(/[\(\[\{].*?[\)\]\}]/g, '').trim();
+			const cleanTitle = trackName
+				.replace(/[\(\[\{].*?[\)\]\}]/g, '')
+				.replace(/ft\.?|feat\.?/gi, '')
+				.replace(/remastered/gi, '')
+				.trim();
 			const query = encodeURIComponent(`${artistName} ${cleanTitle}`);
 
+			let result = { artUrl: null, previewUrl: null };
+
+			// 1. iTunes API
 			try {
 				const res = await fetch(`https://itunes.apple.com/search?term=${query}&entity=song&limit=1`);
 				const data = await res.json();
 				if (data.results && data.results.length > 0) {
 					const item = data.results[0];
-					return {
-						artUrl: item.artworkUrl100 ? item.artworkUrl100.replace('100x100bb', '300x300bb') : null,
-						previewUrl: item.previewUrl || null
-					};
+					result.artUrl = item.artworkUrl100 ? item.artworkUrl100.replace('100x100bb', '300x300bb') : null;
+					result.previewUrl = item.previewUrl || null;
+					if (result.artUrl && result.previewUrl) return result;
 				}
 			} catch (e) {}
 
-			try {
-				const scSearch = await fetch(`https://soundcloud.com/oembed?format=json&url=https://soundcloud.com/search?q=${query}`);
-				if (scSearch.ok) {
-					const scData = await scSearch.json();
-					if (scData.thumbnail_url) {
-						return { artUrl: scData.thumbnail_url, previewUrl: null };
-					}
-				}
-			} catch (e) {}
-
+			// 2. Deezer API
 			try {
 				const dzRes = await fetch(`https://api.deezer.com/search?q=${query}&limit=1`);
 				if (dzRes.ok) {
 					const dzData = await dzRes.json();
 					if (dzData.data && dzData.data.length > 0) {
 						const dzTrack = dzData.data[0];
-						return {
-							artUrl: dzTrack.album?.cover_medium || dzTrack.album?.cover_big,
-							previewUrl: dzTrack.preview || null
-						};
+						if (!result.artUrl) result.artUrl = dzTrack.album?.cover_medium || dzTrack.album?.cover_big;
+						if (!result.previewUrl) result.previewUrl = dzTrack.preview || null;
+						if (result.artUrl && result.previewUrl) return result;
 					}
 				}
 			} catch (e) {}
 
-			return { artUrl: null, previewUrl: null };
+			// 3. Spotify Embed Search
+			try {
+				if (!result.artUrl) {
+					const spRes = await fetch(`https://open.spotify.com/oembed?url=https://open.spotify.com/search/${query}`);
+					if (spRes.ok) {
+						const spData = await spRes.json();
+						if (spData.thumbnail_url) result.artUrl = spData.thumbnail_url;
+					}
+				}
+			} catch (e) {}
+
+			// 4. SoundCloud oEmbed Fallback
+			try {
+				if (!result.artUrl) {
+					const scSearch = await fetch(`https://soundcloud.com/oembed?format=json&url=https://soundcloud.com/search?q=${query}`);
+					if (scSearch.ok) {
+						const scData = await scSearch.json();
+						if (scData.thumbnail_url) result.artUrl = scData.thumbnail_url;
+					}
+				}
+			} catch (e) {}
+
+			return result;
+		}
+
+		// Full-song stream resolver fallback
+		async function fetchFullSongStream(title, artist) {
+			const cleanTitle = title.replace(/[\(\[\{].*?[\)\]\}]/g, '').trim();
+			const query = encodeURIComponent(`${artist} - ${cleanTitle}`);
+			
+			try {
+				const res = await fetch(`https://pipedapi.kavin.rocks/search?q=${query}&filter=music_songs`);
+				if (res.ok) {
+					const data = await res.json();
+					if (data.items && data.items.length > 0) {
+						const videoId = data.items[0].url.split('v=')[1];
+						if (videoId) {
+							const streamRes = await fetch(`https://pipedapi.kavin.rocks/streams/${videoId}`);
+							if (streamRes.ok) {
+								const streamData = await streamRes.json();
+								const audioStream = streamData.audioStreams?.find(s => s.mimeType.includes('audio/webm') || s.mimeType.includes('audio/mp4'));
+								if (audioStream) return audioStream.url;
+							}
+						}
+					}
+				}
+			} catch (e) {}
+
+			return `https://music-api.gokotta.workers.dev/stream?query=${query}`;
 		}
 
 		async function fetchRecentPlays() {
@@ -1219,7 +1495,7 @@
 
 				renderTracks(allFetchedTracks);
 			} catch (e) {
-				tracksFeed.innerHTML = `<div style="color:#475569; font-size:11px; text-align:center;">Failed to load tracks.</div>`;
+				tracksFeed.innerHTML = `<div style="color:#52525b; font-size:11px; text-align:center;">Failed to load tracks.</div>`;
 			}
 		}
 
@@ -1234,7 +1510,7 @@
 
 		function renderTracks(tracksList) {
 			if (!tracksList || tracksList.length === 0) {
-				tracksFeed.innerHTML = `<div style="color:#475569; font-size:11px; text-align:center; padding: 15px;">No matching tracks found.</div>`;
+				tracksFeed.innerHTML = `<div style="color:#52525b; font-size:11px; text-align:center; padding: 15px;">No matching tracks found.</div>`;
 				return;
 			}
 
@@ -1297,13 +1573,24 @@
 			}
 
 			if (!audioUrl) {
-				alert("No audio snippet available for this track.");
+				audioUrl = await fetchFullSongStream(title, artist);
+			}
+
+			if (!audioUrl) {
+				alert("Could not load audio for this track.");
 				return;
 			}
 
 			audioElement.src = audioUrl;
 			audioElement.volume = volumeSlider.value / 100;
-			audioElement.play();
+			audioElement.play().catch(e => {
+				fetchFullSongStream(title, artist).then(stream => {
+					if (stream) {
+						audioElement.src = stream;
+						audioElement.play();
+					}
+				});
+			});
 
 			playPauseIcon.className = "fa-solid fa-pause";
 			playerBar.classList.add("active");
@@ -1367,9 +1654,10 @@
 		function spawnParticles() {
 			const zackEl = document.getElementById("zack-target");
 			if (zackEl) {
+				const faces = [":)", ":p", "xd"];
 				const p = document.createElement("span");
-				p.className = "particle-uwu";
-				p.textContent = "uwu";
+				p.className = "particle-face";
+				p.textContent = faces[Math.floor(Math.random() * faces.length)];
 				p.style.left = (Math.random() * 20 - 5) + "px";
 				p.style.top = "5px";
 
@@ -1404,8 +1692,67 @@
 				loveEl.appendChild(p);
 				setTimeout(() => p.remove(), 2000);
 			}
+
+			const puppygirlsEl = document.getElementById("puppygirls-target");
+			if (puppygirlsEl) {
+				const p = document.createElement("span");
+				p.className = "particle-puppygirl";
+				p.textContent = "≽^•⩊•^≼";
+				p.style.left = (Math.random() * 40 - 10) + "px";
+				p.style.top = "5px";
+
+				const angle = Math.random() * Math.PI * 2;
+				const dist = 20 + Math.random() * 25;
+				const tx = Math.cos(angle) * dist + "px";
+				const ty = Math.sin(angle) * dist + "px";
+
+				p.style.setProperty('--tx', tx);
+				p.style.setProperty('--ty', ty);
+
+				puppygirlsEl.appendChild(p);
+				setTimeout(() => p.remove(), 2400);
+			}
 		}
 		setInterval(spawnParticles, 700);
+
+		function updateAge() {
+			const ageEl = document.getElementById("age-target");
+			if (ageEl) {
+				const randomAge = Math.floor(Math.random() * 100);
+				ageEl.textContent = randomAge < 10 ? `0${randomAge}` : `${randomAge}`;
+			}
+		}
+		setInterval(updateAge, 50);
+
+		function spawnPuppygirlOverlayParticles() {
+			const recentCard = document.querySelector(".recent-card");
+			if (recentCard) {
+				const sounds = ["uwu", "meow", "purr", "mrrp"];
+				const colors = ["#ffffff", "#99e6ff", "#2563eb"];
+				const p = document.createElement("span");
+				p.className = "particle-puppygirl-overlay";
+				p.textContent = sounds[Math.floor(Math.random() * sounds.length)];
+
+				const chosenColor = colors[Math.floor(Math.random() * colors.length)];
+				p.style.color = chosenColor;
+				p.style.textShadow = `0 0 8px ${chosenColor}`;
+
+				p.style.right = (170 + Math.random() * 60) + "px";
+				p.style.top = (-80 + Math.random() * 30) + "px";
+
+				const angle = Math.random() * Math.PI * 2;
+				const dist = 20 + Math.random() * 25;
+				const tx = Math.cos(angle) * dist + "px";
+				const ty = Math.sin(angle) * dist + "px";
+
+				p.style.setProperty('--tx', tx);
+				p.style.setProperty('--ty', ty);
+
+				recentCard.appendChild(p);
+				setTimeout(() => p.remove(), 2500);
+			}
+		}
+		setInterval(spawnPuppygirlOverlayParticles, 1200);
 
 		function spawnButtonSparkle(e, btn, color) {
 			const rect = btn.getBoundingClientRect();
@@ -1423,6 +1770,12 @@
 
 			btn.appendChild(sparkle);
 			setTimeout(() => sparkle.remove(), 1200);
+		}
+
+		function spawnTikTokSparkle(e, btn) {
+			const colors = ['#2AF0EA', '#FE2858'];
+			const randomColor = colors[Math.floor(Math.random() * colors.length)];
+			spawnButtonSparkle(e, btn, randomColor);
 		}
 
 		const gibberishChars = "⸸#πçø═⸸∆§£xXøØ";
