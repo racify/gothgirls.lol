@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>pray — remove hypesquad badge</title>
+	<link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/x-icon" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=VT323&family=JetBrains+Mono:wght@500;700;800&display=swap');
+
+		:root {
+	        --tooltip-bg: #111214;
+	        --tooltip-text: #f2f3f5;
+	        --tooltip-border: rgba(255, 255, 255, 0.1);
+	        --bg-base: #050505;
+	        --bg-radial: radial-gradient(circle at 50% 50%, rgba(20, 20, 22, 0.8) 0%, rgba(5, 5, 5, 1) 100%);
+			--card-bg: rgba(13, 13, 15, 0.85);
+			--card-border: rgba(255, 255, 255, 0.07);
+			--card-border-hover: rgba(255, 255, 255, 0.18);
+			--text-primary: #e4e4e7;
+			--text-secondary: #a1a1aa;
+			--text-muted: #71717a;
+			--modal-bg: rgba(13, 13, 15, 0.95);
+			--box-bg: rgba(0, 0, 0, 0.3);
+			--box-border: rgba(255, 255, 255, 0.04);
+			--banner-bg: #090a0f;
+			--banner-border: rgba(255, 255, 255, 0.8);
+			--banner-accent: #ef4444;
+			--banner-title: #f87171;
+			--banner-glow: rgba(255, 255, 255, 0.15);
+			--confirm-bg: #09090b;
+			--confirm-border: rgba(255, 255, 255, 0.1);
+			--confirm-box-bg: #121215;
+			--confirm-btn-stay-bg: #121215;
+			--confirm-btn-stay-text: #ffffff;
+			--confirm-btn-proceed-bg: #ffffff;
+			--confirm-btn-proceed-text: #000000;
+			--code-bg: #08080a;
+			--code-border: rgba(255, 255, 255, 0.1);
+			--custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23ffffff'/%3E%3C/svg%3E") 8 8, crosshair;
+		}
+
+		[data-theme="light"] {
+	        --tooltip-bg: #ffffff;
+	        --tooltip-text: #18181b;
+	        --tooltip-border: rgba(0, 0, 0, 0.12);
+	        --bg-base: #e4e4e7;
+	        --bg-radial: radial-gradient(circle at 50% 50%, #f4f4f5 0%, #d4d4d8 100%);
+			--card-bg: rgba(255, 255, 255, 0.85);
+			--card-border: rgba(0, 0, 0, 0.08);
+			--card-border-hover: rgba(0, 0, 0, 0.22);
+			--text-primary: #18181b;
+			--text-secondary: #52525b;
+			--text-muted: #71717a;
+			--modal-bg: rgba(255, 255, 255, 0.95);
+			--box-bg: rgba(0, 0, 0, 0.04);
+			--box-border: rgba(0, 0, 0, 0.08);
+			--banner-bg: #ffffff;
+			--banner-border: rgba(255, 255, 255, 0.9);
+			--banner-accent: #dc2626;
+			--banner-title: #b91c1c;
+			--banner-glow: rgba(0, 0, 0, 0.1);
+			--confirm-bg: #ffffff;
+			--confirm-border: rgba(0, 0, 0, 0.12);
+			--confirm-box-bg: rgba(0, 0, 0, 0.05);
+			--confirm-btn-stay-bg: #e4e4e7;
+			--confirm-btn-stay-text: #18181b;
+			--confirm-btn-proceed-bg: #18181b;
+			--confirm-btn-proceed-text: #ffffff;
+			--code-bg: #ffffff;
+			--code-border: rgba(0, 0, 0, 0.15);
+			--custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23000000'/%3E%3C/svg%3E") 8 8, crosshair;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			user-select: none;
+			touch-action: manipulation;
+			cursor: var(--custom-cursor) !important;
+		}
+
+		html, body {
+			min-height: 100vh;
+			width: 100vw;
+			overflow-x: hidden;
+			background-color: var(--bg-base);
+			background-image: var(--bg-radial);
+			color: var(--text-primary);
+			font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			position: relative;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+		.theme-toggle-btn {
+			position: fixed;
+			top: 24px;
+			left: 28px;
+			z-index: 9999;
+			background: transparent;
+			border: none;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-muted);
+			text-transform: lowercase;
+			letter-spacing: 0.5px;
+			pointer-events: auto;
+			padding: 8px 12px;
+			transition: color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.theme-toggle-btn:hover {
+			color: var(--text-primary);
+			transform: scale(1.1);
+		}
+
+		.top-popups-stack {
+			position: fixed;
+			top: 16px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1000;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+			pointer-events: none;
+		}
+
+		.top-activity-wrapper {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			pointer-events: auto;
+		}
+
+		.top-activity-banner {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			background: var(--banner-bg);
+			border: 1px solid var(--banner-accent) !important;
+			border-top: 1px solid var(--banner-accent) !important;
+			border-left: 3.5px solid var(--banner-accent) !important;
+			border-radius: 4px;
+			padding: 5px 14px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			color: var(--text-primary);
+			box-shadow: 0 0 12px var(--banner-glow), 0 4px 16px var(--banner-glow);
+			clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+			transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+			cursor: pointer !important;
+			white-space: nowrap;
+		}
+
+		.top-act-sub {
+			color: var(--text-muted);
+			font-weight: 500;
+			margin-left: 2px;
+		}
+
+		.top-act-icon-img {
+			width: 14px;
+			height: 14px;
+			object-fit: contain;
+			border-radius: 2px;
+			flex-shrink: 0;
+		}
+
+		.top-act-icon {
+			font-size: 11.5px;
+			color: var(--banner-accent);
+			filter: drop-shadow(0 0 5px var(--banner-accent));
+			transition: color 0.3s ease, filter 0.3s ease;
+		}
+
+		.top-activity-title {
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 0.8px;
+			color: var(--banner-title);
+			transition: color 0.3s ease;
+		}
+
+		.activity-history-popup {
+			position: absolute;
+			top: 100%;
+			margin-top: 10px;
+			width: 280px;
+			background: var(--card-bg);
+			border: 1px solid var(--card-border);
+			border-radius: 6px;
+			padding: 12px 14px;
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(-6px);
+			transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.3s ease;
+			font-family: 'JetBrains Mono', monospace;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+			overflow: hidden;
+		}
+
+		.activity-history-popup::before {
+			content: '';
+			position: absolute;
+			top: -12px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 1px;
+			height: 12px;
+			background: var(--banner-accent);
+			opacity: 0.6;
+		}
+
+		.top-activity-wrapper:hover .activity-history-popup {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+		}
+
+		.history-header {
+			font-size: 9.5px;
+			font-weight: 800;
+			letter-spacing: 1.5px;
+			color: var(--text-muted);
+			text-transform: uppercase;
+		}
+
+		.history-list {
+			display: flex;
+			flex-direction: column;
+			gap: 9px;
+			overflow: hidden;
+		}
+
+		.history-item {
+	        display: flex;
+	        align-items: flex-start;
+	        gap: 8px;
+	        padding-left: 8px;
+	        border-left: 2px solid #10b981;
+	        position: relative;
+	        opacity: 0.55;
+	        transition: opacity 0.2s ease;
+        }
+
+        .history-item:hover {
+	        opacity: 0.95;
+        } 
+
+		.history-item-icon {
+			font-size: 10px;
+			margin-top: 1.5px;
+			flex-shrink: 0;
+		}
+
+		.history-item-content {
+			display: flex;
+			flex-direction: column;
+			gap: 1px;
+			min-width: 0;
+		}
+
+		.history-item-title-row {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			font-size: 10.5px;
+			font-weight: 700;
+		}
+
+		.history-verb {
+			text-transform: uppercase;
+		}
+
+		.history-target {
+			color: var(--text-primary);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.history-item-sub {
+			font-size: 9.5px;
+			color: var(--text-secondary);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.history-item-time {
+			font-size: 8.5px;
+			color: var(--text-muted);
+			margin-top: 1px;
+		}
+
+		.history-active-section {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+			padding-bottom: 8px;
+			margin-bottom: 8px;
+			border-bottom: 1px solid var(--box-border);
+		}
+
+		.history-active-card {
+			display: flex;
+			align-items: flex-start;
+			gap: 10px;
+			padding: 8px 10px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-left: 3px solid var(--banner-accent);
+			border-radius: 6px;
+		}
+
+		.active-app-icon {
+			width: 32px;
+			height: 32px;
+			border-radius: 6px;
+			object-fit: cover;
+			flex-shrink: 0;
+		}
+
+		.active-app-icon-fallback {
+			width: 32px;
+			height: 32px;
+			border-radius: 6px;
+			background: var(--box-bg);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 14px;
+			color: var(--banner-accent);
+			flex-shrink: 0;
+		}
+
+		.active-details {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			min-width: 0;
+		}
+
+		.active-title-row {
+			font-size: 11px;
+			font-weight: 800;
+		}
+
+		.active-sub-text {
+			font-size: 10px;
+			color: var(--text-secondary);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.active-elapsed-text {
+			font-size: 9px;
+			font-weight: 700;
+			color: #10b981;
+			margin-top: 1px;
+		}
+
+		.telegram-bottom-popup {
+			position: fixed !important;
+			bottom: 24px !important;
+			left: 50% !important;
+			transform: translateX(-50%) !important;
+			z-index: 99999 !important;
+			display: inline-flex !important;
+			flex-direction: column !important;
+			align-items: center !important;
+			justify-content: center !important;
+			width: auto !important;
+			min-width: max-content !important;
+			background: var(--banner-bg);
+			border: 1px solid rgba(56, 189, 248, 0.5);
+			border-left: 3.5px solid #38bdf8;
+			border-radius: 6px;
+			padding: 8px 18px;
+			backdrop-filter: blur(16px);
+			box-shadow: 0 8px 24px rgba(0, 136, 204, 0.3);
+			overflow: hidden;
+			cursor: pointer !important;
+			pointer-events: auto;
+			opacity: 1;
+			transition: opacity 0.4s ease, transform 0.4s ease;
+		}
+
+		.telegram-popup-body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			font-weight: 700;
+			color: var(--text-primary);
+			white-space: nowrap;
+			width: 100%;
+		}
+
+		.telegram-popup-icon {
+			font-size: 12px;
+			color: #38bdf8;
+			flex-shrink: 0;
+		}
+
+		.telegram-progress-bar {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			height: 2px;
+			background: #38bdf8;
+			width: 100%;
+			box-shadow: 0 0 8px #38bdf8;
+			animation: elapsesTenSec 10s linear forwards;
+		}
+
+		@keyframes elapsesTenSec {
+			0% { width: 100%; }
+			100% { width: 0%; }
+		}
+
+		.telegram-bottom-popup.hidden {
+			opacity: 0 !important;
+			transform: translate(-50%, 20px) !important;
+			pointer-events: none !important;
+		}
+
+		.blog-container {
+			width: 92%;
+			max-width: 720px;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			position: relative;
+			margin-top: 70px;
+			margin-bottom: 60px;
+			z-index: 10;
+		}
+
+		.blog-nav {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+		}
+
+		.back-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 13px;
+			font-weight: 600;
+			color: var(--text-secondary);
+			text-decoration: none;
+			transition: color 0.2s ease, transform 0.2s ease;
+		}
+
+		.back-btn:hover {
+			color: var(--text-primary);
+			transform: translateX(-3px);
+		}
+
+		.blog-page-title {
+			font-size: 34px;
+			font-weight: 800;
+			letter-spacing: -1px;
+			color: var(--text-primary);
+		}
+
+		.blog-author-bar {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			padding: 12px 16px;
+			background: var(--card-bg);
+			border: 1px solid var(--card-border);
+			border-radius: 12px;
+			backdrop-filter: blur(12px);
+		}
+
+		.author-avatar {
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+
+		.author-info {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.author-name {
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-primary);
+		}
+
+		.article-card {
+			background: var(--card-bg);
+			border: 1px solid var(--card-border);
+			border-radius: 16px;
+			padding: 24px;
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+			backdrop-filter: blur(16px);
+			line-height: 1.6;
+		}
+
+		.section-h2 {
+			font-size: 20px;
+			font-weight: 700;
+			color: var(--text-primary);
+			letter-spacing: -0.3px;
+			margin-top: 8px;
+		}
+
+		.body-text {
+			font-size: 14px;
+			color: var(--text-secondary);
+		}
+
+		.badges-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+			gap: 10px;
+			margin: 4px 0;
+		}
+
+		.badge-box {
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 10px;
+			padding: 12px;
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+		}
+
+		.badge-title {
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-primary);
+			font-family: 'JetBrains Mono', monospace;
+		}
+
+		.badge-desc {
+			font-size: 12px;
+			color: var(--text-muted);
+		}
+
+		.code-block {
+			background: var(--code-bg);
+			border: 1px solid var(--code-border);
+			border-radius: 10px;
+			padding: 14px 16px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 12px;
+			color: #38bdf8;
+			white-space: pre;
+			overflow-x: auto;
+			user-select: text;
+			cursor: text !important;
+		}
+
+		.code-block * {
+			cursor: text !important;
+			user-select: text;
+		}
+
+		.instructions-title {
+			font-weight: 800;
+			font-size: 13px;
+			color: var(--text-primary);
+			font-family: 'JetBrains Mono', monospace;
+			margin-top: 4px;
+		}
+
+		.steps-list {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+			font-size: 13.5px;
+			color: var(--text-secondary);
+			padding-left: 4px;
+		}
+
+		.btn-sparkle {
+			position: absolute;
+			width: 3px;
+			height: 3px;
+			border-radius: 50%;
+			pointer-events: none;
+			animation: particleFloat 1.2s ease-out forwards;
+			z-index: 100;
+		}
+
+		@keyframes particleFloat {
+			0% { opacity: 1; transform: translate(0, 0) scale(1); }
+			100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+		}
+
+		.confirm-modal-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.75);
+			backdrop-filter: blur(8px);
+			z-index: 3000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.25s ease;
+		}
+
+		.confirm-modal-overlay.active {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.confirm-card {
+			background: var(--confirm-bg);
+			border: 1px solid var(--confirm-border);
+			border-radius: 16px;
+			padding: 24px 28px;
+			width: 90%;
+			max-width: 420px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+			display: flex;
+			flex-direction: column;
+			gap: 14px;
+			transform: scale(0.95);
+			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+		}
+
+		.confirm-modal-overlay.active .confirm-card {
+			transform: scale(1);
+		}
+
+		.confirm-title {
+			font-size: 18px;
+			font-weight: 700;
+			color: var(--text-primary);
+			letter-spacing: -0.3px;
+		}
+
+		.confirm-sub {
+			font-size: 12px;
+			color: var(--text-muted);
+			font-weight: 600;
+			text-transform: lowercase;
+			margin-top: -6px;
+		}
+
+		.confirm-url-box {
+			background: var(--confirm-box-bg);
+			border: 1px solid var(--confirm-border);
+			border-radius: 8px;
+			padding: 10px 14px;
+			font-size: 13px;
+			color: var(--text-primary);
+			font-weight: 600;
+			word-break: break-all;
+		}
+
+		.confirm-actions {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 10px;
+			margin-top: 6px;
+		}
+
+		.confirm-btn {
+			padding: 8px 16px;
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 700;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			border: none;
+		}
+
+		.confirm-btn.stay {
+			background: var(--confirm-btn-stay-bg);
+			border: 1px solid var(--confirm-border);
+			color: var(--confirm-btn-stay-text);
+		}
+
+		.confirm-btn.stay:hover {
+			opacity: 0.85;
+		}
+
+		.confirm-btn.proceed {
+			background: var(--confirm-btn-proceed-bg);
+			color: var(--confirm-btn-proceed-text);
+		}
+
+		.confirm-btn.proceed:hover {
+			opacity: 0.88;
+		}
+	</style>
+</head>
+<body>
+
+	<button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()">light</button>
+
+	<div class="top-popups-stack">
+		<div class="top-activity-wrapper">
+			<div class="top-activity-banner" id="top-activity-banner">
+				<i class="fa-solid fa-signal top-act-icon" id="top-act-icon"></i>
+				<span class="top-activity-title" id="top-act-title">OFFLINE</span>
+			</div>
+
+			<div class="activity-history-popup">
+				<div class="history-list" id="history-list">
+					<div style="font-size: 10px; color: #4b5563; text-align: center; padding: 6px;">
+						Connecting live stream...
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="telegram-bottom-popup" id="telegram-popup" onclick="promptExternalLink('https://t.me/misrepent')" onmousemove="spawnButtonSparkle(event, this, '#38bdf8')">
+		<div class="telegram-popup-body">
+			<i class="fa-brands fa-telegram telegram-popup-icon"></i>
+			<span>Contact me on Telegram</span>
+		</div>
+		<div class="telegram-progress-bar"></div>
+	</div>
+
+	<div class="blog-container">
+		<div class="blog-nav">
+			<a href="https://gothgirls.lol/blog/hypesquad" class="back-btn" onclick="promptExternalLink('https://gothgirls.lol/blog/hypesquad'); return false;">
+				<i class="fa-solid fa-arrow-left"></i>
+				<span>Back</span>
+			</a>
+		</div>
+
+		<div class="blog-header-section">
+			<h1 class="blog-page-title">How to Remove or Get Discord HypeSquad Badges</h1>
+		</div>
+
+		<div class="blog-author-bar">
+			<img id="author-avatar" class="author-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="author avatar" />
+			<div class="author-info">
+				<span class="author-name" id="author-name">pray</span>
+			</div>
+		</div>
+
+		<div class="article-card">
+			<h2 class="section-h2">What are Discord HypeSquad Badges?</h2>
+			<p class="body-text">
+				Discord HypeSquad is an opt-in program where users join one of three distinct houses by taking a quick five-question personality quiz. Once joined, a custom badge is displayed directly on your user profile.
+			</p>
+
+			<div class="badges-grid">
+				<div class="badge-box">
+					<span class="badge-title">1: Bravery</span>
+					<span class="badge-desc">Purple Badge (house_id: 1)</span>
+				</div>
+				<div class="badge-box">
+					<span class="badge-title">2: Brilliance</span>
+					<span class="badge-desc">Orange Badge (house_id: 2)</span>
+				</div>
+				<div class="badge-box">
+					<span class="badge-title">3: Balance</span>
+					<span class="badge-desc">Green Badge (house_id: 3)</span>
+				</div>
+			</div>
+
+			<h2 class="section-h2">How to Remove Your HypeSquad Badge</h2>
+			<p class="body-text">
+				If you want to clear your HypeSquad badge without going through profile settings, run this snippet directly in your browser or desktop app console:
+			</p>
+
+			<div class="code-block">let wreq = webpackChunkdiscord_app.push([[Symbol()],{},r=>r]);
+webpackChunkdiscord_app.pop();
+const chunks = Object.entries(wreq.m)
+const findChunkByCode = (...codes) => {
+    for (let i = 0; i < chunks.length; i++) {
+        const [id,func] = chunks[i]
+        const chunkCode = func.toString()
+
+        if (codes.every(code=>chunkCode.includes(code))) return wreq(id)
+    }
+}
+
+const api = Object.values(findChunkByCode("HTTPUtils")).find(e=>e?.get)
+
+api.del({url: "/hypesquad/online"})</div>
+
+			<div class="instructions-title">INSTRUCTIONS:</div>
+			<div class="steps-list">
+				<div>1st Step - click ctrl+shift+i</div>
+				<div>2nd step - navigate to console</div>
+				<div>3rd step - paste in the script and click enter</div>
+				<div>4th step - enjoy having no hypesquad badge anymore!</div>
+			</div>
+
+			<h2 class="section-h2">How to Get a HypeSquad Badge</h2>
+			<p class="body-text">
+				To instantly assign a HypeSquad badge to your account using the internal API client:
+			</p>
+
+			<div class="code-block">let wreq = webpackChunkdiscord_app.push([[Symbol()],{},r=>r]);
+webpackChunkdiscord_app.pop();
+const chunks = Object.entries(wreq.m)
+const findChunkByCode = (...codes) => {
+    for (let i = 0; i < chunks.length; i++) {
+        const [id,func] = chunks[i]
+        const chunkCode = func.toString()
+
+        if (codes.every(code=>chunkCode.includes(code))) return wreq(id)
+    }
+}
+
+const api = Object.values(findChunkByCode("HTTPUtils")).find(e=>e?.get)
+
+api.post({url: "/hypesquad/online",body:{house_id: 1}})</div>
+
+			<div class="steps-list" style="margin-top: 4px;">
+				<div>1: Bravery</div>
+				<div>2: Brilliance</div>
+				<div>3: Balance</div>
+			</div>
+
+			<div class="instructions-title">INSTRUCTIONS:</div>
+			<div class="steps-list">
+				<div>1st Step - click ctrl+shift+i</div>
+				<div>2nd step - navigate to console</div>
+				<div>3rd step - paste in the script and click enter</div>
+				<div>4th step - enjoy your hypesquad badge!</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="confirm-modal-overlay" id="confirm-modal-overlay" onclick="closeConfirmModalOnBackdrop(event)">
+		<div class="confirm-card" onclick="event.stopPropagation()">
+			<div class="confirm-title">leaving so soon?</div>
+			<div class="confirm-sub">this link will take you to</div>
+			<div class="confirm-url-box" id="confirm-target-url">https://gothgirls.lol</div>
+			<div class="confirm-actions">
+				<button class="confirm-btn stay" onclick="closeConfirmModal()">stay</button>
+				<button class="confirm-btn proceed" onclick="proceedToTargetUrl()">proceed</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const DISCORD_ID = "1459602053969215786";
+		let activeRedirectUrl = "";
+
+		setTimeout(() => {
+			const tgPopup = document.getElementById("telegram-popup");
+			if (tgPopup) tgPopup.classList.add("hidden");
+		}, 10000);
+
+		const themeToggleBtn = document.getElementById("theme-toggle-btn");
+		const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)");
+
+		function applyTheme(mode) {
+			document.documentElement.setAttribute("data-theme", mode);
+			themeToggleBtn.textContent = mode === "light" ? "dark" : "light";
+		}
+
+		if (systemPrefersLight.matches) {
+			applyTheme("light");
+		} else {
+			applyTheme("dark");
+		}
+
+		systemPrefersLight.addEventListener("change", (e) => {
+			applyTheme(e.matches ? "light" : "dark");
+		});
+
+		function toggleTheme() {
+			const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+			const newTheme = currentTheme === "light" ? "dark" : "light";
+			applyTheme(newTheme);
+		}
+
+		const topActBanner = document.getElementById("top-activity-banner");
+		const topActTitle = document.getElementById("top-act-title");
+		const topActIcon = document.getElementById("top-act-icon");
+		const historyListEl = document.getElementById("history-list");
+		const authorAvatarEl = document.getElementById("author-avatar");
+		const authorNameEl = document.getElementById("author-name");
+
+		const STATUS_ICONS = {
+			online: "fa-solid fa-circle",
+			idle: "fa-solid fa-moon",
+			dnd: "fa-solid fa-circle-minus",
+			offline: "fa-solid fa-signal"
+		};
+
+		const STATUS_COLORS = {
+			online: "#22c55e",
+			idle: "#f59e0b",
+			dnd: "#ef4444",
+			offline: "#52525b"
+		};
+
+		const STATUS_NAMES = {
+			online: "ONLINE",
+			idle: "IDLE",
+			dnd: "DO NOT DISTURB",
+			offline: "OFFLINE"
+		};
+
+		function getSavedHistory() {
+			try {
+				const saved = localStorage.getItem("pray_real_activity_history");
+				if (saved) return JSON.parse(saved);
+			} catch(e) {}
+			return [
+				{ verb: "STATUS:", target: "DO NOT DISTURB", sub: "Status: DO NOT DISTURB", time: "just now", icon: "fa-solid fa-circle-minus", color: "#ef4444" },
+				{ verb: "CODING IN", target: "Visual Studio Code", sub: "Working on blog.html", time: "1h ago", icon: "fa-solid fa-code", color: "#007acc" },
+				{ verb: "LISTENING TO", target: "Spotify", sub: "Vibing to playlist", time: "2h ago", icon: "fa-brands fa-spotify", color: "#1ed760" }
+			];
+		}
+
+		function saveActivityHistory(history) {
+			try {
+				localStorage.setItem("pray_real_activity_history", JSON.stringify(history.slice(0, 3)));
+			} catch(e) {}
+		}
+
+		function recordNewActivity(verb, target, sub, icon, color) {
+			let history = getSavedHistory();
+			if (history.length > 0 && history[0].target === target && history[0].verb === verb) return;
+
+			history.unshift({
+				verb: verb,
+				target: target,
+				sub: sub,
+				time: "just now",
+				icon: icon,
+				color: color
+			});
+
+			history = history.slice(0, 3);
+			saveActivityHistory(history);
+			renderHistoryList(history);
+		}
+
+		let activeActivityData = null;
+
+		function renderHistoryList(history) {
+			const items = history || getSavedHistory();
+			if (!historyListEl) return;
+
+			let html = "";
+
+			if (activeActivityData) {
+				let activeIconHtml = activeActivityData.imgUrl
+					? `<img src="${activeActivityData.imgUrl}" class="active-app-icon" alt="" />`
+					: `<div class="active-app-icon-fallback"><i class="${activeActivityData.icon}"></i></div>`;
+
+				let elapsedStr = "";
+				if (activeActivityData.timestamps && activeActivityData.timestamps.start) {
+					const elapsedMs = Date.now() - activeActivityData.timestamps.start;
+					const elapsedMins = Math.floor(elapsedMs / 60000);
+					elapsedStr = `${elapsedMins > 0 ? elapsedMins : 1}m elapsed`;
+				}
+
+				html += `
+					<div class="history-active-section">
+						<div class="history-header">ACTIVE</div>
+						<div class="history-active-card">
+							${activeIconHtml}
+							<div class="active-details">
+								<div class="active-title-row">
+									<span class="history-verb" style="color: var(--banner-accent)">${escapeHTML(activeActivityData.verb)}</span>
+									<span class="history-target">${escapeHTML(activeActivityData.target)}</span>
+								</div>
+								${activeActivityData.sub ? `<div class="active-sub-text">${escapeHTML(activeActivityData.sub)}</div>` : ''}
+								${activeActivityData.state ? `<div class="active-sub-text">${escapeHTML(activeActivityData.state)}</div>` : ''}
+								${elapsedStr ? `<div class="active-elapsed-text">${elapsedStr}</div>` : ''}
+							</div>
+						</div>
+					</div>
+				`;
+			}
+
+			if (items && items.length > 0) {
+				html += `<div class="history-header">HISTORY</div>`;
+				html += items.slice(0, 3).map(item => `
+					<div class="history-item" style="border-left-color: ${item.color}">
+						<i class="${item.icon} history-item-icon" style="color: ${item.color}"></i>
+						<div class="history-item-content">
+							<div class="history-item-title-row">
+								<span class="history-verb" style="color: ${item.color}">${escapeHTML(item.verb)}</span>
+								<span class="history-target">${escapeHTML(item.target)}</span>
+							</div>
+							${item.sub ? `<div class="history-item-sub">${escapeHTML(item.sub)}</div>` : ''}
+							<div class="history-item-time">${escapeHTML(item.time)}</div>
+						</div>
+					</div>
+				`).join("");
+			}
+
+			historyListEl.innerHTML = html;
+		}
+
+		function applyPresenceData(data) {
+			if (!data) return;
+			const user = data.discord_user;
+			
+			if (user) {
+				if (authorNameEl) authorNameEl.textContent = user.global_name || user.username || "pray";
+				if (user.avatar && authorAvatarEl) {
+					const ext = user.avatar.startsWith("a_") ? "gif" : "png";
+					authorAvatarEl.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
+				}
+			}
+
+			const st = data.discord_status || "offline";
+			const statusColor = STATUS_COLORS[st] || STATUS_COLORS.offline;
+
+			let chosenActivity = null;
+			const nonStatusActs = data.activities ? data.activities.filter(a => a.type !== 4) : [];
+			const appAct = nonStatusActs[0];
+
+			if (appAct) {
+				let prefix = "PLAYING";
+				let icon = "fa-solid fa-gamepad";
+
+				if (appAct.name.toLowerCase().includes("code")) {
+					prefix = "CODING IN";
+					icon = "fa-solid fa-code";
+				} else if (appAct.name.toLowerCase().includes("minecraft")) {
+					prefix = "MINING IN";
+					icon = "fa-solid fa-cube";
+				} else if (appAct.type === 1) prefix = "STREAMING";
+				else if (appAct.type === 2) prefix = "LISTENING TO";
+				else if (appAct.type === 3) prefix = "WATCHING";
+
+				let imgUrl = null;
+				if (appAct.assets && appAct.assets.large_image) {
+					if (appAct.assets.large_image.startsWith("mp:external")) {
+						imgUrl = `https://media.discordapp.net/${appAct.assets.large_image.replace("mp:", "")}`;
+					} else {
+						imgUrl = `https://cdn.discordapp.com/app-assets/${appAct.application_id}/${appAct.assets.large_image}.png`;
+					}
+				}
+
+				chosenActivity = {
+					icon: icon,
+					imgUrl: imgUrl,
+					verb: prefix,
+					target: appAct.name,
+					sub: appAct.details || appAct.state || "",
+					state: appAct.state || "",
+					timestamps: appAct.timestamps
+				};
+			} else if (data.spotify) {
+				chosenActivity = {
+					icon: "fa-brands fa-spotify",
+					imgUrl: data.spotify.album_art_url || null,
+					verb: "LISTENING TO",
+					target: data.spotify.song,
+					sub: `by ${data.spotify.artist}`,
+					state: data.spotify.album || "",
+					timestamps: { start: data.spotify.timestamps?.start }
+				};
+			}
+
+			document.documentElement.style.setProperty('--banner-accent', statusColor);
+			document.documentElement.style.setProperty('--banner-title', statusColor);
+			document.documentElement.style.setProperty('--banner-glow', statusColor + '35');
+
+			if (chosenActivity) {
+				activeActivityData = chosenActivity;
+
+				let iconHtml = chosenActivity.imgUrl 
+					? `<img src="${chosenActivity.imgUrl}" class="top-act-icon-img" alt="" />`
+					: `<i class="${chosenActivity.icon} top-act-icon" style="color: ${statusColor}"></i>`;
+
+				topActBanner.innerHTML = `
+					${iconHtml}
+					<span class="top-activity-title" style="color: ${statusColor}">
+						${escapeHTML(chosenActivity.verb)} ${escapeHTML(chosenActivity.target)}
+						${chosenActivity.sub ? `<span class="top-act-sub">&middot; ${escapeHTML(chosenActivity.sub)}</span>` : ''}
+					</span>
+				`;
+
+				recordNewActivity(chosenActivity.verb, chosenActivity.target, chosenActivity.sub, chosenActivity.icon, statusColor);
+			} else {
+				activeActivityData = null;
+				const statusName = STATUS_NAMES[st] || STATUS_NAMES.offline;
+				const statusIcon = STATUS_ICONS[st] || STATUS_ICONS.offline;
+
+				topActBanner.innerHTML = `
+					<i class="${statusIcon} top-act-icon" style="color: ${statusColor}"></i>
+					<span class="top-activity-title" style="color: ${statusColor}">${statusName}</span>
+				`;
+
+				recordNewActivity("STATUS:", statusName, `Status: ${statusName}`, statusIcon, statusColor);
+			}
+
+			renderHistoryList();
+		}
+
+		async function fetchDiscordProfile() {
+			try {
+				const res = await fetch(`https://dcdn.dstn.to/profile/${DISCORD_ID}`);
+				if (!res.ok) return;
+				const data = await res.json();
+				const user = data.user || data.account;
+				if (user) {
+					if (authorNameEl) authorNameEl.textContent = user.global_name || user.username || "pray";
+					if (user.avatar && authorAvatarEl) {
+						const ext = user.avatar.startsWith("a_") ? "gif" : "png";
+						authorAvatarEl.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
+					}
+				}
+			} catch (e) {}
+		}
+
+		let socket = null;
+		let heartbeatInterval = null;
+
+		function connectLanyardWebSocket() {
+			if (socket) socket.close();
+			socket = new WebSocket("wss://api.lanyard.rest/socket");
+
+			socket.onmessage = (event) => {
+				const message = JSON.parse(event.data);
+				if (message.op === 1) {
+					if (heartbeatInterval) clearInterval(heartbeatInterval);
+					heartbeatInterval = setInterval(() => {
+						if (socket && socket.readyState === WebSocket.OPEN) {
+							socket.send(JSON.stringify({ op: 3 }));
+						}
+					}, message.d.heartbeat_interval);
+
+					socket.send(JSON.stringify({
+						op: 2,
+						d: { subscribe_to_id: DISCORD_ID }
+					}));
+				}
+
+				if (message.t === "INIT_STATE" || message.t === "PRESENCE_UPDATE") {
+					if (message.d) {
+						applyPresenceData(message.d);
+					}
+				}
+			};
+
+			socket.onclose = () => {
+				if (heartbeatInterval) clearInterval(heartbeatInterval);
+				setTimeout(connectLanyardWebSocket, 5000);
+			};
+		}
+
+		function promptExternalLink(url) {
+			activeRedirectUrl = url;
+			document.getElementById("confirm-target-url").textContent = url;
+			document.getElementById("confirm-modal-overlay").classList.add("active");
+		}
+
+		function closeConfirmModal() {
+			document.getElementById("confirm-modal-overlay").classList.remove("active");
+			activeRedirectUrl = "";
+		}
+
+		function closeConfirmModalOnBackdrop(e) {
+			if (e.target.id === "confirm-modal-overlay") {
+				closeConfirmModal();
+			}
+		}
+
+		function proceedToTargetUrl() {
+			if (activeRedirectUrl) {
+				window.location.href = activeRedirectUrl;
+			}
+			closeConfirmModal();
+		}
+
+		function spawnButtonSparkle(e, btn, color) {
+			const rect = btn.getBoundingClientRect();
+			const sparkle = document.createElement("div");
+			sparkle.className = "btn-sparkle";
+			sparkle.style.background = color;
+			sparkle.style.boxShadow = `0 0 8px ${color}`;
+			sparkle.style.left = (e.clientX - rect.left) + "px";
+			sparkle.style.top = (e.clientY - rect.top) + "px";
+			
+			const dx = (Math.random() - 0.5) * 35 + "px";
+			const dy = (Math.random() - 0.5) * 35 + "px";
+			sparkle.style.setProperty('--dx', dx);
+			sparkle.style.setProperty('--dy', dy);
+
+			btn.appendChild(sparkle);
+			setTimeout(() => sparkle.remove(), 1200);
+		}
+
+		function escapeHTML(str) {
+			return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+		}
+
+		renderHistoryList();
+		connectLanyardWebSocket();
+		fetchDiscordProfile();
+	</script>
+</body>
+</html>
