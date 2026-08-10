@@ -1,4 +1,4 @@
-fixed_blog_html = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
@@ -492,11 +492,6 @@ fixed_blog_html = '''<!DOCTYPE html>
 			color: var(--text-primary);
 		}
 
-		.blog-page-subtitle {
-			font-size: 15px;
-			color: var(--text-secondary);
-		}
-
 		.blog-author-bar {
 			display: flex;
 			align-items: center;
@@ -525,12 +520,6 @@ fixed_blog_html = '''<!DOCTYPE html>
 			font-size: 13px;
 			font-weight: 700;
 			color: var(--text-primary);
-		}
-
-		.author-role {
-			font-size: 11px;
-			color: var(--text-muted);
-			font-family: 'JetBrains Mono', monospace;
 		}
 
 		.blog-list {
@@ -745,7 +734,7 @@ fixed_blog_html = '''<!DOCTYPE html>
 
 	<div class="blog-container">
 		<div class="blog-nav">
-			<a href="https://gothgirls.lol" class="back-btn" onclick="promptExternalLink('https://gothgirls.lol'); return false;">
+			<a href="https://gothgirls.lol/blog" class="back-btn" onclick="promptExternalLink('https://gothgirls.lol/blog'); return false;">
 				<i class="fa-solid fa-arrow-left"></i>
 				<span>Back</span>
 			</a>
@@ -753,52 +742,23 @@ fixed_blog_html = '''<!DOCTYPE html>
 
 		<div class="blog-header-section">
 			<h1 class="blog-page-title">Blog</h1>
-			<p class="blog-page-subtitle">Thoughts, tutorials, and experiences.</p>
 		</div>
 
 		<div class="blog-author-bar">
 			<img id="author-avatar" class="author-avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="author avatar" />
 			<div class="author-info">
 				<span class="author-name" id="author-name">pray</span>
-				<span class="author-role">Author &amp; Creator</span>
 			</div>
 		</div>
 
 		<div class="blog-list" id="blog-list">
-			<a class="blog-post-card" onclick="promptExternalLink('https://gothgirls.lol/blog')">
-				<span class="post-date">July 9, 2026</span>
-				<h2 class="post-title">These Months Have Been 'Exhausting'</h2>
-				<p class="post-snippet">25 going on 26, and I genuinely have no idea what I'm doing. Here's an honest look at the last few months.</p>
+			<a class="blog-post-card" href="gothgirls.lol/blog/hypesquad" onclick="promptExternalLink('https://gothgirls.lol/blog/hypesquad'); return false;">
+				<span class="post-date">August 10, 2026</span>
+				<h2 class="post-title">How to Remove or Get Discord HypeSquad Badges</h2>
+				<p class="post-snippet">A quick guide and script tutorial on how to add or completely remove the HypeSquad Bravery, Brilliance, or Balance badges from your Discord profile using the web console.</p>
 				<div class="post-tags">
-					<span class="post-tag">personal</span>
-					<span class="post-tag">reflection</span>
-				</div>
-			</a>
-
-			<a class="blog-post-card" onclick="promptExternalLink('https://gothgirls.lol/blog')">
-				<span class="post-date">April 5, 2026</span>
-				<h2 class="post-title">VRM, VSeeFace, VNyan and Warudo — A Complete Guide</h2>
-				<p class="post-snippet">An in-depth look at VRM avatars, VSeeFace, VNyan, and Warudo — what they are, how they work, and how to choose between them for VTubing.</p>
-				<div class="post-tags">
-					<span class="post-tag">vtubing</span>
-					<span class="post-tag">vrm</span>
-					<span class="post-tag">warudo</span>
-					<span class="post-tag">vseeFace</span>
-					<span class="post-tag">vnyan</span>
-					<span class="post-tag">avatars</span>
-					<span class="post-tag">guide</span>
-				</div>
-			</a>
-
-			<a class="blog-post-card" onclick="promptExternalLink('https://gothgirls.lol/blog')">
-				<span class="post-date">February 24, 2026</span>
-				<h2 class="post-title">A guide to optimize VRChat</h2>
-				<p class="post-snippet">Tips and tricks to enhance your VRChat experience by optimizing performance and settings.</p>
-				<div class="post-tags">
-					<span class="post-tag">vrchat</span>
-					<span class="post-tag">optimization</span>
-					<span class="post-tag">performance</span>
-					<span class="post-tag">tips</span>
+					<span class="post-tag">utility</span>
+					<span class="post-tag">discord</span>
 				</div>
 			</a>
 		</div>
@@ -1174,9 +1134,4 @@ fixed_blog_html = '''<!DOCTYPE html>
 		fetchDiscordProfile();
 	</script>
 </body>
-</html>'''
-
-with open("blog.html", "w", encoding="utf-8") as f:
-    f.write(fixed_blog_html)
-
-print("Updated blog.html successfully.")
+</html>
