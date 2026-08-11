@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>pray — blog</title>
-	<link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/x-icon" />
+	<link id="dynamic-favicon" rel="icon" href="/favicon.png" type="image/png" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<style>
 		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=VT323&family=JetBrains+Mono:wght@500;700;800&display=swap');
@@ -1128,6 +1128,37 @@
 		function escapeHTML(str) {
 			return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
 		}
+
+		const faviconExtensions = ["/favicon.png", "/favicon.gif", "/favicon.ico", "/favicon.jpg", "/favicon.jpeg", "/favicon.webp"];
+		let faviconIdx = 0;
+
+		function initFavicon() {
+			const faviconLink = document.getElementById("dynamic-favicon");
+			if (!faviconLink) return;
+
+			function tryNextFavicon() {
+				if (faviconIdx >= faviconExtensions.length) return;
+				const currentSrc = faviconExtensions[faviconIdx];
+				const img = new Image();
+
+				img.onload = () => {
+					const ext = currentSrc.split('.').pop().toLowerCase();
+					const mimeType = ext === 'ico' ? 'image/x-icon' : (ext === 'gif' ? 'image/gif' : 'image/png');
+					
+					faviconLink.type = mimeType;
+					faviconLink.href = currentSrc + "?v=" + Date.now();
+				};
+
+				img.onerror = () => {
+					faviconIdx++;
+					tryNextFavicon();
+				};
+
+				img.src = currentSrc;
+			}
+			tryNextFavicon();
+		}
+		initFavicon();
 
 		renderHistoryList();
 		connectLanyardWebSocket();
