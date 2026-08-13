@@ -3,16 +3,19 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	<title>gothgirls</title>
+	<title>pray</title>
 	<link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/x-icon" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 	<style>
-		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=VT323&family=JetBrains+Mono:wght@500;700;800&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=VT323&family=JetBrains+Mono:wght@500;700;800&display=swap');
 
 		:root {
+			--marquee-text: #ffffff;
+			--marquee-glow: rgba(255, 255, 255, 0.8);
 	        --tooltip-bg: #111214;
 	        --tooltip-text: #f2f3f5;
 	        --tooltip-border: rgba(255, 255, 255, 0.1);
+			--about-anime-bg: url("dbg.png");
 	        --bg-base: #050505;
 	        --bg-radial: radial-gradient(circle at 50% 50%, rgba(20, 20, 22, 0.8) 0%, rgba(5, 5, 5, 1) 100%);
 			--card-bg: rgba(13, 13, 15, 0.85);
@@ -44,12 +47,15 @@
 		}
 
 		[data-theme="light"] {
+			--marquee-text: #000000;
+			--marquee-glow: rgba(0, 0, 0, 0.25);
 	        --tooltip-bg: #ffffff;
 	        --tooltip-text: #18181b;
 	        --tooltip-border: rgba(0, 0, 0, 0.12);
+			--about-anime-bg: url("lbg.png");
 	        --bg-base: #e4e4e7;
 	        --bg-radial: radial-gradient(circle at 50% 50%, #f4f4f5 0%, #d4d4d8 100%);
-			--card-bg: rgba(255, 255, 255, 0.85);
+			--card-bg: rgba(255, 255, 255, 0.65);
 			--card-border: rgba(0, 0, 0, 0.08);
 			--card-border-hover: rgba(0, 0, 0, 0.22);
 			--text-primary: #18181b;
@@ -124,6 +130,63 @@
 			transform: scale(1.1);
 		}
 
+		.particle-green-note {
+			position: absolute;
+			font-size: 11px;
+			color: #1ed760;
+			pointer-events: none;
+			animation: burstOut 2s ease-out forwards;
+			opacity: 0;
+			text-shadow: 0 0 6px #1ed760;
+		}
+
+		.glowing-listen {
+			display: inline-block;
+			position: relative;
+			color: #1ed760;
+			font-weight: 800;
+			text-shadow: 0 0 8px #1ed760, 0 0 16px rgba(30, 215, 96, 0.6);
+		}
+
+		.btn-sparkle {
+	position: absolute;
+	font-size: 10px;
+	pointer-events: none;
+	animation: particleFloat 1.2s ease-out forwards;
+	z-index: 100;
+}
+
+@keyframes particleFloat {
+	0% { opacity: 1; transform: translate(0, 0) scale(1); }
+	100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+}
+
+		.creeper-minecraft {
+			display: inline-block;
+			position: relative;
+			font-weight: 800;
+			background: linear-gradient(90deg, #10b981, #000000, #22c55e, #15803d, #10b981);
+			background-size: 200% auto;
+			color: transparent;
+			-webkit-background-clip: text;
+			animation: creeperShift 4s linear infinite;
+			filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.6));
+		}
+
+		@keyframes creeperShift {
+			0% { background-position: 0% center; }
+			100% { background-position: 200% center; }
+		}
+
+		.interests-cycler {
+			display: inline-block;
+			transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.interests-cycler.changing {
+			opacity: 0;
+			transform: translateY(-4px);
+		}
 
 		.top-popups-stack {
 			position: fixed;
@@ -163,8 +226,6 @@
 			clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
 			cursor: pointer !important;
 			white-space: nowrap;
-			
-			/* Smooth horizontal expansion & style morphing */
 			transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
 			            border-color 0.3s ease, 
 			            box-shadow 0.3s ease, 
@@ -172,7 +233,6 @@
 			            color 0.3s ease;
 		}
 
-		/* Smooth cross-fade animation for internal text/icon updates */
 		.top-activity-banner.activity-updating {
 			opacity: 0.2;
 			transform: scaleX(0.97);
@@ -260,6 +320,42 @@
 			margin-top: 1px;
 		}
 
+		.scrolling-text-container {
+			width: 100%;
+			max-width: 100%;
+			overflow: hidden;
+			white-space: nowrap;
+			margin-top: 6px;
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+
+		.scrolling-text-track {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	white-space: nowrap;
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--marquee-text);
+	text-shadow: 0 0 6px var(--marquee-glow), 0 0 12px var(--marquee-glow);
+	animation: infiniteScroll 12s linear infinite;
+	flex-shrink: 0;
+	transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+		.scrolling-text-track span {
+			white-space: nowrap;
+			display: inline-block;
+		}
+
+		@keyframes infiniteScroll {
+			0% { transform: translateX(0%); }
+			100% { transform: translateX(-50%); }
+		}
+
 		.top-act-icon {
 			font-size: 11.5px;
 			color: var(--banner-accent);
@@ -274,7 +370,6 @@
 			color: var(--banner-title);
 			transition: color 0.3s ease;
 		}
-
 
 		.visitor-popup-banner {
 			font-family: 'JetBrains Mono', monospace;
@@ -293,32 +388,31 @@
 			transform: translateY(-6px);
 		}
 
-
 		.telegram-bottom-popup {
-			position: fixed !important;
-			bottom: 24px !important;
-			left: 50% !important;
-			transform: translateX(-50%) !important;
-			z-index: 99999 !important;
-			display: inline-flex !important;
-			flex-direction: column !important;
-			align-items: center !important;
-			justify-content: center !important;
-			width: auto !important;
-			min-width: max-content !important;
-			background: var(--banner-bg);
-			border: 1px solid rgba(56, 189, 248, 0.5);
-			border-left: 3.5px solid #38bdf8;
-			border-radius: 6px;
-			padding: 8px 18px;
-			backdrop-filter: blur(16px);
-			box-shadow: 0 8px 24px rgba(0, 136, 204, 0.3);
-			overflow: hidden;
-			cursor: pointer !important;
-			pointer-events: auto;
-			opacity: 1;
-			transition: opacity 0.4s ease, transform 0.4s ease;
-		}
+	position: fixed !important;
+	bottom: 24px !important;
+	left: 50% !important;
+	transform: translateX(-50%) !important;
+	z-index: 99999 !important;
+	display: inline-flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: auto !important;
+	min-width: max-content !important;
+	background: var(--banner-bg) !important;
+	border: 1px solid var(--banner-accent) !important;
+	border-left: 3.5px solid var(--banner-accent) !important;
+	border-radius: 6px;
+	padding: 8px 18px;
+	backdrop-filter: blur(16px);
+	box-shadow: 0 0 12px var(--banner-glow), 0 4px 16px var(--banner-glow) !important;
+	overflow: hidden;
+	cursor: pointer !important;
+	pointer-events: auto;
+	opacity: 1;
+	transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
 		.telegram-popup-body {
 			display: flex;
@@ -340,15 +434,15 @@
 		}
 
 		.telegram-progress-bar {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			height: 2px;
-			background: #38bdf8;
-			width: 100%;
-			box-shadow: 0 0 8px #38bdf8;
-			animation: elapsesTenSec 10s linear forwards;
-		}
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 2px;
+	background: var(--banner-accent) !important;
+	width: 100%;
+	box-shadow: 0 0 8px var(--banner-accent) !important;
+	animation: elapsesTenSec 10s linear forwards;
+}
 
 		@keyframes elapsesTenSec {
 			0% { width: 100%; }
@@ -360,6 +454,7 @@
 			transform: translate(-50%, 20px) !important;
 			pointer-events: none !important;
 		}
+
 		.activity-history-popup {
 			position: absolute;
 			top: 100%;
@@ -479,11 +574,11 @@
 		.container {
 			width: 92%;
 			max-width: 1100px;
+			margin: 45px auto 0 auto;
 			display: flex;
 			flex-direction: column;
 			gap: 20px;
 			position: relative;
-			margin-top: 45px;
 			z-index: 10;
 		}
 
@@ -516,7 +611,7 @@
 			            box-shadow 0.25s ease;
 		}
 
-		.card:hover {
+.card:hover {
 			border-color: var(--card-border-hover);
 			transform: translateY(-2px);
 			box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
@@ -578,7 +673,6 @@
 			max-height: 120px;
 			opacity: 1;
 			transform: translateY(0) scale(1);
-			/* Smooth collapse transition when hiding */
 			transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
 			            padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
 			            margin-top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -598,25 +692,6 @@
 			opacity: 0 !important;
 			transform: translateY(-8px) scale(0.96) !important;
 			pointer-events: none !important;
-		}
-
-		@keyframes statusPopIn {
-			0% {
-				opacity: 0;
-				max-height: 0;
-				padding-top: 0;
-				padding-bottom: 0;
-				margin-top: 0;
-				transform: translateY(-10px) scale(0.95);
-			}
-			100% {
-				opacity: 1;
-				max-height: 120px;
-				padding-top: 8px;
-				padding-bottom: 8px;
-				margin-top: 8px;
-				transform: translateY(0) scale(1);
-			}
 		}
 
 		.status-popup-body {
@@ -820,17 +895,17 @@
 			right: -10px;
 			bottom: -10px;
 			height: 95%;
-			opacity: 0.18;
 			pointer-events: none;
 			z-index: 1;
-			filter: grayscale(80%);
+			transition: opacity 0.4s ease, filter 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 		}
 
 		.card-title {
-			font-size: 16px;
-			font-weight: 700;
-			color: var(--text-primary);
-		}
+         	font-family: 'Bebas Neue', sans-serif;
+        	font-size: 22px;
+        	letter-spacing: 1px;
+        	color: var(--text-primary);
+        }
 
 		.about-section {
 			position: relative;
@@ -866,24 +941,24 @@
 		}
 
 		.social-btn {
-			position: relative;
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			padding: 5px 10px;
-			border-radius: 8px;
-			background: var(--box-bg);
-			border: 1px solid var(--box-border);
-			color: var(--text-secondary);
-			font-size: 11px;
-			font-weight: 600;
-			text-decoration: none;
-			overflow: hidden;
-			backdrop-filter: blur(8px);
-			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-			cursor: pointer;
-		}
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 5px 10px;
+	border-radius: 8px;
+	background: var(--box-bg);
+	border: 1px solid var(--box-border);
+	color: var(--text-secondary);
+	font-size: 11px;
+	font-weight: 600;
+	text-decoration: none;
+	overflow: hidden;
+	backdrop-filter: blur(8px);
+	transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+}
 
 		.social-btn-icon {
 			width: 15px;
@@ -897,56 +972,47 @@
 		}
 
 		.social-btn.spotify:hover {
-			background: rgba(30, 215, 96, 0.2) !important;
-			border-color: rgba(30, 215, 96, 0.6) !important;
-			color: var(--text-primary) !important;
-			box-shadow: 0 0 16px rgba(30, 215, 96, 0.4) !important;
-			transform: translateX(5px);
-		}
-
-		.social-btn.tiktok:hover {
-			background: 
-				linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-				linear-gradient(90deg, hsla(178, 87%, 55%, 1) 0%, hsla(347, 99%, 58%, 1) 100%) border-box !important;
-			border: 1px solid transparent !important;
-			color: var(--text-primary) !important;
-			box-shadow: 0 0 16px rgba(42, 240, 234, 0.25), 0 0 16px rgba(254, 40, 88, 0.25) !important;
-			transform: translateX(5px);
-		}
+	background: rgba(30, 215, 96, 0.2) !important;
+	border-color: rgba(30, 215, 96, 0.6) !important;
+	color: var(--text-primary) !important;
+	box-shadow: 0 0 16px rgba(30, 215, 96, 0.4) !important;
+	transform: translateX(5px);
+}
 
 		.social-btn.other-socials:hover {
-			background: rgba(255, 255, 255, 0.12) !important;
-			border-color: var(--card-border-hover) !important;
-			color: var(--text-primary) !important;
-			box-shadow: 0 0 16px rgba(255, 255, 255, 0.2) !important;
-			transform: translateX(5px);
-		}
+	background: rgba(255, 255, 255, 0.12) !important;
+	border-color: var(--card-border-hover) !important;
+	color: var(--text-primary) !important;
+	box-shadow: 0 0 16px rgba(255, 255, 255, 0.2) !important;
+	transform: translateX(5px);
+}
 
 		.social-btn:hover .social-btn-icon {
-			transform: scale(1.15);
-		}
+	transform: scale(1.15);
+}
 
 		.extra-discord-card {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	padding: 12px 14px;
-	background: var(--box-bg);
-	border: 1px solid var(--box-border);
-	border-radius: 12px;
-	transition: background 0.25s ease, border-color 0.25s ease;
-	text-decoration: none;
-	color: inherit;
-	cursor: pointer;
-	margin-top: 6px;
-	width: 100%;
-	overflow: visible !important;
-}
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 12px 14px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 12px;
+			transition: background 0.25s ease, border-color 0.25s ease;
+			text-decoration: none;
+			color: inherit;
+			cursor: pointer;
+			margin-top: 6px;
+			width: 100%;
+			overflow: visible !important;
+		}
 
-.extra-discord-card:hover {
-	border-color: var(--card-border-hover);
-	background: rgba(255, 255, 255, 0.12);
-}
+		.extra-discord-card:hover {
+			border-color: var(--card-border-hover);
+			background: rgba(255, 255, 255, 0.12);
+		}
+
 		.extra-discord-left {
 			display: flex;
 			align-items: center;
@@ -988,13 +1054,13 @@
 			object-fit: contain;
 		}
 
-
 		#extra-discord-profiles {
-      	    overflow: hidden;
-	        display: flex;
-    	    flex-direction: column;
-            gap: 8px;
-        }
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
 		#extra-discord-profiles::-webkit-scrollbar {
 			height: 6px;
 		}
@@ -1012,12 +1078,6 @@
 		#extra-discord-profiles::-webkit-scrollbar-thumb:hover {
 			background: rgba(255, 255, 255, 0.5);
 		}
-
-		.extra-discord-card:hover ~ #extra-discord-profiles::-webkit-scrollbar-thumb,
-		#extra-discord-profiles:hover::-webkit-scrollbar-thumb {
-			background: rgba(255, 255, 255, 0.4);
-		}
-
 
 		.blog-card {
 			position: relative;
@@ -1042,22 +1102,22 @@
 		}
 
 		.blog-title {
-			font-size: 14px;
-			font-weight: 800;
-			letter-spacing: 1.5px;
-			color: var(--text-primary);
-			text-transform: uppercase;
-			display: flex;
-			align-items: center;
-			gap: 8px;
-		}
+        	font-family: 'Bebas Neue', sans-serif;
+        	font-size: 20px;
+        	letter-spacing: 1px;
+        	color: var(--text-primary);
+        	text-transform: uppercase;
+        	display: flex;
+        	align-items: center;
+        	gap: 8px;
+        }
 
 		.blog-sub-tag {
-			font-size: 10px;
-			font-weight: 700;
-			color: var(--text-muted);
-			letter-spacing: 0.5px;
-		}
+        	font-family: 'Bebas Neue', sans-serif;
+        	font-size: 14px;
+        	letter-spacing: 1.2px;
+        	color: var(--text-muted);
+        }
 
 		.blog-feed {
 			display: flex;
@@ -1117,67 +1177,6 @@
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
-		}
-
-		.entry-top-row {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			font-family: 'JetBrains Mono', monospace;
-		}
-
-		.entry-author-wrap {
-			display: flex;
-			align-items: center;
-			gap: 6px;
-		}
-
-		.entry-author {
-			font-size: 12px;
-			font-weight: 700;
-			color: var(--text-primary);
-		}
-
-		.entry-time {
-			font-size: 10px;
-			color: var(--text-muted);
-		}
-
-		.entry-like-btn {
-			background: transparent;
-			border: none;
-			color: var(--text-muted);
-			font-size: 11px;
-			display: flex;
-			align-items: center;
-			gap: 4px;
-			cursor: pointer;
-			transition: color 0.2s ease;
-		}
-
-		.entry-like-btn:hover, .entry-like-btn.liked {
-			color: #ff2a5f;
-		}
-
-		.entry-msg {
-			font-size: 12.5px;
-			color: var(--text-secondary);
-			line-height: 1.4;
-		}
-
-		.btn-sparkle {
-			position: absolute;
-			width: 3px;
-			height: 3px;
-			border-radius: 50%;
-			pointer-events: none;
-			animation: particleFloat 1.2s ease-out forwards;
-			z-index: 100;
-		}
-
-		@keyframes particleFloat {
-			0% { opacity: 1; transform: translate(0, 0) scale(1); }
-			100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
 		}
 
 		.rainbow-zack {
@@ -1246,14 +1245,26 @@
 		}
 
 		@keyframes burstOut {
-			0% { 
-				opacity: 1; 
-				transform: translate(0, 0) scale(0.8); 
-			}
-			100% { 
-				opacity: 0; 
-				transform: translate(var(--tx), var(--ty)) scale(1.3); 
-			}
+			0% { opacity: 1; transform: translate(0, 0) scale(0.8); }
+			100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.3); }
+		}
+
+		.anime-slide-out {
+			animation: slideOutRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		}
+
+		.anime-slide-in {
+			animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		}
+
+		@keyframes slideOutRight {
+			0% { transform: translateX(0); opacity: 0.3; }
+			100% { transform: translateX(80px); opacity: 0; }
+		}
+
+		@keyframes slideInRight {
+			0% { transform: translateX(80px); opacity: 0; }
+			100% { transform: translateX(0); opacity: var(--anime-target-opacity, 0.3); }
 		}
 
 		.gibberish-text {
@@ -1311,33 +1322,12 @@
 			overflow: visible !important;
 		}
 
-
 		#other-socials-modal .playlists-list {
 			overflow: visible !important;
 		}
 
 		.modal-overlay.active .playlists-modal {
 			transform: scale(1);
-		}
-
-		.playlist-girl-overlay {
-			position: absolute;
-			left: -175px;
-			bottom: 0px;
-			height: 230px;
-			pointer-events: none;
-			z-index: 10;
-			filter: drop-shadow(-8px 10px 18px rgba(0, 0, 0, 0.85));
-		}
-
-		.catgirl-music-overlay {
-			position: absolute;
-			right: -175px;
-			bottom: 0px;
-			height: 230px;
-			pointer-events: none;
-			z-index: 10;
-			filter: drop-shadow(8px 10px 18px rgba(0, 0, 0, 0.85));
 		}
 
 		.modal-header {
@@ -1383,15 +1373,6 @@
 			justify-content: flex-start;
 			overflow-y: auto;
 			touch-action: pan-y;
-		}
-
-		.playlist-iframe {
-			border-radius: 12px;
-			border: none;
-			width: 100%;
-			height: 152px;
-			display: block;
-			flex-shrink: 0;
 		}
 
 		.confirm-modal-overlay {
@@ -1482,18 +1463,14 @@
 			color: var(--confirm-btn-stay-text);
 		}
 
-		.confirm-btn.stay:hover {
-			opacity: 0.85;
-		}
+		.confirm-btn.stay:hover { opacity: 0.85; }
 
 		.confirm-btn.proceed {
 			background: var(--confirm-btn-proceed-bg);
 			color: var(--confirm-btn-proceed-text);
 		}
 
-		.confirm-btn.proceed:hover {
-			opacity: 0.88;
-		}
+		.confirm-btn.proceed:hover { opacity: 0.88; }
 
 		.badge-wrapper {
 	        position: relative;
@@ -1555,7 +1532,6 @@
 			display: none !important;
 		}
 
-		/* Playlists Custom Item Styling */
 		.playlist-item-card {
 			display: flex;
 			align-items: center;
@@ -1635,23 +1611,18 @@
 			box-shadow: 0 0 12px rgba(30, 215, 96, 0.5);
 			transform: scale(1.05);
 		}
-
-		
 	</style>
 </head>
 <body>
 
 	<button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()">light</button>
 
-
 	<div class="top-popups-stack">
-
 		<div class="top-activity-wrapper">
 			<div class="top-activity-banner" id="top-activity-banner">
 				<i class="fa-solid fa-signal top-act-icon" id="top-act-icon"></i>
 				<span class="top-activity-title" id="top-act-title">OFFLINE</span>
 			</div>
-
 
 			<div class="activity-history-popup">
 				<div class="history-header">HISTORY</div>
@@ -1663,18 +1634,13 @@
 			</div>
 		</div>
 
-
 		<div class="visitor-popup-banner" id="visitor-popup">you are visitor #<span id="visitor-count-val">765</span></div>
 	</div>
 
-
-	<div class="telegram-bottom-popup" id="telegram-popup" onclick="promptExternalLink('https://t.me/misrepent')" onmousemove="spawnButtonSparkle(event, this, '#38bdf8')">
-		<div class="telegram-popup-body">
-			<i class="fa-brands fa-telegram telegram-popup-icon"></i>
-			<span>Contact me on Telegram</span>
-		</div>
-		<div class="telegram-progress-bar"></div>
-	</div>
+	<div class="telegram-bottom-popup hidden" id="custom-status-bottom-popup" onmousemove="spawnButtonSparkle(event, this, getComputedStyle(document.documentElement).getPropertyValue('--banner-accent'))">
+    <div class="telegram-popup-body" id="status-popup-content"></div>
+    <div class="telegram-progress-bar" id="status-progress-bar"></div>
+    </div>
 
 	<div class="container">
 		<div class="top-grid">
@@ -1682,9 +1648,9 @@
 				<div class="profile-body">
 					<div class="profile-header-row">
 						<div class="avatar-container">
-	<img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" onclick="promptPfpLink('https://t.me/hatezack')" style="cursor: pointer !important;" />
-	<div id="status-badge" class="status-badge"></div>
-</div>
+							<img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" onclick="promptPfpLink('https://t.me/hatezack')" style="cursor: pointer !important;" />
+							<div id="status-badge" class="status-badge"></div>
+						</div>
 
 						<div class="uk-time-box">
 							<div class="time-pill">
@@ -1696,19 +1662,23 @@
 					</div>
 
 					<div class="profile-details">
-					<div class="username-row">
-						<span class="username" id="username">pray</span>
-						<div class="discord-badges-inline" id="discord-badges"></div>
+					    <div class="username-row">
+					        <span class="username" id="username">pray</span>
+					        <div class="discord-badges-inline" id="discord-badges"></div>
+					    </div>
+					    <div class="status-text" id="status-text"></div>
+
+					    <div class="scrolling-text-container">
+					        <div class="scrolling-text-track">
+					            <span>⊣𝙹ℸ ̣⍑ ⊣╎∷ꖎᓭ ╎ᓭ ℸ ̣⍑ᒷ ʖᒷᓭℸ ̣ ᓭ╎ℸ ̣ᒷ ᒲᔑ↸ᒷ ʖ|| ⨅ᔑᓵꖌ</span>
+					            <span>&bull;</span>
+					            <span>⊣𝙹ℸ ̣⍑ ⊣╎∷ꖎᓭ ╎ᓭ ℸ ̣⍑ᒷ ʖᒷᓭℸ ̣ ᓭ╎ℸ ̣ᒷ ᒲᔑ↸ᒷ ʖ|| ⨅ᔑᓵꖌ</span>
+					            <span>&bull;</span>
+					        </div>
+					    </div>
 					</div>
-					<div class="status-text" id="status-text"></div>
 				</div>
 
-				<!-- PASTE IT HERE -->
-				<div class="profile-status-popup hidden" id="profile-status-popup">
-					<div class="status-popup-body" id="status-popup-content"></div>
-					<div class="status-progress-bar" id="status-progress-bar"></div>
-				</div>
-				</div>
 			</div>
 
 			<div class="card projects-card">
@@ -1717,81 +1687,77 @@
 					<span style="font-size: 11px; color: var(--text-muted); font-weight: 600;">ACTIVE WORK</span>
 				</div>
 				<div class="projects-grid">
-	<a class="project-item" onclick="promptExternalLink('https://discord.gg/NzjyrhED9h')">
-		<div class="project-top">
-			<span>Minecraft Utils</span>
-			<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px; color: var(--text-muted);"></i>
-		</div>
-		<div class="project-desc">Minecraft related tools, resource packs, & configurations.</div>
-	</a>
+					<a class="project-item" onclick="promptExternalLink('https://discord.gg/NzjyrhED9h')">
+						<div class="project-top">
+							<span>Minecraft Utils</span>
+							<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px; color: var(--text-muted);"></i>
+						</div>
+						<div class="project-desc">Minecraft related tools, resource packs, & configurations.</div>
+					</a>
 
-	<a class="project-item" onclick="promptExternalLink('https://t.me/hatezack')">
-		<div class="project-top">
-			<span>PFP Vault</span>
-			<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px; color: var(--text-muted);"></i>
-		</div>
-		<div class="project-desc">Best Profile Pictures</div>
-	</a>
+					<a class="project-item" onclick="promptExternalLink('https://t.me/hatezack')">
+						<div class="project-top">
+							<span>PFP Vault</span>
+							<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px; color: var(--text-muted);"></i>
+						</div>
+						<div class="project-desc">Best Profile Pictures</div>
+					</a>
 
-	<a class="project-item" onclick="promptExternalLink('https://discord.gg/YUYQp8PhX6')">
-		<div class="project-top">
-			<span>News</span>
-			<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px; color: var(--text-muted);"></i>
-		</div>
-		<div class="project-desc">server where i post any news i find interesting</div>
-	</a>
+					<a class="project-item" onclick="promptExternalLink('https://discord.gg/YUYQp8PhX6')">
+						<div class="project-top">
+							<span>News</span>
+							<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px; color: var(--text-muted);"></i>
+						</div>
+						<div class="project-desc">server where i post any news i find interesting</div>
+					</a>
 
-	<a class="project-item" onclick="promptExternalLink('https://gothgirls.lol')">
-		<div class="project-top">
-			<span>Soon...</span>
-			<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px; color: var(--text-muted);"></i>
-		</div>
-		<div class="project-desc">Upcoming project under development.</div>
-	</a>
-</div>
+					<a class="project-item" onclick="promptExternalLink('https://gothgirls.lol')">
+						<div class="project-top">
+							<span>Soon...</span>
+							<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 10px; color: var(--text-muted);"></i>
+						</div>
+						<div class="project-desc">Upcoming project under development.</div>
+					</a>
+				</div>
 			</div>
 		</div>
 
 		<div class="bottom-grid">
 			<div class="card about-card">
-				<img class="about-bg-anime" src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG88.png" alt="" />
-				<div class="card-title">About Me</div>
+				<img class="about-bg-anime" id="about-bg-anime" src="dbg.png" alt="" />
+				<div class="card-title">ABOUT ME</div>
 
 				<div class="about-section">
-	<div class="about-heading">Who am I?</div>
-	<div class="about-text">
-		i'm <span class="rainbow-zack" id="zack-target">pray</span> im located in <span class="gibberish-text" id="location-target">Tokyo</span> and im <span id="age-target" onclick="openAgeModal()" style="cursor: pointer !important;">17</span> years old
-	</div>
-</div>
+					<div class="about-heading">Who am I?</div>
+					<div class="about-text">
+						i'm <span class="rainbow-zack" id="zack-target">pray</span> im located in <span class="gibberish-text" id="location-target">Tokyo</span> and im <span id="age-target" onclick="openAgeModal()" style="cursor: pointer !important;">17</span> years old
+					</div>
+				</div>
 
 				<div class="about-section">
 					<div class="about-heading">My Interests</div>
-					<div class="about-text">
-						i <span class="glowing-love" id="love-target">ADORE</span> <span class="glowing-puppygirls" id="puppygirls-target">puppygirls</span>
+					<div class="about-text" style="min-height: 22px; position: relative;">
+						<span class="interests-cycler" id="interests-target"></span>
 					</div>
 
 					<div class="socials-column">
-						<button class="social-btn spotify" onclick="openPlaylistsModal()" onmousemove="spawnButtonSparkle(event, this, '#1ed760')">
-							<img src="spotifyicon.png" class="social-btn-icon" alt="" /> Playlists
-						</button>
-						<button class="social-btn tiktok" onclick="promptExternalLink('https://www.tiktok.com/@moralst')" onmousemove="spawnTikTokSparkle(event, this)">
-							<img src="tiktokicon.png" class="social-btn-icon" alt="" /> TikTok
-						</button>
-						<button class="social-btn other-socials" onclick="openOtherSocialsModal()" onmousemove="spawnButtonSparkle(event, this, '#ffffff')">
-							<span class="social-btn-icon"><i class="fa-solid fa-plus" style="font-size: 12px;"></i></span> Other Socials
-						</button>
-					</div>
+	<button class="social-btn spotify" onclick="openPlaylistsModal()" onmousemove="spawnSpotifySparkle(event, this)">
+		<img src="spotifyicon.png" class="social-btn-icon" alt="" /> Music
+	</button>
+	<button class="social-btn other-socials" onclick="openOtherSocialsModal()" onmousemove="spawnButtonSparkle(event, this, '#ffffff')">
+		<span class="social-btn-icon"><i class="fa-solid fa-plus" style="font-size: 12px;"></i></span> Contacts
+	</button>
+</div>
 				</div>
 			</div>
 
-		
 			<div class="card blog-card">
 				<div class="blog-header">
-	<span class="blog-title" onclick="promptExternalLink('https://gothgirls.lol/blog')" style="cursor: pointer !important;">
-		<i class="fa-solid fa-newspaper" style="font-size: 13px;"></i> Blogs
-	</span>
-	<span class="blog-sub-tag">RECENT POSTS</span>
-</div>
+					<span class="blog-title" onclick="promptExternalLink('https://gothgirls.lol/blog')" style="cursor: pointer !important;">
+						<i class="fa-solid fa-newspaper" style="font-size: 13px;"></i> BLOGS
+					</span>
+					<span class="blog-sub-tag">RECENT POSTS</span>
+				</div>
 				<div class="blog-feed" id="blog-feed">
 					<div style="font-size: 11px; color: var(--text-muted); text-align: center; padding: 40px; font-family: 'JetBrains Mono', monospace;">
 						Loading posts from gothgirls.lol...
@@ -1801,14 +1767,11 @@
 		</div>
 	</div>
 
-
 	<div class="modal-overlay" id="playlists-modal-overlay" onclick="closePlaylistsModalOnBackdrop(event)">
 		<div class="playlists-modal" id="playlists-modal" onclick="event.stopPropagation()">
-			<img src="playlistgirl.png" class="playlist-girl-overlay" alt="" />
-			<img src="catgirlmusic.png" class="catgirl-music-overlay" id="catgirl-music" alt="" />
 			<div class="modal-header">
 				<div class="modal-title">
-					<img src="spotifyicon.png" style="width: 18px; height: 18px; object-fit: contain;" alt="" /> Playlists
+					<img src="spotifyicon.png" style="width: 18px; height: 18px; object-fit: contain;" alt="" /> Music
 				</div>
 				<button class="modal-close-btn" onclick="closePlaylistsModal()">
 					<i class="fa-solid fa-xmark"></i>
@@ -1870,12 +1833,11 @@
 		</div>
 	</div>
 
-
 	<div class="modal-overlay" id="other-socials-modal-overlay" onclick="closeOtherSocialsModalOnBackdrop(event)">
 		<div class="playlists-modal" id="other-socials-modal" onclick="event.stopPropagation()">
 			<div class="modal-header">
 				<div class="modal-title">
-					<i class="fa-solid fa-plus" style="font-size: 14px;"></i> Other Socials & Profiles
+					<i class="fa-solid fa-plus" style="font-size: 14px;"></i> Socials
 				</div>
 				<button class="modal-close-btn" onclick="closeOtherSocialsModal()">
 					<i class="fa-solid fa-xmark"></i>
@@ -1887,32 +1849,45 @@
 				</div>
 			</div>
 			<div class="playlists-list" style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
-	<a class="extra-discord-card" onclick="promptExternalLink('https://steamcommunity.com/id/swordpvper')">
-		<div class="extra-discord-left">
-			<img class="extra-discord-avatar" src="steampfp.png" onerror="this.onerror=null; this.src='steampfp.jpg';" alt="strad" />
-			<div class="extra-discord-info">
-				<span class="extra-discord-name">strad</span>
-			</div>
-		</div>
-		<div class="badge-wrapper" style="margin-left: auto;">
-			<i class="fa-brands fa-steam extra-badge-icon" style="font-size: 18px; color: var(--text-primary);"></i>
-			<div class="badge-tooltip">steam</div>
-		</div>
-	</a>
+			    <a class="extra-discord-card" onclick="promptExternalLink('https://tiktok.com/@moralst')">
+			        <div class="extra-discord-left">
+			            <img class="extra-discord-avatar" src="ttpfp.jpg" onerror="this.onerror=null; this.src='ttpfp.png';" alt="moralst" />
+			            <div class="extra-discord-info">
+			                <span class="extra-discord-name">moralst</span>
+			            </div>
+			        </div>
+			        <div class="badge-wrapper" style="margin-left: auto;">
+			            <img src="tiktokicon.png" class="extra-badge-icon" style="width: 18px; height: 18px; object-fit: contain;" alt="TikTok" />
+			            <div class="badge-tooltip">tiktok</div>
+			        </div>
+			    </a>
 
-	<a class="extra-discord-card" onclick="promptExternalLink('https://www.instagram.com/swordpvper')">
-		<div class="extra-discord-left">
-			<img class="extra-discord-avatar" src="instapfp.png" onerror="this.onerror=null; this.src='instapfp.jpg';" alt="swordpvper" />
-			<div class="extra-discord-info">
-				<span class="extra-discord-name">swordpvper</span>
+				<a class="extra-discord-card" onclick="promptExternalLink('https://www.instagram.com/swordpvper')">
+					<div class="extra-discord-left">
+						<img class="extra-discord-avatar" src="instapfp.png" onerror="this.onerror=null; this.src='instapfp.jpg';" alt="swordpvper" />
+						<div class="extra-discord-info">
+							<span class="extra-discord-name">swordpvper</span>
+						</div>
+					</div>
+					<div class="badge-wrapper" style="margin-left: auto;">
+						<i class="fa-brands fa-instagram extra-badge-icon" style="font-size: 18px; color: var(--text-primary);"></i>
+						<div class="badge-tooltip">instagram</div>
+					</div>
+				</a>
+
+				<a class="extra-discord-card" onclick="promptExternalLink('https://t.me/misrepent')">
+    <div class="extra-discord-left">
+        <img class="extra-discord-avatar" src="tgpfp.jpg" onerror="this.onerror=null; this.src='tgpfp.png';" alt="misrepent" />
+        <div class="extra-discord-info">
+            <span class="extra-discord-name">misrepent</span>
+        </div>
+    </div>
+    <div class="badge-wrapper" style="margin-left: auto;">
+        <img src="telegram.png" class="extra-badge-icon" style="width: 18px; height: 18px; object-fit: contain;" alt="Telegram" />
+        <div class="badge-tooltip">telegram</div>
+    </div>
+</a>
 			</div>
-		</div>
-		<div class="badge-wrapper" style="margin-left: auto;">
-			<i class="fa-brands fa-instagram extra-badge-icon" style="font-size: 18px; color: var(--text-primary);"></i>
-			<div class="badge-tooltip">instagram</div>
-		</div>
-	</a>
-</div>
 		</div>
 	</div>
 
@@ -1944,12 +1919,12 @@
 	<script>
 		const DISCORD_ID = "1459602053969215786";
 		const MUSIC_NOTES = ["♩", "♪", "♫", "♬"];
+		const SPOTIFY_HOVER_NOTES = ["♩", "♪", "♫", "♬"];
 		let spotifyNoteInterval = null;
 		let lastCustomStatus = "";
 		let statusTimeout = null;
 
 		const EXTRA_DISCORD_MAP = {
-			"488047218138546179": "http://discord.com/users/488047218138546179",
 			"1490078381239439633": "http://discord.com/users/1490078381239439633"
 		};
 
@@ -1984,21 +1959,26 @@
 				}).join("");
 
 			} catch (err) {
-				const realPosts = [
-					{ 
-						title: "How to Remove or Get Discord HypeSquad Badges", 
-						desc: "A quick guide and script tutorial on how to add or completely remove HypeSquad badges...", 
-						link: "https://gothgirls.lol/blog/hypesquad" 
-					}
-				];
+    const realPosts = [
+        { 
+            title: "Discord Badges", 
+            desc: "A complete guide explaining all Discord profile badges, Nitro perks, and rare legacy icons...", 
+            link: "https://gothgirls.lol/blog/badges" 
+        },
+        { 
+            title: "How to Remove or Get Discord HypeSquad Badges", 
+            desc: "A quick guide and script tutorial on how to add or completely remove HypeSquad badges...", 
+            link: "https://gothgirls.lol/blog/hypesquad" 
+        }
+    ];
 
-				feedContainer.innerHTML = realPosts.map(post => `
-					<a class="blog-item" onclick="promptExternalLink('${post.link}')">
-						<span class="blog-item-title">${escapeHTML(post.title)}</span>
-						<span class="blog-item-desc">${escapeHTML(post.desc)}</span>
-					</a>
-				`).join("");
-			}
+    feedContainer.innerHTML = realPosts.map(post => `
+        <a class="blog-item" onclick="promptExternalLink('${post.link}')">
+            <span class="blog-item-title">${escapeHTML(post.title)}</span>
+            <span class="blog-item-desc">${escapeHTML(post.desc)}</span>
+        </a>
+    `).join("");
+}
 		}
 
 		fetchGothgirlsBlogs();
@@ -2029,6 +2009,29 @@
 		function applyTheme(mode) {
 			document.documentElement.setAttribute("data-theme", mode);
 			themeToggleBtn.textContent = mode === "light" ? "dark" : "light";
+
+			const animeImg = document.getElementById("about-bg-anime");
+			if (!animeImg) return;
+
+			animeImg.classList.remove("anime-slide-in");
+			animeImg.classList.add("anime-slide-out");
+
+			setTimeout(() => {
+				if (mode === "light") {
+					animeImg.src = "lbg.png";
+					animeImg.style.filter = "grayscale(20%)";
+					animeImg.style.mixBlendMode = "multiply";
+					animeImg.style.setProperty("--anime-target-opacity", "0.45");
+				} else {
+					animeImg.src = "dbg.png";
+					animeImg.style.filter = "grayscale(80%)";
+					animeImg.style.mixBlendMode = "normal";
+					animeImg.style.setProperty("--anime-target-opacity", "0.22");
+				}
+
+				animeImg.classList.remove("anime-slide-out");
+				animeImg.classList.add("anime-slide-in");
+			}, 200);
 		}
 
 		if (systemPrefersLight.matches) {
@@ -2046,6 +2049,26 @@
 			const newTheme = currentTheme === "light" ? "dark" : "light";
 			applyTheme(newTheme);
 		}
+
+		function spawnSpotifySparkle(e, btn) {
+	const rect = btn.getBoundingClientRect();
+	const note = document.createElement("span");
+	note.className = "btn-sparkle";
+	note.textContent = SPOTIFY_HOVER_NOTES[Math.floor(Math.random() * SPOTIFY_HOVER_NOTES.length)];
+	note.style.color = "#1ed760";
+	note.style.textShadow = "0 0 6px #1ed760";
+	note.style.fontWeight = "700";
+	note.style.left = (e.clientX - rect.left) + "px";
+	note.style.top = (e.clientY - rect.top) + "px";
+	
+	const dx = (Math.random() - 0.5) * 40 + "px";
+	const dy = (Math.random() - 0.5) * 40 + "px";
+	note.style.setProperty('--dx', dx);
+	note.style.setProperty('--dy', dy);
+
+	btn.appendChild(note);
+	setTimeout(() => note.remove(), 1200);
+}
 
 		const usernameEl = document.getElementById("username");
 		const statusTextEl = document.getElementById("status-text");
@@ -2130,7 +2153,7 @@
 
 			if (activeActivityData) {
 				let activeIconHtml = activeActivityData.imgUrl
-					? `<img src="${activeActivityData.imgUrl}" class="active-app-icon" alt="" />`
+					? `<img src="${activeActivityData.imgUrl}" class="active-app-icon" alt="" onerror="this.onerror=null; this.src='spotifyicon.png';" />`
 					: `<div class="active-app-icon-fallback"><i class="${activeActivityData.icon}"></i></div>`;
 
 				let elapsedStr = "";
@@ -2416,7 +2439,6 @@
 			if (!data) return;
 			const user = data.discord_user;
 
-			// Spotify particle notes check
 			if (data.spotify) {
 				if (!spotifyNoteInterval) {
 					spotifyNoteInterval = setInterval(() => {
@@ -2441,45 +2463,44 @@
 				}
 			}
 
-			// Custom Status Popup Handling
 			const customStatus = data.activities ? data.activities.find(a => a.type === 4) : null;
-			const popupEl = document.getElementById("profile-status-popup");
-			const contentEl = document.getElementById("status-popup-content");
-			const progressBarEl = document.getElementById("status-progress-bar");
+const popupEl = document.getElementById("custom-status-bottom-popup");
+const contentEl = document.getElementById("status-popup-content");
+const progressBarEl = document.getElementById("status-progress-bar");
 
-			if (customStatus && (customStatus.state || customStatus.emoji) && popupEl && contentEl) {
-				let statusHTML = "";
-				if (customStatus.emoji) {
-					if (customStatus.emoji.id) {
-						const ext = customStatus.emoji.animated ? "gif" : "png";
-						statusHTML += `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${ext}" alt="" />`;
-					} else if (customStatus.emoji.name) {
-						statusHTML += `${customStatus.emoji.name} `;
-					}
-				}
-				if (customStatus.state) {
-					statusHTML += escapeHTML(customStatus.state);
-				}
+if (customStatus && (customStatus.state || customStatus.emoji) && popupEl && contentEl) {
+    let statusHTML = "";
+    if (customStatus.emoji) {
+        if (customStatus.emoji.id) {
+            const ext = customStatus.emoji.animated ? "gif" : "png";
+            statusHTML += `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${ext}" style="width: 16px; height: 16px; object-fit: contain;" alt="" />`;
+        } else if (customStatus.emoji.name) {
+            statusHTML += `${customStatus.emoji.name} `;
+        }
+    }
+    if (customStatus.state) {
+        statusHTML += escapeHTML(customStatus.state);
+    }
 
-				if (statusHTML !== lastCustomStatus) {
-				lastCustomStatus = statusHTML;
-				contentEl.innerHTML = statusHTML;
+    if (statusHTML !== lastCustomStatus) {
+        lastCustomStatus = statusHTML;
+        contentEl.innerHTML = statusHTML;
 
-				progressBarEl.classList.remove("animating");
-				void progressBarEl.offsetWidth; // Force reflow
-				progressBarEl.classList.add("animating");
+        progressBarEl.style.animation = 'none';
+        void progressBarEl.offsetWidth; // Force reflow
+        progressBarEl.style.animation = 'elapsesTenSec 10s linear forwards';
 
-				popupEl.classList.remove("hidden");
+        popupEl.classList.remove("hidden");
 
-				if (statusTimeout) clearTimeout(statusTimeout);
-				statusTimeout = setTimeout(() => {
-					popupEl.classList.add("hidden");
-				}, 10000);
-			}
-			} else {
-				if (popupEl) popupEl.classList.add("hidden");
-				lastCustomStatus = "";
-			}
+        if (statusTimeout) clearTimeout(statusTimeout);
+        statusTimeout = setTimeout(() => {
+            popupEl.classList.add("hidden");
+        }, 10000);
+    }
+} else {
+    if (popupEl) popupEl.classList.add("hidden");
+    lastCustomStatus = "";
+}
 
 			if (user && user.username) {
 				statusTextEl.textContent = `@${user.username}`;
@@ -2528,7 +2549,7 @@
 			} else if (data.spotify) {
 				chosenActivity = {
 					icon: "fa-brands fa-spotify",
-					imgUrl: data.spotify.album_art_url || null,
+					imgUrl: data.spotify.album_art_url || "spotifyicon.png",
 					verb: "LISTENING TO",
 					target: data.spotify.song,
 					sub: `by ${data.spotify.artist}`,
@@ -2629,159 +2650,191 @@
 			return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
 		}
 
-		function spawnParticles() {
-			const zackEl = document.getElementById("zack-target");
-			if (zackEl) {
-				const faces = [":)", ":p", "xd"];
-				const p = document.createElement("span");
-				p.className = "particle-face";
-				p.textContent = faces[Math.floor(Math.random() * faces.length)];
-				p.style.left = (Math.random() * 20 - 5) + "px";
-				p.style.top = "5px";
+		const INTEREST_PHRASES = [
+			{
+				type: "adore",
+				html: 'i <span class="glowing-love" id="love-target">ADORE</span> <span class="glowing-puppygirls" id="puppygirls-target">catgirls</span>'
+			},
+			{
+				type: "love",
+				html: 'i <span class="glowing-love" id="love-target">LOVE</span> <span class="glowing-puppygirls" id="puppygirls-target">puppygirls</span>'
+			},
+			{
+				type: "c418",
+				html: 'i <span class="glowing-listen" id="listen-target">listen to</span> <span class="glowing-puppygirls">C418</span>'
+			},
+			{
+				type: "minecraft",
+				html: 'i play <span class="creeper-minecraft">minecraft</span>'
+			}
+		];
 
-				const angle = Math.random() * Math.PI * 2;
-				const dist = 20 + Math.random() * 25;
-				const tx = Math.cos(angle) * dist + "px";
-				const ty = Math.sin(angle) * dist + "px";
+		let interestIdx = 0;
 
-				p.style.setProperty('--tx', tx);
-				p.style.setProperty('--ty', ty);
+		function renderInterestPhrase() {
+			const targetEl = document.getElementById("interests-target");
+			if (!targetEl) return;
 
-				zackEl.appendChild(p);
-				setTimeout(() => p.remove(), 2200);
+			targetEl.classList.add("changing");
+
+			setTimeout(() => {
+				targetEl.innerHTML = INTEREST_PHRASES[interestIdx].html;
+				targetEl.classList.remove("changing");
+			}, 350);
+		}
+
+		setInterval(() => {
+			interestIdx = (interestIdx + 1) % INTEREST_PHRASES.length;
+			renderInterestPhrase();
+		}, 4000);
+
+		renderInterestPhrase();
+
+		const MUSIC_SYMBOLS = ["♩", "♪", "♫", "♬"];
+
+		function spawnInterestParticles() {
+			const currentType = INTEREST_PHRASES[interestIdx].type;
+
+			if (currentType === "adore" || currentType === "love") {
+				const loveEl = document.getElementById("love-target");
+				if (loveEl) {
+					const p = document.createElement("span");
+					p.className = "particle-heart";
+					p.textContent = "<3";
+					p.style.left = (Math.random() * 25 - 5) + "px";
+					p.style.top = "5px";
+
+					const angle = Math.random() * Math.PI * 2;
+					const dist = 20 + Math.random() * 25;
+					p.style.setProperty('--tx', Math.cos(angle) * dist + "px");
+					p.style.setProperty('--ty', Math.sin(angle) * dist + "px");
+
+					loveEl.appendChild(p);
+					setTimeout(() => p.remove(), 2000);
+				}
+
+				const puppygirlsEl = document.getElementById("puppygirls-target");
+				if (puppygirlsEl) {
+					const p = document.createElement("span");
+					p.className = "particle-puppygirl";
+					p.textContent = currentType === "adore" ? "ฅ^•ﻌ•^ฅ" : "≽^•⩊•^≼";
+					p.style.left = (Math.random() * 40 - 10) + "px";
+					p.style.top = "5px";
+
+					const angle = Math.random() * Math.PI * 2;
+					const dist = 20 + Math.random() * 25;
+					p.style.setProperty('--tx', Math.cos(angle) * dist + "px");
+					p.style.setProperty('--ty', Math.sin(angle) * dist + "px");
+
+					puppygirlsEl.appendChild(p);
+					setTimeout(() => p.remove(), 2400);
+				}
 			}
 
-			const loveEl = document.getElementById("love-target");
-			if (loveEl) {
-				const p = document.createElement("span");
-				p.className = "particle-heart";
-				p.textContent = "<3";
-				p.style.left = (Math.random() * 25 - 5) + "px";
-				p.style.top = "5px";
+			if (currentType === "c418") {
+				const listenEl = document.getElementById("listen-target");
+				if (listenEl) {
+					const p = document.createElement("span");
+					p.className = "particle-green-note";
+					p.textContent = MUSIC_SYMBOLS[Math.floor(Math.random() * MUSIC_SYMBOLS.length)];
+					p.style.left = (Math.random() * 30 - 5) + "px";
+					p.style.top = "5px";
 
-				const angle = Math.random() * Math.PI * 2;
-				const dist = 20 + Math.random() * 25;
-				const tx = Math.cos(angle) * dist + "px";
-				const ty = Math.sin(angle) * dist + "px";
+					const angle = Math.random() * Math.PI * 2;
+					const dist = 20 + Math.random() * 25;
+					p.style.setProperty('--tx', Math.cos(angle) * dist + "px");
+					p.style.setProperty('--ty', Math.sin(angle) * dist + "px");
 
-				p.style.setProperty('--tx', tx);
-				p.style.setProperty('--ty', ty);
-
-				loveEl.appendChild(p);
-				setTimeout(() => p.remove(), 2000);
-			}
-
-			const puppygirlsEl = document.getElementById("puppygirls-target");
-			if (puppygirlsEl) {
-				const p = document.createElement("span");
-				p.className = "particle-puppygirl";
-				p.textContent = "≽^•⩊•^≼";
-				p.style.left = (Math.random() * 40 - 10) + "px";
-				p.style.top = "5px";
-
-				const angle = Math.random() * Math.PI * 2;
-				const dist = 20 + Math.random() * 25;
-				const tx = Math.cos(angle) * dist + "px";
-				const ty = Math.sin(angle) * dist + "px";
-
-				p.style.setProperty('--tx', tx);
-				p.style.setProperty('--ty', ty);
-
-				puppygirlsEl.appendChild(p);
-				setTimeout(() => p.remove(), 2400);
+					listenEl.appendChild(p);
+					setTimeout(() => p.remove(), 2000);
+				}
 			}
 		}
-		setInterval(spawnParticles, 700);
 
-		// Updated Locations & Smooth Transition Cycler
-const LOCATIONS = [
-	"Tokyo", "London", "Paris", "New York", 
-	"Seoul", "Berlin", "Toronto", "Kyoto", "Amsterdam", "Singapore"
-];
-let locationIdx = 0;
+		setInterval(spawnInterestParticles, 700);
 
-function cycleLocations() {
-	const locEl = document.getElementById("location-target");
-	if (!locEl) return;
+		const LOCATIONS = [
+			"Tokyo", "London", "Paris", "New York", 
+			"Seoul", "Berlin", "Toronto", "Kyoto", "Amsterdam", "Singapore"
+		];
+		let locationIdx = 0;
 
-	// Smooth fade out
-	locEl.classList.add("loc-changing");
+		function cycleLocations() {
+			const locEl = document.getElementById("location-target");
+			if (!locEl) return;
 
-	setTimeout(() => {
-		locationIdx = (locationIdx + 1) % LOCATIONS.length;
-		locEl.textContent = LOCATIONS[locationIdx];
-		// Smooth fade in
-		locEl.classList.remove("loc-changing");
-	}, 350);
-}
+			locEl.classList.add("loc-changing");
 
-setInterval(cycleLocations, 1000);
+			setTimeout(() => {
+				locationIdx = (locationIdx + 1) % LOCATIONS.length;
+				locEl.textContent = LOCATIONS[locationIdx];
+				locEl.classList.remove("loc-changing");
+			}, 350);
+		}
 
-// Live Age Counter Modal (Birthdate: March 21, 2009)
-const BIRTH_DATE = new Date("2009-03-21T00:00:00");
+		setInterval(cycleLocations, 1000);
 
-function updateLiveAgeCounter() {
-	const now = new Date();
-	const diffMs = now - BIRTH_DATE;
+		const BIRTH_DATE = new Date("2009-03-21T00:00:00");
 
-	const years = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
-	const days = Math.floor((diffMs % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24));
-	const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-	const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+		function updateLiveAgeCounter() {
+			const now = new Date();
+			const diffMs = now - BIRTH_DATE;
 
-	const counterEl = document.getElementById("age-counter-display");
-	if (counterEl) {
-		counterEl.textContent = `${years}y ${days}d ${hours}h ${minutes}m ${seconds}s`;
-	}
-}
+			const years = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 365.25));
+			const days = Math.floor((diffMs % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24));
+			const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+			const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+			const seconds = Math.floor((diffMs % (1000 * 60)) / 1000);
 
-let ageInterval = null;
+			const counterEl = document.getElementById("age-counter-display");
+			if (counterEl) {
+				counterEl.textContent = `${years}y ${days}d ${hours}h ${minutes}m ${seconds}s`;
+			}
+		}
 
-function openAgeModal() {
-	updateLiveAgeCounter();
-	if (ageInterval) clearInterval(ageInterval);
-	ageInterval = setInterval(updateLiveAgeCounter, 1000);
-	document.getElementById("age-modal-overlay").classList.add("active");
-}
+		let ageInterval = null;
 
-function closeAgeModal() {
-	document.getElementById("age-modal-overlay").classList.remove("active");
-	if (ageInterval) {
-		clearInterval(ageInterval);
-		ageInterval = null;
-	}
-}
+		function openAgeModal() {
+			updateLiveAgeCounter();
+			if (ageInterval) clearInterval(ageInterval);
+			ageInterval = setInterval(updateLiveAgeCounter, 1000);
+			document.getElementById("age-modal-overlay").classList.add("active");
+		}
 
-function closeAgeModalOnBackdrop(e) {
-	if (e.target.id === "age-modal-overlay") {
-		closeAgeModal();
-	}
-}
+		function closeAgeModal() {
+			document.getElementById("age-modal-overlay").classList.remove("active");
+			if (ageInterval) {
+				clearInterval(ageInterval);
+				ageInterval = null;
+			}
+		}
+
+		function closeAgeModalOnBackdrop(e) {
+			if (e.target.id === "age-modal-overlay") {
+				closeAgeModal();
+			}
+		}
 
 		function spawnButtonSparkle(e, btn, color) {
-			const rect = btn.getBoundingClientRect();
-			const sparkle = document.createElement("div");
-			sparkle.className = "btn-sparkle";
-			sparkle.style.background = color;
-			sparkle.style.boxShadow = `0 0 8px ${color}`;
-			sparkle.style.left = (e.clientX - rect.left) + "px";
-			sparkle.style.top = (e.clientY - rect.top) + "px";
-			
-			const dx = (Math.random() - 0.5) * 35 + "px";
-			const dy = (Math.random() - 0.5) * 35 + "px";
-			sparkle.style.setProperty('--dx', dx);
-			sparkle.style.setProperty('--dy', dy);
+	const rect = btn.getBoundingClientRect();
+	const sparkle = document.createElement("div");
+	sparkle.className = "btn-sparkle";
+	sparkle.style.background = color;
+	sparkle.style.borderRadius = "50%";
+	sparkle.style.width = "3px";
+	sparkle.style.height = "3px";
+	sparkle.style.boxShadow = `0 0 8px ${color}`;
+	sparkle.style.left = (e.clientX - rect.left) + "px";
+	sparkle.style.top = (e.clientY - rect.top) + "px";
+	
+	const dx = (Math.random() - 0.5) * 35 + "px";
+	const dy = (Math.random() - 0.5) * 35 + "px";
+	sparkle.style.setProperty('--dx', dx);
+	sparkle.style.setProperty('--dy', dy);
 
-			btn.appendChild(sparkle);
-			setTimeout(() => sparkle.remove(), 1200);
-		}
-
-		function spawnTikTokSparkle(e, btn) {
-			const colors = ['#2AF0EA', '#FE2858'];
-			const randomColor = colors[Math.floor(Math.random() * colors.length)];
-			spawnButtonSparkle(e, btn, randomColor);
-		}
+	btn.appendChild(sparkle);
+	setTimeout(() => sparkle.remove(), 1200);
+}
 
 		const gibberishChars = "⸸#πçø═⸸∆§£xXøØ";
 		function updateGibberish() {
