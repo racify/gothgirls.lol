@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>pray — commands</title>
+	<link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/x-icon" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=VT323&family=JetBrains+Mono:wght@500;700;800&display=swap');
+
+		:root {
+			--bg-base: #050505;
+			--bg-radial: radial-gradient(circle at 50% 50%, rgba(20, 20, 22, 0.8) 0%, rgba(5, 5, 5, 1) 100%);
+			--card-bg: rgba(13, 13, 15, 0.85);
+			--card-border: rgba(255, 255, 255, 0.07);
+			--card-border-hover: rgba(255, 255, 255, 0.18);
+			--text-primary: #e4e4e7;
+			--text-secondary: #a1a1aa;
+			--text-muted: #71717a;
+			--box-bg: rgba(0, 0, 0, 0.3);
+			--box-border: rgba(255, 255, 255, 0.04);
+			--confirm-bg: #09090b;
+			--confirm-border: rgba(255, 255, 255, 0.1);
+			--confirm-box-bg: #121215;
+			--confirm-btn-stay-bg: #121215;
+			--confirm-btn-stay-text: #ffffff;
+			--confirm-btn-proceed-bg: #ffffff;
+			--confirm-btn-proceed-text: #000000;
+			--custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23ffffff'/%3E%3C/svg%3E") 8 8, crosshair;
+		}
+
+		[data-theme="light"] {
+			--bg-base: #e4e4e7;
+			--bg-radial: radial-gradient(circle at 50% 50%, #f4f4f5 0%, #d4d4d8 100%);
+			--card-bg: rgba(255, 255, 255, 0.65);
+			--card-border: rgba(0, 0, 0, 0.08);
+			--card-border-hover: rgba(0, 0, 0, 0.22);
+			--text-primary: #18181b;
+			--text-secondary: #52525b;
+			--text-muted: #71717a;
+			--box-bg: rgba(0, 0, 0, 0.04);
+			--box-border: rgba(0, 0, 0, 0.08);
+			--confirm-bg: #ffffff;
+			--confirm-border: rgba(0, 0, 0, 0.12);
+			--confirm-box-bg: rgba(0, 0, 0, 0.05);
+			--confirm-btn-stay-bg: #e4e4e7;
+			--confirm-btn-stay-text: #18181b;
+			--confirm-btn-proceed-bg: #18181b;
+			--confirm-btn-proceed-text: #ffffff;
+			--custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23000000'/%3E%3C/svg%3E") 8 8, crosshair;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			user-select: none;
+			touch-action: manipulation;
+			cursor: var(--custom-cursor) !important;
+		}
+
+		html, body {
+			min-height: 100vh;
+			width: 100vw;
+			overflow-x: hidden;
+			background-color: var(--bg-base);
+			background-image: var(--bg-radial);
+			color: var(--text-primary);
+			font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding-bottom: 60px;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+		/* TOP PROFILE NAV */
+		.top-nav {
+			width: 92%;
+			max-width: 1100px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 24px 0 12px 0;
+			z-index: 100;
+		}
+
+		.profile-link {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			text-decoration: none;
+		}
+
+		.avatar-container {
+			position: relative;
+			width: 42px;
+			height: 42px;
+			flex-shrink: 0;
+		}
+
+		.avatar {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			object-fit: cover;
+			background: #121214;
+		}
+
+		.status-badge {
+			position: absolute;
+			bottom: 1px;
+			right: 1px;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background: #52525b;
+			border: 2px solid var(--bg-base);
+		}
+
+		.username-info {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.username {
+			font-size: 15px;
+			font-weight: 700;
+			color: var(--text-primary);
+		}
+
+		.user-tag {
+			font-size: 11px;
+			color: var(--text-muted);
+			font-family: 'JetBrains Mono', monospace;
+		}
+
+		/* CENTER BIG BRAND TEXT */
+		.top-brand-middle {
+			font-family: 'Bebas Neue', sans-serif;
+			font-size: 32px;
+			letter-spacing: 2px;
+			color: var(--text-primary);
+			text-decoration: none;
+			transition: transform 0.25s ease, opacity 0.25s ease;
+		}
+
+		.top-brand-middle:hover {
+			transform: scale(1.05);
+			opacity: 0.9;
+		}
+
+		.nav-right-controls {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+		}
+
+		.nav-btn {
+			background: transparent;
+			border: none;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-muted);
+			text-transform: lowercase;
+			padding: 6px 12px;
+			transition: color 0.3s ease, transform 0.3s ease;
+		}
+
+		.nav-btn:hover {
+			color: var(--text-primary);
+			transform: scale(1.1);
+		}
+
+		/* MAIN CONTAINER */
+		.container {
+			width: 92%;
+			max-width: 1100px;
+			margin-top: 10px;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		/* TITLE & SEARCH BAR */
+		.title-header-row {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 16px;
+			flex-wrap: wrap;
+		}
+
+		.card-title {
+			font-family: 'Bebas Neue', sans-serif;
+			font-size: 28px;
+			letter-spacing: 1px;
+			color: var(--text-primary);
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.search-box {
+			position: relative;
+			width: 100%;
+			max-width: 280px;
+		}
+
+		.search-box i {
+			position: absolute;
+			left: 12px;
+			top: 50%;
+			transform: translateY(-50%);
+			color: var(--text-muted);
+			font-size: 12px;
+		}
+
+		.search-input {
+			width: 100%;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 10px;
+			padding: 8px 12px 8px 34px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			color: var(--text-primary);
+			outline: none;
+			backdrop-filter: blur(12px);
+			transition: border-color 0.25s ease;
+		}
+
+		.search-input:focus {
+			border-color: var(--card-border-hover);
+		}
+
+		/* PILL FILTER BAR */
+		.pill-bar-track {
+			width: 100%;
+			overflow-x: auto;
+			scrollbar-width: none;
+			padding-bottom: 2px;
+		}
+
+		.pill-bar-track::-webkit-scrollbar {
+			display: none;
+		}
+
+		.pill-bar {
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 12px;
+			padding: 4px;
+			backdrop-filter: blur(16px);
+			width: max-content;
+		}
+
+		.pill-btn {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 6px 14px;
+			border-radius: 8px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			font-weight: 700;
+			color: var(--text-muted);
+			background: transparent;
+			border: none;
+			transition: all 0.2s ease;
+			white-space: nowrap;
+		}
+
+		.pill-btn:hover {
+			color: var(--text-primary);
+		}
+
+		.pill-btn.active {
+			background: rgba(255, 255, 255, 0.1);
+			color: var(--text-primary);
+		}
+
+		.pill-badge {
+			background: rgba(0, 0, 0, 0.3);
+			padding: 2px 6px;
+			border-radius: 6px;
+			font-size: 10px;
+			color: var(--text-secondary);
+		}
+
+		.pill-btn.active .pill-badge {
+			background: rgba(255, 255, 255, 0.15);
+			color: var(--text-primary);
+		}
+
+		/* COMMAND CARDS GRID */
+		.commands-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+			gap: 16px;
+		}
+
+		.card {
+			background: var(--card-bg);
+			border: 1px solid var(--card-border);
+			border-radius: 18px;
+			padding: 20px;
+			position: relative;
+			overflow: hidden;
+			backdrop-filter: blur(16px);
+			box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			gap: 14px;
+			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+		}
+
+		.card:hover {
+			border-color: var(--card-border-hover);
+			transform: translateY(-2px);
+		}
+
+		.cmd-header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.cmd-name {
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 15px;
+			font-weight: 800;
+			color: var(--text-primary);
+		}
+
+		.copy-btn {
+			background: transparent;
+			border: none;
+			color: var(--text-muted);
+			font-size: 13px;
+			transition: color 0.2s ease, transform 0.2s ease;
+			padding: 4px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.copy-btn:hover {
+			color: var(--text-primary);
+			transform: scale(1.15);
+		}
+
+		.copy-btn.copied {
+			color: #10b981 !important;
+		}
+
+		.cmd-desc {
+			font-size: 12px;
+			color: var(--text-secondary);
+			line-height: 1.4;
+			min-height: 34px;
+		}
+
+		.cmd-details {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			padding-top: 10px;
+			border-top: 1px solid var(--box-border);
+		}
+
+		.detail-group {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+		}
+
+		.detail-label {
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 10px;
+			font-weight: 700;
+			color: var(--text-muted);
+			text-transform: lowercase;
+		}
+
+		.pill-list {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			flex-wrap: wrap;
+		}
+
+		.spec-pill {
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 6px;
+			padding: 3px 8px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			color: var(--text-primary);
+		}
+
+		.spec-pill.perm-required {
+			color: #ef4444;
+			border-color: rgba(239, 68, 68, 0.25);
+			background: rgba(239, 68, 68, 0.08);
+		}
+
+		.no-results {
+			grid-column: 1 / -1;
+			text-align: center;
+			padding: 50px;
+			font-family: 'JetBrains Mono', monospace;
+			color: var(--text-muted);
+			font-size: 12px;
+		}
+
+		/* CONFIRM REDIRECT MODAL */
+		.confirm-modal-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.75);
+			backdrop-filter: blur(8px);
+			z-index: 20000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.25s ease;
+		}
+
+		.confirm-modal-overlay.active {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.confirm-card {
+			background: var(--confirm-bg);
+			border: 1px solid var(--confirm-border);
+			border-radius: 16px;
+			padding: 24px 28px;
+			width: 90%;
+			max-width: 420px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+			display: flex;
+			flex-direction: column;
+			gap: 14px;
+			transform: scale(0.95);
+			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+		}
+
+		.confirm-modal-overlay.active .confirm-card {
+			transform: scale(1);
+		}
+
+		.confirm-title {
+			font-size: 18px;
+			font-weight: 700;
+			color: var(--text-primary);
+			letter-spacing: -0.3px;
+		}
+
+		.confirm-sub {
+			font-size: 12px;
+			color: var(--text-muted);
+			font-weight: 600;
+			text-transform: lowercase;
+			margin-top: -6px;
+		}
+
+		.confirm-url-box {
+			background: var(--confirm-box-bg);
+			border: 1px solid var(--confirm-border);
+			border-radius: 8px;
+			padding: 10px 14px;
+			font-size: 13px;
+			color: var(--text-primary);
+			font-weight: 600;
+			word-break: break-all;
+		}
+
+		.confirm-actions {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 10px;
+			margin-top: 6px;
+		}
+
+		.confirm-btn {
+			padding: 8px 16px;
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 700;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			border: none;
+		}
+
+		.confirm-btn.stay {
+			background: var(--confirm-btn-stay-bg);
+			border: 1px solid var(--confirm-border);
+			color: var(--confirm-btn-stay-text);
+		}
+
+		.confirm-btn.stay:hover { opacity: 0.85; }
+
+		.confirm-btn.proceed {
+			background: var(--confirm-btn-proceed-bg);
+			color: var(--confirm-btn-proceed-text);
+		}
+
+		.confirm-btn.proceed:hover { opacity: 0.88; }
+
+		@media (max-width: 768px) {
+			.top-brand-middle {
+				display: none;
+			}
+		}
+
+		@media (max-width: 600px) {
+			.commands-grid {
+				grid-template-columns: 1fr;
+			}
+			.title-header-row {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+			.search-box {
+				max-width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+
+	<div class="top-nav">
+		<a class="profile-link" onclick="promptExternalLink('https://discord.com/users/' + DISCORD_ID)">
+			<div class="avatar-container">
+				<img id="nav-avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="avatar" />
+				<div id="nav-status-badge" class="status-badge"></div>
+			</div>
+			<div class="username-info">
+				<span id="nav-username" class="username">pray</span>
+				<span id="nav-tag" class="user-tag">@pray</span>
+			</div>
+		</a>
+
+		<a class="top-brand-middle" onclick="promptExternalLink('https://gothgirls.lol')">
+			gothgirls.lol
+		</a>
+
+		<div class="nav-right-controls">
+			<button class="nav-btn" onclick="promptExternalLink('https://t.me/misrepent')">help</button>
+			<button class="nav-btn" id="theme-toggle-btn" onclick="toggleTheme()">light</button>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="title-header-row">
+			<div class="card-title">
+				<i class="fa-solid fa-terminal" style="font-size: 18px; color: var(--text-muted);"></i> Commands
+			</div>
+			<div class="search-box">
+				<i class="fa-solid fa-magnifying-glass"></i>
+				<input type="text" id="cmd-search-input" class="search-input" placeholder="Search commands..." oninput="renderCommands()">
+			</div>
+		</div>
+
+		<div class="pill-bar-track">
+			<div class="pill-bar" id="pill-bar">
+				<!-- Rendered dynamically -->
+			</div>
+		</div>
+
+		<div class="commands-grid" id="commands-grid">
+			<!-- Rendered dynamically -->
+		</div>
+	</div>
+
+	<!-- CONFIRM REDIRECT MODAL -->
+	<div class="confirm-modal-overlay" id="confirm-modal-overlay" onclick="closeConfirmModalOnBackdrop(event)">
+		<div class="confirm-card" onclick="event.stopPropagation()">
+			<div class="confirm-title">leaving so soon?</div>
+			<div class="confirm-sub">this link will take you to</div>
+			<div class="confirm-url-box" id="confirm-target-url">https://example.com/</div>
+			<div class="confirm-actions">
+				<button class="confirm-btn stay" onclick="closeConfirmModal()">stay</button>
+				<button class="confirm-btn proceed" onclick="proceedToTargetUrl()">proceed</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const DISCORD_ID = "1459602053969215786";
+		let activeRedirectUrl = "";
+
+		// Data Structure built directly from bot.py
+		const COMMANDS_DATA = [
+			// Moderation
+			{ name: "organizeogu", cat: "moderation", desc: "Scans server members and assigns roles (3c, 3l, 4c, 4l) based on Discord username structure.", args: ["[option]"], perms: "manage_roles" },
+			{ name: "lock", cat: "moderation", desc: "Locks a single channel preventing @everyone from sending messages.", args: ["[channel]"], perms: "manage_roles" },
+			{ name: "lockall", cat: "moderation", desc: "Locks send permissions across every text channel in the server for @everyone.", args: ["None"], perms: "manage_roles" },
+			{ name: "hide", cat: "moderation", desc: "Removes view channel permissions for @everyone on a specific channel.", args: ["[channel]"], perms: "manage_roles" },
+			{ name: "hideall", cat: "moderation", desc: "Hides all text channels across the server from @everyone.", args: ["None"], perms: "manage_roles" },
+			{ name: "stripall", cat: "moderation", desc: "Removes Administrator permissions from all reachable roles in the guild.", args: ["None"], perms: "administrator" },
+
+			// Utility
+			{ name: "help", cat: "utility", desc: "Shows documentation and help link for all bot commands.", args: ["None"], perms: "None" },
+			{ name: "prefix", cat: "utility", desc: "Changes the command prefix for the bot in the current server.", args: ["<new_prefix>"], perms: "None" },
+			{ name: "boosterlist", cat: "utility", desc: "Tags and lists all members currently boosting this server.", args: ["None"], perms: "None" },
+			{ name: "info", cat: "utility", desc: "Displays server statistics and attaches a .txt file containing all member user IDs.", args: ["None"], perms: "None" },
+			{ name: "profilecolors", cat: "utility", desc: "Fetches and displays the primary and accent profile theme hex colors of a user.", args: ["[user]"], perms: "None" },
+			{ name: "avatar", cat: "utility", desc: "Displays a high-resolution avatar image and download links for specified user.", args: ["[user]"], perms: "None" },
+			{ name: "banner", cat: "utility", desc: "Displays a user's custom profile banner if one is set.", args: ["[user]"], perms: "None" },
+			{ name: "dm", cat: "utility", desc: "Sends a direct message to a target user through the bot.", args: ["<user>", "<message>"], perms: "None" },
+			{ name: "massdm", cat: "utility", desc: "Sends a direct message to all non-bot members across the server.", args: ["<message>"], perms: "None" },
+			{ name: "emojiadd", cat: "utility", desc: "Creates a custom server emoji from a replied message image or emoji set.", args: ["<name>"], perms: "None" },
+			{ name: "stickeradd", cat: "utility", desc: "Uploads a custom sticker from a replied message image.", args: ["<name>", "[description]"], perms: "None" },
+
+			// Presets
+			{ name: "presets", cat: "presets", desc: "Lists all saved server layout models and blueprints.", args: ["None"], perms: "None" },
+			{ name: "savepreset", cat: "presets", desc: "Scans full server layout (channels & roles) and saves structure to file.", args: ["<blueprint_name>"], perms: "None" },
+			{ name: "applypreset", cat: "presets", desc: "Wipes current server channels & roles and rebuilds layout from blueprint.", args: ["<blueprint_name>"], perms: "None" },
+			{ name: "deletepreset", cat: "presets", desc: "Permanently deletes a saved blueprint file.", args: ["<blueprint_name>"], perms: "None" },
+
+			// Nukes & Admin
+			{ name: "whitelist", cat: "nukes", desc: "Grants permanent master admin bot access to a specified user ID.", args: ["<user_id>"], perms: "Master Admin" },
+			{ name: "nuke", cat: "nukes", desc: "Purges all channels and roles below bot rank upon 30s confirmation.", args: ["None"], perms: "None" },
+			{ name: "confirm", cat: "nukes", desc: "Confirms an active pending server nuke request.", args: ["None"], perms: "None" },
+			{ name: "channelnuke", cat: "nukes", desc: "Deletes all channels/categories matching a given name string.", args: ["<name>"], perms: "None" },
+			{ name: "nukeemojis", cat: "nukes", desc: "Deletes all custom emojis present in the server.", args: ["None"], perms: "None" },
+			{ name: "nukeroles", cat: "nukes", desc: "Deletes all custom roles below bot hierarchy.", args: ["None"], perms: "None" },
+			{ name: "nukemembers", cat: "nukes", desc: "Bans all non-whitelisted members below bot rank.", args: ["None"], perms: "None" },
+			{ name: "servers", cat: "nukes", desc: "Displays a formatted list of all servers where the bot is present.", args: ["None"], perms: "None" },
+			{ name: "servernuke", cat: "nukes", desc: "Remotely purges channels, roles, and bans non-whitelisted members in target server ID.", args: ["<server_id>"], perms: "Master Admin" },
+
+			// Sync & Mirroring
+			{ name: "syncvault", cat: "sync", desc: "Clones thread media and files between forum channels.", args: ["<source_id>", "<target_id>"], perms: "None" },
+			{ name: "synctext", cat: "sync", desc: "Syncs text messages between forum channels.", args: ["<source_id>", "<target_id>"], perms: "None" },
+			{ name: "vaultchannels", cat: "sync", desc: "Clones image content across text categories.", args: ["<source_cat>", "<target_cat>"], perms: "None" },
+			{ name: "s2v", cat: "sync", desc: "Converts text channels or categories into forum threads.", args: ["<source_id>", "<target_forum_id>"], perms: "None" },
+			{ name: "v2s", cat: "sync", desc: "Converts forum threads back to standard text channels.", args: ["<source_forum>", "<target_category>"], perms: "None" },
+			{ name: "channel2channel", cat: "sync", desc: "Replicates history directly between two text channels.", args: ["<source_id>", "<target_id>"], perms: "None" },
+			{ name: "s2vlive", cat: "sync", desc: "Live mirrors incoming messages from a category to forum threads.", args: ["<source_cat>", "<target_forum>"], perms: "None" },
+			{ name: "v2slive", cat: "sync", desc: "Live mirrors messages from forum threads to a standard text category.", args: ["<source_forum>", "<target_cat>"], perms: "None" },
+			{ name: "stoplive", cat: "sync", desc: "Disables active live sync for specified source ID.", args: ["<source_id>"], perms: "None" }
+		];
+
+		const CATEGORIES = [
+			{ id: "all", name: "all", icon: "fa-solid fa-border-all" },
+			{ id: "utility", name: "utility", icon: "fa-solid fa-wrench" },
+			{ id: "moderation", name: "moderation", icon: "fa-solid fa-shield-halved" },
+			{ id: "presets", name: "presets", icon: "fa-solid fa-cubes" },
+			{ id: "nukes", name: "nukes", icon: "fa-solid fa-bomb" },
+			{ id: "sync", name: "sync & mirror", icon: "fa-solid fa-rotate" }
+		];
+
+		let activeCategory = "all";
+
+		function applyTheme(mode) {
+			document.documentElement.setAttribute("data-theme", mode);
+			const btn = document.getElementById("theme-toggle-btn");
+			if (btn) btn.textContent = mode === "light" ? "dark" : "light";
+		}
+
+		function toggleTheme() {
+			const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+			applyTheme(currentTheme === "light" ? "dark" : "light");
+		}
+
+		function renderPillBar() {
+			const bar = document.getElementById("pill-bar");
+			bar.innerHTML = CATEGORIES.map(cat => {
+				const count = cat.id === "all" 
+					? COMMANDS_DATA.length 
+					: COMMANDS_DATA.filter(c => c.cat === cat.id).length;
+
+				return `
+					<button class="pill-btn ${cat.id === activeCategory ? 'active' : ''}" onclick="setCategory('${cat.id}')">
+						<i class="${cat.icon}"></i>
+						<span>${cat.name}</span>
+						<span class="pill-badge">${count}</span>
+					</button>
+				`;
+			}).join("");
+		}
+
+		function setCategory(catId) {
+			activeCategory = catId;
+			renderPillBar();
+			renderCommands();
+		}
+
+		function renderCommands() {
+			const grid = document.getElementById("commands-grid");
+			const searchQuery = document.getElementById("cmd-search-input").value.toLowerCase().trim();
+
+			const filtered = COMMANDS_DATA.filter(cmd => {
+				const matchesCat = activeCategory === "all" || cmd.cat === activeCategory;
+				const matchesSearch = cmd.name.toLowerCase().includes(searchQuery) || cmd.desc.toLowerCase().includes(searchQuery);
+				return matchesCat && matchesSearch;
+			});
+
+			if (filtered.length === 0) {
+				grid.innerHTML = `<div class="no-results">No commands match your search query.</div>`;
+				return;
+			}
+
+			grid.innerHTML = filtered.map(cmd => {
+				const argsArray = Array.isArray(cmd.args) ? cmd.args : [cmd.args];
+				const argsPills = argsArray.map(a => `<span class="spec-pill">${escapeHTML(a)}</span>`).join("");
+				const isPerm = cmd.perms !== "None";
+
+				const fullSyntax = `+${cmd.name} ${cmd.args.filter(a => a !== "None").join(" ")}`.trim();
+
+				return `
+					<div class="card">
+						<div style="display: flex; flex-direction: column; gap: 8px;">
+							<div class="cmd-header">
+								<span class="cmd-name">${escapeHTML(cmd.name)}</span>
+								<button class="copy-btn" onclick="copyToClipboard('${escapeJs(fullSyntax)}', this)" title="Copy Command">
+									<i class="fa-regular fa-copy"></i>
+								</button>
+							</div>
+							<div class="cmd-desc">${escapeHTML(cmd.desc)}</div>
+						</div>
+
+						<div class="cmd-details">
+							<div class="detail-group">
+								<span class="detail-label">arguments</span>
+								<div class="pill-list">
+									${argsPills}
+								</div>
+							</div>
+							<div class="detail-group">
+								<span class="detail-label">permissions</span>
+								<div class="pill-list">
+									<span class="spec-pill ${isPerm ? 'perm-required' : ''}">${escapeHTML(cmd.perms)}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				`;
+			}).join("");
+		}
+
+		function copyToClipboard(text, btnElement) {
+			navigator.clipboard.writeText(text).then(() => {
+				const icon = btnElement.querySelector("i");
+				btnElement.classList.add("copied");
+				icon.className = "fa-solid fa-check";
+
+				setTimeout(() => {
+					btnElement.classList.remove("copied");
+					icon.className = "fa-regular fa-copy";
+				}, 1500);
+			}).catch(err => {
+				console.error("Copy failed", err);
+			});
+		}
+
+		/* EXTERNAL LINK REDIRECT MODAL */
+		function promptExternalLink(url) {
+			activeRedirectUrl = url;
+			document.getElementById("confirm-target-url").textContent = url;
+			document.getElementById("confirm-modal-overlay").classList.add("active");
+		}
+
+		function closeConfirmModal() {
+			document.getElementById("confirm-modal-overlay").classList.remove("active");
+			activeRedirectUrl = "";
+		}
+
+		function closeConfirmModalOnBackdrop(e) {
+			if (e.target.id === "confirm-modal-overlay") {
+				closeConfirmModal();
+			}
+		}
+
+		function proceedToTargetUrl() {
+			if (activeRedirectUrl) {
+				window.open(activeRedirectUrl, "_blank");
+			}
+			closeConfirmModal();
+		}
+
+		function escapeHTML(str) {
+			return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+		}
+
+		function escapeJs(str) {
+			return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+		}
+
+		function connectLanyardWebSocket() {
+			const socket = new WebSocket("wss://api.lanyard.rest/socket");
+
+			socket.onmessage = (event) => {
+				const message = JSON.parse(event.data);
+				if (message.op === 1) {
+					setInterval(() => {
+						if (socket.readyState === WebSocket.OPEN) {
+							socket.send(JSON.stringify({ op: 3 }));
+						}
+					}, message.d.heartbeat_interval);
+
+					socket.send(JSON.stringify({
+						op: 2,
+						d: { subscribe_to_id: DISCORD_ID }
+					}));
+				}
+
+				if (message.t === "INIT_STATE" || message.t === "PRESENCE_UPDATE") {
+					if (message.d) {
+						const user = message.d.discord_user;
+						if (user) {
+							document.getElementById("nav-username").textContent = user.global_name || user.username || "pray";
+							if (user.username) {
+								document.getElementById("nav-tag").textContent = `@${user.username}`;
+							}
+							if (user.avatar) {
+								const ext = user.avatar.startsWith("a_") ? "gif" : "png";
+								document.getElementById("nav-avatar").src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`;
+							}
+						}
+						const status = message.d.discord_status || "offline";
+						const colors = { online: "#22c55e", idle: "#f59e0b", dnd: "#ef4444", offline: "#52525b" };
+						document.getElementById("nav-status-badge").style.background = colors[status] || colors.offline;
+					}
+				}
+			};
+
+			socket.onclose = () => setTimeout(connectLanyardWebSocket, 5000);
+		}
+
+		renderPillBar();
+		renderCommands();
+		connectLanyardWebSocket();
+	</script>
+</body>
+</html>
