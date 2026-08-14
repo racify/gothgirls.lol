@@ -1,0 +1,3041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>pray</title>
+	<link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/x-icon" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&family=VT323&family=JetBrains+Mono:wght@500;700;800&display=swap');
+
+		:root {
+			--marquee-text: #ffffff;
+			--marquee-glow: rgba(255, 255, 255, 0.8);
+	        --tooltip-bg: #111214;
+	        --tooltip-text: #f2f3f5;
+	        --tooltip-border: rgba(255, 255, 255, 0.1);
+			--about-anime-bg: url("dbg.png");
+	        --bg-base: #050505;
+	        --bg-radial: radial-gradient(circle at 50% 50%, rgba(20, 20, 22, 0.8) 0%, rgba(5, 5, 5, 1) 100%);
+			--card-bg: rgba(13, 13, 15, 0.85);
+			--card-border: rgba(255, 255, 255, 0.07);
+			--card-border-hover: rgba(255, 255, 255, 0.18);
+			--text-primary: #e4e4e7;
+			--text-secondary: #a1a1aa;
+			--text-muted: #71717a;
+			--modal-bg: rgba(13, 13, 15, 0.95);
+			--box-bg: rgba(0, 0, 0, 0.3);
+			--box-border: rgba(255, 255, 255, 0.04);
+			--banner-bg: #090a0f;
+			--banner-border: rgba(255, 255, 255, 0.8);
+			--banner-accent: #ef4444;
+			--banner-title: #f87171;
+			--banner-glow: rgba(255, 255, 255, 0.15);
+			--history-bg: #080b12;
+			--history-border: #1a2333;
+			--visitor-text: #ffffff;
+			--confirm-bg: #09090b;
+			--confirm-border: rgba(255, 255, 255, 0.1);
+			--confirm-box-bg: #121215;
+			--confirm-btn-stay-bg: #121215;
+			--confirm-btn-stay-text: #ffffff;
+			--confirm-btn-proceed-bg: #ffffff;
+			--confirm-btn-proceed-text: #000000;
+			--rainbow-gradient: linear-gradient(90deg, #d4d4d8, #a1a1aa, #e4e4e7, #71717a, #ffffff);
+			--custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23ffffff'/%3E%3C/svg%3E") 8 8, crosshair;
+		}
+
+		[data-theme="light"] {
+			--marquee-text: #000000;
+			--marquee-glow: rgba(0, 0, 0, 0.25);
+	        --tooltip-bg: #ffffff;
+	        --tooltip-text: #18181b;
+	        --tooltip-border: rgba(0, 0, 0, 0.12);
+			--about-anime-bg: url("lbg.png");
+	        --bg-base: #e4e4e7;
+	        --bg-radial: radial-gradient(circle at 50% 50%, #f4f4f5 0%, #d4d4d8 100%);
+			--card-bg: rgba(255, 255, 255, 0.65);
+			--card-border: rgba(0, 0, 0, 0.08);
+			--card-border-hover: rgba(0, 0, 0, 0.22);
+			--text-primary: #18181b;
+			--text-secondary: #52525b;
+			--text-muted: #71717a;
+			--modal-bg: rgba(255, 255, 255, 0.95);
+			--box-bg: rgba(0, 0, 0, 0.04);
+			--box-border: rgba(0, 0, 0, 0.08);
+			--banner-bg: #ffffff;
+			--banner-border: rgba(255, 255, 255, 0.9);
+			--banner-accent: #dc2626;
+			--banner-title: #b91c1c;
+			--banner-glow: rgba(0, 0, 0, 0.1);
+			--history-bg: #ffffff;
+			--history-border: #e2e8f0;
+			--visitor-text: #3f3f46;
+			--confirm-bg: #ffffff;
+			--confirm-border: rgba(0, 0, 0, 0.12);
+			--confirm-box-bg: rgba(0, 0, 0, 0.05);
+			--confirm-btn-stay-bg: #e4e4e7;
+			--confirm-btn-stay-text: #18181b;
+			--confirm-btn-proceed-bg: #18181b;
+			--confirm-btn-proceed-text: #ffffff;
+			--rainbow-gradient: linear-gradient(90deg, #09090b, #3f3f46, #18181b, #52525b, #000000);
+			--custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23000000'/%3E%3C/svg%3E") 8 8, crosshair;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			user-select: none;
+			touch-action: manipulation;
+			cursor: var(--custom-cursor) !important;
+		}
+
+		html, body {
+			height: 100vh;
+			width: 100vw;
+			overflow: hidden;
+			background-color: var(--bg-base);
+			background-image: var(--bg-radial);
+			color: var(--text-primary);
+			font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+		.theme-toggle-btn {
+			position: fixed;
+			top: 24px;
+			left: 28px;
+			z-index: 9999;
+			background: transparent;
+			border: none;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-muted);
+			text-transform: lowercase;
+			letter-spacing: 0.5px;
+			pointer-events: auto;
+			padding: 8px 12px;
+			transition: color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.theme-toggle-btn:hover {
+			color: var(--text-primary);
+			transform: scale(1.1);
+		}
+
+		.particle-note {
+			position: absolute;
+			font-size: 13px;
+			color: #1ed760;
+			pointer-events: none;
+			animation: burstOut 2s ease-out forwards;
+			opacity: 0;
+			text-shadow: 0 0 6px #1ed760;
+			z-index: 10;
+		}
+
+		.glowing-listen {
+			display: inline-block;
+			position: relative;
+			color: #1ed760;
+			font-weight: 800;
+			text-shadow: 0 0 8px #1ed760, 0 0 16px rgba(30, 215, 96, 0.6);
+		}
+
+		.btn-sparkle {
+	position: absolute;
+	font-size: 10px;
+	pointer-events: none;
+	animation: particleFloat 1.2s ease-out forwards;
+	z-index: 100;
+}
+
+@keyframes particleFloat {
+	0% { opacity: 1; transform: translate(0, 0) scale(1); }
+	100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+}
+
+		.creeper-minecraft {
+			display: inline-block;
+			position: relative;
+			font-weight: 800;
+			background: linear-gradient(90deg, #10b981, #000000, #22c55e, #15803d, #10b981);
+			background-size: 200% auto;
+			color: transparent;
+			-webkit-background-clip: text;
+			animation: creeperShift 4s linear infinite;
+			filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.6));
+		}
+
+		@keyframes creeperShift {
+			0% { background-position: 0% center; }
+			100% { background-position: 200% center; }
+		}
+
+		.interests-cycler {
+			display: inline-block;
+			transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.interests-cycler.changing {
+			opacity: 0;
+			transform: translateY(-4px);
+		}
+
+		.top-popups-stack {
+			position: fixed;
+			top: 16px;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 1000;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 8px;
+			pointer-events: none;
+		}
+
+		.top-activity-wrapper {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			pointer-events: auto;
+		}
+
+		.top-activity-banner {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			background: var(--banner-bg);
+			border: 1px solid var(--banner-accent) !important;
+			border-top: 1px solid var(--banner-accent) !important;
+			border-left: 3.5px solid var(--banner-accent) !important;
+			border-radius: 4px;
+			padding: 5px 14px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			color: var(--text-primary);
+			box-shadow: 0 0 12px var(--banner-glow), 0 4px 16px var(--banner-glow);
+			clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+			cursor: pointer !important;
+			white-space: nowrap;
+			transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+			            border-color 0.3s ease, 
+			            box-shadow 0.3s ease, 
+			            background 0.3s ease, 
+			            color 0.3s ease;
+		}
+
+		.top-activity-banner.activity-updating {
+			opacity: 0.2;
+			transform: scaleX(0.97);
+		}
+
+		.top-act-sub {
+			color: var(--text-muted);
+			font-weight: 500;
+			margin-left: 2px;
+		}
+
+		.top-act-icon-img {
+			width: 14px;
+			height: 14px;
+			object-fit: contain;
+			border-radius: 2px;
+			flex-shrink: 0;
+		}
+
+		.history-active-section {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+			padding-bottom: 8px;
+			margin-bottom: 8px;
+			border-bottom: 1px solid var(--box-border);
+		}
+
+		.history-active-card {
+			display: flex;
+			align-items: flex-start;
+			gap: 10px;
+			padding: 8px 10px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-left: 3px solid var(--banner-accent);
+			border-radius: 6px;
+		}
+
+		.active-app-icon {
+			width: 32px;
+			height: 32px;
+			border-radius: 6px;
+			object-fit: cover;
+			flex-shrink: 0;
+		}
+
+		.active-app-icon-fallback {
+			width: 32px;
+			height: 32px;
+			border-radius: 6px;
+			background: var(--box-bg);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 14px;
+			color: var(--banner-accent);
+			flex-shrink: 0;
+		}
+
+		.active-details {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			min-width: 0;
+		}
+
+		.active-title-row {
+			font-size: 11px;
+			font-weight: 800;
+		}
+
+		.active-sub-text {
+			font-size: 10px;
+			color: var(--text-secondary);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.active-elapsed-text {
+			font-size: 9px;
+			font-weight: 700;
+			color: #10b981;
+			margin-top: 1px;
+		}
+
+		.scrolling-text-container {
+			width: 100%;
+			max-width: 100%;
+			overflow: hidden;
+			white-space: nowrap;
+			margin-top: 6px;
+			position: relative;
+			display: flex;
+			align-items: center;
+		}
+
+		.scrolling-text-track {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	white-space: nowrap;
+	font-family: 'JetBrains Mono', monospace;
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--marquee-text);
+	text-shadow: 0 0 6px var(--marquee-glow), 0 0 12px var(--marquee-glow);
+	animation: infiniteScroll 12s linear infinite;
+	flex-shrink: 0;
+	transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+		.scrolling-text-track span {
+			white-space: nowrap;
+			display: inline-block;
+		}
+
+		@keyframes infiniteScroll {
+			0% { transform: translateX(0%); }
+			100% { transform: translateX(-50%); }
+		}
+
+		.top-act-icon {
+			font-size: 11.5px;
+			color: var(--banner-accent);
+			filter: drop-shadow(0 0 5px var(--banner-accent));
+			transition: color 0.3s ease, filter 0.3s ease;
+		}
+
+		.top-activity-title {
+			font-weight: 800;
+			text-transform: uppercase;
+			letter-spacing: 0.8px;
+			color: var(--banner-title);
+			transition: color 0.3s ease;
+		}
+
+		.visitor-popup-banner {
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			font-weight: 600;
+			color: var(--visitor-text);
+			opacity: 1;
+			transition: opacity 1s ease, transform 1s ease;
+			pointer-events: none;
+			white-space: nowrap;
+			text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+		}
+
+		.visitor-popup-banner.fade-away {
+			opacity: 0;
+			transform: translateY(-6px);
+		}
+
+		.telegram-bottom-popup {
+	position: fixed !important;
+	bottom: 24px !important;
+	left: 50% !important;
+	transform: translateX(-50%) !important;
+	z-index: 99999 !important;
+	display: inline-flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	justify-content: center !important;
+	width: auto !important;
+	min-width: max-content !important;
+	background: var(--banner-bg) !important;
+	border: 1px solid var(--banner-accent) !important;
+	border-left: 3.5px solid var(--banner-accent) !important;
+	border-radius: 6px;
+	padding: 8px 18px;
+	backdrop-filter: blur(16px);
+	box-shadow: 0 0 12px var(--banner-glow), 0 4px 16px var(--banner-glow) !important;
+	overflow: hidden;
+	cursor: pointer !important;
+	pointer-events: auto;
+	opacity: 1;
+	transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+		.telegram-popup-body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 8px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			font-weight: 700;
+			color: var(--text-primary);
+			white-space: nowrap;
+			width: 100%;
+		}
+
+		.telegram-popup-icon {
+			font-size: 12px;
+			color: #38bdf8;
+			flex-shrink: 0;
+		}
+
+		.telegram-progress-bar {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 2px;
+	background: var(--banner-accent) !important;
+	width: 100%;
+	box-shadow: 0 0 8px var(--banner-accent) !important;
+	animation: elapsesTenSec 10s linear forwards;
+}
+
+		@keyframes elapsesTenSec {
+			0% { width: 100%; }
+			100% { width: 0%; }
+		}
+
+		.telegram-bottom-popup.hidden {
+			opacity: 0 !important;
+			transform: translate(-50%, 20px) !important;
+			pointer-events: none !important;
+		}
+
+		.activity-history-popup {
+			position: absolute;
+			top: 100%;
+			margin-top: 10px;
+			width: 280px;
+			background: var(--card-bg);
+			border: 1px solid var(--card-border);
+			border-radius: 6px;
+			padding: 12px 14px;
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(-6px);
+			transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.3s ease;
+			font-family: 'JetBrains Mono', monospace;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+			overflow: hidden;
+		}
+
+		.activity-history-popup::before {
+			content: '';
+			position: absolute;
+			top: -12px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 1px;
+			height: 12px;
+			background: var(--banner-accent);
+			opacity: 0.6;
+		}
+
+		.top-activity-wrapper:hover .activity-history-popup {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+		}
+
+		.history-header {
+			font-size: 9.5px;
+			font-weight: 800;
+			letter-spacing: 1.5px;
+			color: var(--text-muted);
+			text-transform: uppercase;
+		}
+
+		.history-list {
+			display: flex;
+			flex-direction: column;
+			gap: 9px;
+			overflow: hidden;
+		}
+
+		.history-item {
+	        display: flex;
+	        align-items: flex-start;
+	        gap: 8px;
+	        padding-left: 8px;
+	        border-left: 2px solid #10b981;
+	        position: relative;
+	        opacity: 0.55;
+	        transition: opacity 0.2s ease;
+        }
+
+        .history-item:hover {
+	        opacity: 0.95;
+        } 
+
+		.history-item-icon {
+			font-size: 10px;
+			margin-top: 1.5px;
+			flex-shrink: 0;
+		}
+
+		.history-item-content {
+			display: flex;
+			flex-direction: column;
+			gap: 1px;
+			min-width: 0;
+		}
+
+		.history-item-title-row {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			font-size: 10.5px;
+			font-weight: 700;
+		}
+
+		.history-verb {
+			text-transform: uppercase;
+		}
+
+		.history-target {
+			color: var(--text-primary);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.history-item-sub {
+			font-size: 9.5px;
+			color: var(--text-secondary);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.history-item-time {
+			font-size: 8.5px;
+			color: var(--text-muted);
+			margin-top: 1px;
+		}
+
+		.container {
+			width: 92%;
+			max-width: 1100px;
+			margin: 25px auto 0 auto;
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+			position: relative;
+			z-index: 10;
+		}
+
+		.top-grid {
+			display: grid;
+			grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+			gap: 20px;
+			align-items: stretch;
+			position: relative;
+		}
+
+		.bottom-grid {
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			gap: 20px;
+			position: relative;
+		}
+
+		.card {
+			background: var(--card-bg);
+			border: 1px solid var(--card-border);
+			border-radius: 18px;
+			padding: 20px;
+			position: relative;
+			overflow: hidden;
+			backdrop-filter: blur(16px);
+			box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
+			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+			            border-color 0.25s ease, 
+			            box-shadow 0.25s ease;
+		}
+
+.card:hover {
+			border-color: var(--card-border-hover);
+			transform: translateY(-2px);
+			box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+		}
+
+		.profile-card {
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			background: var(--card-bg);
+			overflow: visible;
+		}
+
+		.profile-body {
+			padding: 0;
+			margin-top: 0;
+			position: relative;
+			z-index: 2;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+
+		.profile-header-row {
+			display: flex;
+			align-items: flex-end;
+			justify-content: space-between;
+			position: relative;
+		}
+
+		.avatar-container {
+			position: relative;
+			width: 82px;
+			height: 82px;
+			flex-shrink: 0;
+		}
+
+		.avatar {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			object-fit: cover;
+			border: none;
+			background: #121214;
+		}
+
+		.profile-status-popup {
+			position: relative;
+			margin-top: 8px;
+			width: 100%;
+			background: var(--banner-bg);
+			border: 1px solid var(--box-border);
+			border-left: 3.5px solid var(--banner-accent);
+			border-radius: 8px;
+			padding: 8px 12px;
+			backdrop-filter: blur(12px);
+			box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+			overflow: hidden;
+			max-height: 120px;
+			opacity: 1;
+			transform: translateY(0) scale(1);
+			transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+			            padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+			            margin-top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+			            opacity 0.35s ease,
+			            transform 0.35s ease,
+			            border-width 0.4s ease;
+		}
+
+		.profile-status-popup.hidden {
+			animation: none !important;
+			max-height: 0 !important;
+			padding-top: 0 !important;
+			padding-bottom: 0 !important;
+			margin-top: 0 !important;
+			border-top-width: 0 !important;
+			border-bottom-width: 0 !important;
+			opacity: 0 !important;
+			transform: translateY(-8px) scale(0.96) !important;
+			pointer-events: none !important;
+		}
+
+		.status-popup-body {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			font-weight: 600;
+			color: var(--text-primary);
+			word-break: break-word;
+			white-space: normal;
+			line-height: 1.4;
+		}
+
+		.status-popup-body img {
+			width: 16px;
+			height: 16px;
+			object-fit: contain;
+			flex-shrink: 0;
+		}
+
+		.status-progress-bar {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			height: 2px;
+			background: var(--banner-accent);
+			width: 100%;
+			box-shadow: 0 0 6px var(--banner-accent);
+		}
+
+		.status-progress-bar.animating {
+			animation: elapsesTenSec 10s linear forwards;
+		}
+
+		.uk-time-box {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+			gap: 2px;
+			margin-bottom: 2px;
+		}
+
+		.time-pill {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 8px;
+			padding: 3px 8px;
+			font-size: 12px;
+			font-weight: 600;
+			color: var(--text-primary);
+		}
+
+		.time-pill i {
+			font-size: 11px;
+			color: var(--text-secondary);
+		}
+
+		.time-offset-sub {
+			font-size: 10.5px;
+			color: var(--text-muted);
+		}
+
+		.profile-details {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			margin-top: 2px;
+		}
+
+		.username-row {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			flex-wrap: wrap;
+		}
+
+		.username {
+			font-size: 19px;
+			font-weight: 700;
+			color: var(--text-primary);
+		}
+
+		.discord-badges-inline {
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+		}
+
+		.discord-badge-icon {
+			width: 18px;
+			height: 18px;
+			object-fit: contain;
+		}
+
+		.status-text {
+			font-size: 12px;
+			color: var(--text-secondary);
+			margin-top: 2px;
+			font-style: italic;
+			display: flex;
+			align-items: center;
+			gap: 4px;
+		}
+
+		.status-badge {
+			position: absolute;
+			bottom: 2px;
+			right: 2px;
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: transparent !important;
+			backdrop-filter: none !important;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			pointer-events: none;
+		}
+
+		.status-badge svg {
+			width: 100%;
+			height: 100%;
+			filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+		}
+
+		.lastfm-card {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			position: relative;
+			padding: 16px 20px;
+			min-width: 0;
+			overflow: hidden;
+		}
+
+		.lastfm-header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.lastfm-sub-desc {
+			font-size: 11px;
+			color: var(--text-muted);
+			font-family: 'JetBrains Mono', monospace;
+			margin-top: -6px;
+		}
+
+		.lastfm-grid {
+			display: flex;
+			align-items: stretch;
+			gap: 6px;
+			height: 125px;
+			width: 100%;
+			overflow: hidden;
+			padding: 4px 0;
+		}
+
+		.lastfm-track-card {
+			position: relative;
+			flex: 1;
+			min-width: 32px;
+			border-radius: 10px;
+			overflow: hidden;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			cursor: pointer !important;
+			transition: flex 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+			            border-color 0.25s ease,
+			            transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+			text-decoration: none;
+		}
+
+		.lastfm-track-card:hover {
+			flex: 3.5;
+			border-color: var(--card-border-hover);
+			transform: scale(1.02);
+			z-index: 10;
+			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+		}
+
+		.lastfm-cover-bg {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			filter: brightness(0.65);
+			transition: filter 0.3s ease, transform 0.4s ease;
+		}
+
+		.lastfm-track-card:hover .lastfm-cover-bg {
+			filter: brightness(0.4) blur(1px);
+			transform: scale(1.1);
+		}
+
+		.lastfm-collapsed-label {
+			position: absolute;
+			bottom: 8px;
+			left: 50%;
+			transform: translateX(-50%) rotate(-90deg);
+			transform-origin: center center;
+			white-space: nowrap;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 9px;
+			font-weight: 800;
+			letter-spacing: 1px;
+			color: rgba(255, 255, 255, 0.7);
+			text-transform: uppercase;
+			pointer-events: none;
+			transition: opacity 0.2s ease;
+		}
+
+		.lastfm-track-card:hover .lastfm-collapsed-label {
+			opacity: 0;
+		}
+
+		.lastfm-expanded-content {
+			position: absolute;
+			inset: 0;
+			padding: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.25s ease 0.05s;
+			z-index: 2;
+		}
+
+		.lastfm-track-card:hover .lastfm-expanded-content {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.lastfm-top-row {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 10px;
+			font-family: 'JetBrains Mono', monospace;
+			color: var(--text-muted);
+		}
+
+		.lastfm-now-pulse {
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+			color: #1ed760;
+			font-weight: 700;
+		}
+
+		.lastfm-play-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 4px;
+			color: #ffffff;
+			font-weight: 700;
+			text-decoration: underline;
+		}
+
+		.lastfm-bottom-details {
+			display: flex;
+			flex-direction: column;
+			gap: 1px;
+			min-width: 0;
+		}
+
+		.lastfm-track-title {
+			font-size: 12.5px;
+			font-weight: 800;
+			color: #ffffff;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+		}
+
+		.lastfm-track-artist {
+			font-size: 11px;
+			font-weight: 600;
+			color: rgba(255, 255, 255, 0.85);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.lastfm-track-album {
+			font-size: 9.5px;
+			color: rgba(255, 255, 255, 0.55);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.about-card {
+			position: relative;
+			height: 290px;
+			min-height: 290px;
+			max-height: 290px;
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			flex-shrink: 0;
+			width: 100%;
+			min-width: 0;
+		}
+
+		.about-bg-anime {
+			position: absolute;
+			right: -10px;
+			bottom: -10px;
+			height: 95%;
+			pointer-events: none;
+			z-index: 1;
+			transition: opacity 0.4s ease, filter 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.card-title {
+         	font-family: 'Bebas Neue', sans-serif;
+        	font-size: 22px;
+        	letter-spacing: 1px;
+        	color: var(--text-primary);
+        }
+
+		.about-section {
+			position: relative;
+			z-index: 2;
+		}
+
+		.about-heading {
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-primary);
+			margin-bottom: 4px;
+		}
+
+		.about-text {
+			font-size: 13px;
+			color: var(--text-secondary);
+			line-height: 1.5;
+			display: flex;
+			align-items: center;
+			gap: 4px;
+			flex-wrap: wrap;
+		}
+
+.socials-column {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+			margin-top: 12px;
+			width: 100%;
+			max-width: 220px;
+		}
+
+		.social-btn {
+			position: relative;
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+			gap: 10px;
+			padding: 6px 12px;
+			border-radius: 8px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			color: var(--text-secondary);
+			font-size: 11.5px;
+			font-weight: 600;
+			text-decoration: none;
+			overflow: hidden;
+			backdrop-filter: blur(8px);
+			transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			cursor: pointer !important;
+			width: 100%;
+		}
+
+		.social-btn-icon {
+			width: 16px;
+			height: 16px;
+			object-fit: contain;
+			flex-shrink: 0;
+			transition: transform 0.2s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.social-btn:hover .social-btn-icon {
+			transform: scale(1.15);
+		}
+
+		.social-btn.spotify:hover {
+			background: rgba(30, 215, 96, 0.15) !important;
+			border-color: rgba(30, 215, 96, 0.6) !important;
+			color: #1ed760 !important;
+			box-shadow: 0 0 16px rgba(30, 215, 96, 0.3) !important;
+			transform: translateX(4px);
+		}
+
+		.social-btn.steam:hover {
+			background: rgba(102, 192, 244, 0.15) !important;
+			border-color: rgba(102, 192, 244, 0.6) !important;
+			color: #66c0f4 !important;
+			box-shadow: 0 0 16px rgba(102, 192, 244, 0.3) !important;
+			transform: translateX(4px);
+		}
+
+		.social-btn.telegram:hover {
+			background: rgba(36, 161, 222, 0.15) !important;
+			border-color: rgba(36, 161, 222, 0.6) !important;
+			color: #24a1de !important;
+			box-shadow: 0 0 16px rgba(36, 161, 222, 0.3) !important;
+			transform: translateX(4px);
+		}
+
+		.blog-card {
+			position: relative;
+			height: 290px;
+			min-height: 290px;
+			max-height: 290px;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			overflow: hidden;
+			flex-shrink: 0;
+			width: 100%;
+			min-width: 0;
+		}
+
+		.blog-header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-family: 'JetBrains Mono', monospace;
+			padding-bottom: 2px;
+		}
+
+		.blog-title {
+        	font-family: 'Bebas Neue', sans-serif;
+        	font-size: 20px;
+        	letter-spacing: 1px;
+        	color: var(--text-primary);
+        	text-transform: uppercase;
+        	display: flex;
+        	align-items: center;
+        	gap: 8px;
+        }
+
+		.blog-sub-tag {
+        	font-family: 'Bebas Neue', sans-serif;
+        	font-size: 14px;
+        	letter-spacing: 1.2px;
+        	color: var(--text-muted);
+        }
+
+		.blog-feed {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+			overflow-y: auto;
+			padding-right: 4px;
+			flex: 1;
+		}
+
+		.blog-feed::-webkit-scrollbar {
+			width: 4px;
+		}
+		.blog-feed::-webkit-scrollbar-track {
+			background: var(--box-bg);
+			border-radius: 4px;
+		}
+		.blog-feed::-webkit-scrollbar-thumb {
+			background: var(--box-border);
+			border-radius: 4px;
+		}
+
+		.blog-item {
+			display: flex;
+			flex-direction: column;
+			gap: 3px;
+			padding: 8px 10px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 8px;
+			text-decoration: none;
+			color: inherit;
+			transition: all 0.2s ease;
+			cursor: pointer !important;
+		}
+
+		.blog-item:hover {
+			background: rgba(255, 255, 255, 0.08);
+			border-color: var(--card-border-hover);
+			transform: translateX(3px);
+		}
+
+		.blog-item-title {
+			font-size: 12px;
+			font-weight: 700;
+			color: var(--text-primary);
+			font-family: 'JetBrains Mono', monospace;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.blog-item-desc {
+			font-size: 11px;
+			color: var(--text-secondary);
+			line-height: 1.35;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.rainbow-zack {
+			display: inline-block;
+			position: relative;
+			font-weight: 800;
+			background: linear-gradient(90deg, #c084fc, #9333ea, #6b21a8, #a855f7, #c084fc);
+			background-size: 200% auto;
+			color: transparent;
+			-webkit-background-clip: text;
+			animation: purpleGlowShift 4s ease-in-out infinite alternate;
+			filter: drop-shadow(0 0 8px rgba(147, 51, 234, 0.85)) drop-shadow(0 0 16px rgba(107, 33, 168, 0.6));
+			letter-spacing: 0.3px;
+		}
+
+		@keyframes purpleGlowShift {
+			0% { 
+				background-position: 0% center;
+				filter: drop-shadow(0 0 6px rgba(147, 51, 234, 0.7)) drop-shadow(0 0 14px rgba(107, 33, 168, 0.5));
+			}
+			100% { 
+				background-position: 100% center;
+				filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.95)) drop-shadow(0 0 20px rgba(147, 51, 234, 0.8));
+			}
+		}
+
+		.particle-face {
+			position: absolute;
+			font-size: 10px;
+			color: var(--text-primary);
+			font-weight: 700;
+			pointer-events: none;
+			animation: burstOut 2.2s ease-out forwards;
+			opacity: 0;
+			text-shadow: 0 0 5px #ffffff;
+		}
+
+		.glowing-love {
+			display: inline-block;
+			position: relative;
+			color: #ff2a5f;
+			font-weight: 800;
+			text-shadow: 0 0 8px #ff2a5f, 0 0 16px rgba(255, 42, 95, 0.6);
+		}
+
+		.particle-heart {
+			position: absolute;
+			font-size: 10px;
+			color: #ff2a5f;
+			pointer-events: none;
+			animation: burstOut 2s ease-out forwards;
+			opacity: 0;
+			text-shadow: 0 0 8px #ff2a5f;
+		}
+
+		.glowing-puppygirls {
+			display: inline-block;
+			position: relative;
+			color: var(--text-primary);
+			font-weight: 700;
+			text-shadow: 0 0 8px rgba(226, 232, 240, 0.8), 0 0 16px rgba(161, 161, 170, 0.5);
+		}
+
+		.particle-puppygirl {
+			position: absolute;
+			font-size: 9px;
+			color: var(--text-primary);
+			pointer-events: none;
+			animation: burstOut 2.4s ease-out forwards;
+			opacity: 0;
+			text-shadow: 0 0 6px #ffffff;
+			white-space: nowrap;
+		}
+
+		@keyframes burstOut {
+			0% { opacity: 1; transform: translate(0, 0) scale(0.8); }
+			100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.3); }
+		}
+
+		.anime-slide-out {
+			animation: slideOutRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		}
+
+		.anime-slide-in {
+			animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+		}
+
+		@keyframes slideOutRight {
+			0% { transform: translateX(0); opacity: 0.3; }
+			100% { transform: translateX(80px); opacity: 0; }
+		}
+
+		@keyframes slideInRight {
+			0% { transform: translateX(80px); opacity: 0; }
+			100% { transform: translateX(0); opacity: var(--anime-target-opacity, 0.3); }
+		}
+
+		.gibberish-text {
+	        display: inline-block;
+	        transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gibberish-text.loc-changing {
+	        opacity: 0;
+	        transform: translateY(-4px);
+        } 
+
+		#age-target {
+			font-family: monospace;
+			color: var(--text-primary);
+			font-weight: 700;
+			text-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+		}
+
+		.modal-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.75);
+			backdrop-filter: blur(12px);
+			z-index: 10000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.35s ease;
+		}
+
+		.modal-overlay.active {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.playlists-modal {
+			background: var(--modal-bg);
+			border: 1px solid var(--card-border);
+			border-radius: 18px;
+			padding: 20px;
+			width: 90%;
+			max-width: 620px;
+			max-height: 85vh;
+			height: auto;
+			display: flex;
+			flex-direction: column;
+			backdrop-filter: blur(20px);
+			box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85);
+			position: relative;
+			transform: scale(0.92);
+			transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+			overflow: visible !important;
+		}
+
+		#other-socials-modal .playlists-list {
+			overflow: visible !important;
+		}
+
+		.modal-overlay.active .playlists-modal {
+			transform: scale(1);
+		}
+
+		.modal-header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding-bottom: 14px;
+			background: transparent;
+			flex-shrink: 0;
+		}
+
+		.modal-title {
+			font-size: 16px;
+			font-weight: 700;
+			color: var(--text-primary);
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.modal-close-btn {
+			background: transparent;
+			border: none;
+			color: var(--text-secondary);
+			font-size: 18px;
+			cursor: pointer;
+			transition: color 0.2s ease, transform 0.2s ease;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.modal-close-btn:hover {
+			color: var(--text-primary);
+			transform: scale(1.15);
+		}
+
+		.playlists-list {
+			padding: 0;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			justify-content: flex-start;
+			overflow-y: auto;
+			touch-action: pan-y;
+		}
+
+		.confirm-modal-overlay {
+			position: fixed;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.75);
+			backdrop-filter: blur(8px);
+			z-index: 20000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.25s ease;
+		}
+
+		.confirm-modal-overlay.active {
+			opacity: 1;
+			pointer-events: auto;
+		}
+
+		.confirm-card {
+			background: var(--confirm-bg);
+			border: 1px solid var(--confirm-border);
+			border-radius: 16px;
+			padding: 24px 28px;
+			width: 90%;
+			max-width: 420px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+			display: flex;
+			flex-direction: column;
+			gap: 14px;
+			transform: scale(0.95);
+			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+		}
+
+		.confirm-modal-overlay.active .confirm-card {
+			transform: scale(1);
+		}
+
+		.confirm-title {
+			font-size: 18px;
+			font-weight: 700;
+			color: var(--text-primary);
+			letter-spacing: -0.3px;
+		}
+
+		.confirm-sub {
+			font-size: 12px;
+			color: var(--text-muted);
+			font-weight: 600;
+			text-transform: lowercase;
+			margin-top: -6px;
+		}
+
+		.confirm-url-box {
+			background: var(--confirm-box-bg);
+			border: 1px solid var(--confirm-border);
+			border-radius: 8px;
+			padding: 10px 14px;
+			font-size: 13px;
+			color: var(--text-primary);
+			font-weight: 600;
+			word-break: break-all;
+		}
+
+		.confirm-actions {
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
+			gap: 10px;
+			margin-top: 6px;
+		}
+
+		.confirm-btn {
+			padding: 8px 16px;
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 700;
+			cursor: pointer;
+			transition: all 0.2s ease;
+			border: none;
+		}
+
+		.confirm-btn.stay {
+			background: var(--confirm-btn-stay-bg);
+			border: 1px solid var(--confirm-border);
+			color: var(--confirm-btn-stay-text);
+		}
+
+		.confirm-btn.stay:hover { opacity: 0.85; }
+
+		.confirm-btn.proceed {
+			background: var(--confirm-btn-proceed-bg);
+			color: var(--confirm-btn-proceed-text);
+		}
+
+		.confirm-btn.proceed:hover { opacity: 0.88; }
+
+		.badge-wrapper {
+	        position: relative;
+	        display: inline-flex;
+	        align-items: center;
+	        justify-content: center;
+        }
+
+        .discord-badge-icon, .extra-badge-icon {
+	        transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .badge-wrapper:nth-child(odd):hover .discord-badge-icon,
+        .badge-wrapper:nth-child(odd):hover .extra-badge-icon {
+	        transform: scale(1.1) rotate(-6deg);
+        }
+
+        .badge-wrapper:nth-child(even):hover .discord-badge-icon,
+        .badge-wrapper:nth-child(even):hover .extra-badge-icon {
+	        transform: scale(1.1) rotate(6deg);
+        }    
+
+		.badge-tooltip {
+			position: absolute;
+			bottom: 125%;
+			right: 0;
+			background: var(--tooltip-bg);
+			color: var(--tooltip-text);
+			border: 1px solid var(--tooltip-border);
+			padding: 5px 9px;
+			border-radius: 6px;
+			font-family: 'JetBrains Mono', monospace, sans-serif;
+			font-size: 11px;
+			font-weight: 600;
+			white-space: nowrap;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.2s ease, transform 0.2s ease, background 0.3s ease, color 0.3s ease;
+			z-index: 100000;
+		}
+
+		.badge-tooltip::after {
+			content: '';
+			position: absolute;
+			top: 100%;
+			right: 6px;
+			border-width: 4px;
+			border-style: solid;
+			border-color: var(--tooltip-bg) transparent transparent transparent;
+		}
+
+		.badge-wrapper:hover .badge-tooltip {
+			opacity: 1;
+			transform: translateY(-2px);
+		}
+		
+		.activity-history-popup > .history-header {
+			display: none !important;
+		}
+
+		.playlist-item-card {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			padding: 10px 14px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 12px;
+			transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+		}
+
+		.playlist-item-card:hover {
+			background: rgba(255, 255, 255, 0.08);
+			border-color: var(--card-border-hover);
+			transform: translateY(-2px);
+		}
+
+		.playlist-cover-info {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			min-width: 0;
+		}
+
+		.playlist-cover-img {
+			width: 48px;
+			height: 48px;
+			border-radius: 8px;
+			object-fit: cover;
+			flex-shrink: 0;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+		}
+
+		.playlist-details {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+			min-width: 0;
+		}
+
+		.playlist-name {
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-primary);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.playlist-subtext {
+			font-size: 11px;
+			color: var(--text-muted);
+			font-family: 'JetBrains Mono', monospace;
+		}
+
+		.playlist-listen-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 6px 12px;
+			border-radius: 8px;
+			background: rgba(30, 215, 96, 0.15);
+			border: 1px solid rgba(30, 215, 96, 0.4);
+			color: #1ed760;
+			font-size: 11px;
+			font-weight: 700;
+			font-family: 'JetBrains Mono', monospace;
+			cursor: pointer !important;
+			transition: all 0.2s ease;
+			flex-shrink: 0;
+		}
+
+		.playlist-listen-btn:hover {
+			background: #1ed760;
+			color: #000000;
+			box-shadow: 0 0 12px rgba(30, 215, 96, 0.5);
+			transform: scale(1.05);
+		}
+
+		.roblox-card {
+			position: relative;
+			height: 290px;
+			min-height: 290px;
+			max-height: 290px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-between;
+			padding: 14px 16px;
+			overflow: hidden;
+			flex-shrink: 0;
+			width: 100%;
+			min-width: 0;
+			text-align: center;
+		}
+
+		.roblox-header-top {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1px;
+			z-index: 2;
+		}
+
+		.roblox-tag-title {
+			font-size: 11px;
+			font-weight: 800;
+			letter-spacing: 1px;
+			color: var(--text-muted);
+			text-transform: uppercase;
+			font-family: 'JetBrains Mono', monospace;
+		}
+
+		.roblox-user-row {
+			font-size: 13px;
+			font-weight: 700;
+			color: var(--text-primary);
+			display: flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		.roblox-handle {
+			font-size: 11.5px;
+			color: var(--text-muted);
+			font-weight: 500;
+		}
+
+		.roblox-avatar-wrap {
+			position: absolute;
+			top: 38px;
+			bottom: 38px;
+			left: 0;
+			right: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			pointer-events: none;
+			z-index: 1;
+		}
+
+		.roblox-avatar-img {
+			height: 100%;
+			max-height: 220px;
+			object-fit: contain;
+			filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+			transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.roblox-stats-pill {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 16px;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 20px;
+			padding: 6px 16px;
+			font-family: 'JetBrains Mono', monospace;
+			font-size: 11px;
+			font-weight: 700;
+			color: var(--text-primary);
+			backdrop-filter: blur(8px);
+			cursor: pointer !important;
+			transition: all 0.2s ease;
+		}
+
+		.roblox-stats-pill:hover {
+			background: rgba(255, 255, 255, 0.08);
+			border-color: var(--card-border-hover);
+			transform: translateY(-1px);
+		}
+
+		.roblox-stat-item {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			color: var(--text-secondary);
+		}
+
+		.roblox-stat-item i {
+			font-size: 11px;
+			color: var(--text-muted);
+		}
+
+		.roblox-stat-item span {
+			color: var(--text-primary);
+		}
+
+		.roblox-bottom-bar {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			background: var(--box-bg);
+			border: 1px solid var(--box-border);
+			border-radius: 8px;
+			padding: 5px 8px;
+			width: 100%;
+			text-decoration: none;
+			cursor: pointer !important;
+			transition: all 0.2s ease;
+		}
+
+		.roblox-bottom-bar:hover {
+			background: rgba(255, 255, 255, 0.08);
+			border-color: var(--card-border-hover);
+		}
+
+		.roblox-game-left {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			min-width: 0;
+			text-align: left;
+		}
+
+		.roblox-game-icon {
+			width: 22px;
+			height: 22px;
+			border-radius: 4px;
+			object-fit: cover;
+		}
+
+		.roblox-game-info {
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+		}
+
+		.roblox-game-sub {
+			font-size: 8px;
+			font-weight: 800;
+			letter-spacing: 0.8px;
+			color: var(--text-muted);
+			text-transform: uppercase;
+			font-family: 'JetBrains Mono', monospace;
+		}
+
+		.roblox-game-name {
+			font-size: 11px;
+			font-weight: 700;
+			color: var(--text-primary);
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+	</style>
+</head>
+<body>
+
+	<button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()">light</button>
+
+	<div class="top-popups-stack">
+		<div class="visitor-popup-banner" id="visitor-popup">you are visitor #<span id="visitor-count-val">765</span></div>
+	</div>
+
+	<div class="telegram-bottom-popup hidden" id="custom-status-bottom-popup" onmousemove="spawnButtonSparkle(event, this, getComputedStyle(document.documentElement).getPropertyValue('--banner-accent'))">
+    <div class="telegram-popup-body" id="status-popup-content"></div>
+    <div class="telegram-progress-bar" id="status-progress-bar"></div>
+    </div>
+
+	<div class="container">
+		<div class="top-grid">
+			<div class="card profile-card">
+				<div class="profile-body">
+					<div class="profile-header-row">
+						<div class="avatar-container">
+							<img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="" onerror="this.onerror=null; this.src='https://cdn.discordapp.com/embed/avatars/0.png';" />
+							<div id="status-badge" class="status-badge"></div>
+						</div>
+
+						
+					</div>
+
+					<div class="profile-details">
+					    <div class="username-row">
+					        <span class="username" id="username">pray</span>
+					        <div class="discord-badges-inline" id="discord-badges"></div>
+					    </div>
+					    <div class="status-text" id="status-text"></div>
+
+					    <div class="scrolling-text-container">
+					        <div class="scrolling-text-track">
+					            <span>⊣𝙹ℸ ̣⍑ ⊣╎∷ꖎᓭ ╎ᓭ ℸ ̣⍑ᒷ ʖᒷᓭℸ ̣ ᓭ╎ℸ ̣ᒷ ᒲᔑ↸ᒷ ʖ|| ⨅ᔑᓵꖌ</span>
+					            <span>&bull;</span>
+					            <span>⊣𝙹ℸ ̣⍑ ⊣╎∷ꖎᓭ ╎ᓭ ℸ ̣⍑ᒷ ʖᒷᓭℸ ̣ ᓭ╎ℸ ̣ᒷ ᒲᔑ↸ᒷ ʖ|| ⨅ᔑᓵꖌ</span>
+					            <span>&bull;</span>
+					        </div>
+					    </div>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="card lastfm-card">
+				<div class="lastfm-header">
+					<div class="card-title" style="display: flex; align-items: center; gap: 8px;">
+						<i class="fa-solid fa-headphones" style="font-size: 16px;"></i> WHAT I'VE BEEN LISTENING TO
+					</div>
+					<span style="font-size: 11px; color: var(--text-muted); font-weight: 600; font-family: 'JetBrains Mono', monospace;">LAST.FM</span>
+				</div>
+				<div class="lastfm-sub-desc">Last songs I've listened to, give them a try.</div>
+
+				<div class="lastfm-grid" id="lastfm-grid">
+					<div style="font-size: 11px; color: var(--text-muted); text-align: center; width: 100%; padding: 40px; font-family: 'JetBrains Mono', monospace;">
+						Loading recent listens...
+					</div>
+				</div>
+			</div>
+		</div>
+
+<div class="bottom-grid">
+			<div class="card about-card">
+				<img class="about-bg-anime" id="about-bg-anime" src="dbg.png" alt="" />
+				<div class="card-title">ABOUT ME</div>
+
+				<div class="about-section">
+					<div class="about-heading">Who am I?</div>
+					<div class="about-text">
+						im <span class="rainbow-zack" id="zack-target">lunar</span> from <span>???</span> and im <span id="age-target">18</span> years old
+					</div>
+				</div>
+
+				<div class="about-section">
+					<div class="about-heading">My Interests</div>
+					<div class="about-text">
+						<span>music 24/7 and gaming</span>
+					</div>
+
+					<div class="socials-column">
+						<button class="social-btn spotify" onclick="promptExternalLink('https://open.spotify.com/user/31kscmeosf5mvu3y6bpl2hagkf5u?si=EDDJAEU-SBCNRYLd64eciw&utm_source=copy-link&sci=spotify%3Acard-config%3A1lzhxsCzHJXKuw0nOHq6lx')" onmousemove="spawnButtonSparkle(event, this, '#1ed760')">
+							<span class="social-btn-icon"><i class="fa-brands fa-spotify" style="color: #1ed760;"></i></span> Spotify
+						</button>
+						<button class="social-btn steam" onclick="promptExternalLink('https://steamcommunity.com/id/PoorLifeChoice/')" onmousemove="spawnButtonSparkle(event, this, '#66c0f4')">
+							<span class="social-btn-icon"><i class="fa-brands fa-steam" style="color: #66c0f4;"></i></span> Steam
+						</button>
+						<button class="social-btn telegram" onclick="promptExternalLink('https://t.me/harmlets')" onmousemove="spawnButtonSparkle(event, this, '#24a1de')">
+							<span class="social-btn-icon"><i class="fa-brands fa-telegram" style="color: #24a1de;"></i></span> Telegram
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="card roblox-card">
+				<div class="roblox-header-top">
+					<div class="roblox-tag-title">Roblox Profile</div>
+					<div class="roblox-user-row">
+						<span id="rbx-display-name">aly</span>
+						<span class="roblox-handle" id="rbx-username">@BTWLunar</span>
+					</div>
+				</div>
+
+				<div class="roblox-avatar-wrap">
+					<img id="rbx-avatar" class="roblox-avatar-img" alt="Roblox Avatar" style="opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;" onload="this.style.opacity='1'" />
+				</div>
+
+				<div class="roblox-footer-wrap" style="align-items: center;">
+					<div class="roblox-stats-pill" onclick="promptExternalLink('https://www.roblox.com/users/462285613/profile')">
+						<div class="roblox-stat-item">
+							<i class="fa-solid fa-user-group"></i>
+							<span id="rbx-friends">--</span>
+						</div>
+						<div class="roblox-stat-item">
+							<i class="fa-solid fa-user-plus"></i>
+							<span id="rbx-followers">--</span>
+						</div>
+						<div class="roblox-stat-item">
+							<i class="fa-solid fa-users"></i>
+							<span id="rbx-following">--</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-overlay" id="playlists-modal-overlay" onclick="closePlaylistsModalOnBackdrop(event)">
+		<div class="playlists-modal" id="playlists-modal" onclick="event.stopPropagation()">
+			<div class="modal-header">
+				<div class="modal-title">
+					<img src="spotifyicon.png" style="width: 18px; height: 18px; object-fit: contain;" alt="" /> Music
+				</div>
+				<button class="modal-close-btn" onclick="closePlaylistsModal()">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+			</div>
+			<div class="playlists-list" style="margin-top: 6px;">
+				<div class="playlist-item-card">
+					<div class="playlist-cover-info">
+						<img class="playlist-cover-img" src="playlist1.png" onerror="this.onerror=null; this.src='playlist1.jpg';" alt="Playlist 1" />
+						<div class="playlist-details">
+							<span class="playlist-name">breakcore</span>
+							<span class="playlist-subtext">drums and stuff playlist</span>
+						</div>
+					</div>
+					<button class="playlist-listen-btn" onclick="promptExternalLink('https://open.spotify.com/playlist/0zxImLqF0lMeoai0LCUH2M?si=7619b78727364416')">
+						<i class="fa-solid fa-play" style="font-size: 10px;"></i> Listen
+					</button>
+				</div>
+
+				<div class="playlist-item-card">
+					<div class="playlist-cover-info">
+						<img class="playlist-cover-img" src="playlist2.png" onerror="this.onerror=null; this.src='playlist2.jpg';" alt="Playlist 2" />
+						<div class="playlist-details">
+							<span class="playlist-name">minecraft OST</span>
+							<span class="playlist-subtext">minecraft music that i love (beta and stuff)</span>
+						</div>
+					</div>
+					<button class="playlist-listen-btn" onclick="promptExternalLink('https://open.spotify.com/playlist/3dmhlm4EI6HG7juCdN9fHc?si=7057b9c534134d05')">
+						<i class="fa-solid fa-play" style="font-size: 10px;"></i> Listen
+					</button>
+				</div>
+
+				<div class="playlist-item-card">
+					<div class="playlist-cover-info">
+						<img class="playlist-cover-img" src="playlist3.png" onerror="this.onerror=null; this.src='playlist3.jpg';" alt="Playlist 3" />
+						<div class="playlist-details">
+							<span class="playlist-name">prime kanye</span>
+							<span class="playlist-subtext">kanye music</span>
+						</div>
+					</div>
+					<button class="playlist-listen-btn" onclick="promptExternalLink('https://open.spotify.com/playlist/7HpRkDGgdyu5GHF1XicAl1?si=8e3037ef850f4572')">
+						<i class="fa-solid fa-play" style="font-size: 10px;"></i> Listen
+					</button>
+				</div>
+
+				<div class="playlist-item-card">
+					<div class="playlist-cover-info">
+						<img class="playlist-cover-img" src="playlist4.png" onerror="this.onerror=null; this.src='playlist4.jpg';" alt="Playlist 4" />
+						<div class="playlist-details">
+							<span class="playlist-name">vocaloid and stuff</span>
+							<span class="playlist-subtext">vocaloid music and other stuff (i like it)</span>
+						</div>
+					</div>
+					<button class="playlist-listen-btn" onclick="promptExternalLink('https://open.spotify.com/playlist/7HpRkDGgdyu5GHF1XicAl1?si=8e3037ef850f4572')">
+						<i class="fa-solid fa-play" style="font-size: 10px;"></i> Listen
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-overlay" id="other-socials-modal-overlay" onclick="closeOtherSocialsModalOnBackdrop(event)">
+		<div class="playlists-modal" id="other-socials-modal" style="max-width: 440px;" onclick="event.stopPropagation()">
+			<div class="modal-header">
+				<div class="modal-title">
+					<i class="fa-solid fa-plus" style="font-size: 14px;"></i> Socials
+				</div>
+				<button class="modal-close-btn" onclick="closeOtherSocialsModal()">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
+			</div>
+			<div class="playlists-list" style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px;">
+				<a class="extra-discord-card" onclick="promptExternalLink('https://open.spotify.com/user/31kscmeosf5mvu3y6bpl2hagkf5u?si=EDDJAEU-SBCNRYLd64eciw&utm_source=copy-link&sci=spotify%3Acard-config%3A1lzhxsCzHJXKuw0nOHq6lx')">
+					<div class="extra-discord-left" style="gap: 12px;">
+						<i class="fa-brands fa-spotify" style="font-size: 20px; color: #1ed760;"></i>
+						<span class="extra-discord-name" style="font-size: 14px; font-weight: 700;">Spotify</span>
+					</div>
+					<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 12px; color: var(--text-muted); margin-left: auto;"></i>
+				</a>
+
+				<a class="extra-discord-card" onclick="promptExternalLink('https://steamcommunity.com/id/PoorLifeChoice/')">
+					<div class="extra-discord-left" style="gap: 12px;">
+						<i class="fa-brands fa-steam" style="font-size: 20px; color: #66c0f4;"></i>
+						<span class="extra-discord-name" style="font-size: 14px; font-weight: 700;">Steam</span>
+					</div>
+					<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 12px; color: var(--text-muted); margin-left: auto;"></i>
+				</a>
+
+				<a class="extra-discord-card" onclick="promptExternalLink('https://t.me/harmlets')">
+					<div class="extra-discord-left" style="gap: 12px;">
+						<i class="fa-brands fa-telegram" style="font-size: 20px; color: #229ED9;"></i>
+						<span class="extra-discord-name" style="font-size: 14px; font-weight: 700;">Telegram</span>
+					</div>
+					<i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 12px; color: var(--text-muted); margin-left: auto;"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="confirm-modal-overlay" id="confirm-modal-overlay" onclick="closeConfirmModalOnBackdrop(event)">
+		<div class="confirm-card" onclick="event.stopPropagation()">
+			<div class="confirm-title">leaving so soon?</div>
+			<div class="confirm-sub">this link will take you to</div>
+			<div class="confirm-url-box" id="confirm-target-url">https://example.com/</div>
+			<div class="confirm-actions">
+				<button class="confirm-btn stay" onclick="closeConfirmModal()">stay</button>
+				<button class="confirm-btn proceed" onclick="proceedToTargetUrl()">proceed</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const DISCORD_ID = "390891637372616704";
+		const LASTFM_API_KEY = "7f7641546fe2ca59d03e1c7574145cad";
+		const LASTFM_USERNAME = "foreverdom";
+		let lastCustomStatus = "";
+		let statusTimeout = null;
+
+		const EXTRA_DISCORD_MAP = {
+			"1490078381239439633": "http://discord.com/users/1490078381239439633"
+		};
+
+		let activeRedirectUrl = "";
+
+		const ROBLOX_USER_ID = "462285613";
+
+		async function fetchRobloxProfile() {
+			const avatarImg = document.getElementById("rbx-avatar");
+			const nameEl = document.getElementById("rbx-display-name");
+			const userEl = document.getElementById("rbx-username");
+			const friendsEl = document.getElementById("rbx-friends");
+			const followersEl = document.getElementById("rbx-followers");
+			const followingEl = document.getElementById("rbx-following");
+
+			// 1. Fetch Live Full-Body 3D Avatar Render
+			async function loadAvatar() {
+				const sources = [
+					`https://thumbnails.roproxy.com/v1/users/avatar?userIds=${ROBLOX_USER_ID}&size=420x420&format=Png&isCircular=false`,
+					`https://corsproxy.io/?url=${encodeURIComponent(`https://thumbnails.roblox.com/v1/users/avatar?userIds=${ROBLOX_USER_ID}&size=420x420&format=Png&isCircular=false`)}`
+				];
+
+				for (const url of sources) {
+					try {
+						const res = await fetch(url);
+						if (res.ok) {
+							const data = await res.json();
+							const imgUrl = data?.data?.[0]?.imageUrl;
+							if (imgUrl && avatarImg) {
+								avatarImg.src = imgUrl;
+								return;
+							}
+						}
+					} catch(e) {}
+				}
+			}
+			loadAvatar();
+
+			// 2. Fetch User Profile Info (Display Name & Handle)
+			try {
+				const res = await fetch(`https://users.roproxy.com/v1/users/${ROBLOX_USER_ID}`);
+				if (res.ok) {
+					const data = await res.json();
+					if (nameEl && data.displayName) nameEl.textContent = data.displayName;
+					if (userEl && data.name) userEl.textContent = `@${data.name}`;
+				}
+			} catch(e) {}
+
+			// 3. Fetch Friends, Followers & Following Counts
+			try {
+				const [fRes, folRes, fllingRes] = await Promise.all([
+					fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_USER_ID}/friends/count`),
+					fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_USER_ID}/followers/count`),
+					fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_USER_ID}/followings/count`)
+				]);
+
+				if (fRes.ok && friendsEl) {
+					const fData = await fRes.json();
+					friendsEl.textContent = fData.count ?? "45";
+				}
+				if (folRes.ok && followersEl) {
+					const folData = await folRes.json();
+					followersEl.textContent = folData.count ?? "0";
+				}
+				if (fllingRes.ok && followingEl) {
+					const fllingData = await fllingRes.json();
+					followingEl.textContent = fllingData.count ?? "69";
+				}
+			} catch(e) {}
+		}
+
+		fetchRobloxProfile();
+
+		function getRelativeTime(timestamp) {
+			if (!timestamp) return "Now Playing";
+			const now = Math.floor(Date.now() / 1000);
+			const diff = now - parseInt(timestamp);
+			if (diff < 60) return "just now";
+			if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+			if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+			return `${Math.floor(diff / 86400)}d ago`;
+		}
+
+		async function fetchLastFmRecent() {
+			const gridEl = document.getElementById("lastfm-grid");
+			if (!gridEl) return;
+
+			try {
+				const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(LASTFM_USERNAME)}&api_key=${LASTFM_API_KEY}&format=json&limit=9`);
+				if (!res.ok) throw new Error("Failed to fetch Last.fm");
+				const data = await res.json();
+				const tracks = data?.recenttracks?.track || [];
+				if (tracks.length === 0) throw new Error("No tracks found");
+
+				const list = tracks.slice(0, 9);
+
+				gridEl.innerHTML = list.map((track, idx) => {
+					const isNowPlaying = track["@attr"]?.nowplaying === "true";
+					const name = escapeHTML(track.name || "Unknown Track");
+					const artist = escapeHTML(track.artist?.["#text"] || track.artist?.name || "Unknown Artist");
+					const album = escapeHTML(track.album?.["#text"] || "");
+					const trackUrl = escapeJs(track.url || `https://www.last.fm/music/${encodeURIComponent(artist)}/_/${encodeURIComponent(name)}`);
+					
+					// Get large/extralarge cover or fallback to playlist4.png
+					let rawImg = track.image?.find(img => img.size === "extralarge" || img.size === "large")?.["#text"] || "";
+					
+					// Last.fm placeholder hash detection or empty string
+					let coverImg = (rawImg && !rawImg.includes("2a96cbd8b46e442fc41c2b86b821562f")) ? rawImg : "playlist4.jpg";
+
+					const timeStr = isNowPlaying ? '<span class="lastfm-now-pulse"><i class="fa-solid fa-tower-broadcast"></i> Playing</span>' : getRelativeTime(track.date?.uts);
+
+					return `
+						<div class="lastfm-track-card" onclick="promptExternalLink('${trackUrl}')">
+							<img class="lastfm-cover-bg" src="${coverImg}" onerror="this.onerror=null; this.src='playlist4.jpg';" alt="${name}" />
+							<span class="lastfm-collapsed-label">${artist.length > 12 ? artist.substring(0, 12) + '..' : artist}</span>
+							<div class="lastfm-expanded-content">
+								<div class="lastfm-top-row">
+									<span>${timeStr}</span>
+									<span class="lastfm-play-btn"><i class="fa-solid fa-play" style="font-size: 8px;"></i> Play</span>
+								</div>
+								<div class="lastfm-bottom-details">
+									<span class="lastfm-track-title">${name}</span>
+									<span class="lastfm-track-artist">${artist}</span>
+									${album ? `<span class="lastfm-track-album">${album}</span>` : ''}
+								</div>
+							</div>
+						</div>
+					`;
+				}).join("");
+
+			} catch (e) {
+				gridEl.innerHTML = `<div style="font-size: 10px; color: var(--text-muted); text-align: center; width: 100%; padding: 40px; font-family: 'JetBrains Mono', monospace;">Could not load recent listens.</div>`;
+			}
+		}
+
+		fetchLastFmRecent();
+		setInterval(fetchLastFmRecent, 30000);
+
+		function initVisitorPopup() {
+			let visits = parseInt(localStorage.getItem("pray_site_visit_count") || "765");
+			visits += 1;
+			localStorage.setItem("pray_site_visit_count", visits);
+
+			const visitorValEl = document.getElementById("visitor-count-val");
+			if (visitorValEl) visitorValEl.textContent = visits;
+
+			setTimeout(() => {
+				const popup = document.getElementById("visitor-popup");
+				if (popup) popup.classList.add("fade-away");
+			}, 3500);
+		}
+		initVisitorPopup();
+
+		setTimeout(() => {
+			const tgPopup = document.getElementById("telegram-popup");
+			if (tgPopup) tgPopup.classList.add("hidden");
+		}, 10000);
+
+		const themeToggleBtn = document.getElementById("theme-toggle-btn");
+		const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)");
+
+		function applyTheme(mode) {
+			document.documentElement.setAttribute("data-theme", mode);
+			themeToggleBtn.textContent = mode === "light" ? "dark" : "light";
+
+			const animeImg = document.getElementById("about-bg-anime");
+			if (!animeImg) return;
+
+			animeImg.classList.remove("anime-slide-in");
+			animeImg.classList.add("anime-slide-out");
+
+			setTimeout(() => {
+				if (mode === "light") {
+					animeImg.src = "lbg.png";
+					animeImg.style.filter = "grayscale(20%)";
+					animeImg.style.mixBlendMode = "multiply";
+					animeImg.style.setProperty("--anime-target-opacity", "0.45");
+				} else {
+					animeImg.src = "dbg.png";
+					animeImg.style.filter = "grayscale(80%)";
+					animeImg.style.mixBlendMode = "normal";
+					animeImg.style.setProperty("--anime-target-opacity", "0.22");
+				}
+
+				animeImg.classList.remove("anime-slide-out");
+				animeImg.classList.add("anime-slide-in");
+			}, 200);
+		}
+
+		if (systemPrefersLight.matches) {
+			applyTheme("light");
+		} else {
+			applyTheme("dark");
+		}
+
+		systemPrefersLight.addEventListener("change", (e) => {
+			applyTheme(e.matches ? "light" : "dark");
+		});
+
+		function toggleTheme() {
+			const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+			const newTheme = currentTheme === "light" ? "dark" : "light";
+			applyTheme(newTheme);
+		}
+
+		function spawnSpotifySparkle(e, btn) {
+	const rect = btn.getBoundingClientRect();
+	const note = document.createElement("span");
+	note.className = "btn-sparkle";
+	note.textContent = SPOTIFY_HOVER_NOTES[Math.floor(Math.random() * SPOTIFY_HOVER_NOTES.length)];
+	note.style.color = "#1ed760";
+	note.style.textShadow = "0 0 6px #1ed760";
+	note.style.fontWeight = "700";
+	note.style.left = (e.clientX - rect.left) + "px";
+	note.style.top = (e.clientY - rect.top) + "px";
+	
+	const dx = (Math.random() - 0.5) * 40 + "px";
+	const dy = (Math.random() - 0.5) * 40 + "px";
+	note.style.setProperty('--dx', dx);
+	note.style.setProperty('--dy', dy);
+
+	btn.appendChild(note);
+	setTimeout(() => note.remove(), 1200);
+}
+
+		const usernameEl = document.getElementById("username");
+		const statusTextEl = document.getElementById("status-text");
+		const avatarEl = document.getElementById("avatar");
+		const statusBadgeEl = document.getElementById("status-badge");
+		const badgesContainer = document.getElementById("discord-badges");
+
+		const topActBanner = document.getElementById("top-activity-banner");
+		const topActTitle = document.getElementById("top-act-title");
+		const topActIcon = document.getElementById("top-act-icon");
+		const historyListEl = document.getElementById("history-list");
+
+		const STATUS_SVGS = {
+			online: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#22c55e"/></svg>`,
+			idle: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#f59e0b"/></svg>`,
+			dnd: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#ef4444"/><rect x="3" y="6.5" width="10" height="3" rx="1.5" fill="var(--card-bg)"/></svg>`,
+			offline: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/><circle cx="8" cy="8" r="4" fill="var(--card-bg)"/></svg>`
+		};
+
+		const STATUS_ICONS = {
+			online: "fa-solid fa-circle",
+			idle: "fa-solid fa-moon",
+			dnd: "fa-solid fa-circle-minus",
+			offline: "fa-solid fa-signal"
+		};
+
+		const STATUS_COLORS = {
+			online: "#22c55e",
+			idle: "#f59e0b",
+			dnd: "#ef4444",
+			offline: "#52525b"
+		};
+
+		const STATUS_NAMES = {
+			online: "ONLINE",
+			idle: "IDLE",
+			dnd: "DO NOT DISTURB",
+			offline: "OFFLINE"
+		};
+
+		function getSavedHistory() {
+			try {
+				const saved = localStorage.getItem("pray_real_activity_history");
+				if (saved) return JSON.parse(saved);
+			} catch(e) {}
+			return [
+				{ verb: "STATUS:", target: "DO NOT DISTURB", sub: "Status: DO NOT DISTURB", time: "just now", icon: "fa-solid fa-circle-minus", color: "#ef4444" },
+				{ verb: "CODING IN", target: "Visual Studio Code", sub: "Working on index.html", time: "1h ago", icon: "fa-solid fa-code", color: "#007acc" },
+				{ verb: "LISTENING TO", target: "Spotify", sub: "Vibing to playlist", time: "2h ago", icon: "fa-brands fa-spotify", color: "#1ed760" }
+			];
+		}
+
+		function saveActivityHistory(history) {
+			try {
+				localStorage.setItem("pray_real_activity_history", JSON.stringify(history.slice(0, 3)));
+			} catch(e) {}
+		}
+
+		function recordNewActivity(verb, target, sub, icon, color) {
+			let history = getSavedHistory();
+			if (history.length > 0 && history[0].target === target && history[0].verb === verb) return;
+
+			history.unshift({
+				verb: verb,
+				target: target,
+				sub: sub,
+				time: "just now",
+				icon: icon,
+				color: color
+			});
+
+			history = history.slice(0, 3);
+			saveActivityHistory(history);
+			renderHistoryList(history);
+		}
+
+		function renderHistoryList(history) {
+			const items = history || getSavedHistory();
+			if (!historyListEl) return;
+
+			let html = "";
+
+			if (activeActivityData) {
+				let activeIconHtml = activeActivityData.imgUrl
+					? `<img src="${activeActivityData.imgUrl}" class="active-app-icon" alt="" onerror="this.onerror=null; this.src='spotifyicon.png';" />`
+					: `<div class="active-app-icon-fallback"><i class="${activeActivityData.icon}"></i></div>`;
+
+				let elapsedStr = "";
+				if (activeActivityData.timestamps && activeActivityData.timestamps.start) {
+					const elapsedMs = Date.now() - activeActivityData.timestamps.start;
+					const elapsedMins = Math.floor(elapsedMs / 60000);
+					elapsedStr = `${elapsedMins > 0 ? elapsedMins : 1}m elapsed`;
+				}
+
+				html += `
+					<div class="history-active-section">
+						<div class="history-header">ACTIVE</div>
+						<div class="history-active-card">
+							${activeIconHtml}
+							<div class="active-details">
+								<div class="active-title-row">
+									<span class="history-verb" style="color: var(--banner-accent)">${escapeHTML(activeActivityData.verb)}</span>
+									<span class="history-target">${escapeHTML(activeActivityData.target)}</span>
+								</div>
+								${activeActivityData.sub ? `<div class="active-sub-text">${escapeHTML(activeActivityData.sub)}</div>` : ''}
+								${activeActivityData.state ? `<div class="active-sub-text">${escapeHTML(activeActivityData.state)}</div>` : ''}
+								${elapsedStr ? `<div class="active-elapsed-text">${elapsedStr}</div>` : ''}
+							</div>
+						</div>
+					</div>
+				`;
+			}
+
+			if (items && items.length > 0) {
+				html += `<div class="history-header">HISTORY</div>`;
+				html += items.slice(0, 3).map(item => `
+					<div class="history-item" style="border-left-color: ${item.color}">
+						<i class="${item.icon} history-item-icon" style="color: ${item.color}"></i>
+						<div class="history-item-content">
+							<div class="history-item-title-row">
+								<span class="history-verb" style="color: ${item.color}">${escapeHTML(item.verb)}</span>
+								<span class="history-target">${escapeHTML(item.target)}</span>
+							</div>
+							${item.sub ? `<div class="history-item-sub">${escapeHTML(item.sub)}</div>` : ''}
+							<div class="history-item-time">${escapeHTML(item.time)}</div>
+						</div>
+					</div>
+				`).join("");
+			}
+
+			historyListEl.innerHTML = html;
+		}
+
+		const faviconExtensions = ["/favicon.png", "/favicon.gif", "/favicon.ico", "/favicon.jpg", "/favicon.jpeg", "/favicon.webp"];
+		let faviconIdx = 0;
+
+		function initFavicon() {
+			const faviconLink = document.getElementById("dynamic-favicon");
+			if (!faviconLink) return;
+
+			function tryNextFavicon() {
+				if (faviconIdx >= faviconExtensions.length) return;
+				const currentSrc = faviconExtensions[faviconIdx];
+				const img = new Image();
+
+				img.onload = () => {
+					const ext = currentSrc.split('.').pop().toLowerCase();
+					const mimeType = ext === 'ico' ? 'image/x-icon' : (ext === 'gif' ? 'image/gif' : 'image/png');
+					
+					faviconLink.type = mimeType;
+					faviconLink.href = currentSrc + "?v=" + Date.now();
+				};
+
+				img.onerror = () => {
+					faviconIdx++;
+					tryNextFavicon();
+				};
+
+				img.src = currentSrc;
+			}
+			tryNextFavicon();
+		}
+		initFavicon();
+
+		function openPlaylistsModal() {
+			document.getElementById("playlists-modal-overlay").classList.add("active");
+		}
+
+		function closePlaylistsModal() {
+			document.getElementById("playlists-modal-overlay").classList.remove("active");
+		}
+
+		function closePlaylistsModalOnBackdrop(e) {
+			if (e.target.id === "playlists-modal-overlay") {
+				closePlaylistsModal();
+			}
+		}
+
+		function openOtherSocialsModal() {
+			document.getElementById("other-socials-modal-overlay").classList.add("active");
+		}
+
+		function closeOtherSocialsModal() {
+			document.getElementById("other-socials-modal-overlay").classList.remove("active");
+		}
+
+		function closeOtherSocialsModalOnBackdrop(e) {
+			if (e.target.id === "other-socials-modal-overlay") {
+				closeOtherSocialsModal();
+			}
+		}
+
+		function promptExternalLink(url) {
+			activeRedirectUrl = url;
+			const titleEl = document.querySelector(".confirm-title");
+			const stayBtn = document.querySelector(".confirm-btn.stay");
+			const proceedBtn = document.querySelector(".confirm-btn.proceed");
+
+			if (titleEl) titleEl.textContent = "leaving so soon?";
+			if (stayBtn) stayBtn.textContent = "stay";
+			if (proceedBtn) proceedBtn.textContent = "proceed";
+
+			document.getElementById("confirm-target-url").textContent = url;
+			document.getElementById("confirm-modal-overlay").classList.add("active");
+		}
+
+		function promptPfpLink(url) {
+			activeRedirectUrl = url;
+			const titleEl = document.querySelector(".confirm-title");
+			const stayBtn = document.querySelector(".confirm-btn.stay");
+			const proceedBtn = document.querySelector(".confirm-btn.proceed");
+
+			if (titleEl) titleEl.textContent = "want my profiles? visit my telegram!";
+			if (stayBtn) stayBtn.textContent = "no";
+			if (proceedBtn) proceedBtn.textContent = "yes";
+
+			document.getElementById("confirm-target-url").textContent = url;
+			document.getElementById("confirm-modal-overlay").classList.add("active");
+		}
+
+		function closeConfirmModal() {
+			document.getElementById("confirm-modal-overlay").classList.remove("active");
+			activeRedirectUrl = "";
+		}
+
+		function closeConfirmModalOnBackdrop(e) {
+			if (e.target.id === "confirm-modal-overlay") {
+				closeConfirmModal();
+			}
+		}
+
+		function proceedToTargetUrl() {
+			if (activeRedirectUrl) {
+				window.open(activeRedirectUrl, "_blank");
+			}
+			closeConfirmModal();
+		}
+
+		function loadDiscordAvatar(userId, avatarHash) {
+			if (!avatarEl || !avatarHash) return;
+
+			// If hash starts with a_, it is definitely an animated GIF
+			const isGif = avatarHash.startsWith("a_");
+			const formats = isGif ? ["gif", "png", "webp"] : ["png", "webp", "gif"];
+			
+			let formatIdx = 0;
+			function tryNextFormat() {
+				if (formatIdx >= formats.length) {
+					avatarEl.src = "https://cdn.discordapp.com/embed/avatars/0.png";
+					return;
+				}
+				const ext = formats[formatIdx++];
+				const url = `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.${ext}?size=256`;
+				
+				const tester = new Image();
+				tester.onload = () => {
+					avatarEl.src = url;
+				};
+				tester.onerror = () => {
+					tryNextFormat();
+				};
+				tester.src = url;
+			}
+
+			tryNextFormat();
+		}
+
+		async function fetchDiscordProfile() {
+			// 1. Try Discord User Proxy (JAPI)
+			try {
+				const res = await fetch(`https://api.japi.rest/discord/v1/user/${DISCORD_ID}`);
+				if (res.ok) {
+					const json = await res.json();
+					const u = json.data;
+					if (u) {
+						if (usernameEl) usernameEl.textContent = u.global_name || u.username || "pray";
+						if (statusTextEl && u.username) statusTextEl.textContent = `@${u.username}`;
+						if (u.avatar) {
+							loadDiscordAvatar(u.id, u.avatar);
+							return;
+						}
+					}
+				}
+			} catch (e) {}
+
+			// 2. Try Lanyard API
+			try {
+				const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+				if (res.ok) {
+					const json = await res.json();
+					const u = json?.data?.discord_user;
+					if (u) {
+						if (usernameEl) usernameEl.textContent = u.global_name || u.username || "pray";
+						if (statusTextEl && u.username) statusTextEl.textContent = `@${u.username}`;
+						if (u.avatar) {
+							loadDiscordAvatar(u.id, u.avatar);
+							return;
+						}
+					}
+				}
+			} catch (e) {}
+
+			// 3. Try DSTN Profile Proxy
+			try {
+				const res = await fetch(`https://dcdn.dstn.to/profile/${DISCORD_ID}`);
+				if (res.ok) {
+					const json = await res.json();
+					const u = json.user || json.account;
+					if (u) {
+						if (usernameEl) usernameEl.textContent = u.global_name || u.username || "pray";
+						if (statusTextEl && u.username) statusTextEl.textContent = `@${u.username}`;
+						if (u.avatar) {
+							loadDiscordAvatar(u.id, u.avatar);
+						}
+					}
+				}
+			} catch (e) {}
+		}
+
+		function spawnSpotifyNote() {
+			if (!spotifyNoteInterval) return;
+
+			const avatarContainer = document.querySelector(".avatar-container");
+			if (!avatarContainer) return;
+
+			const note = document.createElement("span");
+			note.className = "particle-note";
+			note.textContent = MUSIC_NOTES[Math.floor(Math.random() * MUSIC_NOTES.length)];
+
+			const angle = Math.random() * Math.PI * 2;
+			const radius = 41;
+			const centerX = 41;
+			const centerY = 41;
+
+			const startX = centerX + Math.cos(angle) * radius - 6;
+			const startY = centerY + Math.sin(angle) * radius - 6;
+
+			note.style.left = startX + "px";
+			note.style.top = startY + "px";
+
+			const distance = 20 + Math.random() * 25;
+			const tx = Math.cos(angle) * distance + "px";
+			const ty = Math.sin(angle) * distance + "px";
+			const rot = (Math.random() - 0.5) * 60 + "deg";
+
+			note.style.setProperty("--tx", tx);
+			note.style.setProperty("--ty", ty);
+			note.style.setProperty("--rot", rot);
+
+			avatarContainer.appendChild(note);
+			setTimeout(() => note.remove(), 2000);
+		}
+
+		let activeActivityData = null;
+
+		function applyPresenceData(data) {
+			if (!data) return;
+			const user = data.discord_user;
+
+			if (user) {
+				usernameEl.textContent = user.global_name || user.username || "pray";
+				if (statusTextEl && user.username) {
+					statusTextEl.textContent = `@${user.username}`;
+				}
+				if (user.avatar) {
+					loadDiscordAvatar(user.id, user.avatar);
+				}
+			}
+
+			if (data.spotify) {
+				if (!spotifyNoteInterval) {
+					spotifyNoteInterval = setInterval(() => {
+						if (Math.random() < 0.6) {
+							spawnSpotifyNote();
+						}
+					}, 600);
+				}
+			} else {
+				if (spotifyNoteInterval) {
+					clearInterval(spotifyNoteInterval);
+					spotifyNoteInterval = null;
+				}
+				document.querySelectorAll(".particle-note").forEach(note => note.remove());
+			}
+
+			if (user) {
+				usernameEl.textContent = user.global_name || user.username || "pray";
+				if (user.avatar) {
+					setDiscordAvatar(user.id, user.avatar);
+				}
+			}
+
+			const customStatus = data.activities ? data.activities.find(a => a.type === 4) : null;
+const popupEl = document.getElementById("custom-status-bottom-popup");
+const contentEl = document.getElementById("status-popup-content");
+const progressBarEl = document.getElementById("status-progress-bar");
+
+if (customStatus && (customStatus.state || customStatus.emoji) && popupEl && contentEl) {
+    let statusHTML = "";
+    if (customStatus.emoji) {
+        if (customStatus.emoji.id) {
+            const ext = customStatus.emoji.animated ? "gif" : "png";
+            statusHTML += `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.${ext}" style="width: 16px; height: 16px; object-fit: contain;" alt="" />`;
+        } else if (customStatus.emoji.name) {
+            statusHTML += `${customStatus.emoji.name} `;
+        }
+    }
+    if (customStatus.state) {
+        statusHTML += escapeHTML(customStatus.state);
+    }
+
+    if (statusHTML !== lastCustomStatus) {
+        lastCustomStatus = statusHTML;
+        contentEl.innerHTML = statusHTML;
+
+        progressBarEl.style.animation = 'none';
+        void progressBarEl.offsetWidth; // Force reflow
+        progressBarEl.style.animation = 'elapsesTenSec 10s linear forwards';
+
+        popupEl.classList.remove("hidden");
+
+        if (statusTimeout) clearTimeout(statusTimeout);
+        statusTimeout = setTimeout(() => {
+            popupEl.classList.add("hidden");
+        }, 10000);
+    }
+} else {
+    if (popupEl) popupEl.classList.add("hidden");
+    lastCustomStatus = "";
+}
+
+			if (user && user.username) {
+				statusTextEl.textContent = `@${user.username}`;
+			}
+
+			const st = data.discord_status || "offline";
+			const statusColor = STATUS_COLORS[st] || STATUS_COLORS.offline;
+			statusBadgeEl.innerHTML = STATUS_SVGS[st] || STATUS_SVGS.offline;
+
+			let chosenActivity = null;
+			const nonStatusActs = data.activities ? data.activities.filter(a => a.type !== 4) : [];
+			const appAct = nonStatusActs[0];
+
+			if (appAct) {
+				let prefix = "PLAYING";
+				let icon = "fa-solid fa-gamepad";
+
+				if (appAct.name.toLowerCase().includes("code")) {
+					prefix = "CODING IN";
+					icon = "fa-solid fa-code";
+				} else if (appAct.name.toLowerCase().includes("minecraft")) {
+					prefix = "MINING IN";
+					icon = "fa-solid fa-cube";
+				} else if (appAct.type === 1) prefix = "STREAMING";
+				else if (appAct.type === 2) prefix = "LISTENING TO";
+				else if (appAct.type === 3) prefix = "WATCHING";
+
+				let imgUrl = null;
+				if (appAct.assets && appAct.assets.large_image) {
+					if (appAct.assets.large_image.startsWith("mp:external")) {
+						imgUrl = `https://media.discordapp.net/${appAct.assets.large_image.replace("mp:", "")}`;
+					} else {
+						imgUrl = `https://cdn.discordapp.com/app-assets/${appAct.application_id}/${appAct.assets.large_image}.png`;
+					}
+				}
+
+				chosenActivity = {
+					icon: icon,
+					imgUrl: imgUrl,
+					verb: prefix,
+					target: appAct.name,
+					sub: appAct.details || appAct.state || "",
+					state: appAct.state || "",
+					timestamps: appAct.timestamps
+				};
+			} else if (data.spotify) {
+				chosenActivity = {
+					icon: "fa-brands fa-spotify",
+					imgUrl: data.spotify.album_art_url || "spotifyicon.png",
+					verb: "LISTENING TO",
+					target: data.spotify.song,
+					sub: `by ${data.spotify.artist}`,
+					state: data.spotify.album || "",
+					timestamps: { start: data.spotify.timestamps?.start }
+				};
+			}
+
+			document.documentElement.style.setProperty('--banner-accent', statusColor);
+			document.documentElement.style.setProperty('--banner-title', statusColor);
+			document.documentElement.style.setProperty('--banner-glow', statusColor + '35');
+
+			function updateBannerSmoothly(newHTML) {
+				if (topActBanner.innerHTML === newHTML) return;
+				
+				topActBanner.classList.add("activity-updating");
+				setTimeout(() => {
+					topActBanner.innerHTML = newHTML;
+					topActBanner.classList.remove("activity-updating");
+				}, 150);
+			}
+
+			if (chosenActivity) {
+				activeActivityData = chosenActivity;
+
+				let iconHtml = chosenActivity.imgUrl 
+					? `<img src="${chosenActivity.imgUrl}" class="top-act-icon-img" alt="" />`
+					: `<i class="${chosenActivity.icon} top-act-icon" style="color: ${statusColor}"></i>`;
+
+				const bannerContent = `
+					${iconHtml}
+					<span class="top-activity-title" style="color: ${statusColor}">
+						${escapeHTML(chosenActivity.verb)} ${escapeHTML(chosenActivity.target)}
+						${chosenActivity.sub ? `<span class="top-act-sub">&middot; ${escapeHTML(chosenActivity.sub)}</span>` : ''}
+					</span>
+				`;
+
+				updateBannerSmoothly(bannerContent);
+				recordNewActivity(chosenActivity.verb, chosenActivity.target, chosenActivity.sub, chosenActivity.icon, statusColor);
+			} else {
+				activeActivityData = null;
+				const statusName = STATUS_NAMES[st] || STATUS_NAMES.offline;
+				const statusIcon = STATUS_ICONS[st] || STATUS_ICONS.offline;
+
+				const bannerContent = `
+					<i class="${statusIcon} top-act-icon" style="color: ${statusColor}"></i>
+					<span class="top-activity-title" style="color: ${statusColor}">${statusName}</span>
+				`;
+
+				updateBannerSmoothly(bannerContent);
+				recordNewActivity("STATUS:", statusName, `Status: ${statusName}`, statusIcon, statusColor);
+			}
+
+			renderHistoryList();
+		}
+
+		let socket = null;
+		let heartbeatInterval = null;
+
+		function connectLanyardWebSocket() {
+			if (socket) socket.close();
+			socket = new WebSocket("wss://api.lanyard.rest/socket");
+
+			socket.onmessage = (event) => {
+				const message = JSON.parse(event.data);
+				if (message.op === 1) {
+					if (heartbeatInterval) clearInterval(heartbeatInterval);
+					heartbeatInterval = setInterval(() => {
+						if (socket && socket.readyState === WebSocket.OPEN) {
+							socket.send(JSON.stringify({ op: 3 }));
+						}
+					}, message.d.heartbeat_interval);
+
+					socket.send(JSON.stringify({
+						op: 2,
+						d: { subscribe_to_id: DISCORD_ID }
+					}));
+				}
+
+				if (message.t === "INIT_STATE" || message.t === "PRESENCE_UPDATE") {
+					if (message.d) {
+						applyPresenceData(message.d);
+					}
+				}
+			};
+
+			socket.onclose = () => {
+				if (heartbeatInterval) clearInterval(heartbeatInterval);
+				setTimeout(connectLanyardWebSocket, 5000);
+			};
+		}
+
+		function escapeHTML(str) {
+			return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+		}
+
+		function escapeJs(str) {
+			return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+		}
+
+		const INTEREST_PHRASES = [
+			{
+				type: "adore",
+				html: 'i <span class="glowing-love" id="love-target">ADORE</span> <span class="glowing-puppygirls" id="puppygirls-target">catgirls</span>'
+			},
+			{
+				type: "love",
+				html: 'i <span class="glowing-love" id="love-target">LOVE</span> <span class="glowing-puppygirls" id="puppygirls-target">puppygirls</span>'
+			},
+			{
+				type: "c418",
+				html: 'i <span class="glowing-listen" id="listen-target">listen to</span> <span class="glowing-puppygirls">C418</span>'
+			},
+			{
+				type: "minecraft",
+				html: 'i play <span class="creeper-minecraft">minecraft</span>'
+			}
+		];
+
+		let interestIdx = 0;
+
+		function renderInterestPhrase() {
+			const targetEl = document.getElementById("interests-target");
+			if (!targetEl) return;
+
+			targetEl.classList.add("changing");
+
+			setTimeout(() => {
+				targetEl.innerHTML = INTEREST_PHRASES[interestIdx].html;
+				targetEl.classList.remove("changing");
+			}, 350);
+		}
+
+		setInterval(() => {
+			interestIdx = (interestIdx + 1) % INTEREST_PHRASES.length;
+			renderInterestPhrase();
+		}, 4000);
+
+		renderInterestPhrase();
+
+		const MUSIC_SYMBOLS = ["♩", "♪", "♫", "♬"];
+
+		function spawnInterestParticles() {
+			const currentType = INTEREST_PHRASES[interestIdx].type;
+
+			if (currentType === "adore" || currentType === "love") {
+				const loveEl = document.getElementById("love-target");
+				if (loveEl) {
+					const p = document.createElement("span");
+					p.className = "particle-heart";
+					p.textContent = "<3";
+					p.style.left = (Math.random() * 25 - 5) + "px";
+					p.style.top = "5px";
+
+					const angle = Math.random() * Math.PI * 2;
+					const dist = 20 + Math.random() * 25;
+					p.style.setProperty('--tx', Math.cos(angle) * dist + "px");
+					p.style.setProperty('--ty', Math.sin(angle) * dist + "px");
+
+					loveEl.appendChild(p);
+					setTimeout(() => p.remove(), 2000);
+				}
+
+				const puppygirlsEl = document.getElementById("puppygirls-target");
+				if (puppygirlsEl) {
+					const p = document.createElement("span");
+					p.className = "particle-puppygirl";
+					p.textContent = currentType === "adore" ? "ฅ^•ﻌ•^ฅ" : "≽^•⩊•^≼";
+					p.style.left = (Math.random() * 40 - 10) + "px";
+					p.style.top = "5px";
+
+					const angle = Math.random() * Math.PI * 2;
+					const dist = 20 + Math.random() * 25;
+					p.style.setProperty('--tx', Math.cos(angle) * dist + "px");
+					p.style.setProperty('--ty', Math.sin(angle) * dist + "px");
+
+					puppygirlsEl.appendChild(p);
+					setTimeout(() => p.remove(), 2400);
+				}
+			}
+
+			if (currentType === "c418") {
+				const listenEl = document.getElementById("listen-target");
+				if (listenEl) {
+					const p = document.createElement("span");
+					p.className = "particle-green-note";
+					p.textContent = MUSIC_SYMBOLS[Math.floor(Math.random() * MUSIC_SYMBOLS.length)];
+					p.style.left = (Math.random() * 30 - 5) + "px";
+					p.style.top = "5px";
+
+					const angle = Math.random() * Math.PI * 2;
+					const dist = 20 + Math.random() * 25;
+					p.style.setProperty('--tx', Math.cos(angle) * dist + "px");
+					p.style.setProperty('--ty', Math.sin(angle) * dist + "px");
+
+					listenEl.appendChild(p);
+					setTimeout(() => p.remove(), 2000);
+				}
+			}
+		}
+
+		setInterval(spawnInterestParticles, 700);
+
+		const BIRTH_DATE = new Date("2008-03-15T00:00:00");
+
+		function calculateAge() {
+			const today = new Date();
+			let age = today.getFullYear() - BIRTH_DATE.getFullYear();
+			const m = today.getMonth() - BIRTH_DATE.getMonth();
+			if (m < 0 || (m === 0 && today.getDate() < BIRTH_DATE.getDate())) {
+				age--;
+			}
+			const ageTarget = document.getElementById("age-target");
+			if (ageTarget) ageTarget.textContent = age;
+		}
+		calculateAge();
+
+		function spawnButtonSparkle(e, btn, color) {
+	const rect = btn.getBoundingClientRect();
+	const sparkle = document.createElement("div");
+	sparkle.className = "btn-sparkle";
+	sparkle.style.background = color;
+	sparkle.style.borderRadius = "50%";
+	sparkle.style.width = "3px";
+	sparkle.style.height = "3px";
+	sparkle.style.boxShadow = `0 0 8px ${color}`;
+	sparkle.style.left = (e.clientX - rect.left) + "px";
+	sparkle.style.top = (e.clientY - rect.top) + "px";
+	
+	const dx = (Math.random() - 0.5) * 35 + "px";
+	const dy = (Math.random() - 0.5) * 35 + "px";
+	sparkle.style.setProperty('--dx', dx);
+	sparkle.style.setProperty('--dy', dy);
+
+	btn.appendChild(sparkle);
+	setTimeout(() => sparkle.remove(), 1200);
+}
+
+		const gibberishChars = "⸸#πçø═⸸∆§£xXøØ";
+		function updateGibberish() {
+			const gibEl = document.getElementById("gibberish-target");
+			if (gibEl) {
+				let result = "";
+				for (let i = 0; i < 6; i++) {
+					result += gibberishChars.charAt(Math.floor(Math.random() * gibberishChars.length));
+				}
+				gibEl.textContent = result + "...";
+			}
+		}
+		setInterval(updateGibberish, 200);
+
+		renderHistoryList();
+		connectLanyardWebSocket();
+		fetchDiscordProfile();
+		fetchExtraDiscordProfiles();
+	</script>
+</body>
+</html>
