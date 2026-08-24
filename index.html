@@ -1848,7 +1848,7 @@
 	</div>
 
 	<script>
-		const DISCORD_ID = "1459602053969215786";
+		const DISCORD_ID = "145689912996265985";
 		const LASTFM_API_KEY = "56f986f70954d1ad8c8b3ec3aec33f83";
 		const LASTFM_USERNAME = "renumerate";
 		let lastCustomStatus = "";
@@ -2379,7 +2379,7 @@ async function fetchDiscordProfile() {
     const avatarEl = document.getElementById("avatar");
 
     try {
-        const res = await fetch(`https://dcdn.dstn.to/profile/1459602053969215786?t=${Date.now()}`);
+        const res = await fetch(`https://dcdn.dstn.to/profile/145689912996265985?t=${Date.now()}`);
         if (!res.ok) throw new Error("DSTN API request failed");
         
         const data = await res.json();
