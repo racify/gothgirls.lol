@@ -106,27 +106,61 @@
 			transition: background-color 0.3s ease, color 0.3s ease;
 		}
 
-		.theme-toggle-btn {
-			position: fixed;
-			top: 24px;
-			left: 28px;
-			z-index: 9999;
-			background: transparent;
-			border: none;
-			font-family: 'JetBrains Mono', monospace;
-			font-size: 13px;
-			font-weight: 700;
-			color: var(--text-muted);
-			text-transform: lowercase;
-			letter-spacing: 0.5px;
-			pointer-events: auto;
-			padding: 8px 12px;
-			transition: color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		.theme-segmented-switch {
+    position: fixed;
+    top: 24px;
+    left: 28px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    background: var(--box-bg);
+    border: 1px solid var(--box-border);
+    border-radius: 12px;
+    padding: 3px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    position: fixed;
 		}
 
-		.theme-toggle-btn:hover {
-			color: var(--text-primary);
-			transform: scale(1.1);
+		.theme-indicator {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border-hover);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 1;
+		}
+
+		.theme-option-btn {
+    position: relative;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer !important;
+    border-radius: 8px;
+    transition: color 0.2s ease;
+		}
+
+		.theme-option-btn:hover {
+    color: var(--text-secondary);
+		}
+
+		.theme-option-btn.active {
+    color: var(--text-primary);
 		}
 
 .socials-marquee-container {
@@ -189,47 +223,6 @@
     0% { transform: translateX(0%); }
     100% { transform: translateX(-50%); }
 }
-
-		.history-active-section {
-			display: flex;
-			flex-direction: column;
-			gap: 6px;
-			padding-bottom: 8px;
-			margin-bottom: 8px;
-			border-bottom: 1px solid var(--box-border);
-		}
-
-		.history-active-card {
-			display: flex;
-			align-items: flex-start;
-			gap: 10px;
-			padding: 8px 10px;
-			background: var(--box-bg);
-			border: 1px solid var(--box-border);
-			border-left: 3px solid var(--banner-accent);
-			border-radius: 6px;
-		}
-
-		.active-app-icon {
-			width: 32px;
-			height: 32px;
-			border-radius: 6px;
-			object-fit: cover;
-			flex-shrink: 0;
-		}
-
-		.active-app-icon-fallback {
-			width: 32px;
-			height: 32px;
-			border-radius: 6px;
-			background: var(--box-bg);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-size: 14px;
-			color: var(--banner-accent);
-			flex-shrink: 0;
-		}
 
 		.active-details {
 			display: flex;
@@ -352,28 +345,6 @@
 			pointer-events: none !important;
 		}
 
-		.activity-history-popup {
-			position: absolute;
-			top: 100%;
-			margin-top: 10px;
-			width: 280px;
-			background: var(--card-bg);
-			border: 1px solid var(--card-border);
-			border-radius: 6px;
-			padding: 12px 14px;
-			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-			opacity: 0;
-			pointer-events: none;
-			transform: translateY(-6px);
-			transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.3s ease;
-			font-family: 'JetBrains Mono', monospace;
-			display: flex;
-			flex-direction: column;
-			gap: 10px;
-			clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
-			overflow: hidden;
-		}
-
 		.activity-history-popup::before {
 			content: '';
 			position: absolute;
@@ -384,37 +355,6 @@
 			height: 12px;
 			background: var(--banner-accent);
 			opacity: 0.6;
-		}
-
-		.top-activity-wrapper:hover .activity-history-popup {
-			opacity: 1;
-			pointer-events: auto;
-			transform: translateY(0);
-		}
-
-		.history-verb {
-			text-transform: uppercase;
-		}
-
-		.history-target {
-			color: var(--text-primary);
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		.history-item-sub {
-			font-size: 9.5px;
-			color: var(--text-secondary);
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		.history-item-time {
-			font-size: 8.5px;
-			color: var(--text-muted);
-			margin-top: 1px;
 		}
 
 .container {
@@ -559,21 +499,6 @@
 			display: flex;
 			align-items: center;
 			gap: 4px;
-		}
-
-		.status-badge {
-			position: absolute;
-			bottom: 2px;
-			right: 2px;
-			width: 16px;
-			height: 16px;
-			border-radius: 50%;
-			background: transparent !important;
-			backdrop-filter: none !important;
-            display: none !important;
-			align-items: center;
-			justify-content: center;
-			pointer-events: none;
 		}
 
 		.status-badge svg {
@@ -941,10 +866,6 @@
 			position: relative;
 			transform: scale(0.92);
 			transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-			overflow: visible !important;
-		}
-
-		#other-socials-modal .playlists-list {
 			overflow: visible !important;
 		}
 
@@ -1566,16 +1487,22 @@
 </head>
 <body>
 
-	<button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()">light</button>
+<div class="theme-segmented-switch">
+    <div class="theme-indicator" id="theme-indicator"></div>
+    <button class="theme-option-btn" id="btn-theme-system" onclick="setThemeMode('system')" title="System theme">
+        <i class="fa-solid fa-desktop"></i>
+    </button>
+    <button class="theme-option-btn" id="btn-theme-light" onclick="setThemeMode('light')" title="Light theme">
+        <i class="fa-regular fa-sun"></i>
+    </button>
+    <button class="theme-option-btn" id="btn-theme-dark" onclick="setThemeMode('dark')" title="Dark theme">
+        <i class="fa-solid fa-moon"></i>
+    </button>
+</div>
 
 	<div class="top-popups-stack">
 		<div class="visitor-popup-banner" id="visitor-popup">you are visitor #<span id="visitor-count-val">765</span></div>
 	</div>
-
-	<div class="telegram-bottom-popup hidden" id="custom-status-bottom-popup" onmousemove="spawnButtonSparkle(event, this, getComputedStyle(document.documentElement).getPropertyValue('--banner-accent'))">
-    <div class="telegram-popup-body" id="status-popup-content"></div>
-    <div class="telegram-progress-bar" id="status-progress-bar"></div>
-    </div>
 
 	<div class="container">
 		<div class="top-grid">
@@ -2033,52 +1960,73 @@ function renderKonataActivityOrbit(data) {
     `).join("");
 }
 
-		const themeToggleBtn = document.getElementById("theme-toggle-btn");
-		const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)");
+let currentThemePreference = localStorage.getItem("pray_theme_mode") || "system";
+const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)");
 
-		function applyTheme(mode) {
-			document.documentElement.setAttribute("data-theme", mode);
-			themeToggleBtn.textContent = mode === "light" ? "dark" : "light";
+function updateSwitcherUI(mode) {
+    const indicator = document.getElementById("theme-indicator");
+    const btns = {
+        system: document.getElementById("btn-theme-system"),
+        light: document.getElementById("btn-theme-light"),
+        dark: document.getElementById("btn-theme-dark")
+    };
 
-			const animeImg = document.getElementById("about-bg-anime");
-			if (!animeImg) return;
+    Object.values(btns).forEach(b => b?.classList.remove("active"));
+    if (btns[mode]) btns[mode].classList.add("active");
 
-			animeImg.classList.remove("anime-slide-in");
-			animeImg.classList.add("anime-slide-out");
+    const offsets = { system: 0, light: 28, dark: 56 };
+    if (indicator && offsets[mode] !== undefined) {
+        indicator.style.transform = `translateX(${offsets[mode]}px)`;
+    }
+}
 
-			setTimeout(() => {
-				if (mode === "light") {
-					animeImg.src = "lbg1.png";
-					animeImg.style.filter = "grayscale(20%)";
-					animeImg.style.mixBlendMode = "multiply";
-					animeImg.style.setProperty("--anime-target-opacity", "0.45");
-				} else {
-					animeImg.src = "dbg1.png";
-					animeImg.style.filter = "grayscale(80%)";
-					animeImg.style.mixBlendMode = "normal";
-					animeImg.style.setProperty("--anime-target-opacity", "0.22");
-				}
+function applyTheme(mode) {
+    document.documentElement.setAttribute("data-theme", mode);
 
-				animeImg.classList.remove("anime-slide-out");
-				animeImg.classList.add("anime-slide-in");
-			}, 200);
-		}
+    const animeImg = document.getElementById("about-bg-anime");
+    if (!animeImg) return;
 
-		if (systemPrefersLight.matches) {
-			applyTheme("light");
-		} else {
-			applyTheme("dark");
-		}
+    animeImg.classList.remove("anime-slide-in");
+    animeImg.classList.add("anime-slide-out");
 
-		systemPrefersLight.addEventListener("change", (e) => {
-			applyTheme(e.matches ? "light" : "dark");
-		});
+    setTimeout(() => {
+        if (mode === "light") {
+            animeImg.src = "lbg1.png";
+            animeImg.style.filter = "grayscale(20%)";
+            animeImg.style.mixBlendMode = "multiply";
+            animeImg.style.setProperty("--anime-target-opacity", "0.45");
+        } else {
+            animeImg.src = "dbg1.png";
+            animeImg.style.filter = "grayscale(80%)";
+            animeImg.style.mixBlendMode = "normal";
+            animeImg.style.setProperty("--anime-target-opacity", "0.22");
+        }
 
-		function toggleTheme() {
-			const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
-			const newTheme = currentTheme === "light" ? "dark" : "light";
-			applyTheme(newTheme);
-		}
+        animeImg.classList.remove("anime-slide-out");
+        animeImg.classList.add("anime-slide-in");
+    }, 200);
+}
+
+function setThemeMode(mode) {
+    currentThemePreference = mode;
+    localStorage.setItem("pray_theme_mode", mode);
+    updateSwitcherUI(mode);
+
+    if (mode === "system") {
+        applyTheme(systemPrefersLight.matches ? "light" : "dark");
+    } else {
+        applyTheme(mode);
+    }
+}
+
+systemPrefersLight.addEventListener("change", (e) => {
+    if (currentThemePreference === "system") {
+        applyTheme(e.matches ? "light" : "dark");
+    }
+});
+
+// Initialize on page load
+setThemeMode(currentThemePreference);
 
 		const usernameEl = document.getElementById("username");
 		const statusTextEl = document.getElementById("status-text");
@@ -2086,9 +2034,6 @@ function renderKonataActivityOrbit(data) {
 		const statusBadgeEl = document.getElementById("status-badge");
 		const badgesContainer = document.getElementById("discord-badges");
 
-		const topActBanner = document.getElementById("top-activity-banner");
-		const topActTitle = document.getElementById("top-act-title");
-		const topActIcon = document.getElementById("top-act-icon");
 		const historyListEl = document.getElementById("history-list");
 
 		const STATUS_SVGS = {
@@ -2243,34 +2188,6 @@ function renderKonataActivityOrbit(data) {
 		}
 		initFavicon();
 
-		function openPlaylistsModal() {
-			document.getElementById("playlists-modal-overlay").classList.add("active");
-		}
-
-		function closePlaylistsModal() {
-			document.getElementById("playlists-modal-overlay").classList.remove("active");
-		}
-
-		function closePlaylistsModalOnBackdrop(e) {
-			if (e.target.id === "playlists-modal-overlay") {
-				closePlaylistsModal();
-			}
-		}
-
-		function openOtherSocialsModal() {
-			document.getElementById("other-socials-modal-overlay").classList.add("active");
-		}
-
-		function closeOtherSocialsModal() {
-			document.getElementById("other-socials-modal-overlay").classList.remove("active");
-		}
-
-		function closeOtherSocialsModalOnBackdrop(e) {
-			if (e.target.id === "other-socials-modal-overlay") {
-				closeOtherSocialsModal();
-			}
-		}
-
 		function promptExternalLink(url) {
 			activeRedirectUrl = url;
 			const titleEl = document.querySelector(".confirm-title");
@@ -2280,20 +2197,6 @@ function renderKonataActivityOrbit(data) {
 			if (titleEl) titleEl.textContent = "leaving so soon?";
 			if (stayBtn) stayBtn.textContent = "stay";
 			if (proceedBtn) proceedBtn.textContent = "proceed";
-
-			document.getElementById("confirm-target-url").textContent = url;
-			document.getElementById("confirm-modal-overlay").classList.add("active");
-		}
-
-		function promptPfpLink(url) {
-			activeRedirectUrl = url;
-			const titleEl = document.querySelector(".confirm-title");
-			const stayBtn = document.querySelector(".confirm-btn.stay");
-			const proceedBtn = document.querySelector(".confirm-btn.proceed");
-
-			if (titleEl) titleEl.textContent = "want my profiles? visit my telegram!";
-			if (stayBtn) stayBtn.textContent = "no";
-			if (proceedBtn) proceedBtn.textContent = "yes";
 
 			document.getElementById("confirm-target-url").textContent = url;
 			document.getElementById("confirm-modal-overlay").classList.add("active");
