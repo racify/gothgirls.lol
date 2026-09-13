@@ -451,8 +451,8 @@
 			overflow: hidden;
 			backdrop-filter: blur(16px);
 			box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
-			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-			            border-color 0.25s ease, 
+			transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+			            border-color 0.25s ease,
 			            box-shadow 0.25s ease;
 		}
 
@@ -1106,7 +1106,7 @@
         .badge-wrapper:nth-child(even):hover .discord-badge-icon,
         .badge-wrapper:nth-child(even):hover .extra-badge-icon {
 	        transform: scale(1.1) rotate(6deg);
-        }    
+        }
 
 		.badge-tooltip {
     position: absolute;
@@ -1144,7 +1144,7 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
 }
-		
+
 		.activity-history-popup > .history-header {
 			display: none !important;
 		}
@@ -1533,15 +1533,15 @@
     font-weight: 800;
     letter-spacing: -0.2px;
     background: var(--dc-custom-gradient, linear-gradient(
-        90deg, 
-        #007aff 0%, 
-        #00c2ff 12.5%, 
-        #fbfbed 25%, 
-        #e61e50 37.5%, 
+        90deg,
+        #007aff 0%,
+        #00c2ff 12.5%,
+        #fbfbed 25%,
+        #e61e50 37.5%,
         #8a1232 50%,
-        #007aff 62.5%, 
-        #00c2ff 75%, 
-        #fbfbed 87.5%, 
+        #007aff 62.5%,
+        #00c2ff 75%,
+        #fbfbed 87.5%,
         #e61e50 100%
     )) !important;
     background-size: 200% auto !important;
@@ -1593,42 +1593,6 @@
                 <div class="discord-badges-inline" id="discord-badges"></div>
             </div>
             <div class="status-text" id="status-text"></div>
-
-            <!-- Scrolling Socials Marquee -->
-            <div class="socials-marquee-container">
-                <div class="socials-marquee-track">
-                    <!-- First Set -->
-                    <button class="social-pill spotify" onclick="promptExternalLink('https://open.spotify.com/playlist/1vLHUzK0VXToagQCXWWYhn?si=74ddee99bb1a4636')">
-                        <i class="fa-brands fa-spotify" style="color: #1ed760;"></i> Spotify
-                    </button>
-                    <button class="social-pill steam" onclick="promptExternalLink('https://steamcommunity.com/id/swordpvper/')">
-                        <i class="fa-brands fa-steam" style="color: #66c0f4;"></i> Steam
-                    </button>
-                    <button class="social-pill telegram" onclick="promptExternalLink('https://t.me/misrepent')">
-                        <i class="fa-brands fa-telegram" style="color: #24a1de;"></i> Telegram
-                    </button>
-                    <button class="social-pill instagram" onclick="promptExternalLink('https://instagram.com/swordpvper')">
-                        <i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram
-                    </button>
-                    <span>&bull;</span>
-
-                    <!-- Duplicated Set for Seamless Looping -->
-                    <button class="social-pill spotify" onclick="promptExternalLink('https://open.spotify.com/playlist/1vLHUzK0VXToagQCXWWYhn?si=74ddee99bb1a4636')">
-                        <i class="fa-brands fa-spotify" style="color: #1ed760;"></i> Spotify
-                    </button>
-                    <button class="social-pill steam" onclick="promptExternalLink('https://steamcommunity.com/id/swordpvper/')">
-                        <i class="fa-brands fa-steam" style="color: #66c0f4;"></i> Steam
-                    </button>
-                    <button class="social-pill telegram" onclick="promptExternalLink('https://t.me/misrepent')">
-                        <i class="fa-brands fa-telegram" style="color: #24a1de;"></i> Telegram
-                    </button>
-                    <button class="social-pill instagram" onclick="promptExternalLink('https://instagram.com/swordpvper')">
-                        <i class="fa-brands fa-instagram" style="color: #e1306c;"></i> Instagram
-                    </button>
-                    <span>&bull;</span>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>
@@ -1638,7 +1602,7 @@
 					<div class="card-title" style="display: flex; align-items: center; gap: 8px;">
 						<i class="fa-solid fa-headphones" style="font-size: 16px;"></i> WHAT I'VE BEEN LISTENING TO
 					</div>
-					<span style="font-size: 11px; color: var(--text-muted); font-weight: 600; font-family: 'JetBrains Mono', monospace;">LAST.FM</span>
+					<span id="lastfm-scrobble-count" style="font-size: 11px; color: var(--text-muted); font-weight: 600; font-family: 'JetBrains Mono', monospace;">... Scrobbles</span>
 				</div>
 				<div class="lastfm-sub-desc">Last songs I've listened to, give them a try.</div>
 
@@ -1848,7 +1812,7 @@
 	</div>
 
 	<script>
-		const DISCORD_ID = "145689912996265985";
+		const DISCORD_ID = "1459602053969215786";
 		const LASTFM_API_KEY = "56f986f70954d1ad8c8b3ec3aec33f83";
 		const LASTFM_USERNAME = "renumerate";
 		let lastCustomStatus = "";
@@ -1931,15 +1895,23 @@
 		}
 
 		async function fetchLastFmRecent() {
-			const gridEl = document.getElementById("lastfm-grid");
-			if (!gridEl) return;
+					const gridEl = document.getElementById("lastfm-grid");
+					const countEl = document.getElementById("lastfm-scrobble-count");
+					if (!gridEl) return;
 
-			try {
-				const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(LASTFM_USERNAME)}&api_key=${LASTFM_API_KEY}&format=json&limit=9`);
-				if (!res.ok) throw new Error("Failed to fetch Last.fm");
-				const data = await res.json();
-				const tracks = data?.recenttracks?.track || [];
-				if (tracks.length === 0) throw new Error("No tracks found");
+					try {
+						const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(LASTFM_USERNAME)}&api_key=${LASTFM_API_KEY}&format=json&limit=9`);
+						if (!res.ok) throw new Error("Failed to fetch Last.fm");
+						const data = await res.json();
+
+						// Replaces the text with: (NUMBER) Scrobbles
+						const totalScrobbles = data?.recenttracks?.["@attr"]?.total;
+						if (countEl && totalScrobbles) {
+							countEl.textContent = `${Number(totalScrobbles).toLocaleString()} Scrobbles`;
+						}
+
+						const tracks = data?.recenttracks?.track || [];
+						if (tracks.length === 0) throw new Error("No tracks found");
 
 				const list = tracks.slice(0, 9);
 
@@ -1949,7 +1921,7 @@
 					const artist = escapeHTML(track.artist?.["#text"] || track.artist?.name || "Unknown Artist");
 					const album = escapeHTML(track.album?.["#text"] || "");
 					const trackUrl = escapeJs(track.url || `https://www.last.fm/music/${encodeURIComponent(artist)}/_/${encodeURIComponent(name)}`);
-					
+
 let rawImg = track.image?.find(img => img.size === "extralarge" || img.size === "large")?.["#text"] || "";
 					let coverImg = (rawImg && !rawImg.includes("2a96cbd8b46e442fc41c2b86b821562f")) ? rawImg : "playlist4.jpg";
 
@@ -2255,7 +2227,7 @@ function renderKonataActivityOrbit(data) {
 				img.onload = () => {
 					const ext = currentSrc.split('.').pop().toLowerCase();
 					const mimeType = ext === 'ico' ? 'image/x-icon' : (ext === 'gif' ? 'image/gif' : 'image/png');
-					
+
 					faviconLink.type = mimeType;
 					faviconLink.href = currentSrc + "?v=" + Date.now();
 				};
@@ -2350,7 +2322,7 @@ function renderKonataActivityOrbit(data) {
 
 			const isGif = avatarHash.startsWith("a_");
 			const formats = isGif ? ["gif", "png", "webp"] : ["png", "webp", "gif"];
-			
+
 			let formatIdx = 0;
 			function tryNextFormat() {
 				if (formatIdx >= formats.length) {
@@ -2359,7 +2331,7 @@ function renderKonataActivityOrbit(data) {
 				}
 				const ext = formats[formatIdx++];
 				const url = `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.${ext}?size=256`;
-				
+
 				const tester = new Image();
 				tester.onload = () => {
 					avatarEl.src = url;
@@ -2379,9 +2351,9 @@ async function fetchDiscordProfile() {
     const avatarEl = document.getElementById("avatar");
 
     try {
-        const res = await fetch(`https://dcdn.dstn.to/profile/145689912996265985?t=${Date.now()}`);
+        const res = await fetch(`https://dcdn.dstn.to/profile/1459602053969215786?t=${Date.now()}`);
         if (!res.ok) throw new Error("DSTN API request failed");
-        
+
         const data = await res.json();
         const user = data.user || data.account || {};
 
@@ -2462,7 +2434,7 @@ function applyPresenceData(data) {
     if (user) {
         const displayName = user.global_name || user.display_name || user.username || "goth ;{{";
         applyDisplayNameStyles(displayName);
-        
+
         if (statusTextEl && user.username) {
             statusTextEl.textContent = `@${user.username}`;
         }
@@ -2573,7 +2545,7 @@ if (customStatus && (customStatus.state || customStatus.emoji) && popupEl && con
 			if (chosenActivity) {
 				activeActivityData = chosenActivity;
 
-				let iconHtml = chosenActivity.imgUrl 
+				let iconHtml = chosenActivity.imgUrl
 					? `<img src="${chosenActivity.imgUrl}" class="top-act-icon-img" alt="" />`
 					: `<i class="${chosenActivity.icon} top-act-icon" style="color: ${statusColor}"></i>`;
 
@@ -2673,7 +2645,7 @@ if (customStatus && (customStatus.state || customStatus.emoji) && popupEl && con
 	sparkle.style.boxShadow = `0 0 8px ${color}`;
 	sparkle.style.left = (e.clientX - rect.left) + "px";
 	sparkle.style.top = (e.clientY - rect.top) + "px";
-	
+
 	const dx = (Math.random() - 0.5) * 35 + "px";
 	const dy = (Math.random() - 0.5) * 35 + "px";
 	sparkle.style.setProperty('--dx', dx);
