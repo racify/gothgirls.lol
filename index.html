@@ -10,7 +10,6 @@
     <link rel="icon" id="site-favicon" href="favicon.ico" />
     <script>
         (function () {
-
             const iconNames = ['favicon.ico', 'favicon.png', 'favicon.svg', 'icon.png', 'icon.svg', 'icon.ico', 'favicon.webp', 'icon.webp', 'favicon.jpg', 'icon.jpg'];
             const favLink = document.getElementById('site-favicon');
             function tryCandidate(index) {
@@ -47,13 +46,13 @@
         }
 
         html, body {
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
         html::-webkit-scrollbar,
         body::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
+            display: none;
             width: 0;
             height: 0;
         }
@@ -82,7 +81,7 @@
         }
 
         ::selection {
-            background: rgba(79, 195, 247, .18);
+            background: rgba(255, 170, 70, .25);
             color: #fff
         }
 
@@ -118,7 +117,7 @@
             font-weight: 700;
             color: #ffffff;
             letter-spacing: .08em;
-            text-shadow: 0 0 16px rgba(56, 189, 248, .25);
+            text-shadow: 0 0 16px rgba(255, 170, 80, .4);
         }
 
         .loader-bar-bg {
@@ -141,21 +140,21 @@
             position: fixed;
             width: 6px;
             height: 6px;
-            background: #4fc3f7;
+            background: #ffb86c;
             border-radius: 50%;
             pointer-events: none;
             z-index: 10000;
             transform: translate(-50%, -50%);
             transition: width .15s, height .15s, opacity .15s;
             mix-blend-mode: screen;
-            box-shadow: 0 0 6px #4fc3f7
+            box-shadow: 0 0 8px #ffb86c
         }
 
         #crr {
             position: fixed;
             width: 28px;
             height: 28px;
-            border: 1px solid rgba(79, 195, 247, .35);
+            border: 1px solid rgba(255, 184, 108, .35);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
@@ -171,7 +170,7 @@
         body.ch #crr {
             width: 46px;
             height: 46px;
-            border-color: #4fc3f7
+            border-color: #ffaa44
         }
 
         #pb {
@@ -180,10 +179,10 @@
             left: 0;
             height: 2px;
             width: 0%;
-            background: linear-gradient(90deg, #0288d1, #38bdf8);
+            background: linear-gradient(90deg, #d97706, #f59e0b, #fed7aa);
             z-index: 9998;
             transition: width .05s linear;
-            box-shadow: 0 0 6px rgba(56, 189, 248, .35)
+            box-shadow: 0 0 6px rgba(245, 158, 11, .45)
         }
 
         #bgc {
@@ -208,20 +207,20 @@
         .hero-tl {
             position: absolute;
             left: 52px;
-            bottom: 185px;
+            bottom: 235px;
             z-index: 2
         }
 
         .hero-name-glitch {
             font-family: 'Space Mono', monospace;
-            font-size: clamp(44px, 8vw, 88px);
+            font-size: clamp(48px, 8.5vw, 94px);
             font-weight: 700;
             letter-spacing: -.02em;
             color: #fff;
             line-height: 1;
             position: relative;
             display: inline-block;
-            text-shadow: 0 0 20px rgba(56, 189, 248, .2)
+            text-shadow: 0 0 24px rgba(255, 175, 80, .28)
         }
 
         .hero-name-glitch span {
@@ -232,53 +231,203 @@
         .hero-menu {
             position: absolute;
             left: 52px;
-            bottom: 52px;
+            bottom: 48px;
             z-index: 2;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 16px;
         }
 
-        .about-me-btn {
+        .hero-nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            border: none;
+            cursor: none !important;
+            padding: 4px 0;
+            transition: transform .22s cubic-bezier(.16, 1, .3, 1), opacity .2s ease;
+            width: fit-content;
+        }
+
+        .hero-nav-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 14.5px;
+            font-weight: 700;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: #d18d42;
+            transition: color .2s ease, text-shadow .2s ease;
+            user-select: none;
+        }
+
+        .hero-nav-arrow {
+            font-size: 13px;
+            line-height: 1;
+            color: #9d5a15;
+            transition: transform .22s cubic-bezier(.16, 1, .3, 1), color .2s ease, text-shadow .2s ease;
+        }
+
+        .hero-nav-item:hover {
+            transform: translateX(3px);
+        }
+
+        .hero-nav-item:hover .hero-nav-arrow {
+            transform: translateX(4px);
+            color: #f59e0b;
+            text-shadow: 0 0 10px rgba(245, 158, 11, .7);
+        }
+
+        .hero-nav-item:hover .hero-nav-text {
+            color: #fed7aa;
+            text-shadow: 0 0 12px rgba(245, 158, 11, .5);
+        }
+
+        .server-preview-card {
+            position: absolute;
+            top: -6px;
+            left: calc(100% + 20px);
+            width: 300px;
+            background: rgba(14, 10, 8, 0.94);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(245, 158, 11, 0.28);
+            border-radius: 12px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-10px) scale(0.96);
+            transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.15);
+            z-index: 100;
+        }
+
+        .server-preview-card::after {
+            content: '';
+            position: absolute;
+            top: 14px;
+            right: 100%;
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent rgba(14, 10, 8, 0.94) transparent transparent;
+        }
+
+        .server-preview-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            right: 100%;
+            width: 26px;
+            height: calc(100% + 24px);
+            background: transparent;
+        }
+
+        .hero-nav-item:hover .server-preview-card,
+        .server-preview-card.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0) scale(1);
+        }
+
+        .server-card-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 220px;
-            padding: 11px 16px;
-            background: rgba(12, 24, 42, .65);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, .09);
-            border-left: 3px solid #ffffff;
-            border-radius: 1px;
-            color: #ffffff;
+        }
+
+        .server-card-identity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .server-card-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #18100a;
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            flex-shrink: 0;
+        }
+
+        .server-card-name {
             font-family: 'Space Grotesk', sans-serif;
-            font-weight: 800;
-            font-size: 14px;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            cursor: none !important;
-            transition: all .22s cubic-bezier(.16, 1, .3, 1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, .5);
-        }
-
-        .about-me-btn:hover {
-            background: rgba(20, 38, 66, .85);
-            border-color: rgba(255, 255, 255, .2);
-            border-left-color: #ffffff;
-            transform: translateX(3px);
-            box-shadow: 0 6px 24px rgba(56, 189, 248, .15);
-        }
-
-        .about-me-btn .btn-arrow {
-            font-size: 8px;
-            color: rgba(255, 255, 255, .5);
-            transition: transform .2s ease, color .2s ease;
-        }
-
-        .about-me-btn:hover .btn-arrow {
+            font-size: 13.5px;
+            font-weight: 700;
             color: #ffffff;
-            transform: translateX(3px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .server-card-desc {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: rgba(200, 196, 188, 0.65);
+            line-height: 1.45;
+            word-break: break-word;
+        }
+
+        .server-card-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .server-stats-counts {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 9.5px;
+            color: rgba(200, 196, 188, 0.6);
+        }
+
+        .server-stat-dot-online {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #23a55a;
+            margin-right: 4px;
+            box-shadow: 0 0 6px #23a55a;
+        }
+
+        .server-stat-dot-total {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #747f8d;
+            margin-right: 4px;
+        }
+
+        .server-join-btn {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            color: #fed7aa;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: .06em;
+            padding: 4px 12px;
+            border-radius: 4px;
+            text-transform: lowercase;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            cursor: none !important;
+        }
+
+        .server-join-btn:hover {
+            background: rgba(245, 158, 11, 0.25);
+            border-color: #f59e0b;
+            color: #ffffff;
         }
 
         .hero-cta {
@@ -293,7 +442,7 @@
             font-size: 9px;
             letter-spacing: .28em;
             text-transform: uppercase;
-            color: rgba(125, 211, 252, .3);
+            color: rgba(253, 186, 116, .45);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -303,67 +452,19 @@
         }
 
         .hero-cta:hover {
-            color: #38bdf8
+            color: #f59e0b
         }
 
         .hero-cta-line {
             width: 1px;
             height: 38px;
-            background: linear-gradient(to bottom, rgba(56, 189, 248, .4), transparent);
+            background: linear-gradient(to bottom, rgba(245, 158, 11, .5), transparent);
             animation: ctapulse 2.2s ease infinite
         }
 
         @keyframes ctapulse {
-
-            0%,
-            100% {
-                opacity: .2
-            }
-
-            50% {
-                opacity: .65
-            }
-        }
-
-        .hero-counter {
-            position: absolute;
-            bottom: 52px;
-            right: 52px;
-            text-align: right;
-            z-index: 2
-        }
-
-        .hero-notice {
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            color: rgba(200, 196, 188, .28);
-            line-height: 1.6;
-            max-width: 240px;
-            margin-bottom: 6px
-        }
-
-        .hero-badge-row {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px
-        }
-
-        .hero-badge {
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            letter-spacing: .08em;
-            color: #38bdf8;
-            background: rgba(56, 189, 248, .05);
-            border: 1px solid rgba(56, 189, 248, .12);
-            border-radius: 100px;
-            padding: 3px 10px
-        }
-
-        .hero-ver {
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            color: rgba(200, 196, 188, .18)
+            0%, 100% { opacity: .25 }
+            50% { opacity: .8 }
         }
 
         .ns {
@@ -395,7 +496,7 @@
             display: block;
             width: 28px;
             height: 1px;
-            background: rgba(56, 189, 248, .2)
+            background: rgba(245, 158, 11, .3)
         }
 
         .sec-label-text {
@@ -403,7 +504,7 @@
             font-size: 9px;
             letter-spacing: .24em;
             text-transform: uppercase;
-            color: rgba(125, 211, 252, .5)
+            color: rgba(253, 186, 116, .65)
         }
 
         .about-top {
@@ -425,7 +526,7 @@
             width: 68px;
             height: 68px;
             border-radius: 50% !important;
-            border: 2px solid rgba(56, 189, 248, .15);
+            border: 2px solid rgba(245, 158, 11, .25);
             object-fit: cover;
             display: block;
             position: relative;
@@ -493,29 +594,14 @@
             display: block;
             font-size: .45em;
             font-weight: 400;
-            color: rgba(125, 211, 252, .5);
+            color: rgba(253, 186, 116, .65);
             margin-bottom: 4px;
             letter-spacing: .05em
         }
 
         .about-heading-name {
             color: #fff;
-            text-shadow: 0 0 14px rgba(56, 189, 248, .2)
-        }
-
-        .discord-user-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 6px;
-            flex-wrap: wrap
-        }
-
-        .discord-tag {
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            color: rgba(125, 211, 252, .6);
-            letter-spacing: .04em
+            text-shadow: 0 0 16px rgba(245, 158, 11, .3)
         }
 
         .discord-custom-status {
@@ -523,21 +609,11 @@
             font-size: 10.5px;
             color: rgba(200, 196, 188, .55);
             margin-top: 6px;
-            background: rgba(56, 189, 248, .03);
+            background: rgba(245, 158, 11, .05);
             padding: 4px 8px;
             border-radius: 4px;
-            border: 1px solid rgba(56, 189, 248, .06);
+            border: 1px solid rgba(245, 158, 11, .15);
             display: inline-block
-        }
-
-        ::selection {
-            background: rgba(30, 95, 160, .65);
-            color: #ffffff;
-        }
-
-        ::-moz-selection {
-            background: rgba(30, 95, 160, .65);
-            color: #ffffff;
         }
 
         .about-bio {
@@ -560,64 +636,9 @@
 
         .about-bio:hover .about-bio-highlight,
         .about-bio-highlight:hover {
-            background: rgba(30, 95, 160, .55);
+            background: rgba(217, 119, 6, .35);
             color: #ffffff;
             text-shadow: 0 1px 3px rgba(0, 0, 0, .85);
-        }
-
-        .about-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px
-        }
-
-        .stack-icon {
-            position: relative;
-            width: 28px;
-            height: 28px;
-            border-radius: 5px;
-            overflow: hidden;
-            cursor: none !important;
-            transition: transform .18s, opacity .18s;
-            opacity: .7
-        }
-
-        .stack-icon:hover {
-            transform: scale(1.15) translateY(-2px);
-            opacity: 1
-        }
-
-        .stack-icon svg,
-        .stack-icon img {
-            width: 100%;
-            height: 100%;
-            display: block
-        }
-
-        .stack-tooltip {
-            position: absolute;
-            bottom: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%) scale(.9);
-            background: rgba(1, 4, 10, .95);
-            border: 1px solid rgba(56, 189, 248, .15);
-            color: #38bdf8;
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            letter-spacing: .06em;
-            padding: 4px 8px;
-            border-radius: 4px;
-            white-space: nowrap;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity .15s, transform .15s;
-            z-index: 10
-        }
-
-        .stack-icon:hover .stack-tooltip {
-            opacity: 1;
-            transform: translateX(-50%) scale(1)
         }
 
         .lastfm-section {
@@ -625,10 +646,10 @@
         }
 
         .lastfm-card-container {
-            background: rgba(2, 6, 16, .03);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
-            border: 1px solid rgba(56, 189, 248, .07);
+            background: rgba(14, 10, 8, .35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(245, 158, 11, .12);
             border-radius: 14px;
             padding: 16px 18px;
             display: flex;
@@ -636,7 +657,7 @@
             gap: 10px;
             min-height: 290px;
             box-sizing: border-box;
-            box-shadow: none;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .5);
         }
 
         .lastfm-track-list {
@@ -652,8 +673,8 @@
             gap: 14px;
             padding: 10px 14px;
             border-radius: 10px;
-            background: rgba(255, 255, 255, .01);
-            border: 1px solid rgba(255, 255, 255, .025);
+            background: rgba(255, 255, 255, .015);
+            border: 1px solid rgba(255, 255, 255, .03);
             transition: background .18s, border-color .18s, transform .18s;
             text-decoration: none;
             min-height: 58px;
@@ -661,8 +682,8 @@
         }
 
         .lastfm-track-row:hover {
-            background: rgba(56, 189, 248, .04);
-            border-color: rgba(56, 189, 248, .12);
+            background: rgba(245, 158, 11, .06);
+            border-color: rgba(245, 158, 11, .2);
             transform: translateX(4px);
         }
 
@@ -707,7 +728,7 @@
         .lastfm-row-time {
             font-family: 'Space Mono', monospace;
             font-size: 10px;
-            color: rgba(125, 211, 252, .55);
+            color: rgba(253, 186, 116, .65);
             flex-shrink: 0;
             text-align: right;
         }
@@ -721,7 +742,7 @@
 
         .eq-bar {
             width: 2px;
-            background: #ffffff;
+            background: #f59e0b;
             border-radius: 1px;
             animation: eqBounce .8s ease-in-out infinite alternate
         }
@@ -738,47 +759,35 @@
             0% {
                 height: 2px
             }
-
             100% {
                 height: 10px
             }
         }
 
-        .ns-composition-wrap {
-            max-width: 1040px;
-            margin: 0 auto;
-            padding: 160px 52px 240px 52px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
         .comp-card-3d-wrap {
-            perspective: 1200px;
             position: relative;
             z-index: 10;
         }
 
         .comp-card {
-            background: rgba(12, 24, 42, .55);
+            background: rgba(14, 11, 8, .55);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(56, 189, 248, .12);
+            border: 1px solid rgba(245, 158, 11, .15);
             border-radius: 16px;
             padding: 24px;
             display: flex;
             flex-direction: column;
             gap: 20px;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .05);
-            transition: border-color .25s, box-shadow .25s, transform .2s ease-out;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .05);
+            transition: border-color .25s, box-shadow .25s;
             position: relative;
             z-index: 10;
         }
 
         .comp-card:hover {
-            border-color: rgba(56, 189, 248, .3);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, .6), 0 0 30px rgba(56, 189, 248, .08);
+            border-color: rgba(245, 158, 11, .35);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .7), 0 0 30px rgba(245, 158, 11, .1);
         }
 
         .comp-header-row {
@@ -821,232 +830,14 @@
 
         .comp-filter-btn:hover,
         .comp-filter-btn.active {
-            background: rgba(56, 189, 248, .2);
-            border-color: rgba(56, 189, 248, .45);
+            background: rgba(245, 158, 11, .2);
+            border-color: rgba(245, 158, 11, .5);
             color: #ffffff;
-            box-shadow: 0 0 10px rgba(56, 189, 248, .25);
-        }
-
-        .comp-bar-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .comp-bar {
-            display: flex;
-            height: 7px;
-            border-radius: 4px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, .05);
-            gap: 2px;
-        }
-
-        .comp-bar-segment {
-            height: 100%;
-            border-radius: 2px;
-            transition: width .4s ease, opacity .2s;
-            cursor: none !important;
-        }
-
-        .comp-bar-segment.js {
-            background: #f7df1e;
-            width: 44%;
-        }
-
-        .comp-bar-segment.css {
-            background: #38bdf8;
-            width: 34%;
-        }
-
-        .comp-bar-segment.html {
-            background: #e34f26;
-            width: 22%;
-        }
-
-        .comp-bar-legend {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            font-family: 'Space Mono', monospace;
-            font-size: 9.5px;
-            color: rgba(200, 196, 188, .6);
-            flex-wrap: wrap;
-        }
-
-        .comp-legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: none !important;
-            transition: color .2s;
-        }
-
-        .comp-legend-item:hover {
-            color: #ffffff;
-        }
-
-        .comp-tech-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-
-        .comp-tech-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px 14px;
-            background: rgba(255, 255, 255, .02);
-            border: 1px solid rgba(255, 255, 255, .05);
-            border-radius: 10px;
-            transition: background .2s, border-color .2s, transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .2s, opacity .2s;
-            transform-style: preserve-3d;
-            cursor: none !important;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .comp-tech-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .15), transparent);
-            opacity: 0;
-            transition: opacity .2s;
-        }
-
-        .comp-tech-item:hover {
-            background: rgba(56, 189, 248, .05);
-            border-color: rgba(56, 189, 248, .25);
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
-        }
-
-        .comp-tech-item:hover::before {
-            opacity: 1;
-        }
-
-        .comp-tech-item.dimmed {
-            opacity: .25;
-            filter: grayscale(0.8);
-        }
-
-        .comp-tech-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-top: 3px;
-        }
-
-        .comp-tech-info {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            flex: 1;
-        }
-
-        .comp-tech-name-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 6px;
-        }
-
-        .comp-tech-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 12.5px;
-            font-weight: 700;
-            color: #ffffff;
-            line-height: 1.2;
-        }
-
-        .comp-tech-tag {
-            font-family: 'Space Mono', monospace;
-            font-size: 8px;
-            letter-spacing: .06em;
-            color: rgba(56, 189, 248, .7);
-            background: rgba(56, 189, 248, .08);
-            border: 1px solid rgba(56, 189, 248, .15);
-            border-radius: 3px;
-            padding: 1px 5px;
-        }
-
-        .comp-tech-desc {
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            color: rgba(200, 196, 188, .5);
-            margin-top: 4px;
-            line-height: 1.35;
-        }
-
-        .comp-hud-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding-top: 14px;
-            border-top: 1px solid rgba(255, 255, 255, .05);
-        }
-
-        .comp-hud-stat {
-            background: rgba(255, 255, 255, .015);
-            border: 1px solid rgba(255, 255, 255, .03);
-            border-radius: 8px;
-            padding: 8px 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .comp-hud-label {
-            font-family: 'Space Mono', monospace;
-            font-size: 8px;
-            letter-spacing: .1em;
-            text-transform: uppercase;
-            color: rgba(125, 211, 252, .5);
-        }
-
-        .comp-hud-val {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #ffffff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        @media (max-width: 860px) {
-            .ns-composition-wrap {
-                padding: 80px 24px 120px 24px;
-            }
-
-            .comp-tech-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .comp-hud-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 540px) {
-            .comp-tech-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .comp-hud-stats {
-                grid-template-columns: 1fr;
-            }
+            box-shadow: 0 0 12px rgba(245, 158, 11, .25);
         }
 
         #liveActivitySection {
             display: none;
-
         }
 
         .activities-container {
@@ -1057,10 +848,10 @@
         }
 
         .activity-card {
-            background: rgba(2, 6, 16, .03);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
-            border: 1px solid rgba(56, 189, 248, .06);
+            background: rgba(14, 11, 8, .35);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(245, 158, 11, .1);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 0;
@@ -1069,13 +860,13 @@
 
         .activity-card.spotify-mode,
         .activity-card.game-mode {
-            border-color: rgba(56, 189, 248, .06);
-            background: rgba(2, 6, 16, .03);
+            border-color: rgba(245, 158, 11, .1);
+            background: rgba(14, 11, 8, .35);
         }
 
         .activity-card:hover,
         .lastfm-card-container:hover {
-            border-color: rgba(56, 189, 248, .2);
+            border-color: rgba(245, 158, 11, .28);
         }
 
         .activity-card-top {
@@ -1095,11 +886,6 @@
             text-transform: uppercase;
             color: rgba(200, 196, 188, .6);
             transition: color .2s;
-        }
-
-        .activity-card.spotify-mode .activity-brand,
-        .activity-card.game-mode .activity-brand {
-            color: rgba(200, 196, 188, .6);
         }
 
         .activity-card:hover .activity-brand {
@@ -1178,7 +964,7 @@
         .activity-bar-fill {
             height: 100%;
             width: 0%;
-            background: #1db954;
+            background: #f59e0b;
             border-radius: 2px;
             transition: width .2s linear;
         }
@@ -1218,8 +1004,8 @@
         }
 
         .soc-entry:hover {
-            background: rgba(56, 189, 248, .04);
-            border-color: rgba(56, 189, 248, .1);
+            background: rgba(245, 158, 11, .06);
+            border-color: rgba(245, 158, 11, .15);
             color: #fff;
             transform: translateX(4px);
         }
@@ -1237,14 +1023,14 @@
         .soc-icon svg {
             width: 14px;
             height: 14px;
-            fill: #38bdf8;
+            fill: #f59e0b;
         }
 
         .soc-platform {
             font-family: 'Space Mono', monospace;
             font-size: 11px;
             letter-spacing: .05em;
-            color: rgba(125, 211, 252, .75);
+            color: rgba(253, 186, 116, .85);
             min-width: 66px;
             text-align: left;
         }
@@ -1271,7 +1057,7 @@
         .soc-copy-feedback {
             font-family: 'Space Mono', monospace;
             font-size: 9.5px;
-            color: #38bdf8;
+            color: #f59e0b;
             letter-spacing: .06em;
             margin-left: 10px;
             opacity: 0;
@@ -1289,7 +1075,7 @@
             opacity: 0;
             transform: translateX(-4px);
             transition: opacity .18s, transform .18s;
-            color: #38bdf8;
+            color: #f59e0b;
             margin-left: auto;
         }
 
@@ -1298,63 +1084,56 @@
             transform: translateX(0);
         }
 
-        .soc-entry:hover .soc-arrow {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-
         .roblox-li-wrap {
             position: relative;
         }
 
-        /* Replace .roblox-preview-card and ::after with this */
-                .roblox-preview-card {
-                    position: absolute;
-                    top: calc(100% + 14px);
-                    bottom: auto;
-                    left: 50%;
-                    transform: translateX(-50%) translateY(-8px) scale(0.96);
-                    width: 250px;
-                    background: rgba(3, 7, 18, 0.85);
-                    backdrop-filter: blur(14px);
-                    -webkit-backdrop-filter: blur(14px);
-                    border: 1px solid rgba(56, 189, 248, 0.22);
-                    border-radius: 12px;
-                    padding: 14px;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    opacity: 0;
-                    pointer-events: none;
-                    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-                    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(56, 189, 248, 0.12);
-                    z-index: 100;
-                }
+        .roblox-preview-card {
+            position: absolute;
+            top: calc(100% + 14px);
+            bottom: auto;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px) scale(0.96);
+            width: 250px;
+            background: rgba(14, 10, 8, 0.9);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 20px rgba(245, 158, 11, 0.15);
+            z-index: 100;
+        }
 
-                .roblox-preview-card::after {
-                    content: '';
-                    position: absolute;
-                    bottom: 100%;
-                    top: auto;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    border-width: 6px;
-                    border-style: solid;
-                    border-color: transparent transparent rgba(3, 7, 18, 0.85) transparent;
-                }
+        .roblox-preview-card::after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            top: auto;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: transparent transparent rgba(14, 10, 8, 0.9) transparent;
+        }
 
-                .roblox-li-wrap:hover .roblox-preview-card {
-                    opacity: 1;
-                    transform: translateX(-50%) translateY(0) scale(1);
-                }
+        .roblox-li-wrap:hover .roblox-preview-card {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0) scale(1);
+        }
 
         .rbx-card-header {
             font-family: 'Space Mono', monospace;
             font-size: 9px;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: rgba(125, 211, 252, 0.6);
+            color: rgba(253, 186, 116, 0.7);
             margin-bottom: 2px;
         }
 
@@ -1392,7 +1171,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at center, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
             border-radius: 8px;
             margin-bottom: 10px;
             overflow: hidden;
@@ -1432,7 +1211,7 @@
         .rbx-stat-item svg {
             width: 11px;
             height: 11px;
-            fill: rgba(125, 211, 252, 0.7);
+            fill: rgba(253, 186, 116, 0.8);
         }
 
         .rev {
@@ -1470,11 +1249,6 @@
 
             .hero-menu {
                 left: 28px;
-                display: none
-            }
-
-            .hero-counter {
-                display: none
             }
 
             .hero-cta {
@@ -1524,33 +1298,7 @@
             font-size: 8.5px;
             letter-spacing: .08em;
             text-transform: uppercase;
-            color: rgba(125, 211, 252, .5);
-        }
-
-        .anilist-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .anilist-group-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 10px;
-            letter-spacing: .15em;
-            text-transform: uppercase;
-            color: rgba(200, 196, 188, .6);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .anilist-group-count {
-            color: #38bdf8;
-            background: rgba(56, 189, 248, .08);
-            border: 1px solid rgba(56, 189, 248, .15);
-            padding: 1px 6px;
-            border-radius: 4px;
-            font-size: 9px;
+            color: rgba(253, 186, 116, .6);
         }
 
         .anilist-grid {
@@ -1564,8 +1312,8 @@
             flex-direction: column;
             border-radius: 8px;
             overflow: hidden;
-            background: rgba(2, 6, 16, .4);
-            border: 1px solid rgba(255, 255, 255, .04);
+            background: rgba(14, 10, 8, .5);
+            border: 1px solid rgba(255, 255, 255, .05);
             transition: transform .2s cubic-bezier(.16, 1, .3, 1), border-color .2s, box-shadow .2s;
             text-decoration: none;
             position: relative;
@@ -1573,8 +1321,8 @@
 
         .anime-card:hover {
             transform: translateY(-4px) scale(1.02);
-            border-color: rgba(56, 189, 248, .3);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, .6), 0 0 16px rgba(56, 189, 248, .1);
+            border-color: rgba(245, 158, 11, .4);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, .7), 0 0 16px rgba(245, 158, 11, .15);
         }
 
         .anime-cover-wrap {
@@ -1601,7 +1349,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
-            background: rgba(12, 24, 42, .45);
+            background: rgba(18, 13, 10, .5);
         }
 
         .anime-title {
@@ -1621,7 +1369,7 @@
             justify-content: space-between;
             font-family: 'Space Mono', monospace;
             font-size: 8.5px;
-            color: rgba(125, 211, 252, .5);
+            color: rgba(253, 186, 116, .65);
         }
 
         @media (max-width: 860px) {
@@ -1645,31 +1393,37 @@
         .anilist-slider-wrapper {
             position: relative;
             width: 100%;
-            transform-style: preserve-3d;
         }
 
         .ani-nav-arrow {
             position: absolute;
             top: 50%;
-            transform: translateY(-50%) translateZ(28px);
-            width: 38px;
-            height: 38px;
-            background: rgba(2, 6, 16, 0.85);
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: rgba(12, 8, 5, 0.88);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(245, 158, 11, 0.45);
             border-radius: 50%;
-            color: #38bdf8;
+            color: #f59e0b;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
             z-index: 50;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.25s ease, background 0.2s, border-color 0.2s, transform 0.2s ease-out;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+            transition: opacity 0.25s ease, background 0.2s, border-color 0.2s, transform 0.22s cubic-bezier(.16, 1, .3, 1), box-shadow 0.2s;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), 0 0 16px rgba(245, 158, 11, 0.2);
             cursor: none !important;
+            padding: 0;
+        }
+
+        .ani-nav-arrow svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            transition: transform 0.2s ease;
         }
 
         .anilist-slider-wrapper:hover .ani-nav-arrow:not(:disabled) {
@@ -1678,17 +1432,27 @@
         }
 
         .ani-nav-arrow.prev {
-            left: -16px;
+            left: -20px;
         }
 
         .ani-nav-arrow.next {
-            right: -16px;
+            right: -20px;
         }
 
         .ani-nav-arrow:hover:not(:disabled) {
-            background: rgba(56, 189, 248, 0.25);
-            border-color: #38bdf8;
-            transform: translateY(-50%) translateZ(36px) scale(1.12);
+            background: rgba(30, 18, 8, 0.95);
+            border-color: #fbbf24;
+            color: #fed7aa;
+            transform: translateY(-50%) scale(1.12);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.9), 0 0 24px rgba(245, 158, 11, 0.4);
+        }
+
+        .ani-nav-arrow.prev:hover:not(:disabled) svg {
+            transform: translateX(-2px);
+        }
+
+        .ani-nav-arrow.next:hover:not(:disabled) svg {
+            transform: translateX(2px);
         }
 
         .ani-nav-arrow:disabled {
@@ -1712,12 +1476,10 @@
             width: 100%;
             flex-shrink: 0;
         }
-
     </style>
 </head>
 
 <body>
-
     <div id="loader" aria-hidden="true">
         <div class="loader-box">
             <span class="loader-name">scr</span>
@@ -1740,13 +1502,35 @@
         </div>
 
         <nav class="hero-menu" aria-label="Page navigation">
-            <a href="#about" class="about-me-btn" id="btn-about-me">
-                <span>ABOUT ME</span>
-                <span class="btn-arrow">&#9654;</span>
+            <div class="hero-nav-item" id="nav-server-wrap">
+                <span class="hero-nav-text">server</span>
+                <span class="hero-nav-arrow">&#9658;</span>
+
+                <div class="server-preview-card" id="serverCard">
+                    <div class="server-card-top">
+                        <div class="server-card-identity">
+                            <img id="serverCardIcon" class="server-card-icon" src="" alt="server icon" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'34\' height=\'34\' fill=\'%23d18d42\' viewBox=\'0 0 24 24\'><path d=\'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2v-2h2v2zm0-4h-2V7h2v5z\'/></svg>';" />
+                            <span class="server-card-name" id="serverCardName">Server</span>
+                        </div>
+                    </div>
+                    <div class="server-card-desc" id="serverCardDesc">discord.gg/t4cJgxkUUf</div>
+                    <div class="server-card-bottom">
+                        <div class="server-stats-counts">
+                            <div><span class="server-stat-dot-online"></span><span id="serverCardOnline">0</span> online</div>
+                            <div><span class="server-stat-dot-total"></span><span id="serverCardMembers">0</span> members</div>
+                        </div>
+                        <a href="https://discord.gg/t4cJgxkUUf" target="_blank" rel="noopener noreferrer" class="server-join-btn" id="serverJoinLink">join</a>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#about" class="hero-nav-item" id="btn-about-me">
+                <span class="hero-nav-text">about me</span>
+                <span class="hero-nav-arrow">&#9658;</span>
             </a>
-            <a href="#anilist" class="about-me-btn" id="btn-anilist">
-                <span>ANILIST</span>
-                <span class="btn-arrow">&#9654;</span>
+            <a href="#anilist" class="hero-nav-item" id="btn-anilist">
+                <span class="hero-nav-text">anilist</span>
+                <span class="hero-nav-arrow">&#9658;</span>
             </a>
         </nav>
 
@@ -1754,13 +1538,10 @@
             <span>scroll to explore</span>
             <span class="hero-cta-line"></span>
         </a>
-
-
     </section>
 
     <div class="ns">
         <div class="ns-inner">
-
             <section id="about" aria-label="About me">
                 <div class="rev">
                     <div class="sec-label">
@@ -1778,14 +1559,14 @@
 
                             <div id="av-svg" style="display:none"><svg viewBox="0 0 100 100" class="about-avatar-svg"
                                     width="68" height="68"
-                                    style="border-radius:50%;background:linear-gradient(135deg,#061528,#1b4b7a);padding:2px;display:block">
-                                    <circle cx="50" cy="50" r="48" fill="#030b14" />
-                                    <circle cx="50" cy="38" r="18" fill="rgba(79,195,247,0.2)" stroke="#3ba5db"
+                                    style="border-radius:50%;background:linear-gradient(135deg,#1f1307,#45240a);padding:2px;display:block">
+                                    <circle cx="50" cy="50" r="48" fill="#090502" />
+                                    <circle cx="50" cy="38" r="18" fill="rgba(245,158,11,0.2)" stroke="#f59e0b"
                                         stroke-width="2" />
-                                    <path d="M20 84 c0 -18 14 -32 30 -32 s30 14 30 32" fill="rgba(79,195,247,0.18)"
-                                        stroke="#3ba5db" stroke-width="2" />
-                                    <circle cx="44" cy="36" r="2.5" fill="#c0e8ff" />
-                                    <circle cx="56" cy="36" r="2.5" fill="#c0e8ff" />
+                                    <path d="M20 84 c0 -18 14 -32 30 -32 s30 14 30 32" fill="rgba(245,158,11,0.18)"
+                                        stroke="#f59e0b" stroke-width="2" />
+                                    <circle cx="44" cy="36" r="2.5" fill="#fde68a" />
+                                    <circle cx="56" cy="36" r="2.5" fill="#fde68a" />
                                 </svg></div>
                             <div class="avatar-status-badge online" id="statusDot" title="Discord Status"></div>
                         </div>
@@ -1807,7 +1588,6 @@
                         </div>
 
                         <div class="lastfm-card-container">
-
                             <div class="lastfm-track-list" id="lastfmTrackList">
                                 <a href="https://www.last.fm/music/Mixed+Matches/_/one+%252B+only" target="_blank"
                                     rel="noopener noreferrer" class="lastfm-track-row">
@@ -1859,19 +1639,16 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </section>
 
             <section id="socials" aria-label="Live activity and social links">
                 <div class="revl">
-
                     <div id="liveActivitySection" style="display:none">
                         <div class="sec-label">
                             <span class="sec-label-rule"></span>
                             <span class="sec-label-text">Activity</span>
                         </div>
-
                         <div class="activities-container" id="activitiesContainer"></div>
                     </div>
 
@@ -1922,1411 +1699,1353 @@
                             <div class="rbx-stat-item" title="Friends">
                                 <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                                 <span id="rbxCardFriends">-</span>
-                                                    </div>
-                                                    <div class="rbx-stat-item" title="Followers">
-                                                        <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                                                        <span id="rbxCardFollowers">-</span>
-                                                    </div>
-                                                    <div class="rbx-stat-item" title="Following">
-                                                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-                                                        <span id="rbxCardFollowing">-</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="https://www.roblox.com/users/9769080868/profile" id="robloxLink" class="soc-entry" target="_blank"
-                                                rel="noopener noreferrer" aria-label="roblox profile">
-                                                <span class="soc-icon">
-                                                    <svg viewBox="0 0 24 24" fill="currentColor">
-                                                        <path d="M5.165 0L0 18.835 18.835 24 24 5.165 5.165 0zm9.73 13.935l-4.83-1.3 1.3-4.835 4.83 1.3-1.3 4.835z" />
-                                                    </svg>
-                                                </span>
-                                <span class="soc-platform">roblox</span>
-                                <span class="soc-sep">/</span>
-                                <span class="soc-handle" id="robloxHandle">screenies</span>
-                                <span class="soc-arrow">&#8594;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </section>
-        </div>
-
-        <div class="ns-anilist-wrap">
-                    <section id="anilist" class="rev" aria-label="AniList profile">
-                        <div class="sec-label">
-                            <span class="sec-label-rule"></span>
-                            <span class="sec-label-text">ANILIST ACTIVITY &amp; STATS</span>
-                        </div>
-
-                        <div class="comp-card-3d-wrap" id="ani3dWrap">
-                            <div class="comp-card" id="aniCard">
-
-                                <div class="anilist-stats-grid">
-                                    <div class="anilist-stat-box">
-                                        <span class="anilist-stat-val" id="aniStatTotal">-</span>
-                                        <span class="anilist-stat-lbl">Total Anime</span>
-                                    </div>
-                                    <div class="anilist-stat-box">
-                                        <span class="anilist-stat-val" id="aniStatEps">-</span>
-                                        <span class="anilist-stat-lbl">Episodes</span>
-                                    </div>
-                                    <div class="anilist-stat-box">
-                                        <span class="anilist-stat-val" id="aniStatTime">-</span>
-                                        <span class="anilist-stat-lbl">Watch Time</span>
-                                    </div>
-                                    <div class="anilist-stat-box">
-                                        <span class="anilist-stat-val" id="aniStatManga">-</span>
-                                        <span class="anilist-stat-lbl">Manga Read</span>
-                                    </div>
-                                </div>
-
-                                <div class="comp-header-row" style="margin-top: 4px;">
-                                    <div class="comp-filter-tabs">
-                                        <button type="button" class="comp-filter-btn active" data-anifilter="all">ALL</button>
-                                        <button type="button" class="comp-filter-btn" data-anifilter="CURRENT">WATCHING</button>
-                                        <button type="button" class="comp-filter-btn" data-anifilter="COMPLETED">COMPLETED</button>
-                                        <button type="button" class="comp-filter-btn" data-anifilter="PLANNING">PLANNING</button>
-                                    </div>
-                                </div>
-
-                                <div id="anilistContainer" style="display: flex; flex-direction: column; gap: 24px;"></div>
-
+                            </div>
+                            <div class="rbx-stat-item" title="Followers">
+                                <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                <span id="rbxCardFollowers">-</span>
+                            </div>
+                            <div class="rbx-stat-item" title="Following">
+                                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                                <span id="rbxCardFollowing">-</span>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                    <a href="https://www.roblox.com/users/9769080868/profile" id="robloxLink" class="soc-entry" target="_blank"
+                        rel="noopener noreferrer" aria-label="roblox profile">
+                        <span class="soc-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M5.165 0L0 18.835 18.835 24 24 5.165 5.165 0zm9.73 13.935l-4.83-1.3 1.3-4.835 4.83 1.3-1.3 4.835z" />
+                            </svg>
+                        </span>
+                        <span class="soc-platform">roblox</span>
+                        <span class="soc-sep">/</span>
+                        <span class="soc-handle" id="robloxHandle">screenies</span>
+                        <span class="soc-arrow">&#8594;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+<div class="ns-anilist-wrap">
+    <section id="anilist" class="rev" aria-label="AniList profile">
+        <div class="sec-label">
+            <span class="sec-label-rule"></span>
+            <span class="sec-label-text">ANILIST ACTIVITY &amp; STATS</span>
+        </div>
+
+        <div class="comp-card-3d-wrap">
+            <div class="comp-card">
+                <div class="anilist-stats-grid">
+                    <div class="anilist-stat-box">
+                        <span class="anilist-stat-val" id="aniStatTotal">-</span>
+                        <span class="anilist-stat-lbl">Total Anime</span>
+                    </div>
+                    <div class="anilist-stat-box">
+                        <span class="anilist-stat-val" id="aniStatEps">-</span>
+                        <span class="anilist-stat-lbl">Episodes</span>
+                    </div>
+                    <div class="anilist-stat-box">
+                        <span class="anilist-stat-val" id="aniStatTime">-</span>
+                        <span class="anilist-stat-lbl">Watch Time</span>
+                    </div>
+                    <div class="anilist-stat-box">
+                        <span class="anilist-stat-val" id="aniStatManga">-</span>
+                        <span class="anilist-stat-lbl">Manga Read</span>
+                    </div>
                 </div>
 
+                <div class="comp-header-row" style="margin-top: 4px;">
+                    <div class="comp-filter-tabs">
+                        <button type="button" class="comp-filter-btn active" data-anifilter="all">ALL</button>
+                        <button type="button" class="comp-filter-btn" data-anifilter="CURRENT">WATCHING</button>
+                        <button type="button" class="comp-filter-btn" data-anifilter="COMPLETED">COMPLETED</button>
+                        <button type="button" class="comp-filter-btn" data-anifilter="PLANNING">PLANNING</button>
+                    </div>
+                </div>
+
+                <div id="anilistContainer" style="display: flex; flex-direction: column; gap: 24px;"></div>
             </div>
+        </div>
+    </section>
+</div>
+</div>
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-    <script>
-
+<script>
     const CONFIG = {
         discordUserId: '1459602053969215786',
         robloxUserId: '9769080868',
         lastfmUsername: 'renumerate',
         lastfmApiKey: '56f986f70954d1ad8c8b3ec3aec33f83',
-        anilistUsername: 'screenies'
+        anilistUsername: 'screenies',
+        discordInviteCode: 't4cJgxkUUf'
     };
 
-        (function () {
-            const loader = document.getElementById('loader');
-            const fill = document.getElementById('lbf');
-            if (!loader) return;
+    (function () {
+        const loader = document.getElementById('loader');
+        const fill = document.getElementById('lbf');
+        if (!loader) return;
 
-            const totalDuration = 900;
-            const startTime = performance.now();
+        const totalDuration = 900;
+        const startTime = performance.now();
 
-            function step(now) {
-                const elapsed = now - startTime;
-                const progress = Math.min(elapsed / totalDuration, 1);
-                const eased = 1 - Math.pow(1 - progress, 2.5);
+        function step(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / totalDuration, 1);
+            const eased = 1 - Math.pow(1 - progress, 2.5);
 
-                if (fill) fill.style.width = (eased * 100) + '%';
+            if (fill) fill.style.width = (eased * 100) + '%';
 
-                if (progress < 1) {
-                    requestAnimationFrame(step);
-                } else {
-                    if (fill) fill.style.width = '100%';
-                    setTimeout(() => {
-                        loader.classList.add('loaded');
-                        setTimeout(() => { loader.style.display = 'none'; }, 500);
-                    }, 100);
+            if (progress < 1) {
+                requestAnimationFrame(step);
+            } else {
+                if (fill) fill.style.width = '100%';
+                setTimeout(() => {
+                    loader.classList.add('loaded');
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }, 100);
+            }
+        }
+
+        requestAnimationFrame(step);
+    })();
+
+    (async function fetchDiscordServerWidget() {
+        if (!CONFIG.discordInviteCode) return;
+        try {
+            const res = await fetch(`https://discord.com/api/v9/invites/${CONFIG.discordInviteCode}?with_counts=true`);
+            const data = await res.json();
+            if (data && data.guild) {
+                const g = data.guild;
+                const nameEl = document.getElementById('serverCardName');
+                const descEl = document.getElementById('serverCardDesc');
+                const onlineEl = document.getElementById('serverCardOnline');
+                const memEl = document.getElementById('serverCardMembers');
+                const iconEl = document.getElementById('serverCardIcon');
+                const joinEl = document.getElementById('serverJoinLink');
+
+                if (nameEl) nameEl.textContent = g.name || 'party';
+                if (descEl) descEl.textContent = g.description || `discord.gg/${CONFIG.discordInviteCode}`;
+                if (onlineEl) onlineEl.textContent = Number(data.approximate_presence_count || 0).toLocaleString();
+                if (memEl) memEl.textContent = Number(data.approximate_member_count || 0).toLocaleString();
+                if (joinEl) joinEl.href = `https://discord.gg/${CONFIG.discordInviteCode}`;
+
+                if (iconEl && g.icon) {
+                    const isGif = g.icon.startsWith('a_');
+                    const ext = isGif ? 'gif' : 'png';
+                    iconEl.src = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.${ext}?size=128`;
+                }
+            }
+        } catch (e) {
+            console.warn('Discord invite fetch error', e);
+        }
+    })();
+
+    (function setupServerHoverIntent() {
+        const wrap = document.getElementById('nav-server-wrap');
+        const card = document.getElementById('serverCard');
+        if (!wrap || !card) return;
+
+        let hideTimer = null;
+
+        const show = () => {
+            if (hideTimer) {
+                clearTimeout(hideTimer);
+                hideTimer = null;
+            }
+            card.classList.add('active');
+        };
+
+        const hide = () => {
+            hideTimer = setTimeout(() => {
+                card.classList.remove('active');
+            }, 300);
+        };
+
+        wrap.addEventListener('mouseenter', show);
+        wrap.addEventListener('mouseleave', hide);
+        card.addEventListener('mouseenter', show);
+        card.addEventListener('mouseleave', hide);
+    })();
+
+    (function () {
+        const statusDot = document.getElementById('statusDot');
+        const discordAvatar = document.getElementById('discordAvatar');
+        const discordDisplayName = document.getElementById('discordDisplayName');
+        const discordTag = document.getElementById('discordTag');
+        const discordCustomStatus = document.getElementById('discordCustomStatus');
+
+        const liveActivitySection = document.getElementById('liveActivitySection');
+        const activitiesContainer = document.getElementById('activitiesContainer');
+
+        const ICON_SPOTIFY = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>`;
+        const ICON_GAME = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>`;
+        const ICON_CODE = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>`;
+
+        function formatTime(ms) {
+            const totalSec = Math.floor(ms / 1000);
+            const min = Math.floor(totalSec / 60);
+            const sec = totalSec % 60;
+            return min + ':' + (sec < 10 ? '0' : '') + sec;
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        let spotifyInterval = null;
+
+        function updateLanyardData(data) {
+            if (!data) return;
+
+            const status = data.discord_status || 'offline';
+            if (statusDot) {
+                statusDot.className = 'avatar-status-badge ' + status;
+                statusDot.title = 'Discord: ' + status.toUpperCase();
+            }
+
+            const user = data.discord_user;
+            if (user) {
+                if (user.avatar && discordAvatar) {
+                    const isGif = user.avatar.startsWith('a_');
+                    const ext = isGif ? 'gif' : 'webp';
+                    discordAvatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
+                    discordAvatar.style.display = 'block';
+                    const avSvg = document.getElementById('av-svg');
+                    if (avSvg) avSvg.style.display = 'none';
+                }
+                const nameToUse = user.global_name || user.username || 'scr';
+                if (discordDisplayName) {
+                    discordDisplayName.textContent = nameToUse + '.';
+                }
+                if (window.setupGlitchName) {
+                    window.setupGlitchName(nameToUse);
+                }
+                if (user.username && discordTag) {
+                    discordTag.textContent = '@' + user.username;
+                }
+                const discordSocHandle = document.getElementById('discordSocHandle');
+                if (user.username && discordSocHandle) {
+                    discordSocHandle.textContent = user.username;
                 }
             }
 
-            requestAnimationFrame(step);
-        })();
-
-        (function () {
-            const statusDot = document.getElementById('statusDot');
-            const discordAvatar = document.getElementById('discordAvatar');
-            const discordDisplayName = document.getElementById('discordDisplayName');
-            const discordTag = document.getElementById('discordTag');
-            const discordCustomStatus = document.getElementById('discordCustomStatus');
-
-            const liveActivitySection = document.getElementById('liveActivitySection');
-            const activitiesContainer = document.getElementById('activitiesContainer');
-
-            const ICON_SPOTIFY = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>`;
-            const ICON_GAME = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3-3c-.83 0-1.5-.67-1.5-1.5S17.67 9 18.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>`;
-            const ICON_CODE = `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>`;
-
-            function formatTime(ms) {
-                const totalSec = Math.floor(ms / 1000);
-                const min = Math.floor(totalSec / 60);
-                const sec = totalSec % 60;
-                return min + ':' + (sec < 10 ? '0' : '') + sec;
-            }
-
-            function escapeHtml(str) {
-                if (!str) return '';
-                return String(str)
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;')
-                    .replace(/"/g, '&quot;')
-                    .replace(/'/g, '&#039;');
-            }
-
-            let spotifyInterval = null;
-
-            function updateLanyardData(data) {
-                if (!data) return;
-
-                const status = data.discord_status || 'offline';
-                if (statusDot) {
-                    statusDot.className = 'avatar-status-badge ' + status;
-                    statusDot.title = 'Discord: ' + status.toUpperCase();
-                }
-
-                const user = data.discord_user;
-                if (user) {
-                    if (user.avatar && discordAvatar) {
-                        const isGif = user.avatar.startsWith('a_');
-                        const ext = isGif ? 'gif' : 'webp';
-                        discordAvatar.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
-                        discordAvatar.style.display = 'block';
-                        const avSvg = document.getElementById('av-svg');
-                        if (avSvg) avSvg.style.display = 'none';
-                    }
-                    const nameToUse = user.global_name || user.username || 'scr';
-                    if (discordDisplayName) {
-                        discordDisplayName.textContent = nameToUse + '.';
-                    }
-                    if (window.setupGlitchName) {
-                        window.setupGlitchName(nameToUse);
-                    }
-                    if (user.username && discordTag) {
-                        discordTag.textContent = '@' + user.username;
-                    }
-                    const discordSocHandle = document.getElementById('discordSocHandle');
-                    if (user.username && discordSocHandle) {
-                        discordSocHandle.textContent = user.username;
-                    }
-                }
-
-                if (data.activities && data.activities.length > 0) {
-                    const custom = data.activities.find(a => a.type === 4);
-                    if (custom && custom.state && discordCustomStatus) {
-                        discordCustomStatus.textContent = (custom.emoji ? (custom.emoji.name || '') + ' ' : '') + custom.state;
-                        discordCustomStatus.style.display = 'inline-block';
-                    } else if (discordCustomStatus) {
-                        discordCustomStatus.style.display = 'none';
-                    }
+            if (data.activities && data.activities.length > 0) {
+                const custom = data.activities.find(a => a.type === 4);
+                if (custom && custom.state && discordCustomStatus) {
+                    discordCustomStatus.textContent = (custom.emoji ? (custom.emoji.name || '') + ' ' : '') + custom.state;
+                    discordCustomStatus.style.display = 'inline-block';
                 } else if (discordCustomStatus) {
                     discordCustomStatus.style.display = 'none';
                 }
-
-                if (spotifyInterval) {
-                    clearInterval(spotifyInterval);
-                    spotifyInterval = null;
-                }
-
-                const hasSpotify = Boolean(data.listening_to_spotify && data.spotify);
-
-                const otherActivities = (data.activities || []).filter(a => {
-                    if (!a || a.type === 4 || !a.name || a.name.trim() === '') return false;
-                    const n = a.name.toLowerCase();
-                    if (n === 'spotify' || a.id === 'spotify:1') return false;
-                    return true;
-                });
-
-                const maxOther = hasSpotify ? 1 : 2;
-                const displayActivities = otherActivities.slice(0, maxOther);
-
-                if (!hasSpotify && displayActivities.length === 0) {
-
-                    if (liveActivitySection) liveActivitySection.style.display = 'none';
-                    if (activitiesContainer) activitiesContainer.innerHTML = '';
-                    return;
-                }
-
-                if (liveActivitySection) liveActivitySection.style.display = 'block';
-
-                let cardsHtml = '';
-
-                if (hasSpotify) {
-                    const sp = data.spotify;
-                    const totalMs = sp.timestamps ? Math.max(1, sp.timestamps.end - sp.timestamps.start) : 0;
-                    const totalStr = totalMs > 0 ? formatTime(totalMs) : '0:00';
-                    const albumSub = sp.artist + (sp.album ? ' · ' + sp.album : '');
-
-                    cardsHtml += `
-                        <div class="activity-card spotify-mode" id="spotifyActivityCard">
-                            <div class="activity-card-top">
-                                <div class="activity-brand">
-                                    <span>${ICON_SPOTIFY}</span>
-                                    <span>Listening to Spotify</span>
-                                </div>
-                            </div>
-                            <div class="activity-main">
-                                <div class="activity-art-wrap">
-                                    <img class="activity-art" src="${escapeHtml(sp.album_art_url || '')}" alt="${escapeHtml(sp.song || 'Spotify song')} cover" onerror="this.style.display='none'"/>
-                                </div>
-                                <div class="activity-details">
-                                    <div class="activity-title">${escapeHtml(sp.song || 'Unknown Song')}</div>
-                                    <div class="activity-subtitle">${escapeHtml(albumSub)}</div>
-                                </div>
-                            </div>
-                            <div class="activity-progress-wrap">
-                                <div class="activity-bar-bg">
-                                    <div class="activity-bar-fill" id="spBarFill" style="width: 0%"></div>
-                                </div>
-                                <div class="activity-time-row">
-                                    <span id="spCurTime">0:00</span>
-                                    <span id="spTotTime">${totalStr}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                displayActivities.forEach(act => {
-                    const nameLower = (act.name || '').toLowerCase();
-                    const isCode = nameLower.includes('code') || nameLower.includes('studio') || nameLower.includes('sublime') || nameLower.includes('vim') || nameLower.includes('intellij');
-                    const isStreaming = act.type === 1;
-                    const isListening = act.type === 2;
-                    const isWatching = act.type === 3;
-
-                    const brandIcon = isCode ? ICON_CODE : ICON_GAME;
-                    let brandPrefix = 'Playing';
-                    if (isStreaming) { brandPrefix = 'Streaming'; }
-                    else if (isListening) { brandPrefix = 'Listening to'; }
-                    else if (isWatching) { brandPrefix = 'Watching'; }
-
-                    let img = null;
-                    if (act.assets && act.assets.large_image) {
-                        if (act.assets.large_image.startsWith('mp:external/')) {
-                            img = 'https://media.discordapp.net/' + act.assets.large_image.replace('mp:', '');
-                        } else if (act.application_id) {
-                            img = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
-                        }
-                    }
-                    if (!img) {
-                        img = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&auto=format&fit=crop&q=60';
-                    }
-
-                    let sub = act.details || '';
-                    if (act.state) sub += (sub ? ' · ' : '') + act.state;
-                    if (!sub) sub = 'Active in session';
-
-                    cardsHtml += `
-                        <div class="activity-card game-mode">
-                            <div class="activity-card-top">
-                                <div class="activity-brand">
-                                    <span>${brandIcon}</span>
-                                    <span>${escapeHtml(brandPrefix + ' ' + act.name)}</span>
-                                </div>
-                            </div>
-                            <div class="activity-main">
-                                <div class="activity-art-wrap">
-                                    <img class="activity-art" src="${escapeHtml(img)}" alt="${escapeHtml(act.name)} art" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&auto=format&fit=crop&q=60'"/>
-                                </div>
-                                <div class="activity-details">
-                                    <div class="activity-title">${escapeHtml(act.name)}</div>
-                                    <div class="activity-subtitle">${escapeHtml(sub)}</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-
-                if (activitiesContainer) {
-                    activitiesContainer.innerHTML = cardsHtml;
-                    activitiesContainer.querySelectorAll('.activity-card').forEach(el => {
-                        el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
-                        el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
-                    });
-                }
-
-                if (hasSpotify) {
-                    const sp = data.spotify;
-                    const start = sp.timestamps.start;
-                    const end = sp.timestamps.end;
-                    const totalMs = Math.max(1, end - start);
-                    const barFill = document.getElementById('spBarFill');
-                    const curTimeEl = document.getElementById('spCurTime');
-
-                    const updateProgress = () => {
-                        const now = Date.now();
-                        const curMs = Math.max(0, Math.min(now - start, totalMs));
-                        const pct = Math.min((curMs / totalMs) * 100, 100);
-                        if (barFill) barFill.style.width = pct + '%';
-                        if (curTimeEl) curTimeEl.textContent = formatTime(curMs);
-                    };
-                    updateProgress();
-                    spotifyInterval = setInterval(updateProgress, 1000);
-                }
+            } else if (discordCustomStatus) {
+                discordCustomStatus.style.display = 'none';
             }
 
-            function cleanBioText(text) {
-                if (!text) return '';
-                const urlPattern = /https?:\/\/[^\s]+|www\.[^\s]+/gi;
-                return text.replace(urlPattern, '').trim().replace(/\s+/g, ' ');
+            if (spotifyInterval) {
+                clearInterval(spotifyInterval);
+                spotifyInterval = null;
             }
 
-            async function fetchDiscordBio() {
-                if (!CONFIG.discordUserId) return;
-                try {
-                    const res = await fetch(`https://dcdn.dstn.to/profile/${CONFIG.discordUserId}?t=${Date.now()}`, {
-                        cache: 'no-store'
-                    });
-                    const json = await res.json();
-
-                    // 1. Update Bio
-                    const rawBio = json?.user?.bio || json?.user_profile?.bio || '';
-                    if (rawBio) {
-                        const cleanedBio = cleanBioText(rawBio);
-                        const bioEl = document.getElementById('aboutBioText');
-                        if (bioEl && cleanedBio) {
-                            bioEl.textContent = cleanedBio;
-                        }
-                    }
-
-                    // 2. Update Avatar Decoration
-                    const decoData = json?.user?.avatar_decoration_data || json?.user_profile?.avatar_decoration_data;
-                    const decoImg = document.getElementById('discordAvatarDeco');
-                    if (decoImg) {
-                        if (decoData && decoData.asset) {
-                            decoImg.src = `https://cdn.discordapp.com/avatar-decoration-presets/${decoData.asset}.png?size=160&passthrough=true`;
-                            decoImg.style.display = 'block';
-                        } else {
-                            decoImg.style.display = 'none';
-                        }
-                    }
-                } catch (e) {
-                    console.warn('Bio fetch error', e);
-                }
-            }
-
-            function connectLanyard() {
-                if (!CONFIG.discordUserId) return;
-                try {
-                    const ws = new WebSocket('wss://api.lanyard.rest/socket');
-                    let heartbeat = null;
-
-                    ws.onmessage = (event) => {
-                        const msg = JSON.parse(event.data);
-                        if (msg.op === 1) {
-                            ws.send(JSON.stringify({
-                                op: 2,
-                                d: { subscribe_to_id: CONFIG.discordUserId }
-                            }));
-                            heartbeat = setInterval(() => {
-                                ws.send(JSON.stringify({ op: 3 }));
-                            }, msg.d.heartbeat_interval);
-                        } else if (msg.op === 0) {
-                            updateLanyardData(msg.d);
-                        }
-                    };
-
-                    ws.onclose = () => {
-                        if (heartbeat) clearInterval(heartbeat);
-                        setTimeout(connectLanyard, 8000);
-                    };
-                    ws.onerror = () => ws.close();
-                } catch (e) {
-                    fetch(`https://api.lanyard.rest/v1/users/${CONFIG.discordUserId}`)
-                        .then(r => r.json())
-                        .then(res => { if (res.success) updateLanyardData(res.data); })
-                        .catch(() => { });
-                }
-            }
-
-            connectLanyard();
-            fetchDiscordBio();
-            setInterval(fetchDiscordBio, 5000);
-            })();
-
-        (function () {
-            const list = document.getElementById('lastfmTrackList');
-            const userLink = document.getElementById('lastfmUserLink');
-
-            if (!CONFIG.lastfmUsername) return;
-            if (userLink) userLink.href = `https://www.last.fm/user/${CONFIG.lastfmUsername}`;
-
-            const FALLBACK_DISC_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='5' fill='%23050c18'/%3E%3Ccircle cx='18' cy='18' r='12' fill='%23020610' stroke='%2338bdf8' stroke-width='0.8' stroke-opacity='0.25'/%3E%3Ccircle cx='18' cy='18' r='4' fill='%23d51007'/%3E%3Ccircle cx='18' cy='18' r='1.5' fill='%23fff'/%3E%3C/svg%3E";
-
-            function getRelativeTime(timestamp) {
-                if (!timestamp) return 'recently';
-                const now = Math.floor(Date.now() / 1000);
-                const diff = now - parseInt(timestamp);
-                if (diff < 60) return 'just now';
-                if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
-                if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
-                return Math.floor(diff / 86400) + 'd ago';
-            }
-
-            async function fetchLastFmTracks() {
-                try {
-                    const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${CONFIG.lastfmUsername}&api_key=${CONFIG.lastfmApiKey}&format=json&limit=4`;
-                    const res = await fetch(url);
-                    const data = await res.json();
-
-                    if (data?.recenttracks?.['@attr']?.total) {
-                        const totalCount = Number(data.recenttracks['@attr'].total).toLocaleString();
-                        const headerEl = document.getElementById('lastfmHeader');
-                        if (headerEl) {
-                            headerEl.textContent = `recently played - ${totalCount} scrobbles`;
-                        }
-                    }
-
-                    if (data && data.recenttracks && data.recenttracks.track && data.recenttracks.track.length > 0) {
-                        const tracks = data.recenttracks.track;
-                        let html = '';
-                        tracks.slice(0, 4).forEach((track) => {
-                            const isNowPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
-                            const title = track.name || 'Untitled';
-                            const artist = (track.artist ? track.artist['#text'] || track.artist.name : 'Unknown Artist');
-                            const trackUrl = track.url || `https://www.last.fm/user/${CONFIG.lastfmUsername}`;
-
-                            let imgUrl = FALLBACK_DISC_SVG;
-                            if (track.image) {
-                                const found = track.image.find(i => i.size === 'medium' || i.size === 'small' || i.size === 'large');
-                                if (found && found['#text']) imgUrl = found['#text'];
-                            }
-
-                            const timeText = isNowPlaying ? 'now playing' : (track.date ? getRelativeTime(track.date.uts) : 'recently');
-
-                            html += `
-            <a href="${trackUrl}" target="_blank" rel="noopener noreferrer" class="lastfm-track-row">
-              <img class="lastfm-row-cover" src="${imgUrl}" alt="${title} album cover" loading="eager" decoding="async" onerror="this.src='${FALLBACK_DISC_SVG}'"/>
-              <div class="lastfm-row-meta">
-                <div class="lastfm-row-title">
-                  <span>${title}</span>
-                  ${isNowPlaying ? '<div class="equalizer-bars"><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span></div>' : ''}
-                </div>
-                <div class="lastfm-row-artist">${artist}</div>
-              </div>
-              <div class="lastfm-row-time">${timeText}</div>
-            </a>
-            `;
-                        });
-                        if (list && html) list.innerHTML = html;
-                    }
-                } catch (e) {
-                    console.warn('Last.fm fast tracks fallback', e);
-                }
-            }
-
-            fetchLastFmTracks();
-            setInterval(fetchLastFmTracks, 15000);
-        })();
-
-        (async function fetchRobloxUser() {
-                    if (!CONFIG.robloxUserId) return;
-                    const uid = CONFIG.robloxUserId;
-
-                    try {
-                        // 1. Fetch User Data (Name & Display Name)
-                        fetch(`https://users.roproxy.com/v1/users/${uid}`)
-                            .then(r => r.json())
-                            .then(data => {
-                                const handleEl = document.getElementById('robloxHandle');
-                                const cardDisplay = document.getElementById('rbxCardDisplay');
-                                const cardUser = document.getElementById('rbxCardUser');
-                                const linkEl = document.getElementById('robloxLink');
-
-                                const dName = data.displayName || data.name || 'screenies';
-                                if (handleEl) handleEl.textContent = dName;
-                                if (cardDisplay) cardDisplay.textContent = dName;
-                                if (cardUser) cardUser.textContent = '@' + (data.name || 'wzathus');
-                                if (linkEl && data.id) linkEl.href = `https://www.roblox.com/users/${data.id}/profile`;
-                            }).catch(() => {});
-
-                        // 2. Fetch Full Body 3D Avatar Render
-                        fetch(`https://thumbnails.roproxy.com/v1/users/avatar?userIds=${uid}&size=352x352&format=Png&isCircular=false`)
-                            .then(r => r.json())
-                            .then(data => {
-                                const imgUrl = data?.data?.[0]?.imageUrl;
-                                const avatarImg = document.getElementById('rbxCardAvatar');
-                                if (avatarImg && imgUrl) {
-                                    avatarImg.src = imgUrl;
-                                }
-                            }).catch(() => {});
-
-                        // 3. Fetch Friends Count
-                        fetch(`https://friends.roproxy.com/v1/users/${uid}/friends/count`)
-                            .then(r => r.json())
-                            .then(data => {
-                                const friendsEl = document.getElementById('rbxCardFriends');
-                                if (friendsEl && typeof data.count !== 'undefined') {
-                                    friendsEl.textContent = data.count.toLocaleString();
-                                }
-                            }).catch(() => {});
-
-                        // 4. Fetch Followers Count
-                        fetch(`https://friends.roproxy.com/v1/users/${uid}/followers/count`)
-                            .then(r => r.json())
-                            .then(data => {
-                                const followersEl = document.getElementById('rbxCardFollowers');
-                                if (followersEl && typeof data.count !== 'undefined') {
-                                    followersEl.textContent = data.count.toLocaleString();
-                                }
-                            }).catch(() => {});
-
-                        // 5. Fetch Following Count
-                        fetch(`https://friends.roproxy.com/v1/users/${uid}/followings/count`)
-                            .then(r => r.json())
-                            .then(data => {
-                                const followingEl = document.getElementById('rbxCardFollowing');
-                                if (followingEl && typeof data.count !== 'undefined') {
-                                    followingEl.textContent = data.count.toLocaleString();
-                                }
-                            }).catch(() => {});
-
-                    } catch (e) {
-                        console.warn('Roblox details fetch error:', e);
-                    }
-                })();
-
-        const cr = document.getElementById('cr'), crr = document.getElementById('crr');
-        let mX = 0, mY = 0, rX = 0, rY = 0;
-        document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; cr.style.left = mX + 'px'; cr.style.top = mY + 'px'; });
-        (function raf() { rX += (mX - rX) * .1; rY += (mY - rY) * .1; crr.style.left = rX + 'px'; crr.style.top = rY + 'px'; requestAnimationFrame(raf); })();
-        document.querySelectorAll('a,button,.stack-icon,.soc-entry,.lastfm-track-row,.activity-card').forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
-        });
-
-        window.addEventListener('scroll', () => {
-            document.getElementById('pb').style.width = (window.scrollY / (document.documentElement.scrollHeight - innerHeight) * 100) + '%';
-        });
-
-        (function () {
-            const container = document.querySelector('.hero-name-glitch');
-            if (!container) return;
-
-            const EMOJI_POOL = ['😇', '😎', '👾', '🌟', '⚡', '💫', '🔥', '✨', '💀', '🌀', '🤖', '🪐', '🔮', '👽', '🖤'];
-            const CHAR_POOL = 'abcdefghijklmnopqrstuvwxyz0123456789';
-
-            function isEmoji(char) {
-                return /\p{Extended_Pictographic}/u.test(char);
-            }
-
-            function splitGraphemes(str) {
-                if (typeof Intl !== 'undefined' && Intl.Segmenter) {
-                    const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
-                    return [...segmenter.segment(str)].map(s => s.segment);
-                }
-                return [...str];
-            }
-
-            window.setupGlitchName = function (text) {
-                container.setAttribute('aria-label', text);
-                container.innerHTML = '';
-
-                const characters = splitGraphemes(text);
-
-                characters.forEach(char => {
-                    const span = document.createElement('span');
-                    span.textContent = char;
-
-                    if (char.trim() !== '') {
-                        const charIsEmoji = isEmoji(char);
-                        const pool = charIsEmoji ? EMOJI_POOL : CHAR_POOL;
-
-                        span.addEventListener('mouseenter', () => {
-                            let cnt = 0;
-                            const id = setInterval(() => {
-                                span.textContent = pool[Math.floor(Math.random() * pool.length)];
-                                if (++cnt > 6) {
-                                    clearInterval(id);
-                                    span.textContent = char;
-                                }
-                            }, 120);
-                        });
-                    }
-
-                    container.appendChild(span);
-                });
-            };
-
-            window.setupGlitchName('scr');
-        })();
-
-        const ro = new IntersectionObserver(es => {
-            es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } });
-        }, { threshold: .1 });
-        document.querySelectorAll('.rev,.revl').forEach(el => ro.observe(el));
-
-        (function () {
-            const items = document.querySelectorAll('.soc-list li');
-            const io = new IntersectionObserver(es => {
-                es.forEach(e => {
-                    if (e.isIntersecting) {
-                        items.forEach((li, i) => { setTimeout(() => { li.style.opacity = '1'; li.style.transform = 'none'; }, i * 50); });
-                        io.disconnect();
-                    }
-                });
-            }, { threshold: .1 });
-            items.forEach(li => { li.style.opacity = '0'; li.style.transform = 'translateX(14px)'; li.style.transition = 'opacity .4s ease,transform .4s ease'; });
-            const parent = document.querySelector('.soc-list');
-            if (parent) io.observe(parent);
-        })();
-
-        (function () {
-            const canvas = document.getElementById('bgc');
-            if (!canvas) return;
-
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1.0;
-            renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-            const scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x02050e);
-            scene.fog = new THREE.FogExp2(0x020612, 0.012);
-
-            const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 800);
-            camera.position.set(0, 1.5, 18);
-            camera.lookAt(0, 0, 0);
-
-            const rayVert = `
-    varying vec2 vUv;
-    void main(){
-      vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `;
-            const rayFrag = `
-    uniform float uTime;
-    varying vec2 vUv;
-    float hash(vec2 c){return fract(sin(dot(c,vec2(127.1,311.7)))*43758.5453);}
-    float noise(vec2 p){
-      vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);
-      return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);
-    }
-    void main(){
-      vec2 uv = vUv;
-      float rays = 0.0;
-      for(int i=0; i<14; i++){
-        float fi = float(i);
-        float spd = 0.04 + fi * 0.008;
-        float cx = 0.5 + sin(uTime * spd + fi * 1.3) * 0.32;
-        float spreadY = 1.0 - uv.y;
-        cx = mix(cx, 0.5, uv.y * 0.6);
-        vec2 delta = uv - vec2(cx, 1.0);
-        float w = 0.008 + spreadY * 0.04 + sin(uTime * 0.2 + fi * 2.1) * 0.004;
-        float r = smoothstep(w, 0.0, abs(delta.x / (0.35 + uv.y * 0.65)));
-        float falloff = pow(uv.y, 0.6) * (1.0 - uv.y * 0.3);
-        falloff *= noise(vec2(uv.x * 10.0 + fi * 3.1, uTime * 0.25 + fi * 0.8)) * 0.6 + 0.4;
-        r *= falloff;
-        r *= 0.7 + 0.3 * sin(uTime * 0.4 + fi * 1.8);
-        rays += r;
-      }
-      rays = clamp(rays, 0.0, 1.5);
-      vec3 core = vec3(0.35, 0.65, 0.9);
-      vec3 glow = vec3(0.02, 0.1, 0.25);
-      vec3 col = mix(glow, core, rays * 0.5);
-      gl_FragColor = vec4(col, rays * 0.18);
-    }
-  `;
-
-            const uniF = { uTime: { value: 0 } };
-            const matGlares1 = new THREE.ShaderMaterial({
-                uniforms: uniF,
-                vertexShader: rayVert,
-                fragmentShader: rayFrag,
-                transparent: true,
-                depthWrite: false,
-                side: THREE.DoubleSide,
-                blending: THREE.AdditiveBlending
-            });
-            const meshGlares1 = new THREE.Mesh(new THREE.PlaneGeometry(32, 26), matGlares1);
-            meshGlares1.position.set(1, 5, -8);
-            meshGlares1.rotation.z = -0.15;
-            scene.add(meshGlares1);
-
-            const STAR_COUNT = 3000;
-            const starPos = new Float32Array(STAR_COUNT * 3);
-            const starColors = new Float32Array(STAR_COUNT * 3);
-            for (let i = 0; i < STAR_COUNT; i++) {
-                const i3 = i * 3;
-                const r = 80 + Math.random() * 120;
-                const theta = Math.random() * Math.PI * 2;
-                const phi = Math.acos((Math.random() * 2) - 1);
-                starPos[i3] = r * Math.sin(phi) * Math.cos(theta);
-                starPos[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-                starPos[i3 + 2] = r * Math.cos(phi);
-
-                const shade = 0.4 + Math.random() * 0.45;
-                starColors[i3] = shade * (0.5 + Math.random() * 0.5);
-                starColors[i3 + 1] = shade * (0.7 + Math.random() * 0.3);
-                starColors[i3 + 2] = shade;
-            }
-            const starGeo = new THREE.BufferGeometry();
-            starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
-            starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
-            const starMat = new THREE.PointsMaterial({
-                size: 0.75,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.7,
-                depthWrite: false
-            });
-            const starField = new THREE.Points(starGeo, starMat);
-            scene.add(starField);
-
-            const MOTE_COUNT = 600;
-            const motePos = new Float32Array(MOTE_COUNT * 3);
-            const moteSpeeds = new Float32Array(MOTE_COUNT);
-            const motePhases = new Float32Array(MOTE_COUNT * 2);
-            for (let i = 0; i < MOTE_COUNT; i++) {
-                motePos[3 * i] = (Math.random() - 0.5) * 36;
-                motePos[3 * i + 1] = (Math.random() - 0.5) * 28;
-                motePos[3 * i + 2] = (Math.random() - 0.5) * 24;
-                moteSpeeds[i] = 0.003 + 0.006 * Math.random();
-                motePhases[2 * i] = Math.PI * 2 * Math.random();
-                motePhases[2 * i + 1] = 0.4 + 0.6 * Math.random();
-            }
-            const moteGeo = new THREE.BufferGeometry();
-            moteGeo.setAttribute('position', new THREE.BufferAttribute(motePos, 3));
-            const moteMat = new THREE.PointsMaterial({
-                color: 0x38bdf8,
-                size: 0.026,
-                transparent: true,
-                opacity: 0.45,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false
-            });
-            const moteField = new THREE.Points(moteGeo, moteMat);
-            scene.add(moteField);
-
-            const planetGroup = new THREE.Group();
-            planetGroup.position.set(4.8, 0.2, 7.0);
-            scene.add(planetGroup);
-
-            const planetVert = `
-    varying vec3 vNormal;
-    varying vec3 vPos;
-    varying vec3 vViewPosition;
-    void main() {
-      vNormal = normalize(normalMatrix * normal);
-      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-      vViewPosition = -mvPosition.xyz;
-      vPos = position;
-      gl_Position = projectionMatrix * mvPosition;
-    }
-  `;
-
-            const planetFrag = `
-    uniform float uTime;
-    varying vec3 vNormal;
-    varying vec3 vPos;
-    varying vec3 vViewPosition;
-
-    vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-    vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-    vec4 permute(vec4 x) { return mod289(((x*34.0)+1.0)*x); }
-    vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
-
-    float snoise(vec3 v) {
-      const vec2 C = vec2(1.0/6.0, 1.0/3.0);
-      const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);
-      vec3 i  = floor(v + dot(v, C.yyy) );
-      vec3 x0 = v - i + dot(i, C.xxx) ;
-      vec3 g = step(x0.yzx, x0.xyz);
-      vec3 l = 1.0 - g;
-      vec3 i1 = min( g.xyz, l.zxy );
-      vec3 i2 = max( g.xyz, l.zxy );
-      vec3 x1 = x0 - i1 + C.xxx;
-      vec3 x2 = x0 - i2 + C.yyy;
-      vec3 x3 = x0 - D.yyy;
-      i = mod289(i);
-      vec4 p = permute( permute( permute(
-                i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
-              + i.y + vec4(0.0, i1.y, i2.y, 1.0 ))
-              + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
-      float n_ = 0.142857142857;
-      vec3  ns = n_ * D.wyz - D.xzx;
-      vec4 j = p - 49.0 * floor(p * ns.z * ns.z);
-      vec4 x_ = floor(j * ns.z);
-      vec4 y_ = floor(j - 7.0 * x_ );
-      vec4 x = x_ *ns.x + ns.yyyy;
-      vec4 y = y_ *ns.x + ns.yyyy;
-      vec4 h = 1.0 - abs(x) - abs(y);
-      vec4 b0 = vec4( x.xy, y.xy );
-      vec4 b1 = vec4( x.zw, y.zw );
-      vec4 s0 = floor(b0)*2.0 + 1.0;
-      vec4 s1 = floor(b1)*2.0 + 1.0;
-      vec4 sh = -step(h, vec4(0.0));
-      vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
-      vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
-      vec3 p0 = vec3(a0.xy,h.x);
-      vec3 p1 = vec3(a0.zw,h.y);
-      vec3 p2 = vec3(a1.xy,h.z);
-      vec3 p3 = vec3(a1.zw,h.w);
-      vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
-      p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;
-      vec4 m = max(0.6 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
-      m = m * m;
-      return 42.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), dot(p2,x2), dot(p3,x3) ) );
-    }
-
-    float fbm3(vec3 p) {
-      float v = 0.0, a = 0.5;
-      for (int i = 0; i < 5; ++i) {
-        v += a * snoise(p);
-        p = p * 2.1 + vec3(12.3);
-        a *= 0.5;
-      }
-      return v;
-    }
-
-    void main() {
-      vec3 N = normalize(vNormal);
-      vec3 V = normalize(vViewPosition);
-      vec3 pos = normalize(vPos);
-
-      vec3 L = normalize(vec3(0.6, 0.4, 0.8));
-
-      float landNoise = fbm3(pos * 2.5 + vec3(uTime * 0.01, 0.0, 0.0));
-      float landMask = smoothstep(0.02, 0.22, landNoise);
-
-      vec3 deepOcean = vec3(0.04, 0.14, 0.32);
-      vec3 shallowOcean = vec3(0.08, 0.28, 0.50);
-      vec3 landBase = vec3(0.12, 0.26, 0.34);
-      vec3 mountain = vec3(0.20, 0.34, 0.44);
-      vec3 polar = vec3(0.65, 0.82, 0.95);
-
-      vec3 oceanCol = mix(deepOcean, shallowOcean, clamp(landNoise * 2.0, 0.0, 1.0));
-      vec3 terrainCol = mix(landBase, mountain, clamp((landNoise - 0.2) * 3.0, 0.0, 1.0));
-
-      float polarLat = smoothstep(0.72, 0.92, abs(pos.y) + snoise(pos * 6.0) * 0.06);
-      oceanCol = mix(oceanCol, polar, polarLat);
-      terrainCol = mix(terrainCol, polar, polarLat);
-
-      vec3 baseAlbedo = mix(oceanCol, terrainCol, landMask);
-
-      float cloudVal = fbm3(pos * 3.8 + vec3(0.0, uTime * 0.015, 0.0));
-      float cloudMask = smoothstep(0.15, 0.48, cloudVal) * 0.45;
-      baseAlbedo = mix(baseAlbedo, vec3(0.6, 0.78, 0.92), cloudMask);
-
-      float diff = max(dot(N, L), 0.0);
-      float ambient = 0.16;
-      float light = diff * 0.85 + ambient;
-
-      vec3 H = normalize(L + V);
-      float spec = pow(max(dot(N, H), 0.0), 32.0) * (1.0 - landMask) * diff * 0.4;
-      vec3 specCol = vec3(0.5, 0.75, 1.0) * spec;
-
-      float fresnel = pow(1.0 - max(dot(N, V), 0.0), 2.8);
-      vec3 atmoGlow = vec3(0.18, 0.48, 0.85) * fresnel * (diff * 0.7 + 0.3);
-
-      vec3 finalCol = baseAlbedo * light + specCol + atmoGlow;
-      gl_FragColor = vec4(finalCol, 1.0);
-    }
-  `;
-
-            const uniPlanet = { uTime: { value: 0 } };
-            const planetGeo = new THREE.SphereGeometry(2.3, 64, 64);
-            const planetMat = new THREE.ShaderMaterial({
-                uniforms: uniPlanet,
-                vertexShader: planetVert,
-                fragmentShader: planetFrag
-            });
-            const planetMesh = new THREE.Mesh(planetGeo, planetMat);
-            planetGroup.add(planetMesh);
-
-            const ringGeo = new THREE.RingGeometry(2.9, 5.0, 96);
-            const ringVert = `
-    varying vec2 vUv;
-    varying vec3 vPos;
-    void main() {
-      vUv = uv;
-      vPos = position;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `;
-            const ringFrag = `
-    uniform float uTime;
-    varying vec2 vUv;
-    varying vec3 vPos;
-    void main() {
-      float dist = length(vPos);
-      float normDist = (dist - 2.9) / (5.0 - 2.9);
-
-      float ringAlpha = sin(normDist * 3.14159);
-      float cassiniGap = 1.0 - smoothstep(0.48, 0.54, normDist) * (1.0 - smoothstep(0.54, 0.60, normDist)) * 0.9;
-      float fineBands = (sin(normDist * 80.0) * 0.15 + sin(normDist * 35.0) * 0.2 + 0.65);
-
-      vec3 ringColor = mix(vec3(0.12, 0.30, 0.50), vec3(0.35, 0.60, 0.80), sin(normDist * 16.0) * 0.5 + 0.5);
-      gl_FragColor = vec4(ringColor * fineBands, ringAlpha * cassiniGap * 0.35);
-    }
-  `;
-            const ringMat = new THREE.ShaderMaterial({
-                uniforms: { uTime: { value: 0 } },
-                vertexShader: ringVert,
-                fragmentShader: ringFrag,
-                side: THREE.DoubleSide,
-                transparent: true,
-                blending: THREE.AdditiveBlending,
-                depthWrite: false
-            });
-            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-            ringMesh.rotation.x = Math.PI * 0.42;
-            ringMesh.rotation.y = -Math.PI * 0.12;
-            planetGroup.add(ringMesh);
-
-            const onResize = () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            };
-            window.addEventListener('resize', onResize);
-
-            const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
-            window.addEventListener('mousemove', e => {
-                mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
-                mouse.ty = (e.clientY / window.innerHeight - 0.5) * 2;
+            const hasSpotify = Boolean(data.listening_to_spotify && data.spotify);
+
+            const otherActivities = (data.activities || []).filter(a => {
+                if (!a || a.type === 4 || !a.name || a.name.trim() === '') return false;
+                const n = a.name.toLowerCase();
+                if (n === 'spotify' || a.id === 'spotify:1') return false;
+                return true;
             });
 
-            const clock = new THREE.Clock();
-            const moteAttr = moteGeo.attributes.position;
+            const maxOther = hasSpotify ? 1 : 2;
+            const displayActivities = otherActivities.slice(0, maxOther);
 
-            const planetPos = { x: 4.8, y: 0.2, z: 7.0 };
-
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = clock.getElapsedTime();
-
-                mouse.x += (mouse.tx - mouse.x) * 0.035;
-                mouse.y += (mouse.ty - mouse.y) * 0.035;
-
-                camera.position.x = mouse.x * 0.6;
-                camera.position.y = 1.5 - mouse.y * 0.4;
-                camera.lookAt(0, 0, 0);
-
-                const maxScroll = (document.documentElement.scrollHeight - window.innerHeight) || 1;
-                const scrollPct = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
-
-                let targetPlanetX, targetPlanetY, targetPlanetZ;
-                if (scrollPct < 0.45) {
-                    const p = scrollPct / 0.45;
-                    targetPlanetX = 4.8 + p * 0.4;
-                    targetPlanetY = 0.2 - p * 1.3;
-                    targetPlanetZ = 7.0 - p * 9.8;
-                } else {
-                    const p = (scrollPct - 0.45) / 0.55;
-                    targetPlanetX = 5.2 - p * 3.0;
-                    targetPlanetY = -1.1 - p * 2.0;
-                    targetPlanetZ = -2.8 - p * 2.0;
-                }
-
-                planetPos.x += (targetPlanetX - planetPos.x) * 0.055;
-                planetPos.y += (targetPlanetY - planetPos.y) * 0.055;
-                planetPos.z += (targetPlanetZ - planetPos.z) * 0.055;
-                planetGroup.position.set(planetPos.x, planetPos.y, planetPos.z);
-
-                uniF.uTime.value = t;
-                uniPlanet.uTime.value = t;
-
-                planetMesh.rotation.y = t * 0.03;
-                ringMesh.rotation.z = t * 0.01;
-
-                starField.rotation.y = t * 0.002;
-
-                for (let i = 0; i < MOTE_COUNT; i++) {
-                    moteAttr.setY(i, moteAttr.getY(i) + moteSpeeds[i]);
-                    moteAttr.setX(i, moteAttr.getX(i) + 0.0015 * Math.sin(0.6 * t + motePhases[2 * i]));
-                    if (moteAttr.getY(i) > 14) moteAttr.setY(i, -14);
-                }
-                moteAttr.needsUpdate = true;
-
-                renderer.render(scene, camera);
+            if (!hasSpotify && displayActivities.length === 0) {
+                if (liveActivitySection) liveActivitySection.style.display = 'none';
+                if (activitiesContainer) activitiesContainer.innerHTML = '';
+                return;
             }
 
-            animate();
-        })();
+            if (liveActivitySection) liveActivitySection.style.display = 'block';
 
-        (function () {
-            const btnAbout = document.getElementById('btn-about-me');
-            const heroCta = document.querySelector('.hero-cta');
+            let cardsHtml = '';
 
-            function scrollToAbout(e) {
-                if (e) e.preventDefault();
-                const aboutSec = document.getElementById('about');
-                if (aboutSec) {
-                    const rect = aboutSec.getBoundingClientRect();
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (hasSpotify) {
+                const sp = data.spotify;
+                const totalMs = sp.timestamps ? Math.max(1, sp.timestamps.end - sp.timestamps.start) : 0;
+                const totalStr = totalMs > 0 ? formatTime(totalMs) : '0:00';
+                const albumSub = sp.artist + (sp.album ? ' · ' + sp.album : '');
 
-                    const OFFSET = 65;
-
-                    const targetY = scrollTop + rect.top + (rect.height / 2) - (window.innerHeight / 2) + OFFSET;
-
-                    window.scrollTo({
-                        top: Math.max(0, targetY),
-                        behavior: 'smooth'
-                    });
-                }
-            }
-
-            if (btnAbout) btnAbout.addEventListener('click', scrollToAbout);
-            if (heroCta) heroCta.addEventListener('click', scrollToAbout);
-        })();
-
-        (function () {
-            const discordBtn = document.getElementById('discordCopyBtn');
-            const discordHandle = document.getElementById('discordSocHandle');
-            if (discordBtn) {
-                discordBtn.addEventListener('click', (e) => {
-                    if (e) e.preventDefault();
-                    const tagEl = document.getElementById('discordTag');
-                    const usernameToCopy = (tagEl && tagEl.textContent ? tagEl.textContent.replace(/^@/, '') : '') || (discordHandle ? discordHandle.textContent : 'scr');
-
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                        navigator.clipboard.writeText(usernameToCopy);
-                    } else {
-                        const ta = document.createElement('textarea');
-                        ta.value = usernameToCopy;
-                        ta.style.position = 'fixed';
-                        ta.style.opacity = '0';
-                        document.body.appendChild(ta);
-                        ta.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(ta);
-                    }
-
-                    discordBtn.classList.add('copied');
-                    setTimeout(() => {
-                        discordBtn.classList.remove('copied');
-                    }, 2000);
-                });
-            }
-        })();
-
-        (function () {
-            const container = document.getElementById('anilistContainer');
-            const filterBtns = document.querySelectorAll('[data-anifilter]');
-            const ani3dWrap = document.getElementById('ani3dWrap');
-            const aniCard = document.getElementById('aniCard');
-
-            if (ani3dWrap && aniCard) {
-                ani3dWrap.addEventListener('mousemove', (e) => {
-                    const rect = ani3dWrap.getBoundingClientRect();
-                    const x = e.clientX - rect.left - rect.width / 2;
-                    const y = e.clientY - rect.top - rect.height / 2;
-                    const rotX = -(y / (rect.height / 2)) * 4;
-                    const rotY = (x / (rect.width / 2)) * 4;
-                    aniCard.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateZ(8px)`;
-                });
-
-                ani3dWrap.addEventListener('mouseleave', () => {
-                    aniCard.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
-                });
-            }
-
-            let allLists = [];
-            let currentFilter = 'all';
-            let currentPage = 0;
-            const ITEMS_PER_PAGE = 5;
-
-            async function fetchAniListData() {
-                if (!CONFIG.anilistUsername) return;
-
-                const query = `
-                query ($userName: String) {
-                  User(name: $userName) {
-                    statistics {
-                      manga {
-                        count
-                      }
-                    }
-                  }
-                  MediaListCollection(userName: $userName, type: ANIME) {
-                    lists {
-                      name
-                      status
-                      entries {
-                        progress
-                        repeat
-                        score
-                        media {
-                          id
-                          siteUrl
-                          episodes
-                          duration
-                          format
-                          title {
-                            english
-                            romaji
-                          }
-                          coverImage {
-                            large
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-                `;
-
-                try {
-                    const res = await fetch('https://graphql.anilist.co', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-                        body: JSON.stringify({ query, variables: { userName: CONFIG.anilistUsername } })
-                    });
-                    const json = await res.json();
-                    const mangaData = json?.data?.User?.statistics?.manga;
-                    const collection = json?.data?.MediaListCollection?.lists;
-
-                    if (collection) {
-                        allLists = collection;
-
-                        let totalUniqueAnime = 0;
-                        let totalEps = 0;
-                        let totalMinutes = 0;
-
-                        collection.forEach(list => {
-                            (list.entries || []).forEach(entry => {
-                                const m = entry.media || {};
-                                const repeats = entry.repeat || 0;
-                                const watchedEps = (entry.progress || 0) + (repeats * (m.episodes || entry.progress || 0));
-                                const dur = m.duration || 24;
-
-                                if (list.status !== 'PLANNING') {
-                                    totalUniqueAnime += 1;
-                                }
-                                totalEps += watchedEps;
-                                totalMinutes += watchedEps * dur;
-                            });
-                        });
-
-                        const totalTimeStr = (totalMinutes / 60).toFixed(1) + 'h';
-                        const totalEl = document.getElementById('aniStatTotal');
-                        const epsEl = document.getElementById('aniStatEps');
-                        const timeEl = document.getElementById('aniStatTime');
-                        const mangaEl = document.getElementById('aniStatManga');
-
-                        if (totalEl) totalEl.textContent = totalUniqueAnime;
-                        if (epsEl) epsEl.textContent = totalEps;
-                        if (timeEl) timeEl.textContent = totalTimeStr;
-                        if (mangaEl) mangaEl.textContent = mangaData?.count || 0;
-
-                        renderLists();
-                    }
-                } catch (e) {
-                    console.warn('AniList API error', e);
-                }
-            }
-
-            function buildCard(entry) {
-                const m = entry.media;
-                const title = m.title.english || m.title.romaji || 'Unknown Anime';
-                const eps = m.episodes ? `${entry.progress}/${m.episodes}` : `${entry.progress}/?`;
-                const format = m.format || 'TV';
-                const cover = m.coverImage.large;
-
-                return `
-                    <a href="${m.siteUrl}" target="_blank" rel="noopener noreferrer" class="anime-card">
-                        <div class="anime-cover-wrap">
-                            <img src="${cover}" alt="${title} cover" class="anime-cover" loading="lazy" />
-                        </div>
-                        <div class="anime-meta">
-                            <div class="anime-title" title="${title}">${title}</div>
-                            <div class="anime-sub-row">
-                                <span>${eps}</span>
-                                <span>${format}</span>
+                cardsHtml += `
+                    <div class="activity-card spotify-mode" id="spotifyActivityCard">
+                        <div class="activity-card-top">
+                            <div class="activity-brand">
+                                <span>${ICON_SPOTIFY}</span>
+                                <span>Listening to Spotify</span>
                             </div>
                         </div>
-                    </a>
-                `;
-            }
-
-            function renderLists() {
-                if (!container) return;
-
-                const allowedStatuses = ['CURRENT', 'COMPLETED', 'PLANNING'];
-                let filtered = allLists.filter(l => allowedStatuses.includes(l.status));
-                if (currentFilter !== 'all') {
-                    filtered = filtered.filter(l => l.status === currentFilter);
-                }
-
-                const entriesToShow = [];
-                const seenIds = new Set();
-
-                filtered.forEach(list => {
-                    (list.entries || []).forEach(entry => {
-                        if (entry.media && !seenIds.has(entry.media.id)) {
-                            seenIds.add(entry.media.id);
-                            entriesToShow.push(entry);
-                        }
-                    });
-                });
-
-                if (entriesToShow.length === 0) {
-                    container.innerHTML = `<div style="text-align:center; padding: 40px; font-family:'Space Mono', monospace; font-size:11px; color:rgba(200,196,188,0.4);">No entries found</div>`;
-                    return;
-                }
-
-                const totalPages = Math.max(1, Math.ceil(entriesToShow.length / ITEMS_PER_PAGE));
-                if (currentPage >= totalPages) currentPage = 0;
-
-                let pagesHtml = '';
-                for (let p = 0; p < totalPages; p++) {
-                    const pageItems = entriesToShow.slice(p * ITEMS_PER_PAGE, (p + 1) * ITEMS_PER_PAGE);
-                    pagesHtml += `
-                        <div class="anilist-page">
-                            <div class="anilist-grid">
-                                ${pageItems.map(buildCard).join('')}
+                        <div class="activity-main">
+                            <div class="activity-art-wrap">
+                                <img class="activity-art" src="${escapeHtml(sp.album_art_url || '')}" alt="${escapeHtml(sp.song || 'Spotify song')} cover" onerror="this.style.display='none'"/>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">${escapeHtml(sp.song || 'Unknown Song')}</div>
+                                <div class="activity-subtitle">${escapeHtml(albumSub)}</div>
                             </div>
                         </div>
-                    `;
-                }
-
-                const hasPrev = currentPage > 0;
-                const hasNext = currentPage < totalPages - 1;
-
-                container.innerHTML = `
-                    <div class="anilist-slider-wrapper">
-                        <button type="button" class="ani-nav-arrow prev" id="aniPrevBtn" ${!hasPrev ? 'disabled' : ''} aria-label="Previous Page">&#9664;</button>
-
-                        <div class="anilist-slider-content">
-                            <div class="anilist-track" id="aniTrack" style="transform: translateX(-${currentPage * 100}%);">
-                                ${pagesHtml}
+                        <div class="activity-progress-wrap">
+                            <div class="activity-bar-bg">
+                                <div class="activity-bar-fill" id="spBarFill" style="width: 0%"></div>
+                            </div>
+                            <div class="activity-time-row">
+                                <span id="spCurTime">0:00</span>
+                                <span id="spTotTime">${totalStr}</span>
                             </div>
                         </div>
-
-                        <button type="button" class="ani-nav-arrow next" id="aniNextBtn" ${!hasNext ? 'disabled' : ''} aria-label="Next Page">&#9654;</button>
                     </div>
                 `;
+            }
 
-                function updateSlide() {
-                    const track = document.getElementById('aniTrack');
-                    if (track) {
-                        track.style.transform = `translateX(-${currentPage * 100}%)`;
+            displayActivities.forEach(act => {
+                const nameLower = (act.name || '').toLowerCase();
+                const isCode = nameLower.includes('code') || nameLower.includes('studio') || nameLower.includes('sublime') || nameLower.includes('vim') || nameLower.includes('intellij');
+                const isStreaming = act.type === 1;
+                const isListening = act.type === 2;
+                const isWatching = act.type === 3;
+
+                const brandIcon = isCode ? ICON_CODE : ICON_GAME;
+                let brandPrefix = 'Playing';
+                if (isStreaming) { brandPrefix = 'Streaming'; }
+                else if (isListening) { brandPrefix = 'Listening to'; }
+                else if (isWatching) { brandPrefix = 'Watching'; }
+
+                let img = null;
+                if (act.assets && act.assets.large_image) {
+                    if (act.assets.large_image.startsWith('mp:external/')) {
+                        img = 'https://media.discordapp.net/' + act.assets.large_image.replace('mp:', '');
+                    } else if (act.application_id) {
+                        img = `https://cdn.discordapp.com/app-assets/${act.application_id}/${act.assets.large_image}.png`;
                     }
-                    const prev = document.getElementById('aniPrevBtn');
-                    const next = document.getElementById('aniNextBtn');
-                    if (prev) prev.disabled = currentPage <= 0;
-                    if (next) next.disabled = currentPage >= totalPages - 1;
+                }
+                if (!img) {
+                    img = 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&auto=format&fit=crop&q=60';
                 }
 
-                const prevBtn = document.getElementById('aniPrevBtn');
-                const nextBtn = document.getElementById('aniNextBtn');
+                let sub = act.details || '';
+                if (act.state) sub += (sub ? ' · ' : '') + act.state;
+                if (!sub) sub = 'Active in session';
 
-                if (prevBtn) {
-                    const prevAction = (e) => {
-                        e.stopPropagation();
-                        if (currentPage > 0) {
-                            currentPage--;
-                            updateSlide();
-                        }
-                    };
-                    prevBtn.addEventListener('click', prevAction);
-                    prevBtn.addEventListener('pointerdown', prevAction);
-                    prevBtn.addEventListener('mouseenter', () => document.body.classList.add('ch'));
-                    prevBtn.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
-                }
+                cardsHtml += `
+                    <div class="activity-card game-mode">
+                        <div class="activity-card-top">
+                            <div class="activity-brand">
+                                <span>${brandIcon}</span>
+                                <span>${escapeHtml(brandPrefix + ' ' + act.name)}</span>
+                            </div>
+                        </div>
+                        <div class="activity-main">
+                            <div class="activity-art-wrap">
+                                <img class="activity-art" src="${escapeHtml(img)}" alt="${escapeHtml(act.name)} art" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&auto=format&fit=crop&q=60'"/>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">${escapeHtml(act.name)}</div>
+                                <div class="activity-subtitle">${escapeHtml(sub)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
 
-                if (nextBtn) {
-                    const nextAction = (e) => {
-                        e.stopPropagation();
-                        if (currentPage < totalPages - 1) {
-                            currentPage++;
-                            updateSlide();
-                        }
-                    };
-                    nextBtn.addEventListener('click', nextAction);
-                    nextBtn.addEventListener('pointerdown', nextAction);
-                    nextBtn.addEventListener('mouseenter', () => document.body.classList.add('ch'));
-                    nextBtn.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
-                }
-
-                container.querySelectorAll('.anime-card').forEach(el => {
+            if (activitiesContainer) {
+                activitiesContainer.innerHTML = cardsHtml;
+                activitiesContainer.querySelectorAll('.activity-card').forEach(el => {
                     el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
                     el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
                 });
             }
 
-            filterBtns.forEach(btn => {
-                const applyFilter = (e) => {
-                    if (e) e.stopPropagation();
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    currentFilter = btn.getAttribute('data-anifilter') || 'all';
-                    currentPage = 0;
-                    renderLists();
+            if (hasSpotify) {
+                const sp = data.spotify;
+                const start = sp.timestamps.start;
+                const end = sp.timestamps.end;
+                const totalMs = Math.max(1, end - start);
+                const barFill = document.getElementById('spBarFill');
+                const curTimeEl = document.getElementById('spCurTime');
+
+                const updateProgress = () => {
+                    const now = Date.now();
+                    const curMs = Math.max(0, Math.min(now - start, totalMs));
+                    const pct = Math.min((curMs / totalMs) * 100, 100);
+                    if (barFill) barFill.style.width = pct + '%';
+                    if (curTimeEl) curTimeEl.textContent = formatTime(curMs);
+                };
+                updateProgress();
+                spotifyInterval = setInterval(updateProgress, 1000);
+            }
+        }
+
+        function cleanBioText(text) {
+            if (!text) return '';
+            const urlPattern = /https?:\/\/[^\s]+|www\.[^\s]+/gi;
+            return text.replace(urlPattern, '').trim().replace(/\s+/g, ' ');
+        }
+
+        async function fetchDiscordBio() {
+            if (!CONFIG.discordUserId) return;
+            try {
+                const res = await fetch(`https://dcdn.dstn.to/profile/${CONFIG.discordUserId}?t=${Date.now()}`, {
+                    cache: 'no-store'
+                });
+                const json = await res.json();
+
+                const rawBio = json?.user?.bio || json?.user_profile?.bio || '';
+                if (rawBio) {
+                    const cleanedBio = cleanBioText(rawBio);
+                    const bioEl = document.getElementById('aboutBioText');
+                    if (bioEl && cleanedBio) {
+                        bioEl.textContent = cleanedBio;
+                    }
+                }
+
+                const decoData = json?.user?.avatar_decoration_data || json?.user_profile?.avatar_decoration_data;
+                const decoImg = document.getElementById('discordAvatarDeco');
+                if (decoImg) {
+                    if (decoData && decoData.asset) {
+                        decoImg.src = `https://cdn.discordapp.com/avatar-decoration-presets/${decoData.asset}.png?size=160&passthrough=true`;
+                        decoImg.style.display = 'block';
+                    } else {
+                        decoImg.style.display = 'none';
+                    }
+                }
+            } catch (e) {
+                console.warn('Bio fetch error', e);
+            }
+        }
+
+        function connectLanyard() {
+            if (!CONFIG.discordUserId) return;
+            try {
+                const ws = new WebSocket('wss://api.lanyard.rest/socket');
+                let heartbeat = null;
+
+                ws.onmessage = (event) => {
+                    const msg = JSON.parse(event.data);
+                    if (msg.op === 1) {
+                        ws.send(JSON.stringify({
+                            op: 2,
+                            d: { subscribe_to_id: CONFIG.discordUserId }
+                        }));
+                        heartbeat = setInterval(() => {
+                            ws.send(JSON.stringify({ op: 3 }));
+                        }, msg.d.heartbeat_interval);
+                    } else if (msg.op === 0) {
+                        updateLanyardData(msg.d);
+                    }
                 };
 
-                btn.addEventListener('click', applyFilter);
-                btn.addEventListener('pointerdown', applyFilter);
-                btn.addEventListener('mouseenter', () => document.body.classList.add('ch'));
-                btn.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
-            });
+                ws.onclose = () => {
+                    if (heartbeat) clearInterval(heartbeat);
+                    setTimeout(connectLanyard, 8000);
+                };
+                ws.onerror = () => ws.close();
+            } catch (e) {
+                fetch(`https://api.lanyard.rest/v1/users/${CONFIG.discordUserId}`)
+                    .then(r => r.json())
+                    .then(res => { if (res.success) updateLanyardData(res.data); })
+                    .catch(() => { });
+            }
+        }
 
-            const btnAnilist = document.getElementById('btn-anilist');
-            if (btnAnilist) {
-                btnAnilist.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const sec = document.getElementById('anilist');
-                    if (sec) {
-                        const rect = sec.getBoundingClientRect();
-                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        window.scrollTo({ top: scrollTop + rect.top - (window.innerHeight * 0.12), behavior: 'smooth' });
+        connectLanyard();
+        fetchDiscordBio();
+        setInterval(fetchDiscordBio, 5000);
+    })();
+
+    (function () {
+        const list = document.getElementById('lastfmTrackList');
+        if (!CONFIG.lastfmUsername) return;
+
+        const FALLBACK_DISC_SVG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Crect width='36' height='36' rx='5' fill='%23050c18'/%3E%3Ccircle cx='18' cy='18' r='12' fill='%23020610' stroke='%23f59e0b' stroke-width='0.8' stroke-opacity='0.25'/%3E%3Ccircle cx='18' cy='18' r='4' fill='%23d97706'/%3E%3Ccircle cx='18' cy='18' r='1.5' fill='%23fff'/%3E%3C/svg%3E";
+
+        function getRelativeTime(timestamp) {
+            if (!timestamp) return 'recently';
+            const now = Math.floor(Date.now() / 1000);
+            const diff = now - parseInt(timestamp);
+            if (diff < 60) return 'just now';
+            if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+            if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+            return Math.floor(diff / 86400) + 'd ago';
+        }
+
+        async function fetchLastFmTracks() {
+            try {
+                const url = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${CONFIG.lastfmUsername}&api_key=${CONFIG.lastfmApiKey}&format=json&limit=4`;
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (data?.recenttracks?.['@attr']?.total) {
+                    const totalCount = Number(data.recenttracks['@attr'].total).toLocaleString();
+                    const headerEl = document.getElementById('lastfmHeader');
+                    if (headerEl) {
+                        headerEl.textContent = `recently played - ${totalCount} scrobbles`;
                     }
+                }
+
+                if (data && data.recenttracks && data.recenttracks.track && data.recenttracks.track.length > 0) {
+                    const tracks = data.recenttracks.track;
+                    let html = '';
+                    tracks.slice(0, 4).forEach((track) => {
+                        const isNowPlaying = track['@attr'] && track['@attr'].nowplaying === 'true';
+                        const title = track.name || 'Untitled';
+                        const artist = (track.artist ? track.artist['#text'] || track.artist.name : 'Unknown Artist');
+                        const trackUrl = track.url || `https://www.last.fm/user/${CONFIG.lastfmUsername}`;
+
+                        let imgUrl = FALLBACK_DISC_SVG;
+                        if (track.image) {
+                            const found = track.image.find(i => i.size === 'medium' || i.size === 'small' || i.size === 'large');
+                            if (found && found['#text']) imgUrl = found['#text'];
+                        }
+
+                        const timeText = isNowPlaying ? 'now playing' : (track.date ? getRelativeTime(track.date.uts) : 'recently');
+
+                        html += `
+                            <a href="${trackUrl}" target="_blank" rel="noopener noreferrer" class="lastfm-track-row">
+                              <img class="lastfm-row-cover" src="${imgUrl}" alt="${title} album cover" loading="eager" decoding="async" onerror="this.src='${FALLBACK_DISC_SVG}'"/>
+                              <div class="lastfm-row-meta">
+                                <div class="lastfm-row-title">
+                                  <span>${title}</span>
+                                  ${isNowPlaying ? '<div class="equalizer-bars"><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span></div>' : ''}
+                                </div>
+                                <div class="lastfm-row-artist">${artist}</div>
+                              </div>
+                              <div class="lastfm-row-time">${timeText}</div>
+                            </a>
+                        `;
+                    });
+                    if (list && html) list.innerHTML = html;
+                }
+            } catch (e) {
+                console.warn('Last.fm tracks fetch error', e);
+            }
+        }
+
+        fetchLastFmTracks();
+        setInterval(fetchLastFmTracks, 15000);
+    })();
+
+    (async function fetchRobloxUser() {
+        if (!CONFIG.robloxUserId) return;
+        const uid = CONFIG.robloxUserId;
+
+        try {
+            fetch(`https://users.roproxy.com/v1/users/${uid}`)
+                .then(r => r.json())
+                .then(data => {
+                    const handleEl = document.getElementById('robloxHandle');
+                    const cardDisplay = document.getElementById('rbxCardDisplay');
+                    const cardUser = document.getElementById('rbxCardUser');
+                    const linkEl = document.getElementById('robloxLink');
+
+                    const dName = data.displayName || data.name || 'screenies';
+                    if (handleEl) handleEl.textContent = dName;
+                    if (cardDisplay) cardDisplay.textContent = dName;
+                    if (cardUser) cardUser.textContent = '@' + (data.name || 'wzathus');
+                    if (linkEl && data.id) linkEl.href = `https://www.roblox.com/users/${data.id}/profile`;
+                }).catch(() => {});
+
+            fetch(`https://thumbnails.roproxy.com/v1/users/avatar?userIds=${uid}&size=352x352&format=Png&isCircular=false`)
+                .then(r => r.json())
+                .then(data => {
+                    const imgUrl = data?.data?.[0]?.imageUrl;
+                    const avatarImg = document.getElementById('rbxCardAvatar');
+                    if (avatarImg && imgUrl) {
+                        avatarImg.src = imgUrl;
+                    }
+                }).catch(() => {});
+
+            fetch(`https://friends.roproxy.com/v1/users/${uid}/friends/count`)
+                .then(r => r.json())
+                .then(data => {
+                    const friendsEl = document.getElementById('rbxCardFriends');
+                    if (friendsEl && typeof data.count !== 'undefined') {
+                        friendsEl.textContent = data.count.toLocaleString();
+                    }
+                }).catch(() => {});
+
+            fetch(`https://friends.roproxy.com/v1/users/${uid}/followers/count`)
+                .then(r => r.json())
+                .then(data => {
+                    const followersEl = document.getElementById('rbxCardFollowers');
+                    if (followersEl && typeof data.count !== 'undefined') {
+                        followersEl.textContent = data.count.toLocaleString();
+                    }
+                }).catch(() => {});
+
+            fetch(`https://friends.roproxy.com/v1/users/${uid}/followings/count`)
+                .then(r => r.json())
+                .then(data => {
+                    const followingEl = document.getElementById('rbxCardFollowing');
+                    if (followingEl && typeof data.count !== 'undefined') {
+                        followingEl.textContent = data.count.toLocaleString();
+                    }
+                }).catch(() => {});
+
+        } catch (e) {
+            console.warn('Roblox details fetch error:', e);
+        }
+    })();
+
+    const cr = document.getElementById('cr'), crr = document.getElementById('crr');
+    let mX = 0, mY = 0, rX = 0, rY = 0;
+    document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; cr.style.left = mX + 'px'; cr.style.top = mY + 'px'; });
+    (function raf() { rX += (mX - rX) * .1; rY += (mY - rY) * .1; crr.style.left = rX + 'px'; crr.style.top = rY + 'px'; requestAnimationFrame(raf); })();
+    document.querySelectorAll('a,button,.stack-icon,.soc-entry,.lastfm-track-row,.activity-card').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+    });
+
+    window.addEventListener('scroll', () => {
+        document.getElementById('pb').style.width = (window.scrollY / (document.documentElement.scrollHeight - innerHeight) * 100) + '%';
+    });
+
+    (function () {
+        const container = document.querySelector('.hero-name-glitch');
+        if (!container) return;
+
+        const EMOJI_POOL = ['😇', '😎', '👾', '🌟', '⚡', '💫', '🔥', '✨', '💀', '🌀', '🤖', '🪐', '🔮', '👽', '🖤'];
+        const CHAR_POOL = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+        function isEmoji(char) {
+            return /\p{Extended_Pictographic}/u.test(char);
+        }
+
+        function splitGraphemes(str) {
+            if (typeof Intl !== 'undefined' && Intl.Segmenter) {
+                const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+                return [...segmenter.segment(str)].map(s => s.segment);
+            }
+            return [...str];
+        }
+
+        window.setupGlitchName = function (text) {
+            container.setAttribute('aria-label', text);
+            container.innerHTML = '';
+
+            const characters = splitGraphemes(text);
+
+            characters.forEach(char => {
+                const span = document.createElement('span');
+                span.textContent = char;
+
+                if (char.trim() !== '') {
+                    const charIsEmoji = isEmoji(char);
+                    const pool = charIsEmoji ? EMOJI_POOL : CHAR_POOL;
+
+                    span.addEventListener('mouseenter', () => {
+                        let cnt = 0;
+                        const id = setInterval(() => {
+                            span.textContent = pool[Math.floor(Math.random() * pool.length)];
+                            if (++cnt > 6) {
+                                clearInterval(id);
+                                span.textContent = char;
+                            }
+                        }, 120);
+                    });
+                }
+
+                container.appendChild(span);
+            });
+        };
+
+        window.setupGlitchName('scr');
+    })();
+
+    const ro = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); ro.unobserve(e.target); } });
+    }, { threshold: .1 });
+    document.querySelectorAll('.rev,.revl').forEach(el => ro.observe(el));
+
+    (function () {
+        const items = document.querySelectorAll('.soc-list li');
+        const io = new IntersectionObserver(es => {
+            es.forEach(e => {
+                if (e.isIntersecting) {
+                    items.forEach((li, i) => { setTimeout(() => { li.style.opacity = '1'; li.style.transform = 'none'; }, i * 50); });
+                    io.disconnect();
+                }
+            });
+        }, { threshold: .1 });
+        items.forEach(li => { li.style.opacity = '0'; li.style.transform = 'translateX(14px)'; li.style.transition = 'opacity .4s ease,transform .4s ease'; });
+        const parent = document.querySelector('.soc-list');
+        if (parent) io.observe(parent);
+    })();
+
+    (function initGargantuaBlackHole() {
+        const canvas = document.getElementById('bgc');
+        if (!canvas) return;
+
+        const renderer = new THREE.WebGLRenderer({
+            canvas: canvas,
+            antialias: true,
+            alpha: false,
+            powerPreference: "high-performance"
+        });
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        renderer.setPixelRatio(dpr);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.15;
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x010206);
+
+        const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 16);
+
+        const STAR_COUNT = 2400;
+        const starPos = new Float32Array(STAR_COUNT * 3);
+        const starColors = new Float32Array(STAR_COUNT * 3);
+        for (let i = 0; i < STAR_COUNT; i++) {
+            const i3 = i * 3;
+            const r = 90 + Math.random() * 150;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            starPos[i3] = r * Math.sin(phi) * Math.cos(theta);
+            starPos[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+            starPos[i3 + 2] = -Math.abs(r * Math.cos(phi)) - 35.0;
+
+            const shade = 0.45 + Math.random() * 0.55;
+            starColors[i3] = shade * (0.8 + Math.random() * 0.2);
+            starColors[i3 + 1] = shade * (0.7 + Math.random() * 0.2);
+            starColors[i3 + 2] = shade * (0.6 + Math.random() * 0.3);
+        }
+        const starGeo = new THREE.BufferGeometry();
+        starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+        starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+        const starMat = new THREE.PointsMaterial({
+            size: 0.95,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.85,
+            depthWrite: false
+        });
+        const starField = new THREE.Points(starGeo, starMat);
+        scene.add(starField);
+
+        const blackHoleGroup = new THREE.Group();
+        blackHoleGroup.position.set(4.5, 0.4, 3.5);
+        blackHoleGroup.rotation.x = 0.24;
+        blackHoleGroup.rotation.z = -0.12;
+        scene.add(blackHoleGroup);
+
+        const MOTE_COUNT = 380;
+        const motePos = new Float32Array(MOTE_COUNT * 3);
+        const moteSpeeds = new Float32Array(MOTE_COUNT);
+        const moteAngles = new Float32Array(MOTE_COUNT);
+        const moteDist = new Float32Array(MOTE_COUNT);
+        for (let i = 0; i < MOTE_COUNT; i++) {
+            moteDist[i] = 2.4 + Math.random() * 8.5;
+            moteAngles[i] = Math.random() * Math.PI * 2;
+            moteSpeeds[i] = 0.25 + (1.0 / moteDist[i]) * 0.45;
+            motePos[3 * i] = Math.cos(moteAngles[i]) * moteDist[i];
+            motePos[3 * i + 1] = (Math.random() - 0.5) * 0.5;
+            motePos[3 * i + 2] = Math.sin(moteAngles[i]) * moteDist[i] * 0.25 + 0.1;
+        }
+        const moteGeo = new THREE.BufferGeometry();
+        moteGeo.setAttribute('position', new THREE.BufferAttribute(motePos, 3));
+        const moteMat = new THREE.PointsMaterial({
+            color: 0xffbb77,
+            size: 0.035,
+            transparent: true,
+            opacity: 0.65,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
+        });
+        const moteField = new THREE.Points(moteGeo, moteMat);
+        blackHoleGroup.add(moteField);
+
+        const bhGeometry = new THREE.PlaneGeometry(24, 24, 1, 1);
+
+        const bhVertexShader = `
+            varying vec2 vUv;
+            void main() {
+                vUv = uv;
+                vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+                gl_Position = projectionMatrix * viewMatrix * worldPosition;
+            }
+        `;
+
+        const bhFragmentShader = `
+            precision highp float;
+            uniform float uTime;
+            varying vec2 vUv;
+
+            #define PI 3.14159265359
+
+            vec3 accretionPalette(float t) {
+                vec3 colDark  = vec3(0.08, 0.015, 0.005);
+                vec3 colRed   = vec3(0.85, 0.22, 0.04);
+                vec3 colGold  = vec3(1.0, 0.68, 0.20);
+                vec3 colHot   = vec3(1.0, 0.96, 0.88);
+
+                vec3 c = mix(colDark, colRed, smoothstep(0.0, 0.35, t));
+                c = mix(c, colGold, smoothstep(0.35, 0.72, t));
+                c = mix(c, colHot, smoothstep(0.72, 1.0, t));
+                return c;
+            }
+
+            float diskDensityFast(float r, float phi, float time) {
+                float rInner = 1.35;
+                float rOuter = 5.2;
+                if (r < rInner || r > rOuter) return 0.0;
+
+                float radialProfile = smoothstep(rInner, rInner + 0.35, r) * (1.0 - smoothstep(rInner + 1.2, rOuter, r));
+                radialProfile += exp(-(r - rInner) * 3.8) * 1.6;
+
+                float omega = 4.2 / (pow(r, 1.25) + 0.1);
+                float angle = phi - time * omega;
+
+                float spirals = sin(angle * 6.0 + r * 5.0) * 0.25;
+                spirals += cos(angle * 12.0 - r * 8.0) * 0.15;
+                float rings = sin(r * 24.0) * 0.15;
+
+                float density = (radialProfile + spirals * 0.35 + rings) * 0.85;
+                float doppler = 1.0 - 0.42 * sin(phi);
+                density *= pow(doppler, 2.5);
+
+                return max(0.0, density);
+            }
+
+            void main() {
+                vec2 p = (vUv - 0.5) * 16.0;
+                float angleTilt = 0.25;
+                mat2 mTilt = mat2(cos(angleTilt), sin(angleTilt), -sin(angleTilt), cos(angleTilt));
+                p = mTilt * p;
+
+                float r = length(p);
+                float phi = atan(p.y, p.x);
+
+                float rs = 1.22;
+
+                float diskY = p.y * 3.6;
+                float rDiskFront = length(vec2(p.x, diskY));
+                float phiDiskFront = atan(diskY, p.x);
+                float frontDisk = diskDensityFast(rDiskFront, phiDiskFront, uTime);
+
+                if (p.y > 0.0 && r < rs * 1.05) {
+                    frontDisk *= smoothstep(rs * 0.9, rs * 1.05, r);
+                }
+
+                float warpRadiusUpper = length(vec2(p.x * 0.85, (p.y - 0.55) * 1.45));
+                float warpUpper = diskDensityFast(warpRadiusUpper * 1.25, phi, uTime);
+                warpUpper *= smoothstep(rs, rs + 0.7, r);
+
+                float warpRadiusLower = length(vec2(p.x * 0.9, (p.y + 0.6) * 1.7));
+                float warpLower = diskDensityFast(warpRadiusLower * 1.35, phi + PI, uTime);
+                warpLower *= smoothstep(rs, rs + 0.65, r);
+
+                float totalDisk = frontDisk * 1.15 + warpUpper * 0.95 + warpLower * 0.75;
+
+                float photonRingR = rs * 1.14;
+                float photonRingDist = abs(r - photonRingR);
+                float photonRing = exp(-photonRingDist * 34.0) * 3.4;
+                float innerGhostRing = exp(-abs(r - rs * 1.03) * 60.0) * 1.8;
+                photonRing += innerGhostRing;
+                photonRing *= (1.0 - 0.35 * sin(phi));
+
+                float totalLuminance = totalDisk + photonRing;
+                vec3 finalColor = accretionPalette(clamp(totalLuminance * 0.75, 0.0, 1.0));
+                finalColor += vec3(1.0, 0.98, 0.92) * pow(clamp(totalLuminance * 0.55, 0.0, 1.0), 3.0) * 1.4;
+
+                float horizonMask = smoothstep(rs * 0.97, rs * 1.01, r);
+                finalColor *= horizonMask;
+
+                float haze = exp(-r * 0.6) * 0.12 * (1.0 - 0.3 * sin(phi));
+                finalColor += vec3(0.4, 0.16, 0.04) * haze * horizonMask;
+
+                float edgeMask = smoothstep(7.2, 4.6, r);
+                finalColor *= edgeMask;
+
+                float alpha = clamp(totalLuminance * 1.4 + haze, 0.0, 1.0) * edgeMask;
+                if (r <= rs) {
+                    alpha = 1.0;
+                    finalColor = vec3(0.001, 0.001, 0.002);
+                }
+
+                if (alpha < 0.005) discard;
+
+                gl_FragColor = vec4(finalColor, alpha);
+            }
+        `;
+
+        const bhUniforms = {
+            uTime: { value: 0 }
+        };
+
+        const bhMaterial = new THREE.ShaderMaterial({
+            uniforms: bhUniforms,
+            vertexShader: bhVertexShader,
+            fragmentShader: bhFragmentShader,
+            transparent: true,
+            depthWrite: false,
+            side: THREE.DoubleSide,
+            blending: THREE.NormalBlending
+        });
+
+        const bhMesh = new THREE.Mesh(bhGeometry, bhMaterial);
+        blackHoleGroup.add(bhMesh);
+
+        const onResize = () => {
+            const curDpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setPixelRatio(curDpr);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        };
+        window.addEventListener('resize', onResize);
+
+        const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+        window.addEventListener('mousemove', e => {
+            mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouse.ty = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        const clock = new THREE.Clock();
+        const moteAttr = moteGeo.attributes.position;
+        const targetPos = { x: 4.5, y: 0.4, z: 3.5 };
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const t = clock.getElapsedTime();
+
+            mouse.x += (mouse.tx - mouse.x) * 0.035;
+            mouse.y += (mouse.ty - mouse.y) * 0.035;
+
+            camera.position.x = mouse.x * 0.7;
+            camera.position.y = -mouse.y * 0.45;
+            camera.lookAt(0, 0, 0);
+
+            const maxScroll = (document.documentElement.scrollHeight - window.innerHeight) || 1;
+            const scrollPct = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+
+            let destX, destY, destZ;
+            if (scrollPct < 0.45) {
+                const p = scrollPct / 0.45;
+                destX = 4.5 + p * 0.5;
+                destY = 0.4 - p * 1.2;
+                destZ = 3.5 - p * 6.5;
+            } else {
+                const p = (scrollPct - 0.45) / 0.55;
+                destX = 5.0 - p * 3.5;
+                destY = -0.8 - p * 1.5;
+                destZ = -3.0 - p * 2.0;
+            }
+
+            targetPos.x += (destX - targetPos.x) * 0.055;
+            targetPos.y += (destY - targetPos.y) * 0.055;
+            targetPos.z += (destZ - targetPos.z) * 0.055;
+            blackHoleGroup.position.set(targetPos.x, targetPos.y, targetPos.z);
+
+            blackHoleGroup.rotation.y = mouse.x * 0.08;
+            blackHoleGroup.rotation.x = 0.24 + mouse.y * 0.06;
+
+            bhUniforms.uTime.value = t;
+            starField.rotation.y = t * 0.0015;
+
+            for (let i = 0; i < MOTE_COUNT; i++) {
+                moteAngles[i] += moteSpeeds[i] * 0.02;
+                moteDist[i] -= 0.0018;
+                if (moteDist[i] < 1.4) {
+                    moteDist[i] = 7.5 + Math.random() * 2.0;
+                    moteSpeeds[i] = 0.25 + (1.0 / moteDist[i]) * 0.45;
+                }
+                const curR = moteDist[i];
+                moteAttr.setX(i, Math.cos(moteAngles[i]) * curR * 0.85);
+                moteAttr.setY(i, Math.sin(moteAngles[i]) * curR * 0.28);
+                moteAttr.setZ(i, Math.sin(moteAngles[i]) * curR * 0.25 + 0.1);
+            }
+            moteAttr.needsUpdate = true;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    })();
+
+    (function () {
+        const btnAbout = document.getElementById('btn-about-me');
+        const heroCta = document.querySelector('.hero-cta');
+
+        function scrollToAbout(e) {
+            if (e) e.preventDefault();
+            const aboutSec = document.getElementById('about');
+            if (aboutSec) {
+                const rect = aboutSec.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const OFFSET = 65;
+                const targetY = scrollTop + rect.top + (rect.height / 2) - (window.innerHeight / 2) + OFFSET;
+
+                window.scrollTo({
+                    top: Math.max(0, targetY),
+                    behavior: 'smooth'
                 });
             }
+        }
 
-            fetchAniListData();
-        })();
+        if (btnAbout) btnAbout.addEventListener('click', scrollToAbout);
+        if (heroCta) heroCta.addEventListener('click', scrollToAbout);
+    })();
 
-        (function dynamicGreeting() {
-            const greetingEl = document.getElementById('greetingSub');
-            if (!greetingEl) return;
+    (function () {
+        const discordBtn = document.getElementById('discordCopyBtn');
+        const discordHandle = document.getElementById('discordSocHandle');
+        if (discordBtn) {
+            discordBtn.addEventListener('click', (e) => {
+                if (e) e.preventDefault();
+                const tagEl = document.getElementById('discordTag');
+                const usernameToCopy = (tagEl && tagEl.textContent ? tagEl.textContent.replace(/^@/, '') : '') || (discordHandle ? discordHandle.textContent : 'scr');
 
-            const hour = new Date().getHours();
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(usernameToCopy);
+                } else {
+                    const ta = document.createElement('textarea');
+                    ta.value = usernameToCopy;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
 
-            const MORNING_GREETINGS = [
-                "good morning, i'm\u00A0",
-                "morning, i'm\u00A0",
-                "rise and shine, i'm\u00A0",
-                "yello!, i'm\u00A0"
-            ];
+                discordBtn.classList.add('copied');
+                setTimeout(() => {
+                    discordBtn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    })();
 
-            const AFTERNOON_GREETINGS = [
-                "good afternoon, i'm\u00A0",
-                "afternoon, i'm\u00A0",
-                "good day, i'm\u00A0"
-            ];
+    (function () {
+        const container = document.getElementById('anilistContainer');
+        const filterBtns = document.querySelectorAll('[data-anifilter]');
 
-            const EVENING_GREETINGS = [
-                "good evening, i'm\u00A0",
-                "evening, i'm\u00A0",
-                "nice to see you, i'm\u00A0"
-            ];
+        let allLists = [];
+        let currentFilter = 'all';
+        let currentPage = 0;
+        const ITEMS_PER_PAGE = 5;
 
-            const CASUAL_GREETINGS = [
-                "what's up, i'm\u00A0",
-                "yo, i'm\u00A0",
-                "hey there, i'm\u00A0",
-                "hello, i'm\u00A0",
-                "hi, i'm\u00A0"
-            ];
+        async function fetchAniListData() {
+            if (!CONFIG.anilistUsername) return;
 
-            let timePool;
-            if (hour >= 5 && hour < 12) {
-                timePool = MORNING_GREETINGS;
-            } else if (hour >= 12 && hour < 18) {
-                timePool = AFTERNOON_GREETINGS;
-            } else {
-                timePool = EVENING_GREETINGS;
+            const query = `
+            query ($userName: String) {
+              User(name: $userName) {
+                statistics {
+                  manga {
+                    count
+                  }
+                }
+              }
+              MediaListCollection(userName: $userName, type: ANIME) {
+                lists {
+                  name
+                  status
+                  entries {
+                    progress
+                    repeat
+                    score
+                    media {
+                      id
+                      siteUrl
+                      episodes
+                      duration
+                      format
+                      title {
+                        english
+                        romaji
+                      }
+                      coverImage {
+                        large
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            `;
+
+            try {
+                const res = await fetch('https://graphql.anilist.co', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ query, variables: { userName: CONFIG.anilistUsername } })
+                });
+                const json = await res.json();
+                const mangaData = json?.data?.User?.statistics?.manga;
+                const collection = json?.data?.MediaListCollection?.lists;
+
+                if (collection) {
+                    allLists = collection;
+
+                    let totalUniqueAnime = 0;
+                    let totalEps = 0;
+                    let totalMinutes = 0;
+
+                    collection.forEach(list => {
+                        (list.entries || []).forEach(entry => {
+                            const m = entry.media || {};
+                            const repeats = entry.repeat || 0;
+                            const watchedEps = (entry.progress || 0) + (repeats * (m.episodes || entry.progress || 0));
+                            const dur = m.duration || 24;
+
+                            if (list.status !== 'PLANNING') {
+                                totalUniqueAnime += 1;
+                            }
+                            totalEps += watchedEps;
+                            totalMinutes += watchedEps * dur;
+                        });
+                    });
+
+                    const totalTimeStr = (totalMinutes / 60).toFixed(1) + 'h';
+                    const totalEl = document.getElementById('aniStatTotal');
+                    const epsEl = document.getElementById('aniStatEps');
+                    const timeEl = document.getElementById('aniStatTime');
+                    const mangaEl = document.getElementById('aniStatManga');
+
+                    if (totalEl) totalEl.textContent = totalUniqueAnime;
+                    if (epsEl) epsEl.textContent = totalEps;
+                    if (timeEl) timeEl.textContent = totalTimeStr;
+                    if (mangaEl) mangaEl.textContent = mangaData?.count || 0;
+
+                    renderLists();
+                }
+            } catch (e) {
+                console.warn('AniList API error', e);
+            }
+        }
+
+        function buildCard(entry) {
+            const m = entry.media;
+            const title = m.title.english || m.title.romaji || 'Unknown Anime';
+            const eps = m.episodes ? `${entry.progress}/${m.episodes}` : `${entry.progress}/?`;
+            const format = m.format || 'TV';
+            const cover = m.coverImage.large;
+
+            return `
+                <a href="${m.siteUrl}" target="_blank" rel="noopener noreferrer" class="anime-card">
+                    <div class="anime-cover-wrap">
+                        <img src="${cover}" alt="${title} cover" class="anime-cover" loading="lazy" />
+                    </div>
+                    <div class="anime-meta">
+                        <div class="anime-title" title="${title}">${title}</div>
+                        <div class="anime-sub-row">
+                            <span>${eps}</span>
+                            <span>${format}</span>
+                        </div>
+                    </div>
+                </a>
+            `;
+        }
+
+        function renderLists() {
+            if (!container) return;
+
+            const allowedStatuses = ['CURRENT', 'COMPLETED', 'PLANNING'];
+            let filtered = allLists.filter(l => allowedStatuses.includes(l.status));
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(l => l.status === currentFilter);
             }
 
-            const fullPool = [...timePool, ...CASUAL_GREETINGS];
-            const choice = fullPool[Math.floor(Math.random() * fullPool.length)];
-            greetingEl.textContent = choice;
-        })();
+            const entriesToShow = [];
+            const seenIds = new Set();
 
-    </script>
+            filtered.forEach(list => {
+                (list.entries || []).forEach(entry => {
+                    if (entry.media && !seenIds.has(entry.media.id)) {
+                        seenIds.add(entry.media.id);
+                        entriesToShow.push(entry);
+                    }
+                });
+            });
+
+            if (entriesToShow.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding: 40px; font-family:'Space Mono', monospace; font-size:11px; color:rgba(200,196,188,0.4);">No entries found</div>`;
+                return;
+            }
+
+            const totalPages = Math.max(1, Math.ceil(entriesToShow.length / ITEMS_PER_PAGE));
+            if (currentPage >= totalPages) currentPage = 0;
+
+            let pagesHtml = '';
+            for (let p = 0; p < totalPages; p++) {
+                const pageItems = entriesToShow.slice(p * ITEMS_PER_PAGE, (p + 1) * ITEMS_PER_PAGE);
+                pagesHtml += `
+                    <div class="anilist-page">
+                        <div class="anilist-grid">
+                            ${pageItems.map(buildCard).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            const hasPrev = currentPage > 0;
+            const hasNext = currentPage < totalPages - 1;
+
+            container.innerHTML = `
+                <div class="anilist-slider-wrapper">
+                    <button type="button" class="ani-nav-arrow prev" id="aniPrevBtn" ${!hasPrev ? 'disabled' : ''} aria-label="Previous Page">
+                        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                    </button>
+
+                    <div class="anilist-slider-content">
+                        <div class="anilist-track" id="aniTrack" style="transform: translateX(-${currentPage * 100}%);">
+                            ${pagesHtml}
+                        </div>
+                    </div>
+
+                    <button type="button" class="ani-nav-arrow next" id="aniNextBtn" ${!hasNext ? 'disabled' : ''} aria-label="Next Page">
+                        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                    </button>
+                </div>
+            `;
+
+            function updateSlide() {
+                const track = document.getElementById('aniTrack');
+                if (track) {
+                    track.style.transform = `translateX(-${currentPage * 100}%)`;
+                }
+                const prev = document.getElementById('aniPrevBtn');
+                const next = document.getElementById('aniNextBtn');
+                if (prev) prev.disabled = currentPage <= 0;
+                if (next) next.disabled = currentPage >= totalPages - 1;
+            }
+
+            const prevBtn = document.getElementById('aniPrevBtn');
+            const nextBtn = document.getElementById('aniNextBtn');
+
+            if (prevBtn) {
+                const prevAction = (e) => {
+                    e.stopPropagation();
+                    if (currentPage > 0) {
+                        currentPage--;
+                        updateSlide();
+                    }
+                };
+                prevBtn.addEventListener('click', prevAction);
+                prevBtn.addEventListener('pointerdown', prevAction);
+                prevBtn.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+                prevBtn.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+            }
+
+            if (nextBtn) {
+                const nextAction = (e) => {
+                    e.stopPropagation();
+                    if (currentPage < totalPages - 1) {
+                        currentPage++;
+                        updateSlide();
+                    }
+                };
+                nextBtn.addEventListener('click', nextAction);
+                nextBtn.addEventListener('pointerdown', nextAction);
+                nextBtn.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+                nextBtn.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+            }
+
+            container.querySelectorAll('.anime-card').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+            });
+        }
+
+        filterBtns.forEach(btn => {
+            const applyFilter = (e) => {
+                if (e) e.stopPropagation();
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-anifilter') || 'all';
+                currentPage = 0;
+                renderLists();
+            };
+
+            btn.addEventListener('click', applyFilter);
+            btn.addEventListener('pointerdown', applyFilter);
+            btn.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+            btn.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+        });
+
+        const btnAnilist = document.getElementById('btn-anilist');
+        if (btnAnilist) {
+            btnAnilist.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sec = document.getElementById('anilist');
+                if (sec) {
+                    const rect = sec.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    window.scrollTo({ top: scrollTop + rect.top - (window.innerHeight * 0.12), behavior: 'smooth' });
+                }
+            });
+        }
+
+        fetchAniListData();
+    })();
+
+    (function dynamicGreeting() {
+        const greetingEl = document.getElementById('greetingSub');
+        if (!greetingEl) return;
+
+        const hour = new Date().getHours();
+
+        const MORNING_GREETINGS = [
+            "good morning, i'm\u00A0",
+            "morning, i'm\u00A0",
+            "rise and shine, i'm\u00A0",
+            "yello!, i'm\u00A0"
+        ];
+
+        const AFTERNOON_GREETINGS = [
+            "good afternoon, i'm\u00A0",
+            "afternoon, i'm\u00A0",
+            "good day, i'm\u00A0"
+        ];
+
+        const EVENING_GREETINGS = [
+            "good evening, i'm\u00A0",
+            "evening, i'm\u00A0",
+            "nice to see you, i'm\u00A0"
+        ];
+
+        const CASUAL_GREETINGS = [
+            "what's up, i'm\u00A0",
+            "yo, i'm\u00A0",
+            "hey there, i'm\u00A0",
+            "hello, i'm\u00A0",
+            "hi, i'm\u00A0"
+        ];
+
+        let timePool;
+        if (hour >= 5 && hour < 12) {
+            timePool = MORNING_GREETINGS;
+        } else if (hour >= 12 && hour < 18) {
+            timePool = AFTERNOON_GREETINGS;
+        } else {
+            timePool = EVENING_GREETINGS;
+        }
+
+        const fullPool = [...timePool, ...CASUAL_GREETINGS];
+        const choice = fullPool[Math.floor(Math.random() * fullPool.length)];
+        greetingEl.textContent = choice;
+    })();
+</script>
 </body>
 
 </html>
