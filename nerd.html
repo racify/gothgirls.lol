@@ -2090,7 +2090,7 @@
 
 <div id="enter" class="enter-overlay" aria-label="Click to enter">
   <div class="enter-text">
-    <h2 id="enter-name">gothic pray</h2>
+    <h2 id="enter-name">&nbsp;</h2>
     <p>click 2 enter<span class="caret"></span></p>
   </div>
 </div>
@@ -2444,6 +2444,14 @@
       return String(str || "").replace(/\\/g, '\\\\').replace(/'/g, "\\'");
     }
 
+    try {
+      const cachedName = localStorage.getItem("cached_display_name");
+      if (cachedName) {
+        const enterNameEl = document.getElementById("enter-name");
+        if (enterNameEl) enterNameEl.textContent = cachedName;
+      }
+    } catch (e) {}
+
     let currentDiscordUsername = "neeeeeerd";
     let isCopying = false;
 
@@ -2620,11 +2628,16 @@
     function applyDisplayNameStyles(displayName) {
       const usernameEl = document.getElementById("username");
       const targetNameEl = document.getElementById("zack-target");
+      const enterNameEl = document.getElementById("enter-name");
 
       if (displayName) {
         setTitle(displayName);
         if (usernameEl) usernameEl.textContent = displayName;
         if (targetNameEl) targetNameEl.textContent = displayName;
+        if (enterNameEl) enterNameEl.textContent = displayName;
+        try {
+          localStorage.setItem("cached_display_name", displayName);
+        } catch (e) {}
       }
     }
 
