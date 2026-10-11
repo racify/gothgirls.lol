@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>gothic pray</title>
+  <title>nerd</title>
   <link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,16 +11,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --marquee-text: #ffffff;
-      --marquee-glow: rgba(255, 255, 255, 0.8);
       --tooltip-bg: #111214;
       --tooltip-text: #f2f3f5;
       --tooltip-border: rgba(255, 255, 255, 0.1);
-      --text-display: #ffffff;
       --text-primary: #e4e4e7;
-      --about-anime-bg: url("dbg1.png");
       --bg-base: #151415;
-      --bg-radial: radial-gradient(circle at 50% 50%, rgba(20, 20, 22, 0.8) 0%, rgba(5, 5, 5, 1) 100%);
       --card-bg: rgba(13, 13, 15, 0.85);
       --card-border: rgba(255, 255, 255, 0.07);
       --card-border-hover: rgba(255, 255, 255, 0.18);
@@ -29,14 +24,6 @@
       --modal-bg: rgba(13, 13, 15, 0.95);
       --box-bg: rgba(0, 0, 0, 0.3);
       --box-border: rgba(255, 255, 255, 0.04);
-      --banner-bg: #090a0f;
-      --banner-border: rgba(255, 255, 255, 0.8);
-      --banner-accent: #ef4444;
-      --banner-title: #f87171;
-      --banner-glow: rgba(255, 255, 255, 0.15);
-      --history-bg: #080b12;
-      --history-border: #1a2333;
-      --visitor-text: #ffffff;
       --confirm-bg: #09090b;
       --confirm-border: rgba(255, 255, 255, 0.1);
       --confirm-box-bg: #121215;
@@ -45,43 +32,6 @@
       --confirm-btn-proceed-bg: #ffffff;
       --confirm-btn-proceed-text: #000000;
       --custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23ffffff'/%3E%3C/svg%3E") 8 8, crosshair;
-    }
-
-    [data-theme="light"] {
-      --marquee-text: #000000;
-      --marquee-glow: rgba(0, 0, 0, 0.25);
-      --tooltip-bg: #ffffff;
-      --tooltip-text: #18181b;
-      --tooltip-border: rgba(0, 0, 0, 0.12);
-      --text-display: #18181b;
-      --text-primary: #18181b;
-      --about-anime-bg: url("lbg1.png");
-      --bg-base: #e4e4e7;
-      --bg-radial: radial-gradient(circle at 50% 50%, #f4f4f5 0%, #d4d4d8 100%);
-      --card-bg: rgba(255, 255, 255, 0.75);
-      --card-border: rgba(0, 0, 0, 0.08);
-      --card-border-hover: rgba(0, 0, 0, 0.22);
-      --text-secondary: #52525b;
-      --text-muted: #71717a;
-      --modal-bg: rgba(255, 255, 255, 0.96);
-      --box-bg: rgba(0, 0, 0, 0.04);
-      --box-border: rgba(0, 0, 0, 0.08);
-      --banner-bg: #ffffff;
-      --banner-border: rgba(0, 0, 0, 0.15);
-      --banner-accent: #dc2626;
-      --banner-title: #b91c1c;
-      --banner-glow: rgba(0, 0, 0, 0.1);
-      --history-bg: #ffffff;
-      --history-border: #e2e8f0;
-      --visitor-text: #3f3f46;
-      --confirm-bg: #ffffff;
-      --confirm-border: rgba(0, 0, 0, 0.12);
-      --confirm-box-bg: rgba(0, 0, 0, 0.05);
-      --confirm-btn-stay-bg: #e4e4e7;
-      --confirm-btn-stay-text: #18181b;
-      --confirm-btn-proceed-bg: #18181b;
-      --confirm-btn-proceed-text: #ffffff;
-      --custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23000000'/%3E%3C/svg%3E") 8 8, crosshair;
     }
 
     * {
@@ -130,121 +80,6 @@
         repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.024) 0 1px, transparent 1px 2px),
         repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 2px),
         radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
-    }
-
-    [data-theme="light"] body::before,
-    [data-theme="light"] body::after {
-      display: none;
-    }
-
-    .theme-toggle-btn {
-      position: fixed;
-      top: 24px;
-      left: 28px;
-      z-index: 9999;
-      background: transparent;
-      border: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: lowercase;
-      letter-spacing: 0.5px;
-      padding: 8px 12px;
-      transition: color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .theme-toggle-btn:hover {
-      color: var(--text-primary);
-      transform: scale(1.08);
-    }
-
-    .socials-marquee-container {
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-      margin-top: 6px;
-      padding: 4px 0;
-      position: relative;
-      display: flex;
-      align-items: center;
-      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-    }
-
-    .socials-marquee-track {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      animation: infiniteSocialsScroll 18s linear infinite;
-      flex-shrink: 0;
-    }
-
-    .socials-marquee-container:hover .socials-marquee-track {
-      animation-play-state: paused;
-    }
-
-    .social-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      background: var(--box-bg);
-      border: 1px solid var(--box-border);
-      border-radius: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-primary);
-      text-decoration: none;
-      backdrop-filter: blur(8px);
-      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .social-pill:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--card-border-hover);
-      transform: translateY(-2px);
-    }
-
-    .social-pill.spotify:hover { color: #1ed760; border-color: rgba(30, 215, 96, 0.5); }
-    .social-pill.steam:hover { color: #66c0f4; border-color: rgba(102, 192, 244, 0.5); }
-    .social-pill.telegram:hover { color: #24a1de; border-color: rgba(36, 161, 222, 0.5); }
-    .social-pill.instagram:hover { color: #e1306c; border-color: rgba(225, 48, 108, 0.5); }
-    .social-pill.playlists:hover { color: #a855f7; border-color: rgba(168, 85, 247, 0.5); }
-
-    @keyframes infiniteSocialsScroll {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .top-popups-stack {
-      position: fixed;
-      top: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 9999;
-      pointer-events: none;
-    }
-
-    .visitor-popup-banner {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--visitor-text);
-      opacity: 1;
-      transition: opacity 1s ease, transform 1s ease;
-      pointer-events: none;
-      white-space: nowrap;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-      text-align: center;
-    }
-
-    .visitor-popup-banner.fade-away {
-      opacity: 0;
-      transform: translateY(-6px);
     }
 
     .container {
@@ -304,12 +139,6 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 4px rgba(0, 0, 0, 0.5), 0 16px 38px rgba(0, 0, 0, 0.45);
     }
 
-    [data-theme="light"] .card {
-      background: var(--card-bg);
-      border-color: var(--card-border);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08);
-    }
-
     .profile-card {
       padding: 20px;
       display: flex;
@@ -341,6 +170,33 @@
       width: 78px;
       height: 78px;
       flex-shrink: 0;
+    }
+
+    .profile-active-apps {
+      position: absolute;
+      right: 0px;
+      bottom: -80px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: flex-end;
+      gap: 4px;
+      max-width: 60%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .active-app-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: #e4e4e7;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: -0.01em;
+      opacity: 0.9;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
     }
 
     .avatar {
@@ -671,325 +527,13 @@
       overflow: hidden;
     }
 
-    .about-bg-anime {
-      position: absolute;
-      right: 20px;
-      bottom: 0px;
-      height: 90%;
-      max-height: 260px;
-      pointer-events: none;
-      z-index: 1;
-      transition: opacity 0.4s ease, filter 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .card-title,
-    .roblox-tag-title {
+    .card-title {
       font-family: 'Bebas Neue', sans-serif !important;
       font-size: 24px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
       color: var(--text-primary);
       line-height: 1;
-    }
-
-    .about-section {
-      position: relative;
-      z-index: 2;
-    }
-
-    .about-heading {
-      font-family: 'Bebas Neue', sans-serif !important;
-      font-size: 18px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--text-primary);
-      margin-bottom: 2px;
-      line-height: 1.1;
-    }
-
-    .about-text {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-
-    #age-target {
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-primary);
-      font-weight: 700;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
-    }
-
-    .konata-container {
-      position: absolute;
-      bottom: 0px;
-      left: 20px;
-      height: 110px;
-      display: inline-flex;
-      align-items: flex-end;
-      justify-content: center;
-      z-index: 20;
-    }
-
-    .konata-dance-gif {
-      height: 100%;
-      width: auto;
-      object-fit: contain;
-      display: block;
-      z-index: 5;
-    }
-
-    .konata-orbit-stack {
-      position: absolute;
-      left: calc(100% + 10px);
-      bottom: 12px;
-      display: flex;
-      flex-direction: column-reverse;
-      gap: 6px;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    .konata-act-pill {
-      background: var(--banner-bg);
-      border: 1px solid var(--pill-color, #22c55e);
-      border-left: 3.5px solid var(--pill-color, #22c55e);
-      border-radius: 6px;
-      padding: 5px 9px;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--text-primary);
-      white-space: nowrap;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
-      opacity: 0;
-      transform: translateX(10px) scale(0.85);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-    }
-
-    .konata-act-pill.pos-0 {
-      opacity: 0;
-      --target-opacity: 1;
-      --target-scale: 1;
-      --target-x: 0px;
-      --target-rot: 0deg;
-    }
-
-    .konata-act-pill.pos-1 {
-      opacity: 0;
-      --target-opacity: 0.85;
-      --target-scale: 0.94;
-      --target-x: -8px;
-      --target-rot: -2deg;
-      transition-delay: 0.05s;
-    }
-
-    .konata-act-pill.pos-2 {
-      opacity: 0;
-      --target-opacity: 0.65;
-      --target-scale: 0.88;
-      --target-x: -16px;
-      --target-rot: -4deg;
-      transition-delay: 0.1s;
-    }
-
-    .konata-container:hover .konata-act-pill {
-      opacity: var(--target-opacity, 1);
-      transform: translateX(var(--target-x, 0px)) rotate(var(--target-rot, 0deg)) scale(var(--target-scale, 1));
-    }
-
-    .roblox-card {
-      position: relative;
-      min-height: 290px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 14px;
-      overflow: hidden;
-      width: 100%;
-      min-width: 0;
-    }
-
-    .roblox-header-top {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1px;
-      z-index: 2;
-    }
-
-    .roblox-user-row {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .roblox-handle {
-      font-size: 11.5px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .roblox-center-stage {
-      position: relative;
-      width: 100%;
-      height: 175px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 4px 0;
-    }
-
-    .roblox-avatar-wrap {
-      position: relative;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    .roblox-avatar-img {
-      height: 100%;
-      max-height: 195px;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
-      pointer-events: auto;
-    }
-
-    .roblox-card:hover .roblox-avatar-img {
-      transform: scale(1.05) translateY(-4px);
-      filter: drop-shadow(0 14px 20px rgba(0, 0, 0, 0.65));
-    }
-
-    .rbx-wearing-col {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 50px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      z-index: 3;
-      mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-    }
-
-    .rbx-wearing-col.left { left: 10px; }
-    .rbx-wearing-col.right { right: 10px; }
-
-    .rbx-wearing-track {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .rbx-wearing-track.scroll-up {
-      animation: rbxScrollUp 14s linear infinite;
-    }
-
-    .rbx-wearing-track.scroll-down {
-      animation: rbxScrollDown 14s linear infinite;
-    }
-
-    .rbx-wearing-col:hover .rbx-wearing-track {
-      animation-play-state: paused;
-    }
-
-    .rbx-asset-pill {
-      width: 46px;
-      height: 46px;
-      min-height: 46px;
-      border-radius: 8px;
-      background: var(--box-bg);
-      border: 1px solid var(--box-border);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px;
-      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .rbx-asset-pill:hover {
-      transform: scale(1.1);
-      border-color: var(--card-border-hover);
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .rbx-asset-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 6px;
-    }
-
-    @keyframes rbxScrollUp {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-50%); }
-    }
-
-    @keyframes rbxScrollDown {
-      0% { transform: translateY(-50%); }
-      100% { transform: translateY(0); }
-    }
-
-    .roblox-footer-wrap {
-      z-index: 10;
-    }
-
-    .roblox-stats-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      background: var(--box-bg);
-      border: 1px solid var(--box-border);
-      border-radius: 20px;
-      padding: 6px 16px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-primary);
-      backdrop-filter: blur(8px);
-      transition: all 0.2s ease;
-    }
-
-    .roblox-stats-pill:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--card-border-hover);
-      transform: translateY(-1px);
-    }
-
-    .roblox-stat-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-secondary);
-    }
-
-    .roblox-stat-item i {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .roblox-stat-item span {
-      color: var(--text-primary);
     }
 
     .modal-overlay {
@@ -1153,36 +697,6 @@
       transform: scale(1.05);
     }
 
-    .extra-discord-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px;
-      background: var(--box-bg);
-      border: 1px solid var(--box-border);
-      border-radius: 12px;
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .extra-discord-card:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--card-border-hover);
-      transform: translateY(-2px);
-    }
-
-    .extra-discord-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .extra-discord-name {
-      font-size: 13.5px;
-      font-weight: 700;
-    }
-
     .confirm-modal-overlay {
       position: fixed;
       inset: 0;
@@ -1277,18 +791,6 @@
 
     .confirm-btn:hover { opacity: 0.85; }
 
-    .btn-sparkle {
-      position: absolute;
-      pointer-events: none;
-      border-radius: 50%;
-      animation: sparklePop 0.8s ease-out forwards;
-    }
-
-    @keyframes sparklePop {
-      0% { transform: translate(0, 0) scale(1); opacity: 1; }
-      100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; }
-    }
-
     .about-bullets-list {
       list-style: none;
       padding: 4px 0 0 0;
@@ -1375,30 +877,6 @@
       transform: translateY(-1px);
     }
 
-    [data-theme="light"] .clock-logo-icon {
-      color: #71717a;
-    }
-
-    [data-theme="light"] .clock-logo-icon:hover {
-      color: #000000;
-    }
-
-    .clock-logo-icon.tiktok:hover {
-      filter: drop-shadow(0 0 5px rgba(254, 44, 85, 0.7));
-    }
-
-    .clock-logo-icon.roblox:hover {
-      filter: invert(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
-    }
-
-    [data-theme="light"] .clock-logo-icon.roblox:hover {
-      filter: invert(0) drop-shadow(0 0 4px rgba(0, 0, 0, 0.4));
-    }
-
-    .clock-logo-icon.discord:hover {
-      filter: drop-shadow(0 0 5px rgba(88, 101, 242, 0.8));
-    }
-
     .digital-time {
       font-family: 'JetBrains Mono', monospace;
       font-size: 13px;
@@ -1408,27 +886,21 @@
       line-height: 1;
     }
 
-    .digital-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--text-secondary);
-    }
-
     .left-dock-widget:hover {
       border-color: var(--card-border-hover);
       box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
     }
 
     .dock-widget-header {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      z-index: 10;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      justify-content: center;
+      line-height: 1;
+      margin: 0;
     }
 
     .dock-widget-close {
@@ -1448,106 +920,129 @@
     .dock-widget-body {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
 
     .dock-widget-icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
       object-fit: cover;
-      background: #191819;
-      border: none;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 4px 10px rgba(0, 0, 0, 0.45);
+      background: linear-gradient(135deg, #2e2d2e, #1d1c1d);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 12px rgba(0, 0, 0, 0.5);
       flex-shrink: 0;
     }
 
     .dock-widget-info {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
       min-width: 0;
+      align-items: flex-start;
     }
 
     .dock-widget-title {
-      font-size: 13.5px;
+      font-size: 15px;
       font-weight: 700;
-      color: var(--text-primary);
+      color: #ffffff;
+      letter-spacing: -0.01em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .dock-widget-sub {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 500;
+      color: #8a898a;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .dock-badge.online { color: #22c55e; }
-    .dock-badge.offline { color: var(--text-muted); }
-
-    .dock-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: currentColor;
-      display: inline-block;
-      margin-right: 4px;
+      font-family: 'Inter', system-ui, sans-serif;
     }
 
     .dock-widget-btn {
-      width: 100%;
-      padding: 7px 12px;
-      border-radius: 8px;
-      font-size: 11.5px;
-      font-weight: 700;
-      font-family: 'Inter', sans-serif;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      border: none;
+      height: 25px;
+      padding: 0 12px;
+      border: 1px solid;
+      border-color: rgba(255, 255, 255, 0.22) rgba(255, 255, 255, 0.14) rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      background: radial-gradient(70% 160% at 50% 50%, rgba(255, 255, 255, 0.12), transparent 70%), #222022;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 2px 4px rgba(0, 0, 0, 0.45);
+      color: #f2f2f2;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Inter', system-ui, sans-serif;
+      text-decoration: none;
       cursor: pointer !important;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .dock-widget-btn.join {
-      background: #5865f2;
-      color: #ffffff;
-    }
-
-    .dock-widget-btn.visit {
-      background: var(--confirm-btn-proceed-bg);
-      color: var(--confirm-btn-proceed-text);
+      margin-top: 3px;
+      width: fit-content;
+      transition: border-color .15s ease, background .15s ease, color .15s ease;
     }
 
     .dock-widget-btn:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.38) rgba(255, 255, 255, 0.24) rgba(255, 255, 255, 0.14);
+      background: radial-gradient(70% 160% at 50% 50%, rgba(255, 255, 255, 0.2), transparent 70%), #2a282a;
+      color: #ffffff;
+      transform: none;
     }
 
-    .about-marin-img {
+    .about-marin-wrap {
       position: absolute;
       bottom: 0px;
       left: 85px;
       height: 75%;
       max-height: 180px;
-      width: auto;
-      object-fit: contain;
-      pointer-events: none;
-      z-index: 1;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 5;
+      display: inline-flex;
+      align-items: flex-end;
+      pointer-events: auto;
     }
 
-    .about-card:hover .about-marin-img {
+    .about-marin-img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer !important;
+    }
+
+    .about-marin-wrap:hover .about-marin-img {
       transform: scale(1.04) translateY(-2px);
+    }
+
+    .marin-status-text {
+      position: absolute;
+      left: calc(100% + 14px);
+      bottom: 100px;
+      width: 210px;
+      max-width: 210px;
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+      color: #f4f4f5;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      word-wrap: break-word;
+      white-space: normal;
+      text-align: left;
+      z-index: 10;
+    }
+
+    .about-marin-wrap:hover .marin-status-text.has-status {
+      opacity: 0.95;
+      transform: translateY(0);
     }
 
     .anilist-card {
@@ -1644,23 +1139,41 @@
     }
 
     .anilist-tab-btn.active {
-      color: #02a9ff;
-      border-color: rgba(2, 169, 255, 0.55);
-      background: rgba(2, 169, 255, 0.08);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 12px rgba(2, 169, 255, 0.2);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 12px rgba(255, 255, 255, 0.15);
     }
 
     .anilist-entries-row {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      display: flex;
+      align-items: stretch;
       gap: 10px;
       width: 100%;
-      padding: 4px 0 2px 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 4px 2px 8px 2px;
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+    }
+
+    .anilist-entries-row::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .anilist-entries-row::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .anilist-entries-row::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
     }
 
     .anilist-entry-card {
-      width: 100%;
-      min-width: 0;
+      flex: 0 0 calc((100% - 40px) / 5);
+      min-width: 82px;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -1826,21 +1339,20 @@
       min-height: 0;
       width: 100%;
       overflow: hidden;
+      position: relative;
       background: linear-gradient(90deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.03) 55%, rgba(255, 255, 255, 0.085)), #171617;
       border: 1px solid;
       border-color: rgba(255, 255, 255, 0.22) rgba(255, 255, 255, 0.12) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.065);
       border-radius: 12px;
-      padding: 14px 16px;
+      padding: 12px 14px;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 30px rgba(0, 0, 0, 0.38);
       display: flex;
       flex-direction: column;
-      gap: 10px;
       box-sizing: border-box;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
-
     .left-dock-widget:hover .dock-widget-inner,
     .right-dock-widget:hover .dock-widget-inner {
       transform: translateY(-3px) scale(1.015);
@@ -1854,16 +1366,58 @@
       transition: transform 0.1s ease;
     }
 
-    [data-theme="light"] .dock-widget-inner {
-      background: var(--card-bg);
-      border-color: var(--card-border);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    }
-
     .dock-widget-header span {
       display: inline-flex;
       align-items: center;
       line-height: 1;
+    }
+
+    .right-dock-widget .dock-widget-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .right-dock-widget.roblox-tall .dock-widget-header {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      right: 12px;
+      z-index: 10;
+      margin-bottom: 0;
+    }
+
+    .right-dock-widget .dock-widget-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      height: 28px;
+      padding: 0 12px;
+      border: 1px solid;
+      border-color: rgba(255, 255, 255, 0.22) rgba(255, 255, 255, 0.14) rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      background: radial-gradient(70% 160% at 50% 50%, rgba(255, 255, 255, 0.12), transparent 70%), #222022;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 2px 4px rgba(0, 0, 0, 0.45);
+      color: #f2f2f2;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'Inter', system-ui, sans-serif;
+      text-decoration: none;
+      cursor: pointer !important;
+      margin-top: 8px;
+      box-sizing: border-box;
+      transition: border-color .15s ease, background .15s ease, color .15s ease;
+    }
+
+    .right-dock-widget .dock-widget-btn:hover {
+      border-color: rgba(255, 255, 255, 0.38) rgba(255, 255, 255, 0.24) rgba(255, 255, 255, 0.14);
+      background: radial-gradient(70% 160% at 50% 50%, rgba(255, 255, 255, 0.2), transparent 70%), #2a282a;
+      color: #ffffff;
+      transform: none;
     }
 
     .dock-widget-header i {
@@ -1871,38 +1425,6 @@
       font-size: 14px !important;
       line-height: 1 !important;
       transition: color 0.2s ease !important;
-    }
-
-    [data-theme="light"] .dock-widget-header i {
-      color: #000000 !important;
-    }
-
-    .dock-widget-header img {
-      width: 14px !important;
-      height: 14px !important;
-      object-fit: contain;
-      filter: brightness(0) invert(1) !important;
-      transition: filter 0.2s ease !important;
-    }
-
-    [data-theme="light"] .dock-widget-header img {
-      filter: brightness(0) invert(0) !important;
-    }
-
-    .dock-widget-header:hover i {
-      color: #ffffff !important;
-    }
-
-    [data-theme="light"] .dock-widget-header:hover i {
-      color: #000000 !important;
-    }
-
-    .dock-widget-header:hover img {
-      filter: brightness(0) invert(1) !important;
-    }
-
-    [data-theme="light"] .dock-widget-header:hover img {
-      filter: brightness(0) invert(0) !important;
     }
 
     .right-dock-widget.roblox-tall {
@@ -1917,19 +1439,6 @@
       align-items: stretch;
       justify-content: space-between;
       text-align: center;
-    }
-
-    .right-dock-badges {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-
-    .right-dock-badge-icon {
-      width: 15px;
-      height: 15px;
-      object-fit: contain;
     }
 
     .right-rbx-body-wrap {
@@ -1977,19 +1486,6 @@
     .right-rbx-stat-item i {
       color: var(--text-muted);
       font-size: 10px;
-    }
-
-    .right-dc-handle-row {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .right-dc-nitro-badge {
-      width: 16px;
-      height: 16px;
-      object-fit: contain;
-      display: block;
     }
 
     .enter-overlay {
@@ -2088,30 +1584,25 @@
 </head>
 <body>
 
-<div id="enter" class="enter-overlay" aria-label="Click to enter">
+<div id="enter" class="enter-overlay" onclick="enterSite()" aria-label="Click to enter">
   <div class="enter-text">
     <h2 id="enter-name">&nbsp;</h2>
     <p>click 2 enter<span class="caret"></span></p>
   </div>
 </div>
 
-  <button class="theme-toggle-btn" id="theme-toggle-btn" onclick="toggleTheme()">light</button>
-
-  <div class="top-popups-stack">
-    <div class="visitor-popup-banner" id="visitor-popup">you are visitor #<span id="visitor-count-val">765</span></div>
-  </div>
-
   <div class="container">
     <div class="top-grid">
       <div class="card profile-card drop" style="--i: 0;">
         <div class="profile-body">
-          <div class="profile-header-row">
-            <div class="avatar-container">
-              <img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="" onerror="this.onerror=null; this.src='https://cdn.discordapp.com/embed/avatars/0.png';" />
-              <div class="status-badge" id="status-badge">
-                <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/></svg>
-              </div>
-            </div>
+            <div class="profile-header-row">
+              <div class="avatar-container">
+                <img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="" onerror="this.onerror=null; this.src='https://cdn.discordapp.com/embed/avatars/0.png';" />
+                 <div class="status-badge" id="status-badge">
+                  <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/></svg>
+                 </div>
+                </div>
+             <div class="profile-active-apps" id="profile-active-apps"></div>
           </div>
 
           <div class="profile-details">
@@ -2119,7 +1610,7 @@
               <span class="username" id="username">goth</span>
               <div class="discord-badges-inline" id="discord-badges"></div>
             </div>
-            <div class="status-text" id="status-text" onclick="copyCurrentUsername(this)" title="Click to copy username">@neeeeeerd</div>
+            <div class="status-text" id="status-text" onclick="copyCurrentUsername(this)">@screenies</div>
           </div>
         </div>
       </div>
@@ -2152,7 +1643,10 @@
           </li>
         </ul>
 
-        <img class="about-marin-img" src="marin.png" alt="Marin" />
+        <div class="about-marin-wrap">
+          <img class="about-marin-img" src="marin.png" alt="Marin" />
+          <div class="marin-status-text" id="marin-status-bubble"></div>
+        </div>
 
         <div class="timezone-widget">
             <div class="clock-logos-row">
@@ -2164,11 +1658,6 @@
               <span class="clock-logo-icon" id="logo-roblox" onclick="toggleRightSocialWidget('roblox')" title="Roblox">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.926 23.998L0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z" />
-                </svg>
-              </span>
-              <span class="clock-logo-icon" id="logo-discord" onclick="toggleActiveDiscordAccount()" title="Switch Account">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z" />
                 </svg>
               </span>
             </div>
@@ -2301,133 +1790,116 @@
   </div>
 
   <div class="left-widgets-stack" id="left-widgets-stack">
-    <div class="left-dock-widget" id="dock-widget-site">
-      <div class="dock-widget-inner">
-        <div class="dock-widget-header">
-          <span><i class="fa-solid fa-globe"></i></span>
-          <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('site')"></i>
-        </div>
-        <div class="dock-widget-body">
-          <img id="dock-site-icon" class="dock-widget-icon" src="favicon.png" alt="Site" />
-          <div class="dock-widget-info">
-            <span class="dock-widget-title" id="dock-site-title">gothic pray</span>
-            <span class="dock-widget-sub" style="color: var(--text-muted);" id="dock-site-url">portfolio</span>
+      <div class="left-dock-widget" id="dock-widget-site">
+        <div class="dock-widget-inner">
+          <div class="dock-widget-header">
+            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('site')"></i>
           </div>
-        </div>
-        <button class="dock-widget-btn visit" id="dock-copy-site-btn" onclick="copySiteLink(this)">
-          <i class="fa-solid fa-link"></i> Copy link
-        </button>
-      </div>
-    </div>
-
-    <div class="left-dock-widget" id="dock-widget-ZUJDf7BMT">
-      <div class="dock-widget-inner">
-        <div class="dock-widget-header">
-          <span><i class="fa-brands fa-discord"></i></span>
-          <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('ZUJDf7BMT')"></i>
-        </div>
-        <div class="dock-widget-body">
-          <img id="dock-icon-ZUJDf7BMT" class="dock-widget-icon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Server" />
-          <div class="dock-widget-info">
-            <span class="dock-widget-title" id="dock-name-ZUJDf7BMT">Chat server</span>
-            <div class="dock-widget-sub">
-              <span class="dock-badge online"><span class="dock-dot"></span><span id="dock-online-ZUJDf7BMT">--</span> Online</span>
-              <span class="dock-badge offline"><span class="dock-dot"></span><span id="dock-offline-ZUJDf7BMT">--</span> Offline</span>
+          <div class="dock-widget-body">
+            <img id="dock-site-icon" class="dock-widget-icon" src="favicon.png" alt="Site" />
+            <div class="dock-widget-info">
+              <span class="dock-widget-title" id="dock-site-title">gothic pray</span>
+              <span class="dock-widget-sub" style="color: var(--text-muted);" id="dock-site-url">portfolio</span>
+              <button class="dock-widget-btn" id="dock-copy-site-btn" onclick="copySiteLink(this)">Copy link</button>
             </div>
           </div>
         </div>
-        <button class="dock-widget-btn join" onclick="window.open('https://discord.gg/ZUJDf7BMT', '_blank')">
-          <i class="fa-solid fa-arrow-right-to-bracket"></i> Apply
-        </button>
       </div>
-    </div>
 
-    <div class="left-dock-widget" id="dock-widget-2rYtaG23ht">
-      <div class="dock-widget-inner">
-        <div class="dock-widget-header">
-          <span><i class="fa-brands fa-discord"></i></span>
-          <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('2rYtaG23ht')"></i>
-        </div>
-        <div class="dock-widget-body">
-          <img id="dock-icon-2rYtaG23ht" class="dock-widget-icon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Server" />
-          <div class="dock-widget-info">
-            <span class="dock-widget-title" id="dock-name-2rYtaG23ht">PFP vault</span>
-            <div class="dock-widget-sub">
-              <span class="dock-badge online"><span class="dock-dot"></span><span id="dock-online-2rYtaG23ht">--</span> Online</span>
-              <span class="dock-badge offline"><span class="dock-dot"></span><span id="dock-offline-2rYtaG23ht">--</span> Offline</span>
+      <div class="left-dock-widget" id="dock-widget-ZUJDf7BMT">
+        <div class="dock-widget-inner">
+          <div class="dock-widget-header">
+            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('ZUJDf7BMT')"></i>
+          </div>
+          <div class="dock-widget-body">
+            <img id="dock-icon-ZUJDf7BMT" class="dock-widget-icon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Server" />
+            <div class="dock-widget-info">
+              <span class="dock-widget-title" id="dock-name-ZUJDf7BMT">Chat server</span>
+              <div class="dock-widget-sub" id="dock-count-ZUJDf7BMT">Loading...</div>
+              <a class="dock-widget-btn" href="https://discord.gg/ZUJDf7BMT" target="_blank" rel="noopener">Apply</a>
             </div>
           </div>
         </div>
-        <button class="dock-widget-btn join" onclick="window.open('https://discord.gg/2rYtaG23ht', '_blank')">
-          <i class="fa-solid fa-arrow-right-to-bracket"></i> Join Server
-        </button>
+       </div>
+
+      <div class="left-dock-widget" id="dock-widget-2rYtaG23ht">
+        <div class="dock-widget-inner">
+          <div class="dock-widget-header">
+            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('2rYtaG23ht')"></i>
+          </div>
+          <div class="dock-widget-body">
+            <img id="dock-icon-2rYtaG23ht" class="dock-widget-icon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Server" />
+            <div class="dock-widget-info">
+              <span class="dock-widget-title" id="dock-name-2rYtaG23ht">PFP vault</span>
+              <div class="dock-widget-sub" id="dock-count-2rYtaG23ht">Loading...</div>
+              <a class="dock-widget-btn" href="https://discord.gg/2rYtaG23ht" target="_blank" rel="noopener">Join</a>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
   </div>
 
   <div class="right-widgets-stack" id="right-widgets-stack">
-    <div class="right-dock-widget" id="right-dock-tiktok">
-      <div class="dock-widget-inner">
-        <div class="dock-widget-header">
-          <span><i class="fa-brands fa-tiktok"></i></span>
-          <i class="fa-solid fa-xmark dock-widget-close" onclick="closeRightDockWidget('tiktok')"></i>
-        </div>
-        <div class="dock-widget-body">
-          <img id="right-tiktok-pfp" class="dock-widget-icon" src="https://cdn.simpleicons.org/tiktok" alt="TikTok" />
-          <div class="dock-widget-info">
-            <span class="dock-widget-title" id="right-tiktok-name">skreenies</span>
-            <div class="dock-widget-sub" id="right-tiktok-stats-sub">
-              <span id="right-tiktok-followers-wrap" style="display: none;"><span id="right-tiktok-followers"></span> Followers</span>
-              <span id="right-tiktok-dot" style="display: none;">&bull;</span>
-              <span id="right-tiktok-following-wrap" style="display: none;"><span id="right-tiktok-following"></span> Following</span>
+       <div class="right-dock-widget" id="right-dock-tiktok">
+         <div class="dock-widget-inner">
+          <div class="dock-widget-header">
+            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeRightDockWidget('tiktok')"></i>
+          </div>
+          <div class="dock-widget-body">
+            <img id="right-tiktok-pfp" class="dock-widget-icon" src="https://cdn.simpleicons.org/tiktok" alt="TikTok" />
+            <div class="dock-widget-info">
+              <span class="dock-widget-title" id="right-tiktok-name">skreenies</span>
+              <div class="dock-widget-sub" id="right-tiktok-stats-sub">
+                <span id="right-tiktok-followers-wrap" style="display: none;"><span id="right-tiktok-followers"></span> Followers</span>
+                <span id="right-tiktok-dot" style="display: none;">&bull;</span>
+                <span id="right-tiktok-following-wrap" style="display: none;"><span id="right-tiktok-following"></span> Following</span>
+              </div>
             </div>
           </div>
+          <button class="dock-widget-btn" onclick="window.open('https://tiktok.com/@skreenies', '_blank')">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Profile
+          </button>
         </div>
-        <button class="dock-widget-btn visit" onclick="window.open('https://tiktok.com/@skreenies', '_blank')">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Profile
-        </button>
+      </div>
+
+      <div class="right-dock-widget roblox-tall" id="right-dock-roblox">
+        <div class="dock-widget-inner">
+          <div class="dock-widget-header" style="width: 100%;">
+            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeRightDockWidget('roblox')"></i>
+            <span><img src="https://cdn.simpleicons.org/roblox" alt="Roblox" /></span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+            <span class="dock-widget-title" id="right-roblox-name">villain</span>
+          </div>
+
+          <div class="right-rbx-body-wrap">
+            <img id="right-roblox-full-img" class="right-rbx-full-img" src="" alt="Roblox Avatar" />
+          </div>
+
+          <div class="right-rbx-stats-pill" id="right-rbx-stats-pill">
+            <span class="right-rbx-stat-item" id="rbx-stat-friends" style="display: none;">
+              <i class="fa-solid fa-user-group"></i> <span id="val-rbx-friends"></span>
+            </span>
+            <span class="right-rbx-stat-item" id="rbx-stat-followers" style="display: none;">
+              <i class="fa-solid fa-user-plus"></i> <span id="val-rbx-followers"></span>
+            </span>
+            <span class="right-rbx-stat-item" id="rbx-stat-following" style="display: none;">
+              <i class="fa-solid fa-users"></i> <span id="val-rbx-following"></span>
+            </span>
+          </div>
+
+          <button class="dock-widget-btn" onclick="window.open('https://www.roblox.com/users/9769080868/profile', '_blank')">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Profile
+          </button>
+        </div>
       </div>
     </div>
-
-    <div class="right-dock-widget roblox-tall" id="right-dock-roblox">
-      <div class="dock-widget-inner">
-        <div class="dock-widget-header" style="width: 100%;">
-          <span><img src="https://cdn.simpleicons.org/roblox" alt="Roblox" /></span>
-          <i class="fa-solid fa-xmark dock-widget-close" onclick="closeRightDockWidget('roblox')"></i>
-        </div>
-
-        <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
-          <span class="dock-widget-title" id="right-roblox-name">villain</span>
-        </div>
-
-        <div class="right-rbx-body-wrap">
-          <img id="right-roblox-full-img" class="right-rbx-full-img" src="https://thumbnails.roproxy.com/v1/users/avatar?userIds=9769080868&size=420x420&format=Png&isCircular=false" alt="Roblox Avatar" />
-        </div>
-
-        <div class="right-rbx-stats-pill" id="right-rbx-stats-pill">
-          <span class="right-rbx-stat-item" id="rbx-stat-friends" style="display: none;">
-            <i class="fa-solid fa-user-group"></i> <span id="val-rbx-friends"></span>
-          </span>
-          <span class="right-rbx-stat-item" id="rbx-stat-followers" style="display: none;">
-            <i class="fa-solid fa-user-plus"></i> <span id="val-rbx-followers"></span>
-          </span>
-          <span class="right-rbx-stat-item" id="rbx-stat-following" style="display: none;">
-            <i class="fa-solid fa-users"></i> <span id="val-rbx-following"></span>
-          </span>
-        </div>
-
-        <button class="dock-widget-btn visit" onclick="window.open('https://www.roblox.com/users/9769080868/profile', '_blank')">
-          <i class="fa-solid fa-arrow-up-right-from-square"></i> View Profile
-        </button>
-      </div>
-    </div>
-  </div>
 
   <script>
-    const DISCORD_ID = "488047218138546179";
+    const DISCORD_ID = "1459602053969215786";
     const LASTFM_API_KEY = "56f986f70954d1ad8c8b3ec3aec33f83";
     const LASTFM_USERNAME = "renumerate";
-    const ROBLOX_USER_ID = "9769080868";
     const BIRTH_DATE = new Date("2009-03-21T00:00:00");
     const ROBLOX_TARGET_ID = "9769080868";
     const fetchedRightCache = {};
@@ -2474,18 +1946,6 @@
       });
     }
 
-    function calculateAge() {
-      const today = new Date();
-      let age = today.getFullYear() - BIRTH_DATE.getFullYear();
-      const m = today.getMonth() - BIRTH_DATE.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < BIRTH_DATE.getDate())) {
-        age--;
-      }
-      const ageTarget = document.getElementById("age-target");
-      if (ageTarget) ageTarget.textContent = age;
-    }
-    calculateAge();
-
     const STATUS_SVGS = {
       online: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#22c55e"/></svg>`,
       idle: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#f59e0b"/></svg>`,
@@ -2500,97 +1960,8 @@
       offline: "#52525b"
     };
 
-    function getSavedHistory() {
-      try {
-        const saved = localStorage.getItem("pray_real_activity_history");
-        if (saved) return JSON.parse(saved);
-      } catch(e) {}
-      return [
-        { verb: "STATUS:", target: "ONLINE", icon: "fa-solid fa-circle", color: "#22c55e" },
-        { verb: "CODING IN", target: "Visual Studio Code", icon: "fa-solid fa-code", color: "#007acc" },
-        { verb: "LISTENING TO", target: "Spotify", icon: "fa-brands fa-spotify", color: "#1ed760" }
-      ];
-    }
-
-    function saveActivityHistory(history) {
-      try {
-        localStorage.setItem("pray_real_activity_history", JSON.stringify(history.slice(0, 3)));
-      } catch(e) {}
-    }
-
-    function recordNewActivity(verb, target, icon, color) {
-      let history = getSavedHistory();
-      if (history.length > 0 && history[0].target === target && history[0].verb === verb) return;
-
-      history.unshift({
-        verb: verb,
-        target: target,
-        icon: icon,
-        color: color
-      });
-      saveActivityHistory(history.slice(0, 3));
-    }
-
-    function renderKonataActivityOrbit(data) {
-      const stackEl = document.getElementById("konata-orbit-stack");
-      if (!stackEl) return;
-
-      const st = data?.discord_status || "offline";
-      const currentStatusColor = STATUS_COLORS[st] || "#52525b";
-      const cards = [];
-
-      const nonStatusActs = data?.activities ? data.activities.filter(a => a.type !== 4) : [];
-      const appAct = nonStatusActs[0];
-      const customStatus = data?.activities ? data.activities.find(a => a.type === 4) : null;
-
-      let activeItem = null;
-
-      if (appAct) {
-        let verb = "Coding";
-        let icon = "fa-solid fa-code";
-        if (appAct.name.toLowerCase().includes("minecraft")) { verb = "Mining"; icon = "fa-solid fa-cube"; }
-        else if (appAct.type === 0) { verb = "Playing"; icon = "fa-solid fa-gamepad"; }
-        else if (appAct.type === 1) { verb = "Streaming"; icon = "fa-solid fa-tower-broadcast"; }
-        else if (appAct.type === 2) { verb = "Listening to"; icon = "fa-solid fa-headphones"; }
-        else if (appAct.type === 3) { verb = "Watching"; icon = "fa-solid fa-tv"; }
-
-        activeItem = { text: `${verb} ${appAct.name}`, icon: icon, color: currentStatusColor };
-        recordNewActivity(verb.toUpperCase(), appAct.name, icon, currentStatusColor);
-      } else if (data?.spotify) {
-        activeItem = { text: `Listening to ${data.spotify.song}`, icon: "fa-brands fa-spotify", color: "#1ed760" };
-        recordNewActivity("LISTENING TO", data.spotify.song, "fa-brands fa-spotify", "#1ed760");
-      } else if (customStatus && customStatus.state) {
-        activeItem = { text: customStatus.state, icon: "fa-regular fa-comment-dots", color: currentStatusColor };
-      } else {
-        const stNames = { online: "Online", idle: "Away / Idle", dnd: "Do Not Disturb", offline: "Offline" };
-        const stIcons = { online: "fa-solid fa-circle", idle: "fa-solid fa-moon", dnd: "fa-solid fa-circle-minus", offline: "fa-solid fa-signal" };
-        activeItem = { text: stNames[st] || "Offline", icon: stIcons[st] || "fa-solid fa-circle", color: currentStatusColor };
-      }
-
-      if (activeItem) cards.push(activeItem);
-
-      const history = getSavedHistory().slice(0, 2);
-      history.forEach(item => {
-        const title = `${item.verb ? item.verb + ' ' : ''}${item.target || ''}`.trim();
-        if (title && (!activeItem || title !== activeItem.text)) {
-          cards.push({
-            text: title,
-            icon: item.icon || "fa-solid fa-clock-rotate-left",
-            color: item.color || currentStatusColor
-          });
-        }
-      });
-
-      stackEl.innerHTML = cards.slice(0, 3).map((card, idx) => `
-        <div class="konata-act-pill pos-${idx}" style="--pill-color: ${card.color};">
-          <i class="${card.icon}" style="color: ${card.color};"></i>
-          <span>${escapeHTML(card.text)}</span>
-        </div>
-      `).join("");
-    }
-
     let TN = '';
-    let TS = 'gothic pray';
+    let TS = 'nerd';
     let ti = 0;
     let td2 = 1;
     let tOn = false;
@@ -2617,7 +1988,7 @@
 
     function setTitle(name) {
       TN = name || '';
-      TS = name ? ' | gothgirls.lol' : 'gothic pray';
+      TS = name ? ' | gothgirls.lol' : 'nerd';
       if (name) document.title = name;
       if (!tOn) {
         tOn = true;
@@ -2627,13 +1998,11 @@
 
     function applyDisplayNameStyles(displayName) {
       const usernameEl = document.getElementById("username");
-      const targetNameEl = document.getElementById("zack-target");
       const enterNameEl = document.getElementById("enter-name");
 
       if (displayName) {
         setTitle(displayName);
         if (usernameEl) usernameEl.textContent = displayName;
-        if (targetNameEl) targetNameEl.textContent = displayName;
         if (enterNameEl) enterNameEl.textContent = displayName;
         try {
           localStorage.setItem("cached_display_name", displayName);
@@ -2652,7 +2021,43 @@
 
     function applyPresenceData(data) {
       if (!data) return;
-      renderKonataActivityOrbit(data);
+
+      const marinBubble = document.getElementById("marin-status-bubble");
+      const customStatus = data.activities ? data.activities.find(a => a.type === 4) : null;
+      const statusRaw = customStatus && (customStatus.state || (customStatus.emoji && customStatus.emoji.name))
+        ? ((customStatus.emoji && customStatus.emoji.name ? customStatus.emoji.name + ' ' : '') + (customStatus.state || '')).trim()
+        : "";
+
+      if (marinBubble) {
+        if (statusRaw) {
+          marinBubble.textContent = `“${statusRaw}”`;
+          marinBubble.classList.add("has-status");
+        } else {
+          marinBubble.textContent = "";
+          marinBubble.classList.remove("has-status");
+        }
+      }
+
+      const appsContainer = document.getElementById("profile-active-apps");
+      if (appsContainer) {
+        const appNames = [];
+
+        if (Array.isArray(data.activities)) {
+          data.activities.forEach(act => {
+            if (act.type !== 4 && act.name && !appNames.includes(act.name)) {
+              appNames.push(act.name);
+            }
+          });
+        }
+
+        if (data.spotify && data.spotify.song && !appNames.includes("Spotify")) {
+          appNames.push("Spotify");
+        }
+
+        appsContainer.innerHTML = appNames.map(name => `
+          <span class="active-app-name" title="${escapeHTML(name)}">${escapeHTML(name)}</span>
+        `).join("");
+      }
 
       const user = data.discord_user;
       const statusTextEl = document.getElementById("status-text");
@@ -2674,42 +2079,31 @@
       }
 
       const st = data.discord_status || "offline";
-      const statusColor = STATUS_COLORS[st] || STATUS_COLORS.offline;
-      if (statusBadgeEl) {
+      if (statusBadgeEl && typeof STATUS_SVGS !== "undefined") {
         statusBadgeEl.innerHTML = STATUS_SVGS[st] || STATUS_SVGS.offline;
       }
-
-      document.documentElement.style.setProperty('--banner-accent', statusColor);
-      document.documentElement.style.setProperty('--banner-glow', statusColor + '35');
     }
-
-    const PRIMARY_DISCORD_ID = "488047218138546179";
-    const SECONDARY_DISCORD_ID = "1459602053969215786";
-    let activeDiscordId = PRIMARY_DISCORD_ID;
 
     async function fetchDiscordProfile() {
       const badgesContainer = document.getElementById("discord-badges");
-      const statusTextEl = document.getElementById("status-text");
       const avatarEl = document.getElementById("avatar");
 
       try {
-        const res = await fetch(`https://dcdn.dstn.to/profile/${activeDiscordId}?t=${Date.now()}`);
+        const res = await fetch(`https://dcdn.dstn.to/profile/${DISCORD_ID}?t=${Date.now()}`);
         if (!res.ok) throw new Error("DSTN request failed");
 
         const data = await res.json();
         const user = data.user || data.account || {};
 
         if (user) {
-          function applyDisplayNameStyles(displayName) {
-            const usernameEl = document.getElementById("username");
-            const targetNameEl = document.getElementById("zack-target");
-            const enterNameEl = document.getElementById("enter-name");
+          const displayName = user.global_name || user.display_name || user.username || "nerd";
+          applyDisplayNameStyles(displayName);
 
-            if (displayName) {
-              setTitle(displayName);
-              if (usernameEl) usernameEl.textContent = displayName;
-              if (targetNameEl) targetNameEl.textContent = displayName;
-              if (enterNameEl) enterNameEl.textContent = displayName;
+          if (user.username) {
+            currentDiscordUsername = user.username;
+            const statusTextEl = document.getElementById("status-text");
+            if (statusTextEl && !isCopying) {
+              statusTextEl.textContent = `@${user.username}`;
             }
           }
 
@@ -2727,6 +2121,7 @@
               return `
                 <div class="badge-wrapper">
                   <img class="discord-badge-icon" src="${iconUrl}" alt="${desc}" />
+                  <span class="badge-tooltip">${desc}</span>
                 </div>
               `;
             }).join("");
@@ -2756,7 +2151,7 @@
 
           socket.send(JSON.stringify({
             op: 2,
-            d: { subscribe_to_id: activeDiscordId }
+            d: { subscribe_to_id: DISCORD_ID }
           }));
         }
 
@@ -2771,12 +2166,6 @@
         if (heartbeatInterval) clearInterval(heartbeatInterval);
         setTimeout(connectLanyardWebSocket, 5000);
       };
-    }
-
-    function toggleActiveDiscordAccount() {
-      activeDiscordId = (activeDiscordId === PRIMARY_DISCORD_ID) ? SECONDARY_DISCORD_ID : PRIMARY_DISCORD_ID;
-      fetchDiscordProfile();
-      connectLanyardWebSocket();
     }
 
     function getRelativeTime(timestamp) {
@@ -2978,8 +2367,7 @@
         return;
       }
 
-      const slice = entries.slice(0, 5);
-      container.innerHTML = slice.map(e => {
+      container.innerHTML = entries.map(e => {
         const title = escapeHTML(e.media?.title?.english || e.media?.title?.romaji || "Anime");
         const cover = e.media?.coverImage?.large || e.media?.coverImage?.medium || "";
         const totalEps = e.media?.episodes ? `${e.media.episodes}` : "?";
@@ -3000,55 +2388,22 @@
           </div>
         `;
       }).join("");
+
+      if (!container.dataset.wheelBound) {
+        container.dataset.wheelBound = "true";
+        container.addEventListener("wheel", (e) => {
+          if (e.deltaY !== 0) {
+            e.preventDefault();
+            container.scrollLeft += e.deltaY;
+          }
+        }, { passive: false });
+      }
     }
 
     function switchAniListTab(tabKey, btn) {
       document.querySelectorAll(".anilist-tab-btn").forEach(b => b.classList.remove("active"));
       if (btn) btn.classList.add("active");
       renderAniListEntries(tabKey);
-    }
-
-    function applyTheme(mode) {
-      document.documentElement.setAttribute("data-theme", mode);
-      const themeToggleBtn = document.getElementById("theme-toggle-btn");
-      if (themeToggleBtn) themeToggleBtn.textContent = mode === "light" ? "dark" : "light";
-
-      const animeImg = document.getElementById("about-bg-anime");
-      if (!animeImg) return;
-
-      animeImg.style.opacity = "0";
-      setTimeout(() => {
-        if (mode === "light") {
-          animeImg.src = "lbg1.png";
-          animeImg.style.filter = "grayscale(20%)";
-          animeImg.style.mixBlendMode = "multiply";
-          animeImg.style.opacity = "0.45";
-        } else {
-          animeImg.src = "dbg1.png";
-          animeImg.style.filter = "grayscale(80%)";
-          animeImg.style.mixBlendMode = "normal";
-          animeImg.style.opacity = "0.25";
-        }
-      }, 200);
-    }
-
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
-      applyTheme(currentTheme === "light" ? "dark" : "light");
-    }
-
-    function initVisitorPopup() {
-      let visits = parseInt(localStorage.getItem("pray_site_visit_count") || "765");
-      visits += 1;
-      localStorage.setItem("pray_site_visit_count", visits);
-
-      const visitorValEl = document.getElementById("visitor-count-val");
-      if (visitorValEl) visitorValEl.textContent = visits;
-
-      setTimeout(() => {
-        const popup = document.getElementById("visitor-popup");
-        if (popup) popup.classList.add("fade-away");
-      }, 4000);
     }
 
     function openPlaylistsModal() {
@@ -3089,32 +2444,12 @@
       closeConfirmModal();
     }
 
-    function spawnButtonSparkle(e, btn, color) {
-      const rect = btn.getBoundingClientRect();
-      const sparkle = document.createElement("div");
-      sparkle.className = "btn-sparkle";
-      sparkle.style.background = color || "#ef4444";
-      sparkle.style.width = "4px";
-      sparkle.style.height = "4px";
-      sparkle.style.boxShadow = `0 0 8px ${color || "#ef4444"}`;
-      sparkle.style.left = (e.clientX - rect.left) + "px";
-      sparkle.style.top = (e.clientY - rect.top) + "px";
-
-      const dx = (Math.random() - 0.5) * 35 + "px";
-      const dy = (Math.random() - 0.5) * 35 + "px";
-      sparkle.style.setProperty('--dx', dx);
-      sparkle.style.setProperty('--dy', dy);
-
-      btn.appendChild(sparkle);
-      setTimeout(() => sparkle.remove(), 800);
-    }
-
     window.addEventListener("DOMContentLoaded", () => {
-      initVisitorPopup();
       fetchDiscordProfile();
       connectLanyardWebSocket();
       fetchLastFmRecent();
       fetchAniListProfile();
+      fetchRightRoblox();
       initLiveClock();
       setInterval(fetchLastFmRecent, 30000);
     });
@@ -3154,15 +2489,14 @@
       if (fetchedInvitesCache[inviteCode]) return;
 
       try {
-        const res = await fetch(`https://discord.com/api/v9/invites/${inviteCode}?with_counts=true`);
+        const res = await fetch(`https://discord.com/api/v10/invites/${inviteCode}?with_counts=true`);
         if (!res.ok) throw new Error("Invite fetch error");
         const data = await res.json();
 
         const guild = data.guild || {};
         const nameEl = document.getElementById(`dock-name-${inviteCode}`);
         const iconEl = document.getElementById(`dock-icon-${inviteCode}`);
-        const onlineEl = document.getElementById(`dock-online-${inviteCode}`);
-        const offlineEl = document.getElementById(`dock-offline-${inviteCode}`);
+        const countEl = document.getElementById(`dock-count-${inviteCode}`);
 
         if (nameEl && guild.name) nameEl.textContent = guild.name;
         if (iconEl && guild.icon) {
@@ -3170,12 +2504,11 @@
           iconEl.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${ext}?size=128`;
         }
 
-        const online = data.approximate_presence_count || 0;
-        const total = data.approximate_member_count || 0;
-        const offline = Math.max(0, total - online);
-
-        if (onlineEl) onlineEl.textContent = online.toLocaleString();
-        if (offlineEl) offlineEl.textContent = offline.toLocaleString();
+        if (countEl) {
+          const online = data.approximate_presence_count || 0;
+          const members = data.approximate_member_count || 0;
+          countEl.textContent = `${online.toLocaleString()} online · ${members.toLocaleString()} members`;
+        }
 
         fetchedInvitesCache[inviteCode] = true;
       } catch (e) {}
@@ -3229,7 +2562,6 @@
       widget.classList.add("active");
 
       if (key === "roblox" && !fetchedRightCache.roblox) fetchRightRoblox();
-      if (key === "discord" && !fetchedRightCache.discord) fetchRightDiscord();
       if (key === "tiktok" && !fetchedRightCache.tiktok) fetchRightTikTok();
     }
 
@@ -3238,22 +2570,28 @@
       if (widget) widget.classList.remove("active");
     }
 
-    let secondaryDiscordUsernameToCopy = "screenies";
-
     async function fetchRightRoblox() {
       try {
-        const uRes = await fetch(`https://users.roproxy.com/v1/users/${ROBLOX_TARGET_ID}`);
+        const avatarImgEl = document.getElementById("right-roblox-full-img");
+
+        const cachedAvatar = localStorage.getItem("cached_roblox_avatar");
+        if (cachedAvatar && avatarImgEl && !avatarImgEl.src.includes("rbxcdn")) {
+          avatarImgEl.src = cachedAvatar;
+        }
+
+        const [uRes, fRes, folRes, flwRes, avatarRes] = await Promise.all([
+          fetch(`https://users.roproxy.com/v1/users/${ROBLOX_TARGET_ID}`),
+          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/friends/count`),
+          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/followers/count`),
+          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/followings/count`),
+          fetch(`https://thumbnails.roproxy.com/v1/users/avatar?userIds=${ROBLOX_TARGET_ID}&size=420x420&format=Png&isCircular=false`)
+        ]);
+
         if (uRes.ok) {
           const uData = await uRes.json();
           const nameEl = document.getElementById("right-roblox-name");
           if (nameEl) nameEl.textContent = uData.displayName || uData.name;
         }
-
-        const [fRes, folRes, flwRes] = await Promise.all([
-          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/friends/count`),
-          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/followers/count`),
-          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/followings/count`)
-        ]);
 
         const counts = {
           friends: fRes.ok ? (await fRes.json()).count : 0,
@@ -3274,60 +2612,18 @@
           }
         });
 
-        const avatarRes = await fetch(`https://thumbnails.roproxy.com/v1/users/avatar?userIds=${ROBLOX_TARGET_ID}&size=420x420&format=Png&isCircular=false`);
         if (avatarRes.ok) {
           const aData = await avatarRes.json();
           const imgUrl = aData?.data?.[0]?.imageUrl;
-          const imgEl = document.getElementById("right-roblox-full-img");
-          if (imgUrl && imgEl) imgEl.src = imgUrl;
+          if (imgUrl && avatarImgEl) {
+            avatarImgEl.src = imgUrl;
+            try {
+              localStorage.setItem("cached_roblox_avatar", imgUrl);
+            } catch (e) {}
+          }
         }
 
         fetchedRightCache.roblox = true;
-      } catch (e) {}
-    }
-
-    async function fetchRightDiscord() {
-      try {
-        const res = await fetch(`https://dcdn.dstn.to/profile/${SECONDARY_DISCORD_ID}?t=${Date.now()}`);
-        if (!res.ok) throw new Error("DSTN failed");
-        const data = await res.json();
-        const user = data.user || data.account || {};
-
-        const displayEl = document.getElementById("right-discord-display");
-        const userEl = document.getElementById("right-discord-user");
-        const pfpEl = document.getElementById("right-discord-pfp");
-        const badgesEl = document.getElementById("right-discord-badges");
-        const nitroEl = document.getElementById("right-discord-nitro-icon");
-
-        if (user.username) {
-          secondaryDiscordUsernameToCopy = user.username;
-          if (userEl) userEl.textContent = `@${user.username}`;
-        }
-
-        if (displayEl) displayEl.textContent = user.global_name || user.display_name || user.username || "#";
-
-        if (user.avatar && pfpEl) {
-          const ext = user.avatar.startsWith("a_") ? "gif" : "png";
-          pfpEl.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=128`;
-        }
-
-        if (Array.isArray(data.badges)) {
-          const nitroBadge = data.badges.find(b => b.id?.includes("premium") || b.description?.toLowerCase().includes("nitro"));
-          if (nitroBadge?.icon && nitroEl) {
-            nitroEl.src = `https://cdn.discordapp.com/badge-icons/${nitroBadge.icon}.png`;
-          }
-
-          const otherBadges = data.badges.filter(b => b !== nitroBadge);
-          if (badgesEl) {
-            badgesEl.innerHTML = otherBadges.map(b => {
-              const iconUrl = b.icon ? `https://cdn.discordapp.com/badge-icons/${b.icon}.png` : "";
-              if (!iconUrl) return "";
-              return `<img class="right-dock-badge-icon" src="${iconUrl}" title="${escapeHTML(b.description || '')}" alt="" />`;
-            }).join("");
-          }
-        }
-
-        fetchedRightCache.discord = true;
       } catch (e) {}
     }
 
@@ -3377,32 +2673,39 @@
       fetchedRightCache.tiktok = true;
     }
 
-    const bgAudio = new Audio('song.mp3');
+    var AUDIO_VOLUME = 0.07;
+
+    var bgAudio = new Audio('song.mp3');
     bgAudio.loop = true;
+    bgAudio.volume = AUDIO_VOLUME;
 
-    const enterOverlay = document.getElementById('enter');
-    if (enterOverlay) {
-      enterOverlay.addEventListener('click', function () {
-        enterOverlay.classList.add('fade-out');
-        bgAudio.play().catch(function () {});
-        setTimeout(function () {
-          document.body.classList.add('ready');
-        }, 180);
-        setTimeout(function () {
-          try {
-            enterOverlay.remove();
-          } catch (e) {}
-        }, 550);
-      });
+    function enterSite() {
+      var overlay = document.getElementById('enter');
+      if (!overlay || overlay.classList.contains('fade-out')) return;
 
-      document.addEventListener('keydown', function (e) {
-        if (enterOverlay && !enterOverlay.classList.contains('fade-out')) {
-          if (e.key === ' ' || e.key === 'Enter') {
-            enterOverlay.click();
-          }
-        }
-      });
+      overlay.classList.add('fade-out');
+      bgAudio.play().catch(function () {});
+
+      setTimeout(function () {
+        document.body.classList.add('ready');
+      }, 180);
+
+      setTimeout(function () {
+        try {
+          overlay.remove();
+        } catch (e) {}
+      }, 550);
     }
+
+    document.addEventListener('keydown', function (e) {
+      var overlay = document.getElementById('enter');
+      if (overlay && !overlay.classList.contains('fade-out')) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          enterSite();
+        }
+      }
+    });
+    </script>
 
   </script>
 </body>
