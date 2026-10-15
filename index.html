@@ -209,6 +209,17 @@
       box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
 
+    .avatar-decoration {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      width: calc(100% + 16px);
+      height: calc(100% + 16px);
+      pointer-events: none;
+      z-index: 2;
+      object-fit: contain;
+    }
+
     .status-badge {
       position: absolute;
       bottom: 1px;
@@ -696,100 +707,6 @@
       box-shadow: 0 0 12px rgba(30, 215, 96, 0.5);
       transform: scale(1.05);
     }
-
-    .confirm-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      z-index: 20000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease;
-    }
-
-    .confirm-modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .confirm-card {
-      background: var(--confirm-bg);
-      border: 1px solid var(--confirm-border);
-      border-radius: 16px;
-      padding: 24px 28px;
-      width: 90%;
-      max-width: 420px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      transform: scale(0.95);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .confirm-modal-overlay.active .confirm-card {
-      transform: scale(1);
-    }
-
-    .confirm-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: -0.3px;
-    }
-
-    .confirm-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-weight: 600;
-      text-transform: lowercase;
-      margin-top: -6px;
-    }
-
-    .confirm-url-box {
-      background: var(--confirm-box-bg);
-      border: 1px solid var(--confirm-border);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 12.5px;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-primary);
-      word-break: break-all;
-    }
-
-    .confirm-actions {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 4px;
-    }
-
-    .confirm-btn {
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      transition: opacity 0.2s ease;
-      border: none;
-    }
-
-    .confirm-btn.stay {
-      background: var(--confirm-btn-stay-bg);
-      border: 1px solid var(--confirm-border);
-      color: var(--confirm-btn-stay-text);
-    }
-
-    .confirm-btn.proceed {
-      background: var(--confirm-btn-proceed-bg);
-      color: var(--confirm-btn-proceed-text);
-    }
-
-    .confirm-btn:hover { opacity: 0.85; }
 
     .about-bullets-list {
       list-style: none;
@@ -1596,11 +1513,12 @@
       <div class="card profile-card drop" style="--i: 0;">
         <div class="profile-body">
             <div class="profile-header-row">
-              <div class="avatar-container">
-                <img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="" onerror="this.onerror=null; this.src='https://cdn.discordapp.com/embed/avatars/0.png';" />
-                 <div class="status-badge" id="status-badge">
-                  <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/></svg>
-                 </div>
+                <div class="avatar-container">
+                  <img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="" onerror="this.onerror=null; this.src='https://cdn.discordapp.com/embed/avatars/0.png';" />
+                  <img id="avatar-decoration" class="avatar-decoration" src="" alt="" style="display: none;" />
+                  <div class="status-badge" id="status-badge">
+                    <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/></svg>
+                  </div>
                 </div>
              <div class="profile-active-apps" id="profile-active-apps"></div>
           </div>
@@ -1650,11 +1568,11 @@
 
         <div class="timezone-widget">
             <div class="clock-logos-row">
-              <span class="clock-logo-icon" id="logo-tiktok" onclick="toggleRightSocialWidget('tiktok')" title="TikTok">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.89 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.32 0 .62.06.9.15V9.45a6.37 6.37 0 0 0-.9-.07A6.34 6.34 0 0 0 3 15.72a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.75a8.16 8.16 0 0 0 4.91 1.63V6.93a4.85 4.85 0 0 1-1-.24z" />
-                </svg>
-              </span>
+                <span class="clock-logo-icon" id="logo-minecraft" onclick="toggleRightSocialWidget('minecraft')" title="Minecraft">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21.17 6.46l-8.5-4.86a1.5 1.5 0 0 0-1.47 0L2.7 6.46a1.5 1.5 0 0 0-.75 1.3v9.48a1.5 1.5 0 0 0 .75 1.3l8.5 4.86a1.5 1.5 0 0 0 1.47 0l8.5-4.86a1.5 1.5 0 0 0 .75-1.3V7.76a1.5 1.5 0 0 0-.75-1.3zM12 3.66l6.83 3.9L12 11.46 5.17 7.56 12 3.66zm-8 5.75l7 4v6.93l-7-4V9.41zm9 10.93v-6.93l7-4v6.93l-7 4z"/>
+                  </svg>
+                </span>
               <span class="clock-logo-icon" id="logo-roblox" onclick="toggleRightSocialWidget('roblox')" title="Roblox">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.926 23.998L0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z" />
@@ -1777,18 +1695,6 @@
     </div>
   </div>
 
-  <div class="confirm-modal-overlay" id="confirm-modal-overlay" onclick="closeConfirmModalOnBackdrop(event)">
-    <div class="confirm-card" onclick="event.stopPropagation()">
-      <div class="confirm-title">leaving so soon?</div>
-      <div class="confirm-sub">this link will take you to</div>
-      <div class="confirm-url-box" id="confirm-target-url">https://example.com/</div>
-      <div class="confirm-actions">
-        <button class="confirm-btn stay" onclick="closeConfirmModal()">stay</button>
-        <button class="confirm-btn proceed" onclick="proceedToTargetUrl()">proceed</button>
-      </div>
-    </div>
-  </div>
-
   <div class="left-widgets-stack" id="left-widgets-stack">
       <div class="left-dock-widget" id="dock-widget-site">
         <div class="dock-widget-inner">
@@ -1840,28 +1746,7 @@
   </div>
 
   <div class="right-widgets-stack" id="right-widgets-stack">
-       <div class="right-dock-widget" id="right-dock-tiktok">
-         <div class="dock-widget-inner">
-          <div class="dock-widget-header">
-            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeRightDockWidget('tiktok')"></i>
-          </div>
-          <div class="dock-widget-body">
-            <img id="right-tiktok-pfp" class="dock-widget-icon" src="https://cdn.simpleicons.org/tiktok" alt="TikTok" />
-            <div class="dock-widget-info">
-              <span class="dock-widget-title" id="right-tiktok-name">skreenies</span>
-              <div class="dock-widget-sub" id="right-tiktok-stats-sub">
-                <span id="right-tiktok-followers-wrap" style="display: none;"><span id="right-tiktok-followers"></span> Followers</span>
-                <span id="right-tiktok-dot" style="display: none;">&bull;</span>
-                <span id="right-tiktok-following-wrap" style="display: none;"><span id="right-tiktok-following"></span> Following</span>
-              </div>
-            </div>
-          </div>
-          <button class="dock-widget-btn" onclick="window.open('https://tiktok.com/@skreenies', '_blank')">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Profile
-          </button>
-        </div>
-      </div>
-
+      <!-- Roblox Widget -->
       <div class="right-dock-widget roblox-tall" id="right-dock-roblox">
         <div class="dock-widget-inner">
           <div class="dock-widget-header" style="width: 100%;">
@@ -1894,6 +1779,32 @@
           </button>
         </div>
       </div>
+
+      <!-- Minecraft Widget -->
+      <div class="right-dock-widget roblox-tall" id="right-dock-minecraft">
+        <div class="dock-widget-inner">
+          <div class="dock-widget-header" style="width: 100%;">
+            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeRightDockWidget('minecraft')"></i>
+            <span><i class="fa-solid fa-cube" style="color: #6ee7b7; font-size: 13px;"></i></span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+            <span class="dock-widget-title" id="right-mc-name">Loading...</span>
+          </div>
+
+          <div class="right-rbx-body-wrap">
+            <img id="right-mc-full-img"
+                 class="right-rbx-full-img"
+                 src="https://skinrender.dev/render/d10dfb5e-4a7b-4d1e-9c74-a812e216e89e/body?yaw=35&capeAngle=25&size=512"
+                 alt="Minecraft Skin" />
+          </div>
+
+          <button class="dock-widget-btn" onclick="window.open('https://namemc.com/profile/d10dfb5e-4a7b-4d1e-9c74-a812e216e89e', '_blank')">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> NameMC Profile
+          </button>
+        </div>
+      </div>
+    </div>
     </div>
 
   <script>
@@ -1902,6 +1813,7 @@
     const LASTFM_USERNAME = "renumerate";
     const BIRTH_DATE = new Date("2009-03-21T00:00:00");
     const ROBLOX_TARGET_ID = "9769080868";
+    const MC_UUID = "d10dfb5e-4a7b-4d1e-9c74-a812e216e89e";
     const fetchedRightCache = {};
 
     let activeRedirectUrl = "";
@@ -2019,6 +1931,19 @@
       avatarEl.src = `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.${ext}?size=256`;
     }
 
+    function applyAvatarDecoration(decoData) {
+      const decoEl = document.getElementById("avatar-decoration");
+      if (!decoEl) return;
+
+      const asset = decoData?.asset;
+      if (asset) {
+        decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=160&passthrough=true`;
+        decoEl.style.display = "block";
+      } else {
+        decoEl.style.display = "none";
+      }
+    }
+
     function applyPresenceData(data) {
       if (!data) return;
 
@@ -2066,6 +1991,7 @@
       if (user) {
         const displayName = user.global_name || user.display_name || user.username || "goth";
         applyDisplayNameStyles(displayName);
+        applyAvatarDecoration(user.avatar_decoration_data);
 
         if (user.username) {
           currentDiscordUsername = user.username;
@@ -2098,6 +2024,7 @@
         if (user) {
           const displayName = user.global_name || user.display_name || user.username || "nerd";
           applyDisplayNameStyles(displayName);
+          applyAvatarDecoration(user.avatar_decoration_data);
 
           if (user.username) {
             currentDiscordUsername = user.username;
@@ -2421,27 +2348,7 @@
     }
 
     function promptExternalLink(url) {
-      activeRedirectUrl = url;
-      document.getElementById("confirm-target-url").textContent = url;
-      document.getElementById("confirm-modal-overlay").classList.add("active");
-    }
-
-    function closeConfirmModal() {
-      document.getElementById("confirm-modal-overlay").classList.remove("active");
-      activeRedirectUrl = "";
-    }
-
-    function closeConfirmModalOnBackdrop(e) {
-      if (e.target.id === "confirm-modal-overlay") {
-        closeConfirmModal();
-      }
-    }
-
-    function proceedToTargetUrl() {
-      if (activeRedirectUrl) {
-        window.open(activeRedirectUrl, "_blank", "noopener,noreferrer");
-      }
-      closeConfirmModal();
+      window.open(url, "_blank", "noopener,noreferrer");
     }
 
     window.addEventListener("DOMContentLoaded", () => {
@@ -2450,6 +2357,7 @@
       fetchLastFmRecent();
       fetchAniListProfile();
       fetchRightRoblox();
+      fetchRightMinecraft();
       initLiveClock();
       setInterval(fetchLastFmRecent, 30000);
     });
@@ -2562,7 +2470,10 @@
       widget.classList.add("active");
 
       if (key === "roblox" && !fetchedRightCache.roblox) fetchRightRoblox();
-      if (key === "tiktok" && !fetchedRightCache.tiktok) fetchRightTikTok();
+      if (key === "minecraft" && !fetchedRightCache.minecraft) {
+        fetchRightMinecraft();
+        fetchedRightCache.minecraft = true;
+      }
     }
 
     function closeRightDockWidget(key) {
@@ -2627,50 +2538,40 @@
       } catch (e) {}
     }
 
-    const TIKTOK_CONFIG = {
-      username: "skreenies",
-      displayName: "skreenies",
-      avatarUrl: "https://p16-common-sign.tiktokcdn.com/tos-alisg-avt-0068/e2733e8c4d1be1c8a64f1806ab849292~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=bf11eb9c&x-expires=1791748800&x-signature=tkApxvHgeA%2BdkXPz8E6DSh0%2Byuc%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=my2",
-      followers: 19,
-      following: 20
-    };
+    async function fetchRightMinecraft() {
+      const nameEl = document.getElementById("right-mc-name");
 
-    function fetchRightTikTok() {
-      const nameEl = document.getElementById("right-tiktok-name");
-      const pfpEl = document.getElementById("right-tiktok-pfp");
-      const folWrap = document.getElementById("right-tiktok-followers-wrap");
-      const flwWrap = document.getElementById("right-tiktok-following-wrap");
-      const dotEl = document.getElementById("right-tiktok-dot");
-      const folEl = document.getElementById("right-tiktok-followers");
-      const flwEl = document.getElementById("right-tiktok-following");
-
-      if (nameEl) nameEl.textContent = TIKTOK_CONFIG.displayName;
-      if (pfpEl && TIKTOK_CONFIG.avatarUrl) pfpEl.src = TIKTOK_CONFIG.avatarUrl;
-
-      let hasFol = false;
-      let hasFlw = false;
-
-      if (TIKTOK_CONFIG.followers > 0) {
-        if (folEl) folEl.textContent = TIKTOK_CONFIG.followers.toLocaleString();
-        if (folWrap) folWrap.style.display = "inline";
-        hasFol = true;
-      } else if (folWrap) {
-        folWrap.style.display = "none";
+      const cachedName = localStorage.getItem("cached_mc_name");
+      if (cachedName && nameEl) {
+        nameEl.textContent = cachedName;
       }
 
-      if (TIKTOK_CONFIG.following > 0) {
-        if (flwEl) flwEl.textContent = TIKTOK_CONFIG.following.toLocaleString();
-        if (flwWrap) flwWrap.style.display = "inline";
-        hasFlw = true;
-      } else if (flwWrap) {
-        flwWrap.style.display = "none";
+      try {
+        const res = await fetch(`https://playerdb.co/api/player/minecraft/${MC_UUID}`);
+        if (res.ok) {
+          const data = await res.json();
+          const username = data?.data?.player?.username;
+          if (username && nameEl) {
+            nameEl.textContent = username;
+            localStorage.setItem("cached_mc_name", username);
+            return;
+          }
+        }
+        throw new Error("Primary API failed");
+      } catch (e) {
+        try {
+          const fallbackRes = await fetch(`https://api.mojang.com/user/profile/${MC_UUID.replace(/-/g, "")}`);
+          if (fallbackRes.ok) {
+            const fbData = await fallbackRes.json();
+            if (fbData?.name && nameEl) {
+              nameEl.textContent = fbData.name;
+              localStorage.setItem("cached_mc_name", fbData.name);
+            }
+          }
+        } catch (err) {
+          if (!cachedName && nameEl) nameEl.textContent = "Minecraft";
+        }
       }
-
-      if (dotEl) {
-        dotEl.style.display = (hasFol && hasFlw) ? "inline" : "none";
-      }
-
-      fetchedRightCache.tiktok = true;
     }
 
     var AUDIO_VOLUME = 0.07;
