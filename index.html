@@ -1,2613 +1,2319 @@
+<!--
+  © 2026 @chunkloader (https://discord.com/users/488047218138546179)
+  all rights reserved. built for gothgirls.lol
+  please don't rip the code or layout without asking first.
+-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full antialiased">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>nerd</title>
-  <link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/x-icon" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title id="page-title">jules</title>
+  <meta name="description" content="i build small tools, ship web experiments, and community spaces." />
+  <link rel="icon" href="https://gothgirls.lol/favicon.png" type="image/png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://api.lanyard.rest" crossorigin>
+  <link rel="preconnect" href="https://ws.audioscrobbler.com" crossorigin>
+  <link rel="preconnect" href="https://discord.com" crossorigin>
+  <link rel="preconnect" href="https://github-contributions-api.jogruber.de" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Fraunces:ital,opsz,SOFT,WONK@0,9..144,0..100,0..1;1,9..144,0..100,0..1&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Figtree', 'sans-serif'],
+            serif: ['Fraunces', 'serif'],
+          },
+          colors: {
+            background: '#f6f5f1',
+            foreground: '#1c1b18',
+            muted: '#71706b',
+            line: '#dcdad2',
+            accent: '#ea580c',
+            'accent-soft': 'rgba(251, 146, 60, 0.13)',
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
     :root {
-      --tooltip-bg: #111214;
-      --tooltip-text: #f2f3f5;
-      --tooltip-border: rgba(255, 255, 255, 0.1);
-      --text-primary: #e4e4e7;
-      --bg-base: #151415;
-      --card-bg: rgba(13, 13, 15, 0.85);
-      --card-border: rgba(255, 255, 255, 0.07);
-      --card-border-hover: rgba(255, 255, 255, 0.18);
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
-      --modal-bg: rgba(13, 13, 15, 0.95);
-      --box-bg: rgba(0, 0, 0, 0.3);
-      --box-border: rgba(255, 255, 255, 0.04);
-      --confirm-bg: #09090b;
-      --confirm-border: rgba(255, 255, 255, 0.1);
-      --confirm-box-bg: #121215;
-      --confirm-btn-stay-bg: #121215;
-      --confirm-btn-stay-text: #ffffff;
-      --confirm-btn-proceed-bg: #ffffff;
-      --confirm-btn-proceed-text: #000000;
-      --custom-cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23ffffff'/%3E%3C/svg%3E") 8 8, crosshair;
+      --heat-hue: 145;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      user-select: none;
-      touch-action: manipulation;
-      cursor: var(--custom-cursor);
+    /* hide default cursor everywhere */
+    *, *::before, *::after, html, body, a, button, p, h1, h2, span, div, ul, li {
+      cursor: none !important;
+      outline: none !important;
     }
 
-    button, a, .clickable {
-      cursor: pointer !important;
-    }
-
-    html, body {
-      min-height: 100vh;
-      width: 100vw;
+    body {
+      background-color: #f6f5f1;
+      color: #1c1b18;
+      font-family: 'Figtree', sans-serif;
       overflow-x: hidden;
-      background-color: var(--bg-base);
-      color: var(--text-primary);
-      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: relative;
-      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    body::before {
-      content: "";
+    /* border frame around the screen */
+    .viewport-frame {
       position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background: radial-gradient(70% 80% at 50% 46%, rgba(255, 255, 255, 0.05), transparent 75%);
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.024) 0 1px, transparent 1px 2px),
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 2px),
-        radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
-    }
-
-    .container {
-      width: 92%;
-      max-width: 1080px;
-      margin: 40px auto;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      position: relative;
-      z-index: 10;
-    }
-
-    .top-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-      gap: 20px;
-      align-items: stretch;
-      position: relative;
-    }
-
-    .bottom-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 20px;
-      position: relative;
-    }
-
-    @media (max-width: 820px) {
-      .top-grid, .bottom-grid {
-        grid-template-columns: 1fr;
-      }
-      .container {
-        margin: 70px auto 40px auto;
-      }
-    }
-
-    .card {
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.03) 55%, rgba(255, 255, 255, 0.085)), #171617;
-      border: 1px solid;
-      border-color: rgba(255, 255, 255, 0.22) rgba(255, 255, 255, 0.12) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.065);
+      top: 18px;
+      bottom: 18px;
+      left: 24px;
+      right: 24px;
       border-radius: 18px;
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 30px rgba(0, 0, 0, 0.38);
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.25s ease,
-                  box-shadow 0.25s ease;
+      box-shadow: 0 0 0 40px #0e0e0d;
+      border: 1px solid rgba(28, 27, 24, 0.1);
+      pointer-events: none;
+      z-index: 9000;
     }
 
-    .card:hover {
-      border-color: rgba(255, 255, 255, 0.32) rgba(255, 255, 255, 0.18) rgba(255, 255, 255, 0.12) rgba(255, 255, 255, 0.1);
-      transform: translateY(-2px);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 4px rgba(0, 0, 0, 0.5), 0 16px 38px rgba(0, 0, 0, 0.45);
+    @media (max-width: 640px) {
+      .viewport-frame {
+        top: 10px;
+        bottom: 10px;
+        left: 12px;
+        right: 12px;
+      }
     }
 
-    .profile-card {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: inherit;
-      overflow: visible;
+    .title-editorial {
+      font-family: 'Fraunces', serif;
+      font-optical-sizing: auto;
+      font-variation-settings: "SOFT" 60, "WONK" 1;
+      letter-spacing: -0.02em;
     }
 
-    .profile-body {
-      padding: 0;
-      margin-top: 0;
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .subtitle-editorial {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-variation-settings: "SOFT" 100, "WONK" 1;
     }
 
-    .profile-header-row {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      position: relative;
+    /* little inline link pills */
+    .inline-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.08rem 0.48rem 0.08rem 0.36rem;
+      margin: 0 0.08rem;
+      border-radius: 7px;
+      border: 1px solid #dcd9d0;
+      background-color: #fbfaf7;
+      color: #1c1b18;
+      font-size: 0.86rem;
+      line-height: 1.35;
+      font-weight: 450;
+      vertical-align: baseline;
+      box-shadow: 0 1px 2px rgba(28, 27, 24, 0.03);
+      transition:
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.18s ease;
+      text-decoration: none !important;
+      white-space: nowrap;
     }
 
-    .avatar-container {
-      position: relative;
-      width: 78px;
-      height: 78px;
+    .inline-pill:hover {
+      border-color: #c6c2b6;
+      background-color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px -2px rgba(28, 27, 24, 0.08);
+    }
+
+    .inline-pill img,
+    .inline-pill svg {
+      width: 14px;
+      height: 14px;
+      border-radius: 3.5px;
       flex-shrink: 0;
-    }
-
-    .profile-active-apps {
-      position: absolute;
-      right: 0px;
-      bottom: -80px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: flex-end;
-      gap: 4px;
-      max-width: 60%;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .active-app-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 600;
-      color: #e4e4e7;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      letter-spacing: -0.01em;
-      opacity: 0.9;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-    }
-
-    .avatar {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
       object-fit: cover;
-      border: none;
-      background: #121214;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     }
 
-    .avatar-decoration {
-      position: absolute;
-      top: -8px;
-      left: -8px;
-      width: calc(100% + 16px);
-      height: calc(100% + 16px);
+    .social-icon-link {
+      transition: color 0.18s ease, transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .social-icon-link:hover {
+      color: var(--brand-color, #1c1b18);
+      transform: translateY(-1.5px);
+    }
+
+    /* hover tooltip for pills and socials */
+    #badge-tooltip {
+      position: fixed;
+      top: 0;
+      left: 0;
       pointer-events: none;
-      z-index: 2;
-      object-fit: contain;
-    }
-
-    .status-badge {
-      position: absolute;
-      bottom: 1px;
-      right: 1px;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--card-bg);
-      border: 2px solid var(--card-bg);
-      pointer-events: none;
-    }
-
-    .status-badge svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    .profile-details {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .username-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .username {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .discord-badges-inline {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-left: 2px;
-    }
-
-    .badge-wrapper {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .discord-badge-icon {
-      width: 18px;
-      height: 18px;
-      object-fit: contain;
-      display: block;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .badge-wrapper:nth-child(odd):hover .discord-badge-icon {
-      transform: scale(1.15) rotate(-6deg);
-    }
-
-    .badge-wrapper:nth-child(even):hover .discord-badge-icon {
-      transform: scale(1.15) rotate(6deg);
-    }
-
-    .badge-tooltip {
-      position: absolute;
-      bottom: calc(100% + 6px);
-      left: 50%;
-      transform: translateX(-50%) translateY(4px);
-      background: var(--tooltip-bg);
-      color: var(--tooltip-text);
-      border: 1px solid var(--tooltip-border);
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      white-space: nowrap;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+      z-index: 8800;
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-      z-index: 1000;
+      transform: translate(-50%, 4px) scale(0.92);
+      transition:
+        opacity 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      background-color: #fbfaf7;
+      border: 1px solid #dfdcd2;
+      border-radius: 10px;
+      padding: 0.32rem 0.65rem 0.32rem 0.5rem;
+      box-shadow:
+        0 10px 24px -6px rgba(28, 27, 24, 0.12),
+        0 2px 6px -1px rgba(28, 27, 24, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 0.42rem;
+      white-space: nowrap;
     }
 
-    .badge-tooltip::after {
+    #badge-tooltip.visible {
+      opacity: 1;
+      transform: translate(-50%, 0) scale(1);
+    }
+
+    /* github graph hover popup */
+    #gh-tooltip {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 8900;
+      opacity: 0;
+      transform: translate(-50%, -100%) translateY(-4px) scale(0.94);
+      transition:
+        opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      background-color: #fbfaf7;
+      border: 1px solid #dfdcd2;
+      border-radius: 11px;
+      padding: 0.5rem 0.72rem;
+      box-shadow:
+        0 14px 32px -8px rgba(28, 27, 24, 0.16),
+        0 3px 8px -2px rgba(28, 27, 24, 0.06);
+      white-space: nowrap;
+    }
+
+    #gh-tooltip.visible {
+      opacity: 1;
+      transform: translate(-50%, -100%) translateY(-9px) scale(1);
+    }
+
+    #gh-tooltip::after {
       content: '';
       position: absolute;
-      top: 100%;
+      bottom: -5px;
       left: 50%;
-      transform: translateX(-50%);
-      border-width: 4px;
-      border-style: solid;
-      border-color: var(--tooltip-bg) transparent transparent transparent;
+      width: 9px;
+      height: 9px;
+      background-color: #fbfaf7;
+      border-right: 1px solid #dfdcd2;
+      border-bottom: 1px solid #dfdcd2;
+      transform: translateX(-50%) rotate(45deg);
     }
 
-    .badge-wrapper:hover .badge-tooltip {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+    .gh-cell {
+      transition: transform 0.14s ease, box-shadow 0.14s ease;
+    }
+    .gh-cell:hover {
+      transform: scale(1.25);
+      z-index: 5;
+      box-shadow: 0 0 0 1.5px #ea580c;
     }
 
-    .status-text {
-      font-size: 12px;
-      color: var(--text-secondary);
-      font-style: italic;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      width: fit-content;
-      cursor: pointer !important;
-      padding: 2px 4px;
-      border-radius: 4px;
-      transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    /* custom text selection highlight */
+    ::selection {
+      background-color: transparent;
+      color: #1c1b18;
     }
 
-    .status-text:hover {
-      color: var(--text-primary);
-      background: var(--box-bg);
-      transform: scale(1.02);
-    }
-
-    .status-text.copied {
-      color: #22c55e !important;
-      font-weight: 600;
-      font-style: normal;
-      animation: copyPulse 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    @keyframes copyPulse {
-      0% { transform: scale(0.95); opacity: 0.7; }
-      50% { transform: scale(1.06); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    .lastfm-card {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: relative;
-      padding: 18px 20px;
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    .lastfm-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .lastfm-sub-desc {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-      margin-top: -6px;
-    }
-
-    .lastfm-grid {
-      display: flex;
-      align-items: stretch;
-      gap: 6px;
-      height: 125px;
-      width: 100%;
-      overflow: hidden;
-      padding: 4px 0;
-    }
-
-    .lastfm-track-card {
-      position: relative;
-      flex: 1;
-      min-width: 32px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--box-bg);
-      border: 1px solid var(--box-border);
-      transition: flex 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                  border-color 0.25s ease,
-                  transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      text-decoration: none;
-    }
-
-    .lastfm-track-card:hover {
-      flex: 3.5;
-      border-color: var(--card-border-hover);
-      transform: scale(1.02);
-      z-index: 10;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-    }
-
-    .lastfm-cover-bg {
+    #selection-layer {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      filter: brightness(0.65);
-      transition: filter 0.3s ease, transform 0.4s ease;
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .lastfm-track-card:hover .lastfm-cover-bg {
-      filter: brightness(0.35) blur(1px);
-      transform: scale(1.1);
-    }
-
-    .lastfm-collapsed-label {
+    .selection-pill {
       position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-90deg);
-      transform-origin: center center;
-      white-space: nowrap;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.7);
-      text-transform: uppercase;
+      background-color: rgba(253, 186, 116, 0.48);
+      border-radius: 6px;
       pointer-events: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .lastfm-track-card:hover .lastfm-collapsed-label {
       opacity: 0;
-    }
-
-    .lastfm-expanded-content {
-      position: absolute;
-      inset: 0;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s ease 0.05s;
-      z-index: 2;
-    }
-
-    .lastfm-track-card:hover .lastfm-expanded-content {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .lastfm-top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-muted);
-    }
-
-    .lastfm-now-pulse {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: #1ed760;
-      font-weight: 700;
-    }
-
-    .lastfm-play-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      color: #ffffff;
-      font-weight: 700;
-    }
-
-    .lastfm-bottom-details {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-      min-width: 0;
-    }
-
-    .lastfm-track-title {
-      font-size: 12px;
-      font-weight: 800;
-      color: #ffffff;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
-    }
-
-    .lastfm-track-artist {
-      font-size: 10.5px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.85);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .lastfm-track-album {
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.6);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .about-card {
-      position: relative;
-      min-height: 290px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      width: 100%;
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    .card-title {
-      font-family: 'Bebas Neue', sans-serif !important;
-      font-size: 24px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--text-primary);
-      line-height: 1;
-    }
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(12px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .playlists-modal {
-      background: var(--modal-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 20px;
-      width: 90%;
-      max-width: 580px;
-      max-height: 85vh;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8);
       transform: scale(0.95);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition:
+        left 0.11s cubic-bezier(0.22, 1, 0.36, 1),
+        top 0.11s cubic-bezier(0.22, 1, 0.36, 1),
+        width 0.13s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.11s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.14s ease,
+        transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: left, top, width, height, opacity, transform;
     }
 
-    .modal-overlay.active .playlists-modal {
+    .selection-pill.active {
+      opacity: 1;
       transform: scale(1);
     }
 
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--box-border);
-    }
-
-    .modal-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .modal-close-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 18px;
-      transition: color 0.2s ease, transform 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-close-btn:hover {
-      color: var(--text-primary);
-      transform: scale(1.15);
-    }
-
-    .playlists-list {
-      margin-top: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      overflow-y: auto;
-    }
-
-    .playlist-item-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 14px;
-      background: var(--box-bg);
-      border: 1px solid var(--box-border);
-      border-radius: 12px;
-      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .playlist-item-card:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: var(--card-border-hover);
-      transform: translateY(-2px);
-    }
-
-    .playlist-cover-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-
-    .playlist-cover-img {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      object-fit: cover;
-      flex-shrink: 0;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .playlist-details {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-
-    .playlist-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-primary);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .playlist-subtext {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .playlist-listen-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      border-radius: 8px;
-      background: rgba(30, 215, 96, 0.15);
-      border: 1px solid rgba(30, 215, 96, 0.4);
-      color: #1ed760;
-      font-size: 11px;
-      font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    .playlist-listen-btn:hover {
-      background: #1ed760;
-      color: #000000;
-      box-shadow: 0 0 12px rgba(30, 215, 96, 0.5);
-      transform: scale(1.05);
-    }
-
-    .about-bullets-list {
-      list-style: none;
-      padding: 4px 0 0 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      font-size: 13.5px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .about-bullets-list li {
+    main, footer {
       position: relative;
-      padding-left: 20px;
+      z-index: 2;
     }
 
-    .about-bullets-list li::before {
-      content: "•";
-      position: absolute;
-      left: 4px;
-      top: 0;
-      font-size: 16px;
-      color: var(--text-muted);
-    }
-
-    .about-bullets-list strong {
-      color: var(--text-primary);
-      font-weight: 700;
-    }
-
-    .about-bullets-list a {
-      color: var(--text-primary);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      transition: opacity 0.2s ease;
-    }
-
-    .about-bullets-list a:hover {
-      opacity: 0.75;
-    }
-
-    .timezone-widget {
-      align-self: flex-end;
-      margin-top: auto;
-      padding: 4px 6px;
-      background: transparent;
-      border: none;
-      box-shadow: none;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-    }
-
-    .clock-logos-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .clock-logo-icon {
-      width: 15px;
-      height: 15px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer !important;
-      color: #7f7e80;
-      fill: currentColor;
-      opacity: 0.65;
-      transition: opacity 0.18s ease, color 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .clock-logo-icon svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    .clock-logo-icon:hover {
-      opacity: 1;
-      color: #ffffff;
-      transform: translateY(-1px);
-    }
-
-    .digital-time {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 0.5px;
-      line-height: 1;
-    }
-
-    .left-dock-widget:hover {
-      border-color: var(--card-border-hover);
-      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.35);
-    }
-
-    .dock-widget-header {
-      position: absolute;
-      top: 10px;
-      right: 12px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-      margin: 0;
-    }
-
-    .dock-widget-close {
-      cursor: pointer !important;
-      color: var(--text-muted);
-      transition: color 0.2s ease, transform 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .dock-widget-close:hover {
-      color: var(--text-primary);
-      transform: scale(1.15);
-    }
-
-    .dock-widget-body {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .dock-widget-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
-      object-fit: cover;
-      background: linear-gradient(135deg, #2e2d2e, #1d1c1d);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 12px rgba(0, 0, 0, 0.5);
-      flex-shrink: 0;
-    }
-
-    .dock-widget-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      min-width: 0;
-      align-items: flex-start;
-    }
-
-    .dock-widget-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.01em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .dock-widget-sub {
-      font-size: 12px;
-      font-weight: 500;
-      color: #8a898a;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-
-    .dock-widget-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      height: 25px;
-      padding: 0 12px;
-      border: 1px solid;
-      border-color: rgba(255, 255, 255, 0.22) rgba(255, 255, 255, 0.14) rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      background: radial-gradient(70% 160% at 50% 50%, rgba(255, 255, 255, 0.12), transparent 70%), #222022;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 2px 4px rgba(0, 0, 0, 0.45);
-      color: #f2f2f2;
-      font-size: 12px;
-      font-weight: 600;
-      font-family: 'Inter', system-ui, sans-serif;
-      text-decoration: none;
-      cursor: pointer !important;
-      margin-top: 3px;
-      width: fit-content;
-      transition: border-color .15s ease, background .15s ease, color .15s ease;
-    }
-
-    .dock-widget-btn:hover {
-      border-color: rgba(255, 255, 255, 0.38) rgba(255, 255, 255, 0.24) rgba(255, 255, 255, 0.14);
-      background: radial-gradient(70% 160% at 50% 50%, rgba(255, 255, 255, 0.2), transparent 70%), #2a282a;
-      color: #ffffff;
-      transform: none;
-    }
-
-    .about-marin-wrap {
-      position: absolute;
-      bottom: 0px;
-      left: 85px;
-      height: 75%;
-      max-height: 180px;
-      z-index: 5;
-      display: inline-flex;
-      align-items: flex-end;
-      pointer-events: auto;
-    }
-
-    .about-marin-img {
-      height: 100%;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.25));
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer !important;
-    }
-
-    .about-marin-wrap:hover .about-marin-img {
-      transform: scale(1.04) translateY(-2px);
-    }
-
-    .marin-status-text {
-      position: absolute;
-      left: calc(100% + 14px);
-      bottom: 100px;
-      width: 210px;
-      max-width: 210px;
-      font-family: 'Inter', -apple-system, sans-serif;
-      font-size: 12.5px;
-      font-weight: 500;
-      line-height: 1.5;
-      letter-spacing: -0.01em;
-      color: #f4f4f5;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-      opacity: 0;
-      transform: translateY(4px);
-      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    /* blueprint loading screen */
+    #blueprint-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 8500;
+      background-color: #c96428;
+      background-image:
+        linear-gradient(rgba(255, 248, 240, 0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 248, 240, 0.14) 1px, transparent 1px),
+        linear-gradient(rgba(255, 248, 240, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 248, 240, 0.05) 1px, transparent 1px);
+      background-size: 96px 96px, 96px 96px, 16px 16px, 16px 16px;
+      color: rgba(255, 250, 244, 0.92);
       pointer-events: none;
-      word-wrap: break-word;
-      white-space: normal;
-      text-align: left;
-      z-index: 10;
+      clip-path: inset(0 0 0 0);
+      transition: clip-path 0.88s cubic-bezier(0.76, 0, 0.24, 1);
+      will-change: clip-path;
     }
 
-    .about-marin-wrap:hover .marin-status-text.has-status {
-      opacity: 0.95;
+    #blueprint-overlay.slide-away {
+      clip-path: inset(100% 0 0 0);
+    }
+
+    .bp-hatch {
+      border: 1px solid rgba(255, 250, 244, 0.42);
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 250, 244, 0.11),
+        rgba(255, 250, 244, 0.11) 1px,
+        transparent 1px,
+        transparent 6px
+      );
+    }
+
+    .bp-step-1 {
+      opacity: 0;
+      transform: scale(0.88);
+      transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .bp-step-2 {
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.32s ease, transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #blueprint-overlay.bp-ready .bp-step-1,
+    #blueprint-overlay.bp-ready .bp-step-2 {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    #page-shell {
+      opacity: 0;
+      transform: translateY(-18px);
+      transition:
+        opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.82s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    #page-shell.shell-ready {
+      opacity: 1;
       transform: translateY(0);
     }
 
-    .anilist-card {
-      position: relative;
-      min-height: 310px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 18px 20px;
+    .smooth-height {
+      transition: height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: height;
     }
 
-    .anilist-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    @keyframes wordReveal {
+      0% {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(4px);
+      }
+      100% {
+        opacity: 1;
+        filter: blur(0px);
+        transform: translateY(0);
+      }
     }
 
-    .anilist-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      width: 100%;
-    }
-
-    .anilist-stat-box {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.005)), var(--box-bg);
-      border: 1px solid;
-      border-color: rgba(255, 255, 255, 0.14) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.05);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 2px 6px rgba(0, 0, 0, 0.3);
-      border-radius: 8px;
-      padding: 6px 4px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      transition: border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .anilist-stat-box:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.04);
-    }
-
-    .anilist-stat-val {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13.5px;
-      font-weight: 800;
-      color: var(--text-primary);
-      line-height: 1;
-      letter-spacing: -0.3px;
-    }
-
-    .anilist-stat-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 7.5px;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      line-height: 1;
-    }
-
-    .anilist-tabs-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      width: 100%;
-      margin-top: 1px;
-    }
-
-    .anilist-tab-btn {
-      width: 100%;
-      background: var(--box-bg);
-      border: 1px solid;
-      border-color: rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.05) rgba(255, 255, 255, 0.03);
-      border-radius: 7px;
-      padding: 5px 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
-      font-weight: 700;
-      color: var(--text-muted);
-      cursor: pointer !important;
-      letter-spacing: 0.6px;
-      text-align: center;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .anilist-tab-btn:hover {
-      color: var(--text-primary);
-      border-color: rgba(255, 255, 255, 0.18);
-      background: rgba(255, 255, 255, 0.05);
-    }
-
-    .anilist-tab-btn.active {
-      color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.5);
-      background: rgba(255, 255, 255, 0.1);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 12px rgba(255, 255, 255, 0.15);
-    }
-
-    .anilist-entries-row {
-      display: flex;
-      align-items: stretch;
-      gap: 10px;
-      width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
-      padding: 4px 2px 8px 2px;
-      scroll-behavior: smooth;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
-    }
-
-    .anilist-entries-row::-webkit-scrollbar {
-      height: 4px;
-    }
-
-    .anilist-entries-row::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .anilist-entries-row::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 4px;
-    }
-
-    .anilist-entry-card {
-      flex: 0 0 calc((100% - 40px) / 5);
-      min-width: 82px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer !important;
-      text-decoration: none;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .anilist-entry-card:hover {
-      transform: translateY(-3px);
-    }
-
-    .anilist-entry-cover-wrap {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1 / 1.45;
-      border-radius: 8px;
-      overflow: hidden;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
-      transition: border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .anilist-entry-card:hover .anilist-entry-cover-wrap {
-      border-color: rgba(2, 169, 255, 0.45);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6), 0 0 12px rgba(2, 169, 255, 0.25);
-    }
-
-    .anilist-entry-cover {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .anilist-entry-card:hover .anilist-entry-cover {
-      transform: scale(1.06);
-    }
-
-    .anilist-type-tag {
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      padding: 2px 5px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
-      font-weight: 800;
-      color: #ffffff;
-      background: rgba(2, 169, 255, 0.85);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
-      z-index: 2;
-      line-height: 1;
-    }
-
-    .anilist-type-tag.manga {
-      background: rgba(225, 139, 50, 0.88);
-    }
-
-    .anilist-progress-pill {
-      position: absolute;
-      bottom: 5px;
-      left: 5px;
-      background: rgba(10, 10, 12, 0.78);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 4px;
-      padding: 2px 5px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 8px;
-      font-weight: 700;
-      color: #f4f4f5;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-      z-index: 2;
-      line-height: 1.2;
-    }
-
-    .anilist-entry-title {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      line-height: 1.3;
-      height: 26px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: break-word;
-      transition: color 0.2s ease;
-    }
-
-    .anilist-entry-card:hover .anilist-entry-title {
-      color: var(--text-primary);
-    }
-
-    .left-widgets-stack,
-    .right-widgets-stack {
-      position: fixed;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 9998;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: stretch;
-      gap: 0px;
-      pointer-events: none;
-      width: 290px;
-      max-width: calc(100vw - 48px);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .left-widgets-stack { left: 24px; }
-    .right-widgets-stack { right: 24px; }
-
-    .left-dock-widget,
-    .right-dock-widget {
-      display: grid;
-      grid-template-rows: 0fr;
+    .anim-word {
+      display: inline-block;
       opacity: 0;
-      pointer-events: none;
-      margin: 0;
-      transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                  opacity 0.25s ease,
-                  margin 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: wordReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(var(--i, 0) * 13ms);
+      will-change: transform, opacity, filter;
     }
 
-    .left-dock-widget .dock-widget-inner {
-      transform: translateX(-50px) scale(0.92);
-      transition: transform 0.55s cubic-bezier(.34, 1.4, .64, 1),
-                  border-color 0.2s ease,
-                  box-shadow 0.2s ease;
-    }
-
-    .right-dock-widget .dock-widget-inner {
-      transform: translateX(50px) scale(0.92);
-      transition: transform 0.55s cubic-bezier(.34, 1.4, .64, 1),
-                  border-color 0.2s ease,
-                  box-shadow 0.2s ease;
-    }
-
-    .left-dock-widget.active,
-    .right-dock-widget.active {
-      grid-template-rows: 1fr;
-      opacity: 1;
-      pointer-events: auto;
-      margin: 6px 0;
-    }
-
-    .left-dock-widget.active .dock-widget-inner,
-    .right-dock-widget.active .dock-widget-inner {
-      transform: translateX(0) scale(1);
-    }
-
-    .dock-widget-inner {
-      min-height: 0;
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.03) 55%, rgba(255, 255, 255, 0.085)), #171617;
-      border: 1px solid;
-      border-color: rgba(255, 255, 255, 0.22) rgba(255, 255, 255, 0.12) rgba(255, 255, 255, 0.08) rgba(255, 255, 255, 0.065);
-      border-radius: 12px;
-      padding: 12px 14px;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 2px rgba(0, 0, 0, 0.5), 0 12px 30px rgba(0, 0, 0, 0.38);
-      display: flex;
-      flex-direction: column;
-      box-sizing: border-box;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-    .left-dock-widget:hover .dock-widget-inner,
-    .right-dock-widget:hover .dock-widget-inner {
-      transform: translateY(-3px) scale(1.015);
-      border-color: rgba(255, 255, 255, 0.32) rgba(255, 255, 255, 0.18) rgba(255, 255, 255, 0.12) rgba(255, 255, 255, 0.1);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 4px rgba(0, 0, 0, 0.5), 0 14px 34px rgba(0, 0, 0, 0.45);
-    }
-
-    .dock-widget-btn:active,
-    .dock-widget-close:active {
-      transform: scale(0.92);
-      transition: transform 0.1s ease;
-    }
-
-    .dock-widget-header span {
+    .inline-pill.anim-word {
       display: inline-flex;
-      align-items: center;
-      line-height: 1;
     }
 
-    .right-dock-widget .dock-widget-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      line-height: 1;
-      margin-bottom: 2px;
+    @keyframes sectionFadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(8px);
+        filter: blur(3px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }
     }
 
-    .right-dock-widget.roblox-tall .dock-widget-header {
-      position: absolute;
-      top: 10px;
-      left: 12px;
-      right: 12px;
-      z-index: 10;
-      margin-bottom: 0;
+    .stagger-item {
+      opacity: 0;
+      animation: sectionFadeUp 0.44s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: calc(var(--stagger, 0) * 48ms + 40ms);
     }
 
-    .right-dock-widget .dock-widget-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      width: 100%;
-      height: 28px;
-      padding: 0 12px;
-      border: 1px solid;
-      border-color: rgba(255, 255, 255, 0.22) rgba(255, 255, 255, 0.14) rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      background: radial-gradient(70% 160% at 50% 50%, rgba(255, 255, 255, 0.12), transparent 70%), #222022;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 2px 4px rgba(0, 0, 0, 0.45);
-      color: #f2f2f2;
-      font-size: 12px;
-      font-weight: 600;
-      font-family: 'Inter', system-ui, sans-serif;
-      text-decoration: none;
-      cursor: pointer !important;
-      margin-top: 8px;
-      box-sizing: border-box;
-      transition: border-color .15s ease, background .15s ease, color .15s ease;
+    .interactive-row {
+      transition:
+        background-color 0.18s ease,
+        transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .interactive-row:hover {
+      transform: translateX(2px);
     }
 
-    .right-dock-widget .dock-widget-btn:hover {
-      border-color: rgba(255, 255, 255, 0.38) rgba(255, 255, 255, 0.24) rgba(255, 255, 255, 0.14);
-      background: radial-gradient(70% 160% at 50% 50%, rgba(255, 255, 255, 0.2), transparent 70%), #2a282a;
-      color: #ffffff;
-      transform: none;
+    @keyframes liveTrackSlide {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.98);
+        background-color: rgba(251, 146, 60, 0.18);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        background-color: transparent;
+      }
     }
 
-    .dock-widget-header i {
-      color: #ffffff !important;
-      font-size: 14px !important;
-      line-height: 1 !important;
-      transition: color 0.2s ease !important;
+    .live-track-enter {
+      animation: liveTrackSlide 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
-    .right-dock-widget.roblox-tall {
-      width: 100%;
+    @keyframes highlightSweep {
+      0% { background-size: 0% 100%; }
+      100% { background-size: 100% 100%; }
     }
 
-    .right-dock-widget.roblox-tall .dock-widget-inner {
-      min-height: 310px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: space-between;
-      text-align: center;
+    mark.hl {
+      background-color: transparent;
+      background-image: linear-gradient(rgba(253, 186, 116, 0.48), rgba(253, 186, 116, 0.48));
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-size: 0% 100%;
+      color: inherit;
+      padding: 0.05em 0.3em;
+      border-radius: 5px;
+      animation: highlightSweep 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 320ms;
     }
 
-    .right-rbx-body-wrap {
-      position: relative;
-      width: 100%;
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 4px 0;
-    }
-
-    .right-rbx-full-img {
-      height: 100%;
-      max-height: 185px;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .right-dock-widget.roblox-tall:hover .right-rbx-full-img {
-      transform: scale(1.05) translateY(-3px);
-    }
-
-    .right-rbx-stats-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      background: transparent;
-      border: none;
-      padding: 4px 0;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .right-rbx-stat-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .right-rbx-stat-item i {
-      color: var(--text-muted);
-      font-size: 10px;
-    }
-
-    .enter-overlay {
+    .grain {
       position: fixed;
       inset: 0;
-      z-index: 99999;
-      background: rgba(17, 16, 17, 0.65);
-      backdrop-filter: blur(30px) saturate(120%);
-      -webkit-backdrop-filter: blur(30px) saturate(120%);
+      pointer-events: none;
+      z-index: 40;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* custom cursor */
+    .custom-cursor {
+      position: fixed;
+      top: -100px;
+      left: -100px;
+      width: 15px;
+      height: 15px;
+      border: 1.8px solid #2e2d29;
+      border-radius: 9999px;
+      background-color: transparent;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%) scale(1);
+      transition:
+        width 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.14s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        border-radius 0.15s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer !important;
-      user-select: none;
-      -webkit-user-select: none;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
     }
 
-    .enter-overlay.fade-out {
+    .custom-cursor.is-pressed {
+      transform: translate(-50%, -50%) scale(0.66);
+    }
+
+    .cursor-dot {
+      width: 2.5px;
+      height: 2.5px;
+      background-color: #2e2d29;
+      border-radius: 9999px;
+      transition: opacity 0.12s ease, transform 0.12s ease;
+    }
+
+    .cursor-arrow {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      color: #1c1b18;
       opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+      transform: scale(0.5);
+      transition: opacity 0.14s ease, transform 0.14s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .enter-text {
-      text-align: center;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 0 24px;
-    }
-
-    .enter-text h2 {
-      margin: 0;
-      font-size: clamp(26px, 5vw, 36px);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #ffffff;
-    }
-
-    .enter-text p {
-      margin: 12px 0 0;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text-muted);
-      animation: enterPulse 2.2s ease-in-out infinite;
-    }
-
-    .caret {
-      display: inline-block;
+    .custom-cursor.state-text {
       width: 2px;
-      height: 0.95em;
-      background: var(--text-muted);
-      margin-left: 4px;
-      vertical-align: -1px;
-      animation: caretBlink 1s steps(1) infinite;
+      height: 18px;
+      border-width: 0;
+      border-color: transparent;
+      background-color: #1c1b18;
+      border-radius: 1px;
     }
-
-    @keyframes enterPulse {
-      0%, 100% {
-        opacity: 0.55;
-      }
-      50% {
-        opacity: 1;
-      }
+    .custom-cursor.state-text.is-pressed {
+      transform: translate(-50%, -50%) scaleY(0.78);
     }
-
-    @keyframes caretBlink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    .drop {
+    .custom-cursor.state-text .cursor-dot {
       opacity: 0;
-      transform: translateY(-60px);
+      transform: scale(0);
     }
 
-    body.ready .drop {
+    .custom-cursor.state-link {
+      width: 26px;
+      height: 26px;
+      border-width: 0;
+      border-color: transparent;
+      background-color: rgba(253, 186, 116, 0.62);
+      border-radius: 9999px;
+    }
+    .custom-cursor.state-link .cursor-dot {
+      opacity: 0;
+      transform: scale(0);
+    }
+    .custom-cursor.state-link .cursor-arrow {
       opacity: 1;
-      transform: none;
-      animation: dropIn 0.55s cubic-bezier(.34, 1.4, .64, 1) backwards;
-      animation-delay: calc(var(--i, 0) * 80ms);
+      transform: scale(1);
     }
 
-    @keyframes dropIn {
-      from {
-        opacity: 0;
-        transform: translateY(-60px);
-      }
-      to {
-        opacity: 1;
-        transform: none;
-      }
+    .custom-cursor.state-icon {
+      width: 28px;
+      height: 28px;
+      border-width: 0;
+      border-color: transparent;
+      background-color: rgba(253, 186, 116, 0.5);
+      border-radius: 9999px;
+    }
+    .custom-cursor.state-icon .cursor-dot {
+      opacity: 0;
+      transform: scale(0);
     }
 
+    /* floating card for project/music hover previews */
+    #preview-card {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 80;
+      opacity: 0;
+      transform: translate3d(-8px, 10px, 0) rotate(0.5deg) scale(0.93);
+      transition:
+        opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow:
+        0 24px 52px -12px rgba(28, 27, 24, 0.16),
+        0 4px 16px -2px rgba(28, 27, 24, 0.06);
+      will-change: transform, opacity, left, top;
+    }
+
+    #preview-card.show {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) rotate(var(--card-tilt, 2.2deg)) scale(1);
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
-<body>
 
-<div id="enter" class="enter-overlay" onclick="enterSite()" aria-label="Click to enter">
-  <div class="enter-text">
-    <h2 id="enter-name">&nbsp;</h2>
-    <p>click 2 enter<span class="caret"></span></p>
+<body class="min-h-full flex flex-col">
+  <div class="viewport-frame" aria-hidden="true"></div>
+  <div id="selection-layer" aria-hidden="true"></div>
+
+  <!-- badge tooltip -->
+  <div id="badge-tooltip" aria-hidden="true">
+    <span id="badge-tooltip-icon" class="flex h-4 w-4 shrink-0 items-center justify-center overflow-hidden rounded-[4px]"></span>
+    <span id="badge-tooltip-label" class="text-xs font-semibold text-foreground"></span>
   </div>
-</div>
 
-  <div class="container">
-    <div class="top-grid">
-      <div class="card profile-card drop" style="--i: 0;">
-        <div class="profile-body">
-            <div class="profile-header-row">
-                <div class="avatar-container">
-                  <img id="avatar" class="avatar" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="" onerror="this.onerror=null; this.src='https://cdn.discordapp.com/embed/avatars/0.png';" />
-                  <img id="avatar-decoration" class="avatar-decoration" src="" alt="" style="display: none;" />
-                  <div class="status-badge" id="status-badge">
-                    <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/></svg>
+  <!-- github contribution square tooltip -->
+  <div id="gh-tooltip" aria-hidden="true">
+    <div id="gh-tooltip-count" class="text-xs font-semibold text-foreground leading-tight">0 contributions</div>
+    <div id="gh-tooltip-date" class="mt-0.5 text-[11px] text-muted leading-tight">Thursday, Aug 6, 2026</div>
+    <div class="mt-1 flex items-center gap-1 text-[10px] font-medium text-accent/90 leading-tight">
+      <span>open on github</span>
+      <span>↗</span>
+    </div>
+  </div>
+
+  <!-- intro splash overlay -->
+  <div id="blueprint-overlay" aria-hidden="true">
+    <div class="mx-auto flex w-full max-w-xl flex-col px-6 pt-10 sm:pt-14">
+      <div class="bp-step-1 flex items-center justify-between text-[11px] tracking-wide opacity-80">
+        <span class="font-mono">sheet 01 / gothgirls.lol</span>
+        <span class="subtitle-editorial text-xs">a little work in progress</span>
+      </div>
+      <div class="bp-step-1 relative mt-6 mb-8 flex items-center justify-center">
+        <div class="h-px w-full bg-white/35"></div>
+        <span class="bg-[#c96428] px-2.5 font-mono text-[10px] tracking-widest uppercase">528 px · scale 1:1</span>
+      </div>
+
+      <div class="flex items-start justify-between gap-4">
+        <div class="bp-step-1">
+          <div id="bp-username" class="title-editorial text-[1.75rem] leading-tight font-medium">chunkloader</div>
+          <div id="bp-displayname" class="subtitle-editorial mt-0.5 text-lg opacity-85">jules</div>
+        </div>
+        <div class="bp-step-1 flex items-center gap-3 pt-2">
+          <div class="bp-hatch h-5 w-5 rounded-full"></div>
+          <div class="bp-hatch h-5 w-5 rounded-full"></div>
+          <div class="bp-hatch h-5 w-5 rounded-full"></div>
+        </div>
+      </div>
+
+      <div class="bp-step-2 mt-10 space-y-3">
+        <div class="bp-hatch h-20 w-full rounded px-3 py-2 font-mono text-[10px] opacity-90">01 / a little about me</div>
+        <div class="bp-hatch h-16 w-full rounded px-3 py-2 font-mono text-[10px] opacity-90">02 / away from the editor</div>
+      </div>
+
+      <div class="bp-step-1 mt-10 flex gap-5 text-sm font-medium">
+        <span>projects</span>
+        <span class="opacity-80">work</span>
+        <span class="opacity-80">music</span>
+        <span class="opacity-80">setup</span>
+      </div>
+
+      <div class="bp-step-2 mt-6 space-y-2.5">
+        <div class="bp-hatch h-11 w-full rounded px-3 py-1.5 font-mono text-[10px]">floor</div>
+        <div class="bp-hatch h-11 w-full rounded px-3 py-1.5 font-mono text-[10px]">evil</div>
+        <div class="bp-hatch h-11 w-full rounded px-3 py-1.5 font-mono text-[10px]">gothgirls.lol</div>
+        <div class="bp-hatch h-11 w-full rounded px-3 py-1.5 font-mono text-[10px]">cloud</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- cursor element -->
+  <div id="custom-cursor" class="custom-cursor" aria-hidden="true">
+    <span class="cursor-dot"></span>
+    <svg class="cursor-arrow" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" />
+    </svg>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- hover preview card -->
+  <div id="preview-card" class="overflow-hidden rounded-2xl border border-[#e5e3dc] bg-[#fbfaf7]">
+    <div id="preview-layout-wide" class="hidden w-[18rem]">
+      <div class="h-36 w-full overflow-hidden bg-[#eceae3] border-b border-[#e8e6de]">
+        <img id="preview-wide-img" src="" alt="" class="h-full w-full object-cover object-top" />
+      </div>
+      <div class="flex items-baseline justify-between gap-3 px-4 py-3 text-xs">
+        <span id="preview-wide-title" class="font-semibold text-foreground truncate"></span>
+        <span id="preview-wide-domain" class="text-[11px] text-muted shrink-0"></span>
+      </div>
+    </div>
+
+    <div id="preview-layout-server" class="hidden w-[14rem]">
+      <div class="h-52 w-full overflow-hidden bg-[#eceae3] border-b border-[#e8e6de]">
+        <img id="preview-server-img" src="" alt="" class="h-full w-full object-cover" />
+      </div>
+      <div class="px-4 py-3">
+        <span id="preview-server-name" class="block text-xs font-semibold text-foreground truncate"></span>
+      </div>
+    </div>
+
+    <div id="preview-layout-music" class="hidden w-[15.5rem]">
+      <div class="h-[15.5rem] w-full overflow-hidden bg-[#eceae3] border-b border-[#e8e6de]">
+        <img id="preview-music-img" src="" alt="" class="h-full w-full object-cover" />
+      </div>
+      <div class="flex items-end justify-between gap-2 px-4 py-3">
+        <div class="min-w-0">
+          <span id="preview-music-title" class="block text-[13px] font-semibold text-foreground truncate leading-snug"></span>
+          <span id="preview-music-sub" class="block text-[11px] text-muted truncate mt-0.5"></span>
+        </div>
+        <span class="text-[11px] text-muted/80 shrink-0">last.fm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- main wrapper -->
+  <div id="page-shell" class="mx-auto flex w-full max-w-xl flex-1 flex-col px-6 pb-16 pt-24 sm:pt-32 print:max-w-none print:p-0">
+    <main class="flex-1">
+      <div class="space-y-10">
+
+        <!-- top profile header -->
+        <div class="flex items-start justify-between gap-4">
+          <div class="min-w-0 flex-1">
+            <h1 class="title-editorial text-[1.75rem] leading-tight font-medium text-foreground">
+              <span id="discord-username" class="anim-word text-selectable" style="--i:0">chunkloader</span>
+            </h1>
+            <p class="subtitle-editorial mt-0.5 text-lg text-muted">
+              <span id="discord-displayname" class="anim-word text-selectable" style="--i:2">jules</span>
+            </p>
+            <p id="discord-custom-quote" class="mt-1 text-xs text-muted/65 leading-relaxed hidden"></p>
+          </div>
+
+          <!-- top right socials -->
+          <div class="flex items-center gap-3.5 pt-1.5 text-muted">
+            <a href="https://github.com/horribles"
+               data-cursor="icon"
+               data-badge="github"
+               data-badge-label="GitHub"
+               data-badge-pos="bottom"
+               style="--brand-color: #181717"
+               aria-label="GitHub"
+               class="social-icon-link p-1 -m-1"
+               target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="h-[18px] w-[18px]"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"></path></svg>
+            </a>
+            <a href="https://www.instagram.com/loadchunks"
+               data-cursor="icon"
+               data-badge="instagram"
+               data-badge-label="Instagram"
+               data-badge-pos="bottom"
+               style="--brand-color: #E1306C"
+               aria-label="Instagram"
+               class="social-icon-link p-1 -m-1"
+               target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-[18px] w-[18px]"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
+            </a>
+            <a href="https://tiktok.com/@skreenies"
+               data-cursor="icon"
+               data-badge="tiktok"
+               data-badge-label="TikTok"
+               data-badge-pos="bottom"
+               style="--brand-color: #ff0050"
+               aria-label="TikTok"
+               class="social-icon-link p-1 -m-1"
+               target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" class="h-[18px] w-[18px]"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1Z"></path></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- bio text + tabs -->
+        <div class="space-y-10">
+
+          <div id="intro-viewport" class="smooth-height overflow-hidden">
+            <div id="intro-container" class="leading-[1.85] text-muted [&_p+p]:mt-4"></div>
+          </div>
+
+          <div>
+            <nav aria-label="Sections" class="mb-6 flex gap-5 text-sm">
+              <a href="#projects" data-nav-tab="projects" data-cursor="icon" aria-current="page" class="group relative py-0.5 text-muted transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:font-medium">
+                projects
+                <span class="absolute -bottom-0.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-aria-[current=page]:scale-x-100"></span>
+              </a>
+              <a href="#work" data-nav-tab="work" data-cursor="icon" class="group relative py-0.5 text-muted transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:font-medium">
+                work
+                <span class="absolute -bottom-0.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-aria-[current=page]:scale-x-100"></span>
+              </a>
+              <a href="#music" data-nav-tab="music" data-cursor="icon" class="group relative py-0.5 text-muted transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:font-medium">
+                music
+                <span class="absolute -bottom-0.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-aria-[current=page]:scale-x-100"></span>
+              </a>
+              <a href="#setup" data-nav-tab="setup" data-cursor="icon" class="group relative py-0.5 text-muted transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:font-medium">
+                setup
+                <span class="absolute -bottom-0.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-aria-[current=page]:scale-x-100"></span>
+              </a>
+            </nav>
+
+            <div id="panels-viewport" class="smooth-height overflow-hidden">
+              <div id="panels-inner">
+
+                <!-- projects tab -->
+                <div data-panel="projects">
+                  <div class="space-y-10">
+                    <ul class="-mx-3 space-y-0.5">
+                      <li class="stagger-item" style="--stagger:1">
+                        <a id="server1-link" href="https://discord.gg/zbsq8dAgUt" data-cursor="link" data-preview='{"type":"server","title":"floor","icon":""}' class="interactive-row block rounded-lg px-3 py-2.5 hover:bg-accent-soft" target="_blank" rel="noreferrer">
+                          <span class="flex items-baseline gap-2">
+                            <span id="server1-name" class="title-editorial text-base font-medium text-foreground">floor</span>
+                            <svg viewBox="0 0 24 24" class="h-3 w-3 text-muted" fill="currentColor" aria-label="pinned"><path d="M16 3a1 1 0 0 1 .7 1.7L15 6.4V11l3 3v1H13v6l-1 1-1-1v-6H6v-1l3-3V6.4L7.3 4.7A1 1 0 0 1 8 3h8Z"></path></svg>
+                            <span id="server1-stats" class="text-sm text-muted">discord.gg/zbsq8dAgUt</span>
+                          </span>
+                          <span id="server1-desc" class="block text-sm text-muted mt-0.5">incoming best game vault</span>
+                        </a>
+                      </li>
+
+                      <li class="stagger-item" style="--stagger:2">
+                        <a id="server2-link" href="https://discord.gg/aQhZRYkFWx" data-cursor="link" data-preview='{"type":"server","title":"evil","icon":""}' class="interactive-row block rounded-lg px-3 py-2.5 hover:bg-accent-soft" target="_blank" rel="noreferrer">
+                          <span class="flex items-baseline gap-2">
+                            <span id="server2-name" class="title-editorial text-base font-medium text-foreground">evil</span>
+                            <svg viewBox="0 0 24 24" class="h-3 w-3 text-muted" fill="currentColor" aria-label="pinned"><path d="M16 3a1 1 0 0 1 .7 1.7L15 6.4V11l3 3v1H13v6l-1 1-1-1v-6H6v-1l3-3V6.4L7.3 4.7A1 1 0 0 1 8 3h8Z"></path></svg>
+                            <span id="server2-stats" class="text-sm text-muted">discord.gg/aQhZRYkFWx</span>
+                          </span>
+                          <span id="server2-desc" class="block text-sm text-muted mt-0.5">discord.gg/tire</span>
+                        </a>
+                      </li>
+
+                      <li class="stagger-item" style="--stagger:3">
+                        <a href="https://gothgirls.lol"
+                           data-cursor="link"
+                           data-preview='{"type":"wide","title":"gothgirls.lol","domain":"gothgirls.lol","wideImg":"https://api.microlink.io/?url=https%3A%2F%2Fgothgirls.lol&screenshot=true&meta=false&embed=screenshot.url"}'
+                           class="interactive-row block rounded-lg px-3 py-2.5 hover:bg-accent-soft" target="_blank" rel="noreferrer">
+                          <span class="flex items-baseline gap-2">
+                            <span class="title-editorial text-base font-medium text-foreground">gothgirls.lol</span>
+                            <svg viewBox="0 0 24 24" class="h-3 w-3 text-muted" fill="currentColor" aria-label="pinned"><path d="M16 3a1 1 0 0 1 .7 1.7L15 6.4V11l3 3v1H13v6l-1 1-1-1v-6H6v-1l3-3V6.4L7.3 4.7A1 1 0 0 1 8 3h8Z"></path></svg>
+                            <span class="text-sm text-muted">live<span class="ml-1 text-xs text-emerald-600">●</span></span>
+                          </span>
+                          <span class="block text-sm text-muted mt-0.5">personal web dashboard, live lanyard status, and experiments</span>
+                        </a>
+                      </li>
+
+                      <li class="stagger-item" style="--stagger:4">
+                        <a id="server3-link" href="https://discord.gg/awtGEGpuqp" data-cursor="link" data-preview='{"type":"server","title":"cloud","icon":""}' class="interactive-row block rounded-lg px-3 py-2.5 hover:bg-accent-soft" target="_blank" rel="noreferrer">
+                          <span class="flex items-baseline gap-2">
+                            <span id="custom-discord-name" class="title-editorial text-base font-medium text-foreground">cloud</span>
+                            <svg viewBox="0 0 24 24" class="h-3 w-3 text-muted" fill="currentColor" aria-label="pinned"><path d="M16 3a1 1 0 0 1 .7 1.7L15 6.4V11l3 3v1H13v6l-1 1-1-1v-6H6v-1l3-3V6.4L7.3 4.7A1 1 0 0 1 8 3h8Z"></path></svg>
+                            <span id="custom-discord-stats" class="text-sm text-muted">discord.gg/awtGEGpuqp</span>
+                          </span>
+                          <span id="custom-discord-desc" class="block text-sm text-muted mt-0.5">5k+ pfps in all kinds, niche, anime, match etc</span>
+                        </a>
+                      </li>
+                    </ul>
+
+                    <div class="stagger-item" style="--stagger:5">
+                      <div id="heatmap-grid" role="img" aria-label="GitHub contributions in the last year" class="no-scrollbar flex select-none gap-[3px] overflow-x-auto py-2"></div>
+                      <p id="heatmap-total" class="mt-2 text-sm text-muted text-selectable">loading contributions for @horribles...</p>
+                    </div>
                   </div>
                 </div>
-             <div class="profile-active-apps" id="profile-active-apps"></div>
-          </div>
 
-          <div class="profile-details">
-            <div class="username-row">
-              <span class="username" id="username">goth</span>
-              <div class="discord-badges-inline" id="discord-badges"></div>
-            </div>
-            <div class="status-text" id="status-text" onclick="copyCurrentUsername(this)">@screenies</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card lastfm-card drop" style="--i: 1;">
-        <div class="lastfm-header">
-          <div class="card-title" style="display: flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-headphones" style="font-size: 16px;"></i> RECENTLY PLAYED
-          </div>
-          <span style="font-size: 11px; color: var(--text-muted); font-weight: 600; font-family: 'JetBrains Mono', monospace;">LAST.FM</span>
-        </div>
-        <div class="lastfm-sub-desc"><span id="lastfm-scrobbles-count">--</span> Scrobbles</div>
-
-        <div class="lastfm-grid" id="lastfm-grid">
-          <div style="font-size: 11px; color: var(--text-muted); text-align: center; width: 100%; padding: 45px 0; font-family: 'JetBrains Mono', monospace;">
-            Loading recent listens...
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="bottom-grid">
-      <div class="card about-card drop" style="--i: 2;">
-        <ul class="about-bullets-list">
-          <li>
-            <strong>Projects:</strong> <a href="javascript:void(0)" onclick="toggleSiteDockWidget()">This Site</a>, <a href="javascript:void(0)" onclick="toggleDiscordDockWidget('ZUJDf7BMT')">Chat server</a>, and <a href="javascript:void(0)" onclick="toggleDiscordDockWidget('2rYtaG23ht')">PFP vault</a>
-          </li>
-          <li>
-            <strong>Interests:</strong> Devving, Creating Communities and listening to Music
-          </li>
-        </ul>
-
-        <div class="about-marin-wrap">
-          <img class="about-marin-img" src="marin.png" alt="Marin" />
-          <div class="marin-status-text" id="marin-status-bubble"></div>
-        </div>
-
-        <div class="timezone-widget">
-            <div class="clock-logos-row">
-                <span class="clock-logo-icon" id="logo-minecraft" onclick="toggleRightSocialWidget('minecraft')" title="Minecraft">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M21.17 6.46l-8.5-4.86a1.5 1.5 0 0 0-1.47 0L2.7 6.46a1.5 1.5 0 0 0-.75 1.3v9.48a1.5 1.5 0 0 0 .75 1.3l8.5 4.86a1.5 1.5 0 0 0 1.47 0l8.5-4.86a1.5 1.5 0 0 0 .75-1.3V7.76a1.5 1.5 0 0 0-.75-1.3zM12 3.66l6.83 3.9L12 11.46 5.17 7.56 12 3.66zm-8 5.75l7 4v6.93l-7-4V9.41zm9 10.93v-6.93l7-4v6.93l-7 4z"/>
-                  </svg>
-                </span>
-              <span class="clock-logo-icon" id="logo-roblox" onclick="toggleRightSocialWidget('roblox')" title="Roblox">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.926 23.998L0 18.892 5.075.002 24 5.108ZM15.348 10.09l-5.282-1.453-1.414 5.273 5.282 1.453z" />
-                </svg>
-              </span>
-            </div>
-          <span class="digital-time" id="clock-digital-time">--:--:--</span>
-        </div>
-      </div>
-
-      <div class="card anilist-card drop" style="--i: 3;">
-        <div class="anilist-header">
-            <div class="card-title" style="display: flex; align-items: center; gap: 8px;">
-              <svg style="width: 15px; height: 15px; fill: currentColor; display: block;" viewBox="0 0 24 24">
-                <g transform="translate(0, 3.17)">
-                  <path opacity="0.45" d="M14.529 0v11.758c0 3.256 2.64 5.895 5.895 5.895H24v-4.015h-3.576c-1.038 0-1.88-.842-1.88-1.88V0h-4.015z" />
-                  <path d="M5.632 0 0 17.653h4.484l1.378-4.22h6.037l1.378 4.22h4.484L12.129 0H5.632zm1.442 3.844h3.613l1.83 5.603H5.244l1.83-5.603z" />
-                </g>
-              </svg>
-              ANILIST
-            </div>
-        </div>
-
-        <div class="anilist-stats-grid">
-          <div class="anilist-stat-box">
-            <span class="anilist-stat-val" id="anilist-anime-count">--</span>
-            <span class="anilist-stat-label">TOTAL ANIME</span>
-          </div>
-          <div class="anilist-stat-box">
-            <span class="anilist-stat-val" id="anilist-episodes-count">--</span>
-            <span class="anilist-stat-label">EPISODES</span>
-          </div>
-          <div class="anilist-stat-box">
-            <span class="anilist-stat-val" id="anilist-watchtime">--</span>
-            <span class="anilist-stat-label">WATCH TIME</span>
-          </div>
-          <div class="anilist-stat-box">
-            <span class="anilist-stat-val" id="anilist-manga-count">--</span>
-            <span class="anilist-stat-label">MANGA READ</span>
-          </div>
-        </div>
-
-        <div class="anilist-tabs-row">
-          <button class="anilist-tab-btn active" onclick="switchAniListTab('ALL', this)">ALL</button>
-          <button class="anilist-tab-btn" onclick="switchAniListTab('CURRENT', this)">WATCHING</button>
-          <button class="anilist-tab-btn" onclick="switchAniListTab('COMPLETED', this)">COMPLETED</button>
-          <button class="anilist-tab-btn" onclick="switchAniListTab('PLANNING', this)">PLANNING</button>
-        </div>
-
-        <div class="anilist-entries-row" id="anilist-entries-row">
-          <div style="font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; padding: 30px 0; width: 100%; text-align: center;">Loading anime list...</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="playlists-modal-overlay" onclick="closePlaylistsModalOnBackdrop(event)">
-    <div class="playlists-modal" id="playlists-modal" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <div class="modal-title">
-          <i class="fa-brands fa-spotify" style="color: #1ed760; font-size: 18px;"></i> Curated Playlists
-        </div>
-        <button class="modal-close-btn" onclick="closePlaylistsModal()">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-      <div class="playlists-list">
-        <div class="playlist-item-card">
-          <div class="playlist-cover-info">
-            <img class="playlist-cover-img" src="playlist1.png" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=100&auto=format&fit=crop&q=60';" alt="Playlist 1" />
-            <div class="playlist-details">
-              <span class="playlist-name">breakcore</span>
-              <span class="playlist-subtext">drums and rapid chopped breaks</span>
-            </div>
-          </div>
-          <button class="playlist-listen-btn" onclick="promptExternalLink('https://open.spotify.com/playlist/0zxImLqF0lMeoai0LCUH2M?si=7619b78727364416')">
-            <i class="fa-solid fa-play" style="font-size: 10px;"></i> Listen
-          </button>
-        </div>
-
-        <div class="playlist-item-card">
-          <div class="playlist-cover-info">
-            <img class="playlist-cover-img" src="playlist2.png" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=100&auto=format&fit=crop&q=60';" alt="Playlist 2" />
-            <div class="playlist-details">
-              <span class="playlist-name">minecraft OST</span>
-              <span class="playlist-subtext">nostalgic ambient and beta tracks</span>
-            </div>
-          </div>
-          <button class="playlist-listen-btn" onclick="promptExternalLink('https://open.spotify.com/playlist/3dmhlm4EI6HG7juCdN9fHc?si=7057b9c534134d05')">
-            <i class="fa-solid fa-play" style="font-size: 10px;"></i> Listen
-          </button>
-        </div>
-
-        <div class="playlist-item-card">
-          <div class="playlist-cover-info">
-            <img class="playlist-cover-img" src="playlist3.png" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100&auto=format&fit=crop&q=60';" alt="Playlist 3" />
-            <div class="playlist-details">
-              <span class="playlist-name">prime kanye</span>
-              <span class="playlist-subtext">classics & top tier production</span>
-            </div>
-          </div>
-          <button class="playlist-listen-btn" onclick="promptExternalLink('https://open.spotify.com/playlist/7HpRkDGgdyu5GHF1XicAl1?si=8e3037ef850f4572')">
-            <i class="fa-solid fa-play" style="font-size: 10px;"></i> Listen
-          </button>
-        </div>
-
-        <div class="playlist-item-card">
-          <div class="playlist-cover-info">
-            <img class="playlist-cover-img" src="playlist4.png" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=100&auto=format&fit=crop&q=60';" alt="Playlist 4" />
-            <div class="playlist-details">
-              <span class="playlist-name">vocaloid selection</span>
-              <span class="playlist-subtext">fast electronic synths & tuned vocals</span>
-            </div>
-          </div>
-          <button class="playlist-listen-btn" onclick="promptExternalLink('https://open.spotify.com/playlist/1vLHUzK0VXToagQCXWWYhn?si=74ddee99bb1a4636')">
-            <i class="fa-solid fa-play" style="font-size: 10px;"></i> Listen
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="left-widgets-stack" id="left-widgets-stack">
-      <div class="left-dock-widget" id="dock-widget-site">
-        <div class="dock-widget-inner">
-          <div class="dock-widget-header">
-            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('site')"></i>
-          </div>
-          <div class="dock-widget-body">
-            <img id="dock-site-icon" class="dock-widget-icon" src="favicon.png" alt="Site" />
-            <div class="dock-widget-info">
-              <span class="dock-widget-title" id="dock-site-title">gothic pray</span>
-              <span class="dock-widget-sub" style="color: var(--text-muted);" id="dock-site-url">portfolio</span>
-              <button class="dock-widget-btn" id="dock-copy-site-btn" onclick="copySiteLink(this)">Copy link</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="left-dock-widget" id="dock-widget-ZUJDf7BMT">
-        <div class="dock-widget-inner">
-          <div class="dock-widget-header">
-            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('ZUJDf7BMT')"></i>
-          </div>
-          <div class="dock-widget-body">
-            <img id="dock-icon-ZUJDf7BMT" class="dock-widget-icon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Server" />
-            <div class="dock-widget-info">
-              <span class="dock-widget-title" id="dock-name-ZUJDf7BMT">Chat server</span>
-              <div class="dock-widget-sub" id="dock-count-ZUJDf7BMT">Loading...</div>
-              <a class="dock-widget-btn" href="https://discord.gg/ZUJDf7BMT" target="_blank" rel="noopener">Apply</a>
-            </div>
-          </div>
-        </div>
-       </div>
-
-      <div class="left-dock-widget" id="dock-widget-2rYtaG23ht">
-        <div class="dock-widget-inner">
-          <div class="dock-widget-header">
-            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeDockWidget('2rYtaG23ht')"></i>
-          </div>
-          <div class="dock-widget-body">
-            <img id="dock-icon-2rYtaG23ht" class="dock-widget-icon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Server" />
-            <div class="dock-widget-info">
-              <span class="dock-widget-title" id="dock-name-2rYtaG23ht">PFP vault</span>
-              <div class="dock-widget-sub" id="dock-count-2rYtaG23ht">Loading...</div>
-              <a class="dock-widget-btn" href="https://discord.gg/2rYtaG23ht" target="_blank" rel="noopener">Join</a>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-
-  <div class="right-widgets-stack" id="right-widgets-stack">
-      <!-- Roblox Widget -->
-      <div class="right-dock-widget roblox-tall" id="right-dock-roblox">
-        <div class="dock-widget-inner">
-          <div class="dock-widget-header" style="width: 100%;">
-            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeRightDockWidget('roblox')"></i>
-            <span><img src="https://cdn.simpleicons.org/roblox" alt="Roblox" /></span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
-            <span class="dock-widget-title" id="right-roblox-name">villain</span>
-          </div>
-
-          <div class="right-rbx-body-wrap">
-            <img id="right-roblox-full-img" class="right-rbx-full-img" src="" alt="Roblox Avatar" />
-          </div>
-
-          <div class="right-rbx-stats-pill" id="right-rbx-stats-pill">
-            <span class="right-rbx-stat-item" id="rbx-stat-friends" style="display: none;">
-              <i class="fa-solid fa-user-group"></i> <span id="val-rbx-friends"></span>
-            </span>
-            <span class="right-rbx-stat-item" id="rbx-stat-followers" style="display: none;">
-              <i class="fa-solid fa-user-plus"></i> <span id="val-rbx-followers"></span>
-            </span>
-            <span class="right-rbx-stat-item" id="rbx-stat-following" style="display: none;">
-              <i class="fa-solid fa-users"></i> <span id="val-rbx-following"></span>
-            </span>
-          </div>
-
-          <button class="dock-widget-btn" onclick="window.open('https://www.roblox.com/users/9769080868/profile', '_blank')">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> View Profile
-          </button>
-        </div>
-      </div>
-
-      <!-- Minecraft Widget -->
-      <div class="right-dock-widget roblox-tall" id="right-dock-minecraft">
-        <div class="dock-widget-inner">
-          <div class="dock-widget-header" style="width: 100%;">
-            <i class="fa-solid fa-xmark dock-widget-close" onclick="closeRightDockWidget('minecraft')"></i>
-            <span><i class="fa-solid fa-cube" style="color: #6ee7b7; font-size: 13px;"></i></span>
-          </div>
-
-          <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
-            <span class="dock-widget-title" id="right-mc-name">Loading...</span>
-          </div>
-
-          <div class="right-rbx-body-wrap">
-            <img id="right-mc-full-img"
-                 class="right-rbx-full-img"
-                 src="https://skinrender.dev/render/d10dfb5e-4a7b-4d1e-9c74-a812e216e89e/body?yaw=35&capeAngle=25&size=512"
-                 alt="Minecraft Skin" />
-          </div>
-
-          <button class="dock-widget-btn" onclick="window.open('https://namemc.com/profile/d10dfb5e-4a7b-4d1e-9c74-a812e216e89e', '_blank')">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i> NameMC Profile
-          </button>
-        </div>
-      </div>
-    </div>
-    </div>
-
-  <script>
-    const DISCORD_ID = "488047218138546179";
-    const LASTFM_API_KEY = "56f986f70954d1ad8c8b3ec3aec33f83";
-    const LASTFM_USERNAME = "renumerate";
-    const BIRTH_DATE = new Date("2009-03-21T00:00:00");
-    const ROBLOX_TARGET_ID = "9769080868";
-    const MC_UUID = "d10dfb5e-4a7b-4d1e-9c74-a812e216e89e";
-    const fetchedRightCache = {};
-
-    let activeRedirectUrl = "";
-    let socket = null;
-    let heartbeatInterval = null;
-
-    function escapeHTML(str) {
-      return String(str || "").replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
-    }
-
-    function escapeJs(str) {
-      return String(str || "").replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-    }
-
-    try {
-      const cachedName = localStorage.getItem("cached_display_name");
-      if (cachedName) {
-        const enterNameEl = document.getElementById("enter-name");
-        if (enterNameEl) enterNameEl.textContent = cachedName;
-      }
-    } catch (e) {}
-
-    let currentDiscordUsername = "neeeeeerd";
-    let isCopying = false;
-
-    function copyCurrentUsername(el) {
-      if (isCopying) return;
-      isCopying = true;
-
-      const targetUser = currentDiscordUsername || "neeeeeerd";
-      navigator.clipboard.writeText(targetUser).then(() => {
-        el.classList.add("copied");
-        el.innerHTML = `<i class="fa-solid fa-check"></i> Copied!`;
-
-        setTimeout(() => {
-          el.classList.remove("copied");
-          el.textContent = `@${currentDiscordUsername}`;
-          isCopying = false;
-        }, 1500);
-      }).catch(() => {
-        isCopying = false;
-      });
-    }
-
-    const STATUS_SVGS = {
-      online: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#22c55e"/></svg>`,
-      idle: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#f59e0b"/></svg>`,
-      dnd: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#ef4444"/><rect x="3" y="6.5" width="10" height="3" rx="1.5" fill="var(--card-bg)"/></svg>`,
-      offline: `<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/><circle cx="8" cy="8" r="4" fill="var(--card-bg)"/></svg>`
-    };
-
-    const STATUS_COLORS = {
-      online: "#22c55e",
-      idle: "#f59e0b",
-      dnd: "#ef4444",
-      offline: "#52525b"
-    };
-
-    let TN = '';
-    let TS = 'nerd';
-    let ti = 0;
-    let td2 = 1;
-    let tOn = false;
-
-    function tick() {
-      if (td2 > 0) {
-        if (ti < TS.length) {
-          ti++;
-        } else {
-          td2 = -1;
-          return setTimeout(tick, 2200);
-        }
-      } else {
-        if (ti > 0) {
-          ti--;
-        } else {
-          td2 = 1;
-          return setTimeout(tick, 600);
-        }
-      }
-      document.title = (TN + TS.slice(0, ti)) || '\u200e';
-      setTimeout(tick, td2 > 0 ? 110 : 55);
-    }
-
-    function setTitle(name) {
-      TN = name || '';
-      TS = name ? ' | gothgirls.lol' : 'nerd';
-      if (name) document.title = name;
-      if (!tOn) {
-        tOn = true;
-        tick();
-      }
-    }
-
-    function applyDisplayNameStyles(displayName) {
-      const usernameEl = document.getElementById("username");
-      const enterNameEl = document.getElementById("enter-name");
-
-      if (displayName) {
-        setTitle(displayName);
-        if (usernameEl) usernameEl.textContent = displayName;
-        if (enterNameEl) enterNameEl.textContent = displayName;
-        try {
-          localStorage.setItem("cached_display_name", displayName);
-        } catch (e) {}
-      }
-    }
-
-    function loadDiscordAvatar(userId, avatarHash) {
-      const avatarEl = document.getElementById("avatar");
-      if (!avatarEl || !avatarHash) return;
-
-      const isGif = avatarHash.startsWith("a_");
-      const ext = isGif ? "gif" : "png";
-      avatarEl.src = `https://cdn.discordapp.com/avatars/${userId}/${avatarHash}.${ext}?size=256`;
-    }
-
-    function applyAvatarDecoration(decoData) {
-      const decoEl = document.getElementById("avatar-decoration");
-      if (!decoEl) return;
-
-      const asset = decoData?.asset;
-      if (asset) {
-        decoEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=160&passthrough=true`;
-        decoEl.style.display = "block";
-      } else {
-        decoEl.style.display = "none";
-      }
-    }
-
-    function applyPresenceData(data) {
-      if (!data) return;
-
-      const marinBubble = document.getElementById("marin-status-bubble");
-      const customStatus = data.activities ? data.activities.find(a => a.type === 4) : null;
-      const statusRaw = customStatus && (customStatus.state || (customStatus.emoji && customStatus.emoji.name))
-        ? ((customStatus.emoji && customStatus.emoji.name ? customStatus.emoji.name + ' ' : '') + (customStatus.state || '')).trim()
-        : "";
-
-      if (marinBubble) {
-        if (statusRaw) {
-          marinBubble.textContent = `“${statusRaw}”`;
-          marinBubble.classList.add("has-status");
-        } else {
-          marinBubble.textContent = "";
-          marinBubble.classList.remove("has-status");
-        }
-      }
-
-      const appsContainer = document.getElementById("profile-active-apps");
-      if (appsContainer) {
-        const appNames = [];
-
-        if (Array.isArray(data.activities)) {
-          data.activities.forEach(act => {
-            if (act.type !== 4 && act.name && !appNames.includes(act.name)) {
-              appNames.push(act.name);
-            }
-          });
-        }
-
-        if (data.spotify && data.spotify.song && !appNames.includes("Spotify")) {
-          appNames.push("Spotify");
-        }
-
-        appsContainer.innerHTML = appNames.map(name => `
-          <span class="active-app-name" title="${escapeHTML(name)}">${escapeHTML(name)}</span>
-        `).join("");
-      }
-
-      const user = data.discord_user;
-      const statusTextEl = document.getElementById("status-text");
-      const statusBadgeEl = document.getElementById("status-badge");
-
-      if (user) {
-        const displayName = user.global_name || user.display_name || user.username || "goth";
-        applyDisplayNameStyles(displayName);
-        applyAvatarDecoration(user.avatar_decoration_data);
-
-        if (user.username) {
-          currentDiscordUsername = user.username;
-          if (statusTextEl && !isCopying) {
-            statusTextEl.textContent = `@${user.username}`;
-          }
-        }
-        if (user.avatar) {
-          loadDiscordAvatar(user.id, user.avatar);
-        }
-      }
-
-      const st = data.discord_status || "offline";
-      if (statusBadgeEl && typeof STATUS_SVGS !== "undefined") {
-        statusBadgeEl.innerHTML = STATUS_SVGS[st] || STATUS_SVGS.offline;
-      }
-    }
-
-    async function fetchDiscordProfile() {
-      const badgesContainer = document.getElementById("discord-badges");
-      const avatarEl = document.getElementById("avatar");
-
-      try {
-        const res = await fetch(`https://dcdn.dstn.to/profile/${DISCORD_ID}?t=${Date.now()}`);
-        if (!res.ok) throw new Error("DSTN request failed");
-
-        const data = await res.json();
-        const user = data.user || data.account || {};
-
-        if (user) {
-          const displayName = user.global_name || user.display_name || user.username || "nerd";
-          applyDisplayNameStyles(displayName);
-          applyAvatarDecoration(user.avatar_decoration_data);
-
-          if (user.username) {
-            currentDiscordUsername = user.username;
-            const statusTextEl = document.getElementById("status-text");
-            if (statusTextEl && !isCopying) {
-              statusTextEl.textContent = `@${user.username}`;
-            }
-          }
-
-          if (user.avatar && avatarEl) {
-            const ext = user.avatar.startsWith("a_") ? "gif" : "png";
-            avatarEl.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.${ext}?size=256`;
-          }
-
-          if (badgesContainer && Array.isArray(data.badges)) {
-            badgesContainer.innerHTML = data.badges.map(b => {
-              const iconUrl = b.icon ? `https://cdn.discordapp.com/badge-icons/${b.icon}.png` : "";
-              const desc = escapeHTML(b.description || b.id || "Discord Badge");
-              if (!iconUrl) return "";
-
-              return `
-                <div class="badge-wrapper">
-                  <img class="discord-badge-icon" src="${iconUrl}" alt="${desc}" />
-                  <span class="badge-tooltip">${desc}</span>
+                <!-- work tab -->
+                <div data-panel="work" hidden>
+                  <ul class="space-y-6">
+                    <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:1">
+                      <span class="tabular-nums text-muted text-selectable">May 2026 — Now</span>
+                      <div>
+                        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                          <span class="font-medium text-foreground text-selectable">Creator &amp; Developer</span>
+                          <span class="text-muted text-selectable">at</span>
+                          <a href="https://gothgirls.lol"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="gothgirls"
+                             data-badge-label="gothgirls.lol"
+                             class="inline-pill">
+                            <img src="https://gothgirls.lol/favicon.png" onerror="if(this.src!=='favicon.png')this.src='favicon.png'" alt="" />
+                            <span>gothgirls.lol</span>
+                          </a>
+                        </div>
+                        <p class="mt-1 text-muted text-selectable">Personal biolink, and learning site</p>
+                      </div>
+                    </li>
+
+                    <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:2">
+                      <span class="tabular-nums text-muted text-selectable">Feb 2026 — Now</span>
+                      <div>
+                        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                          <span class="font-medium text-foreground text-selectable">Owner &amp; Founder</span>
+                          <span class="text-muted text-selectable">at</span>
+                          <a id="work-s1-pill"
+                             href="https://discord.gg/zbsq8dAgUt"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="discord"
+                             data-badge-label="Discord"
+                             class="inline-pill">
+                            <img id="work-s1-icon" src="https://cdn.discordapp.com/embed/avatars/0.png" alt="" />
+                            <span id="work-server-title">floor</span>
+                          </a>
+                        </div>
+                        <p class="mt-1 text-muted text-selectable">Resource pack creator and poster</p>
+                      </div>
+                    </li>
+
+                    <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:3">
+                      <span class="tabular-nums text-muted text-selectable">Oct 2026 — Now</span>
+                      <div>
+                        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                          <span class="font-medium text-foreground text-selectable">Community Creator</span>
+                          <span class="text-muted text-selectable">at</span>
+                          <a id="work-s2-pill"
+                             href="https://discord.gg/aQhZRYkFWx"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="discord"
+                             data-badge-label="Discord"
+                             class="inline-pill">
+                            <img id="work-s2-icon" src="https://cdn.discordapp.com/embed/avatars/1.png" alt="" />
+                            <span id="work-s2-title">evil</span>
+                          </a>
+                        </div>
+                        <p class="mt-1 text-muted text-selectable">New OGU Community Server that is exclusive</p>
+                      </div>
+                    </li>
+
+                    <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:4">
+                      <span class="tabular-nums text-muted text-selectable">Jan 2024 — May 2025</span>
+                      <div>
+                        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                          <span class="font-medium text-foreground text-selectable">Minecraft Map Builder</span>
+                          <span class="text-muted text-selectable">at</span>
+                          <a href="https://minecraft.net"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="minecraft"
+                             data-badge-label="minecraft.net"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=minecraft.net&sz=64" alt="" />
+                            <span>Minecraft</span>
+                          </a>
+                        </div>
+                        <p class="mt-1 text-muted text-selectable">Worked on building custom Maps and Spawns</p>
+                      </div>
+                    </li>
+
+                    <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:5">
+                      <span class="tabular-nums text-muted text-selectable">Mar 2023 —  Nov 2023</span>
+                      <div>
+                        <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                          <span class="font-medium text-foreground text-selectable">Roblox Map Builder</span>
+                          <span class="text-muted text-selectable">at</span>
+                          <a href="https://roblox.com"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="roblox"
+                             data-badge-label="roblox.com"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=roblox.com&sz=64" alt="" />
+                            <span>Roblox Studio</span>
+                          </a>
+                        </div>
+                        <p class="mt-1 text-muted text-selectable">Worked on creating Roblox maps for multiple games</p>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
-              `;
-            }).join("");
-          }
-        }
-      } catch (e) {
-        console.warn("Could not load DSTN profile:", e);
-      }
-    }
 
-    function connectLanyardWebSocket() {
-      if (socket) {
-        socket.onclose = null;
-        socket.close();
-      }
-      socket = new WebSocket("wss://api.lanyard.rest/socket");
+                <!-- music tab -->
+                <div data-panel="music" hidden>
+                  <div class="space-y-10">
+                    <div class="stagger-item" style="--stagger:1">
+                      <p class="subtitle-editorial mb-2.5 text-base text-muted text-selectable">albums this month</p>
+                      <ul id="top-albums-list" class="-mx-3 space-y-0.5">
+                        <li class="h-12 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
+                        <li class="h-12 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
+                        <li class="h-12 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
+                      </ul>
+                    </div>
 
-      socket.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        if (message.op === 1) {
-          if (heartbeatInterval) clearInterval(heartbeatInterval);
-          heartbeatInterval = setInterval(() => {
-            if (socket && socket.readyState === WebSocket.OPEN) {
-              socket.send(JSON.stringify({ op: 3 }));
-            }
-          }, message.d.heartbeat_interval);
+                    <div class="stagger-item" style="--stagger:2">
+                      <p class="subtitle-editorial mb-2.5 text-base text-muted text-selectable">artists this month</p>
+                      <p id="top-artists-list" class="text-sm leading-relaxed text-muted">
+                        <span class="inline-block h-4 w-48 animate-pulse rounded bg-[#ecebe5]"></span>
+                      </p>
+                    </div>
 
-          socket.send(JSON.stringify({
-            op: 2,
-            d: { subscribe_to_id: DISCORD_ID }
-          }));
-        }
-
-        if (message.t === "INIT_STATE" || message.t === "PRESENCE_UPDATE") {
-          if (message.d) {
-            applyPresenceData(message.d);
-          }
-        }
-      };
-
-      socket.onclose = () => {
-        if (heartbeatInterval) clearInterval(heartbeatInterval);
-        setTimeout(connectLanyardWebSocket, 5000);
-      };
-    }
-
-    function getRelativeTime(timestamp) {
-      if (!timestamp) return "Now Playing";
-      const now = Math.floor(Date.now() / 1000);
-      const diff = now - parseInt(timestamp);
-      if (diff < 60) return "just now";
-      if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-      if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-      return `${Math.floor(diff / 86400)}d ago`;
-    }
-
-    async function resolveTrackImage(artistRaw, trackRaw, imgElementId) {
-      const cleanArtist = (artistRaw || "").replace(/ - Topic$/i, "").trim();
-      const cleanTrack = (trackRaw || "").replace(/\s*[\(\[].*?[\)\]]\s*/g, " ").trim();
-      try {
-        const itunesRes = await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(`${cleanArtist}${cleanTrack}`)}&entity=song&limit=1`);
-        if (itunesRes.ok) {
-          const data = await itunesRes.json();
-          if (data.resultCount > 0 && data.results[0]?.artworkUrl100) {
-            const highRes = data.results[0].artworkUrl100.replace("100x100bb.jpg", "600x600bb.jpg");
-            const el = document.getElementById(imgElementId);
-            if (el) el.src = highRes;
-          }
-        }
-      } catch (e) {}
-    }
-
-    async function fetchLastFmRecent() {
-      const gridEl = document.getElementById("lastfm-grid");
-      const scrobblesEl = document.getElementById("lastfm-scrobbles-count");
-      if (!gridEl) return;
-
-      try {
-        const res = await fetch(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(LASTFM_USERNAME)}&api_key=${LASTFM_API_KEY}&format=json&limit=9`);
-        if (!res.ok) throw new Error("Failed to fetch Last.fm");
-        const data = await res.json();
-
-        const totalScrobbles = data?.recenttracks?.["@attr"]?.total;
-        if (totalScrobbles && scrobblesEl) {
-          scrobblesEl.textContent = Number(totalScrobbles).toLocaleString();
-        }
-
-        let tracks = data?.recenttracks?.track || [];
-        if (!Array.isArray(tracks)) tracks = [tracks];
-        if (tracks.length === 0) throw new Error("No tracks found");
-
-        const list = tracks.slice(0, 9);
-
-        gridEl.innerHTML = list.map((track, idx) => {
-          const isNowPlaying = track["@attr"]?.nowplaying === "true";
-          const name = escapeHTML(track.name || "Unknown Track");
-          const artist = escapeHTML(track.artist?.["#text"] || track.artist?.name || "Unknown Artist");
-          const album = escapeHTML(track.album?.["#text"] || "");
-          const trackUrl = escapeJs(track.url || `https://www.last.fm/music/${encodeURIComponent(artist)}/_/${encodeURIComponent(name)}`);
-
-          let rawImg = track.image?.find(img => img.size === "extralarge" || img.size === "large")?.["#text"] || "";
-          const hasValidImg = rawImg && !rawImg.includes("2a96cbd8b46e442fc41c2b86b821562f") && rawImg.trim() !== "";
-          let coverImg = hasValidImg ? rawImg : "playlist4.png";
-          const imgId = `lfm-cover-${idx}`;
-          const timeStr = isNowPlaying ? '<span class="lastfm-now-pulse"><i class="fa-solid fa-tower-broadcast"></i> Playing</span>' : getRelativeTime(track.date?.uts);
-
-          if (!hasValidImg) {
-            resolveTrackImage(track.artist?.["#text"] || track.artist?.name, track.name, imgId);
-          }
-
-          return `
-            <div class="lastfm-track-card" onclick="promptExternalLink('${trackUrl}')">
-              <img class="lastfm-cover-bg" id="${imgId}" src="${coverImg}" onerror="this.onerror=null; this.src='playlist4.png';" alt="${name}" />
-              <span class="lastfm-collapsed-label">${artist.length > 12 ? artist.substring(0, 12) + '..' : artist}</span>
-              <div class="lastfm-expanded-content">
-                <div class="lastfm-top-row">
-                  <span>${timeStr}</span>
-                  <span class="lastfm-play-btn"><i class="fa-solid fa-play" style="font-size: 8px;"></i> Play</span>
+                    <div class="stagger-item" style="--stagger:3">
+                      <div class="mb-2.5 flex items-center justify-between">
+                        <p class="subtitle-editorial text-base text-muted text-selectable">recently played</p>
+                        <span class="inline-flex items-center gap-1.5 text-xs text-muted">
+                          <span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
+                          live
+                        </span>
+                      </div>
+                      <ul id="recent-tracks-list" class="-mx-3 space-y-0.5 text-sm">
+                        <li class="h-10 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
+                        <li class="h-10 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
+                        <li class="h-10 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
+                        <li class="h-10 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <div class="lastfm-bottom-details">
-                  <span class="lastfm-track-title">${name}</span>
-                  <span class="lastfm-track-artist">${artist}</span>
-                  ${album ? `<span class="lastfm-track-album">${album}</span>` : ''}
+
+                <!-- setup tab -->
+                <div data-panel="setup" hidden>
+                  <div class="space-y-8">
+                    <div class="stagger-item" style="--stagger:1">
+                      <h2 class="title-editorial text-base font-medium text-foreground text-selectable mb-4">Apps i use</h2>
+
+                      <div class="space-y-4 text-sm">
+                        <!-- dock apps -->
+                        <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
+                          <span class="text-muted text-selectable mr-1">dock:</span>
+                          <a href="https://zed.dev"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge-custom-icon="https://www.google.com/s2/favicons?domain=zed.dev&sz=64"
+                             data-badge-label="zed.dev"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=zed.dev&sz=64" alt="" />
+                            <span>Zed</span>
+                          </a>
+                          <a href="https://discord.com"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="discord"
+                             data-badge-label="discord.com"
+                             class="inline-pill">
+                            <svg viewBox="0 0 24 24" fill="#5865F2"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.93-1.51.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.25a18.27 18.27 0 0 0-5.4 0 12.64 12.64 0 0 0-.62-1.25.08.08 0 0 0-.08-.04 19.74 19.74 0 0 0-4.93 1.51.07.07 0 0 0-.03.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.05 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2a.08.08 0 0 0-.04-.11 13.1 13.1 0 0 1-1.87-.9.08.08 0 0 1-.01-.13c.13-.09.25-.19.37-.29a.08.08 0 0 1 .08-.01c3.93 1.8 8.18 1.8 12.07 0a.08.08 0 0 1 .08.01c.12.1.25.2.37.29a.08.08 0 0 1-.01.13c-.6.35-1.22.65-1.87.9a.08.08 0 0 0-.04.11c.36.7.77 1.37 1.22 2a.08.08 0 0 0 .08.03 19.83 19.83 0 0 0 6-3.03.08.08 0 0 0 .03-.05c.5-5.18-.84-9.68-3.55-13.66a.06.06 0 0 0-.03-.03ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42Zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42Z"/></svg>
+                            <span>Discord Developement</span>
+                          </a>
+                          <a href="https://open.spotify.com"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="spotify"
+                             data-badge-label="spotify.com"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=spotify.com&sz=64" alt="" />
+                            <span>Spotify</span>
+                          </a>
+                        </div>
+
+                        <!-- everyday tools -->
+                        <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
+                          <span class="text-muted text-selectable mr-1">tools:</span>
+                          <a href="https://mullvad.net"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge-custom-icon="https://www.google.com/s2/favicons?domain=mullvad.net&sz=64"
+                             data-badge-label="mullvad.net"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=mullvad.net&sz=64" alt="" />
+                            <span>Mullvad</span>
+                          </a>
+                          <a href="https://obsproject.com"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge-custom-icon="https://www.google.com/s2/favicons?domain=obsproject.com&sz=64"
+                             data-badge-label="obsproject.com"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=obsproject.com&sz=64" alt="" />
+                            <span>OBS</span>
+                          </a>
+                          <a href="https://www.blackmagicdesign.com/products/davinciresolve"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge-custom-icon="https://www.google.com/s2/favicons?domain=blackmagicdesign.com&sz=64"
+                             data-badge-label="blackmagicdesign.com"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=blackmagicdesign.com&sz=64" alt="" />
+                            <span>DaVinci Resolve</span>
+                          </a>
+                          <a href="https://helium.computer"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge-custom-icon="https://www.google.com/s2/favicons?domain=helium.computer&sz=64"
+                             data-badge-label="helium.computer"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=helium.computer&sz=64" alt="" />
+                            <span>Helium Browser</span>
+                          </a>
+                          <a href="https://www.adobe.com/products/photoshop.html"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="photoshop"
+                             data-badge-label="adobe.com"
+                             class="inline-pill">
+                            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5"><rect width="24" height="24" rx="4" fill="#001E36"/><path d="M5.5 6.8h3.8c2.3 0 3.7 1.2 3.7 3.2 0 2.1-1.5 3.3-3.9 3.3H7.6v3.9H5.5V6.8Zm2.1 4.7h1.5c1.2 0 1.9-.6 1.9-1.5 0-1-.7-1.5-1.9-1.5H7.6v3Zm9.2 5.9c-1.4 0-2.6-.5-3.2-1l.8-1.5c.6.5 1.5.9 2.4.9.9 0 1.4-.3 1.4-.8 0-.5-.4-.7-1.6-1.1-1.6-.5-2.5-1.1-2.5-2.4 0-1.5 1.2-2.5 3.1-2.5 1.2 0 2.2.4 2.8.8l-.8 1.5c-.5-.3-1.2-.6-2-.6-.8 0-1.2.3-1.2.8 0 .5.4.7 1.6 1 1.6.5 2.5 1.1 2.5 2.5 0 1.5-1.2 2.4-3.3 2.4Z" fill="#31A8FF"/></svg>
+                            <span>Photoshop</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- os section -->
+                    <div class="stagger-item" style="--stagger:2">
+                      <h2 class="title-editorial text-base font-medium text-foreground text-selectable mb-4">Operating System:</h2>
+
+                      <div class="space-y-4 text-sm">
+                        <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
+                          <span class="text-muted text-selectable mr-1">current:</span>
+                          <a href="https://www.microsoft.com/software-download/windows11"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge="windows11"
+                             data-badge-label="microsoft.com"
+                             class="inline-pill">
+                            <svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="#0078D4"><path d="M2 2h9.5v9.5H2V2Zm10.5 0H22v9.5h-9.5V2ZM2 12.5h9.5V22H2v-9.5Zm10.5 0H22V22h-9.5v-9.5Z"/></svg>
+                            <span>Windows</span>
+                          </a>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
+                          <span class="text-muted text-selectable mr-1">used in the past:</span>
+                          <a href="https://archlinux.org"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge-custom-icon="https://www.google.com/s2/favicons?domain=archlinux.org&sz=64"
+                             data-badge-label="archlinux.org"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=archlinux.org&sz=64" alt="" />
+                            <span>archlinux</span>
+                          </a>
+                          <a href="https://www.kali.org"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge-custom-icon="https://www.google.com/s2/favicons?domain=kali.org&sz=64"
+                             data-badge-label="kali.org"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=kali.org&sz=64" alt="" />
+                            <span>kali linux</span>
+                          </a>
+                          <a href="https://www.gentoo.org"
+                             target="_blank" rel="noreferrer"
+                             data-cursor="link"
+                             data-badge-custom-icon="https://www.google.com/s2/favicons?domain=gentoo.org&sz=64"
+                             data-badge-label="gentoo.org"
+                             class="inline-pill">
+                            <img src="https://www.google.com/s2/favicons?domain=gentoo.org&sz=64" alt="" />
+                            <span>gentoo</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </div>
-          `;
-        }).join("");
-      } catch (e) {
-        gridEl.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); text-align: center; width: 100%; padding: 45px 0; font-family: 'JetBrains Mono', monospace;">Could not load recent tracks.</div>`;
-      }
-    }
 
-    let anilistEntriesCache = {
-      ALL: [],
-      CURRENT: [],
-      COMPLETED: [],
-      PLANNING: []
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- bottom footer -->
+    <footer class="mt-20 border-t border-line pt-6 text-sm text-muted print:hidden">
+      <div class="flex items-center justify-between">
+        <span class="text-selectable">© 2026 <span id="footer-name" class="subtitle-editorial">jules</span></span>
+        <span class="flex gap-4">
+          <a data-cursor="link" class="hover:text-foreground" href="#projects" data-nav-link="projects">home</a>
+        </span>
+      </div>
+      <div id="now-line-wrap" class="mt-4 h-px w-full overflow-hidden bg-line transition-opacity duration-500 opacity-0" aria-hidden="true">
+        <div id="now-line-bar" class="h-full w-full origin-left bg-accent/60 transition-transform duration-500 scale-x-0"></div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /*
+     * © 2026 @chunkloader on discord (488047218138546179)
+     * custom lanyard + last.fm + github integration
+     */
+
+    const DISCORD_USER_ID = '488047218138546179';
+    const LASTFM_API_KEY = '56f986f70954d1ad8c8b3ec3aec33f83';
+    const LASTFM_USERNAME = 'renumerate';
+    const GITHUB_USERNAME = 'horribles';
+
+    const GOTHGIRLS_FAVICON = 'https://gothgirls.lol/favicon.png';
+
+    // svg icons for tooltips
+    const BRAND_SVGS = {
+      discord: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="#5865F2"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.93-1.51.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.25a18.27 18.27 0 0 0-5.4 0 12.64 12.64 0 0 0-.62-1.25.08.08 0 0 0-.08-.04 19.74 19.74 0 0 0-4.93 1.51.07.07 0 0 0-.03.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.05 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2a.08.08 0 0 0-.04-.11 13.1 13.1 0 0 1-1.87-.9.08.08 0 0 1-.01-.13c.13-.09.25-.19.37-.29a.08.08 0 0 1 .08-.01c3.93 1.8 8.18 1.8 12.07 0a.08.08 0 0 1 .08.01c.12.1.25.2.37.29a.08.08 0 0 1-.01.13c-.6.35-1.22.65-1.87.9a.08.08 0 0 0-.04.11c.36.7.77 1.37 1.22 2a.08.08 0 0 0 .08.03 19.83 19.83 0 0 0 6-3.03.08.08 0 0 0 .03-.05c.5-5.18-.84-9.68-3.55-13.66a.06.06 0 0 0-.03-.03ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42Zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42Z"/></svg>`,
+      github: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="#181717"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>`,
+      instagram: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="#E1306C" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#E1306C" stroke="none"/></svg>`,
+      tiktok: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="#ff0050"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1Z"/></svg>`,
+      lastfm: `<img src="https://www.google.com/s2/favicons?domain=last.fm&sz=64" class="h-3.5 w-3.5 rounded-[3px] object-cover" alt="" />`,
+      spotify: `<img src="https://www.google.com/s2/favicons?domain=spotify.com&sz=64" class="h-3.5 w-3.5 rounded-[3px] object-cover" alt="" />`,
+      gothgirls: `<img src="${GOTHGIRLS_FAVICON}" onerror="if(this.src!=='favicon.png')this.src='favicon.png'" class="h-3.5 w-3.5 rounded-[3px] object-cover" alt="" />`,
+      roblox: `<img src="https://www.google.com/s2/favicons?domain=roblox.com&sz=64" class="h-3.5 w-3.5 rounded-[3px] object-cover" alt="" />`,
+      minecraft: `<img src="https://www.google.com/s2/favicons?domain=minecraft.net&sz=64" class="h-3.5 w-3.5 rounded-[3px] object-cover" alt="" />`,
+      photoshop: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5"><rect width="24" height="24" rx="4" fill="#001E36"/><path d="M5.5 6.8h3.8c2.3 0 3.7 1.2 3.7 3.2 0 2.1-1.5 3.3-3.9 3.3H7.6v3.9H5.5V6.8Zm2.1 4.7h1.5c1.2 0 1.9-.6 1.9-1.5 0-1-.7-1.5-1.9-1.5H7.6v3Zm9.2 5.9c-1.4 0-2.6-.5-3.2-1l.8-1.5c.6.5 1.5.9 2.4.9.9 0 1.4-.3 1.4-.8 0-.5-.4-.7-1.6-1.1-1.6-.5-2.5-1.1-2.5-2.4 0-1.5 1.2-2.5 3.1-2.5 1.2 0 2.2.4 2.8.8l-.8 1.5c-.5-.3-1.2-.6-2-.6-.8 0-1.2.3-1.2.8 0 .5.4.7 1.6 1 1.6.5 2.5 1.1 2.5 2.5 0 1.5-1.2 2.4-3.3 2.4Z" fill="#31A8FF"/></svg>`,
+      windows11: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="#0078D4"><path d="M2 2h9.5v9.5H2V2Zm10.5 0H22v9.5h-9.5V2ZM2 12.5h9.5V22H2v-9.5Zm10.5 0H22V22h-9.5v-9.5Z"/></svg>`
     };
 
-    async function fetchAniListProfile() {
-      const query = `
-        query {
-          User(name: "screenies") {
-            statistics {
-              anime { count episodesWatched minutesWatched }
-              manga { count chaptersRead }
-            }
-          }
-          animeList: MediaListCollection(userName: "screenies", type: ANIME) {
-            lists {
-              status
-              entries {
-                progress
-                status
-                media {
-                  id
-                  siteUrl
-                  format
-                  episodes
-                  type
-                  title { romaji english }
-                  coverImage { large medium }
-                }
-              }
-            }
-          }
-          mangaList: MediaListCollection(userName: "screenies", type: MANGA) {
-            lists {
-              status
-              entries {
-                progress
-                status
-                media {
-                  id
-                  siteUrl
-                  format
-                  chapters
-                  type
-                  title { romaji english }
-                  coverImage { large medium }
-                }
-              }
-            }
-          }
-        }
-      `;
+    // map discord rpc names to actual links/icons
+    const KNOWN_ACTIVITIES = [
+      { match: /zed/i, name: 'Zed', url: 'https://zed.dev', domain: 'zed.dev' },
+      { match: /lunar\s*client/i, name: 'Lunar Client', url: 'https://lunarclient.com', domain: 'lunarclient.com' },
+      { match: /feather/i, name: 'Feather Client', url: 'https://feathermc.com', domain: 'feathermc.com' },
+      { match: /badlion/i, name: 'Badlion Client', url: 'https://badlion.net', domain: 'badlion.net' },
+      { match: /modrinth/i, name: 'Modrinth', url: 'https://modrinth.com', domain: 'modrinth.com' },
+      { match: /prism\s*launcher/i, name: 'Prism Launcher', url: 'https://prismlauncher.org', domain: 'prismlauncher.org' },
+      { match: /visual studio code|vs\s*code|^code$/i, name: 'VS Code', url: 'https://code.visualstudio.com', domain: 'code.visualstudio.com' },
+      { match: /cursor/i, name: 'Cursor', url: 'https://cursor.com', domain: 'cursor.com' },
+      { match: /neovim|nvim/i, name: 'Neovim', url: 'https://neovim.io', domain: 'neovim.io' },
+      { match: /intellij/i, name: 'IntelliJ IDEA', url: 'https://jetbrains.com/idea', domain: 'jetbrains.com' },
+      { match: /pycharm/i, name: 'PyCharm', url: 'https://jetbrains.com/pycharm', domain: 'jetbrains.com' },
+      { match: /webstorm/i, name: 'WebStorm', url: 'https://jetbrains.com/webstorm', domain: 'jetbrains.com' },
+      { match: /sublime/i, name: 'Sublime Text', url: 'https://sublimetext.com', domain: 'sublimetext.com' },
+      { match: /minecraft/i, name: 'Minecraft', url: 'https://minecraft.net', domain: 'minecraft.net' },
+      { match: /roblox studio/i, name: 'Roblox Studio', url: 'https://create.roblox.com', domain: 'roblox.com' },
+      { match: /roblox/i, name: 'Roblox', url: 'https://roblox.com', domain: 'roblox.com' },
+      { match: /valorant/i, name: 'Valorant', url: 'https://playvalorant.com', domain: 'playvalorant.com' },
+      { match: /counter-strike|cs2|cs:go/i, name: 'Counter-Strike 2', url: 'https://counter-strike.net', domain: 'counter-strike.net' },
+      { match: /league of legends/i, name: 'League of Legends', url: 'https://leagueoflegends.com', domain: 'leagueoflegends.com' },
+      { match: /fortnite/i, name: 'Fortnite', url: 'https://fortnite.com', domain: 'fortnite.com' },
+      { match: /overwatch/i, name: 'Overwatch 2', url: 'https://overwatch.blizzard.com', domain: 'blizzard.com' },
+      { match: /apex legends/i, name: 'Apex Legends', url: 'https://ea.com/games/apex-legends', domain: 'ea.com' },
+      { match: /mullvad/i, name: 'Mullvad', url: 'https://mullvad.net', domain: 'mullvad.net' },
+      { match: /\bobs\b|obs studio/i, name: 'OBS', url: 'https://obsproject.com', domain: 'obsproject.com' },
+      { match: /davinci/i, name: 'DaVinci Resolve', url: 'https://www.blackmagicdesign.com/products/davinciresolve', domain: 'blackmagicdesign.com' },
+      { match: /helium/i, name: 'Helium Browser', url: 'https://helium.computer', domain: 'helium.computer' },
+      { match: /photoshop/i, name: 'Photoshop', url: 'https://www.adobe.com/products/photoshop.html', domain: 'adobe.com' },
+      { match: /figma/i, name: 'Figma', url: 'https://figma.com', domain: 'figma.com' },
+      { match: /blender/i, name: 'Blender', url: 'https://blender.org', domain: 'blender.org' },
+      { match: /obsidian/i, name: 'Obsidian', url: 'https://obsidian.md', domain: 'obsidian.md' },
+      { match: /notion/i, name: 'Notion', url: 'https://notion.so', domain: 'notion.so' },
+      { match: /spotify/i, name: 'Spotify', url: 'https://open.spotify.com', domain: 'spotify.com' }
+    ];
 
-      try {
-        const res = await fetch("https://graphql.anilist.co", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify({ query })
-        });
+    function resolveActivityPill(rawName, customUrl, fallbackDiscordIcon) {
+      const entry = KNOWN_ACTIVITIES.find(k => k.match.test(rawName || ''));
+      const displayLabel = entry ? entry.name : (rawName || 'app');
+      const domain = entry ? entry.domain : `${(rawName || 'app').toLowerCase().replace(/[^a-z0-9]/g, '')}.com`;
+      const url = customUrl || (entry ? entry.url : `https://${domain}`);
+      const iconUrl = (!entry && fallbackDiscordIcon)
+        ? fallbackDiscordIcon
+        : `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
 
-        const result = await res.json();
-        if (!result?.data?.User) return;
-        const user = result.data.User;
+      return `<a href="${url}" target="_blank" rel="noreferrer" data-cursor="link" data-badge-custom-icon="${iconUrl}" data-badge-label="${domain}" class="inline-pill"><img src="${iconUrl}" alt="" /><span>${displayLabel}</span></a>`;
+    }
 
-        const animeCountEl = document.getElementById("anilist-anime-count");
-        const episodesCountEl = document.getElementById("anilist-episodes-count");
-        const watchTimeEl = document.getElementById("anilist-watchtime");
-        const mangaCountEl = document.getElementById("anilist-manga-count");
-
-        if (animeCountEl) animeCountEl.textContent = (user.statistics?.anime?.count || 0).toLocaleString();
-        if (episodesCountEl) episodesCountEl.textContent = (user.statistics?.anime?.episodesWatched || 0).toLocaleString();
-
-        const hoursWatched = ((user.statistics?.anime?.minutesWatched || 0) / 60).toFixed(1);
-        if (watchTimeEl) watchTimeEl.textContent = `${hoursWatched}h`;
-
-        if (mangaCountEl) mangaCountEl.textContent = (user.statistics?.manga?.count || 0).toLocaleString();
-
-        anilistEntriesCache = { ALL: [], CURRENT: [], COMPLETED: [], PLANNING: [] };
-
-        const allLists = [
-          ...(result.data.animeList?.lists || []),
-          ...(result.data.mangaList?.lists || [])
-        ];
-
-        allLists.forEach(l => {
-          const entries = l.entries || [];
-          const st = l.status;
-          if (anilistEntriesCache[st]) {
-            anilistEntriesCache[st] = anilistEntriesCache[st].concat(entries);
-          }
-          anilistEntriesCache.ALL = anilistEntriesCache.ALL.concat(entries);
-        });
-
-        renderAniListEntries("ALL");
-      } catch (e) {
-        const container = document.getElementById("anilist-entries-row");
-        if (container) container.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; padding: 30px 0; width: 100%; text-align: center;">Could not load AniList data.</div>`;
+    function calculateAge() {
+      const now = new Date();
+      const dob = new Date(2009, 2, 21);
+      let age = now.getFullYear() - dob.getFullYear();
+      const monthDiff = now.getMonth() - dob.getMonth();
+      if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < dob.getDate())) {
+        age--;
       }
+      return age;
     }
 
-    function renderAniListEntries(tabKey) {
-      const container = document.getElementById("anilist-entries-row");
-      if (!container) return;
-
-      const entries = anilistEntriesCache[tabKey] || [];
-      if (entries.length === 0) {
-        container.innerHTML = `<div style="font-size: 11px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; padding: 30px 0; width: 100%; text-align: center;">No entries found.</div>`;
-        return;
-      }
-
-      container.innerHTML = entries.map(e => {
-        const title = escapeHTML(e.media?.title?.english || e.media?.title?.romaji || "Anime");
-        const cover = e.media?.coverImage?.large || e.media?.coverImage?.medium || "";
-        const totalEps = e.media?.episodes ? `${e.media.episodes}` : "?";
-        const progress = e.progress ?? 0;
-        const siteUrl = e.media?.siteUrl || "https://anilist.co";
-        const isManga = e.media?.type === "MANGA";
-        const typeLabel = isManga ? "M" : "A";
-        const progressText = isManga ? `ch. ${progress}` : `ep. ${progress}/${totalEps}`;
-
-        return `
-          <div class="anilist-entry-card" onclick="promptExternalLink('${escapeJs(siteUrl)}')">
-            <div class="anilist-entry-cover-wrap">
-              <span class="anilist-type-tag ${isManga ? 'manga' : ''}">${typeLabel}</span>
-              <img class="anilist-entry-cover" src="${cover}" alt="${title}" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
-              <div class="anilist-progress-pill">${progressText}</div>
-            </div>
-            <span class="anilist-entry-title" title="${title}">${title}</span>
-          </div>
-        `;
-      }).join("");
-
-      if (!container.dataset.wheelBound) {
-        container.dataset.wheelBound = "true";
-        container.addEventListener("wheel", (e) => {
-          if (e.deltaY !== 0) {
-            e.preventDefault();
-            container.scrollLeft += e.deltaY;
-          }
-        }, { passive: false });
-      }
+    function pickSessionGreeting() {
+      const h = new Date().getHours();
+      const pool = h >= 5 && h < 12
+        ? ['morning', 'good morning', 'hey, morning', "what's up"]
+        : h >= 12 && h < 17
+        ? ['good afternoon', 'afternoon', "what's up", 'hey']
+        : h >= 17 && h < 22
+        ? ['evening', 'good evening', 'hey', "what's up"]
+        : ['night', 'hey', "what's up", 'late night, huh'];
+      return pool[Math.floor(Math.random() * pool.length)];
     }
 
-    function switchAniListTab(tabKey, btn) {
-      document.querySelectorAll(".anilist-tab-btn").forEach(b => b.classList.remove("active"));
-      if (btn) btn.classList.add("active");
-      renderAniListEntries(tabKey);
+    const SESSION_GREETING = pickSessionGreeting();
+    const CURRENT_AGE = calculateAge();
+
+    const appState = {
+      username: 'chunkloader',
+      displayName: 'jules',
+      avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png',
+      customQuote: '',
+      discordStatusHtml: "right now i'm away from the keyboard.",
+      weekScrobbles: 0,
+      topArtistWeek: 'music',
+      topArtistUrl: `https://www.last.fm/user/${LASTFM_USERNAME}`,
+      topArtistImg: '',
+      totalPlays: '—',
+      totalArtists: '—',
+      server1Name: 'floor',
+      server1Icon: 'https://cdn.discordapp.com/embed/avatars/0.png',
+      server2Name: 'evil',
+      server2Icon: 'https://cdn.discordapp.com/embed/avatars/1.png',
+      currentTab: 'projects'
+    };
+
+    function playBlueprintIntro() {
+      const overlay = document.getElementById('blueprint-overlay');
+      const shell = document.getElementById('page-shell');
+
+      requestAnimationFrame(() => {
+        overlay.classList.add('bp-ready');
+      });
+
+      setTimeout(() => {
+        overlay.classList.add('slide-away');
+        shell.classList.add('shell-ready');
+      }, 620);
+
+      setTimeout(() => {
+        overlay.remove();
+      }, 1550);
     }
 
-    function openPlaylistsModal() {
-      document.getElementById("playlists-modal-overlay").classList.add("active");
+    // intro paragraphs per tab
+    function getTabIntros() {
+      const artistImg = appState.topArtistImg || 'https://www.google.com/s2/favicons?domain=last.fm&sz=64';
+
+      return {
+        projects: [
+          `${SESSION_GREETING}. i'm <span id="live-intro-name">${appState.displayName}</span>. <span id="live-intro-age">${CURRENT_AGE}</span>, and i build <mark class="hl">web experiments</mark>, discord bots, and community spaces. these days that mostly means <a href="https://gothgirls.lol" target="_blank" rel="noreferrer" data-cursor="link" data-badge="gothgirls" data-badge-label="gothgirls.lol" class="inline-pill"><img src="${GOTHGIRLS_FAVICON}" onerror="if(this.src!=='favicon.png')this.src='favicon.png'" alt="" /><span>gothgirls.lol</span></a>, hanging out in <a id="intro-s1-link" href="https://discord.gg/zbsq8dAgUt" target="_blank" rel="noreferrer" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="intro-s1-icon" src="${appState.server1Icon}" alt="" /><span id="intro-s1-name">${appState.server1Name}</span></a>, and running <a id="intro-s2-link" href="https://discord.gg/aQhZRYkFWx" target="_blank" rel="noreferrer" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="intro-s2-icon" src="${appState.server2Icon}" alt="" /><span id="intro-s2-name">${appState.server2Name}</span></a>.`,
+          `i used to create maps and bots, still do. otherwise i'm probably listening to music (<span id="live-week-scrobbles">${appState.weekScrobbles}</span> scrobbles this week, mostly <a id="live-top-artist" href="${appState.topArtistUrl}" target="_blank" rel="noreferrer" data-cursor="link" data-badge="lastfm" data-badge-label="last.fm" class="inline-pill"><img id="live-top-artist-img" src="${artistImg}" alt="" /><span id="live-top-artist-name">${appState.topArtistWeek}</span></a>) or playing something. <span id="live-discord-presence">${appState.discordStatusHtml}</span>`
+        ],
+        work: [
+          `Mainly Python and HTML and updating bots all day. i like clean interfaces and i'm pretty obsessed with tiny details i dont like having any flaws: for example small animations and tiny details that are unnoticable.`,
+          `for now i work on <a href="https://gothgirls.lol" target="_blank" rel="noreferrer" data-cursor="link" data-badge="gothgirls" data-badge-label="gothgirls.lol" class="inline-pill"><img src="${GOTHGIRLS_FAVICON}" onerror="if(this.src!=='favicon.png')this.src='favicon.png'" alt="" /><span>gothgirls.lol</span></a> and my own Projects sometimes. if you've got something cool going on, shoot me a message if you want! <a id="work-discord-pill" href="https://discord.com/users/${DISCORD_USER_ID}" target="_blank" rel="noreferrer" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="work-discord-avatar" src="${appState.avatarUrl}" alt="" /><span id="work-discord-username">${appState.username}</span></a> ill always respond!.`
+        ],
+        music: [
+          `everything is scrobbled to <a href="https://www.last.fm/user/${LASTFM_USERNAME}" target="_blank" rel="noreferrer" data-cursor="link" data-badge="lastfm" data-badge-label="last.fm" class="inline-pill"><img src="https://www.google.com/s2/favicons?domain=last.fm&sz=64" alt="" /><span>last.fm</span></a>. that's <span id="live-total-plays">${appState.totalPlays}</span> plays across <span id="live-total-artists">${appState.totalArtists}</span> artists.`,
+          `below is what i've been listening to, it might move while you watch it.`
+        ],
+        setup: [
+          `my daily driver setup and the software i rely on. i keep my workflow minimal, fast, and stripped of bloat.`
+        ]
+      };
     }
 
-    function closePlaylistsModal() {
-      document.getElementById("playlists-modal-overlay").classList.remove("active");
-    }
+    function animateContainerHeight(viewportEl, innerEl, contentCallback) {
+      const startHeight = viewportEl.getBoundingClientRect().height;
+      viewportEl.style.height = `${startHeight}px`;
 
-    function closePlaylistsModalOnBackdrop(e) {
-      if (e.target.id === "playlists-modal-overlay") {
-        closePlaylistsModal();
-      }
-    }
+      contentCallback();
 
-    function promptExternalLink(url) {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
+      void innerEl.offsetHeight;
+      const targetHeight = innerEl.getBoundingClientRect().height;
 
-    window.addEventListener("DOMContentLoaded", () => {
-      fetchDiscordProfile();
-      connectLanyardWebSocket();
-      fetchLastFmRecent();
-      fetchAniListProfile();
-      fetchRightRoblox();
-      fetchRightMinecraft();
-      initLiveClock();
-      setInterval(fetchLastFmRecent, 30000);
-    });
-
-    setTimeout(function () {
-      if (!tOn) setTitle('');
-    }, 1000);
-
-    function initLiveClock() {
-      const timeEl = document.getElementById("clock-digital-time");
-
-      function updateClock() {
-        const now = new Date();
-        const hh = String(now.getHours()).padStart(2, '0');
-        const mm = String(now.getMinutes()).padStart(2, '0');
-        const ss = String(now.getSeconds()).padStart(2, '0');
-        if (timeEl) timeEl.textContent = `${hh}:${mm}:${ss}`;
-      }
-
-      updateClock();
-      setInterval(updateClock, 1000);
-    }
-
-    const fetchedInvitesCache = {};
-
-    async function toggleDiscordDockWidget(inviteCode) {
-      const widget = document.getElementById(`dock-widget-${inviteCode}`);
-      if (!widget) return;
-
-      if (widget.classList.contains("active")) {
-        widget.classList.remove("active");
-        return;
-      }
-
-      widget.classList.add("active");
-
-      if (fetchedInvitesCache[inviteCode]) return;
-
-      try {
-        const res = await fetch(`https://discord.com/api/v10/invites/${inviteCode}?with_counts=true`);
-        if (!res.ok) throw new Error("Invite fetch error");
-        const data = await res.json();
-
-        const guild = data.guild || {};
-        const nameEl = document.getElementById(`dock-name-${inviteCode}`);
-        const iconEl = document.getElementById(`dock-icon-${inviteCode}`);
-        const countEl = document.getElementById(`dock-count-${inviteCode}`);
-
-        if (nameEl && guild.name) nameEl.textContent = guild.name;
-        if (iconEl && guild.icon) {
-          const ext = guild.icon.startsWith("a_") ? "gif" : "png";
-          iconEl.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${ext}?size=128`;
-        }
-
-        if (countEl) {
-          const online = data.approximate_presence_count || 0;
-          const members = data.approximate_member_count || 0;
-          countEl.textContent = `${online.toLocaleString()} online · ${members.toLocaleString()} members`;
-        }
-
-        fetchedInvitesCache[inviteCode] = true;
-      } catch (e) {}
-    }
-
-    function toggleSiteDockWidget() {
-      const widget = document.getElementById("dock-widget-site");
-      if (!widget) return;
-
-      const titleEl = document.getElementById("dock-site-title");
-      const urlEl = document.getElementById("dock-site-url");
-      const iconEl = document.getElementById("dock-site-icon");
-
-      if (titleEl) titleEl.textContent = document.title || "Portfolio";
-      if (urlEl) urlEl.textContent = window.location.hostname || "localhost";
-
-      const fav = document.getElementById("dynamic-favicon");
-      if (fav && iconEl) iconEl.src = fav.href;
-
-      widget.classList.toggle("active");
-    }
-
-    function closeDockWidget(id) {
-      const widget = document.getElementById(`dock-widget-${id}`);
-      if (widget) widget.classList.remove("active");
-    }
-
-    function copySiteLink(btn) {
-      const url = window.location.href;
-      navigator.clipboard.writeText(url).then(() => {
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = `<i class="fa-solid fa-check" style="color: #22c55e;"></i> Copied!`;
-        btn.style.pointerEvents = "none";
-
-        setTimeout(() => {
-          btn.innerHTML = originalHTML;
-          btn.style.pointerEvents = "auto";
-        }, 1500);
+      requestAnimationFrame(() => {
+        viewportEl.style.height = `${targetHeight}px`;
+        clearTimeout(viewportEl._heightTimer);
+        viewportEl._heightTimer = setTimeout(() => {
+          viewportEl.style.height = 'auto';
+        }, 510);
       });
     }
 
-    function toggleRightSocialWidget(key) {
-      const widget = document.getElementById(`right-dock-${key}`);
-      if (!widget) return;
+    function renderAnimatedIntro(tabId) {
+      const viewport = document.getElementById('intro-viewport');
+      const container = document.getElementById('intro-container');
+      const paragraphs = getTabIntros()[tabId] || getTabIntros().projects;
+      let wordIndex = 0;
 
-      if (widget.classList.contains("active")) {
-        widget.classList.remove("active");
+      function wrapWordsInNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const frag = document.createDocumentFragment();
+          const parts = node.textContent.split(/(\s+)/);
+          parts.forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) {
+              frag.appendChild(document.createTextNode(part));
+            } else {
+              const span = document.createElement('span');
+              span.className = 'anim-word text-selectable';
+              span.style.setProperty('--i', wordIndex++);
+              span.textContent = part;
+              frag.appendChild(span);
+            }
+          });
+          return frag;
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          if (node.classList && node.classList.contains('inline-pill')) {
+            const pillClone = node.cloneNode(true);
+            pillClone.classList.add('anim-word');
+            pillClone.style.setProperty('--i', wordIndex++);
+            return pillClone;
+          }
+          const clone = node.cloneNode(false);
+          Array.from(node.childNodes).forEach(child => {
+            clone.appendChild(wrapWordsInNode(child));
+          });
+          return clone;
+        }
+        return node.cloneNode(true);
+      }
+
+      animateContainerHeight(viewport, container, () => {
+        container.innerHTML = '';
+        paragraphs.forEach(pHtml => {
+          const tempP = document.createElement('p');
+          tempP.innerHTML = pHtml;
+          const animatedP = wrapWordsInNode(tempP);
+          container.appendChild(animatedP);
+        });
+      });
+
+      bindBadgeTooltips();
+      bindInternalNavLinks();
+    }
+
+    function updateCustomStatusQuote(rawQuote) {
+      const quoteEl = document.getElementById('discord-custom-quote');
+      const cleaned = (rawQuote || '').trim();
+      if (cleaned === appState.customQuote) return;
+      appState.customQuote = cleaned;
+
+      if (!cleaned) {
+        quoteEl.classList.add('hidden');
+        quoteEl.innerHTML = '';
         return;
       }
 
-      widget.classList.add("active");
+      quoteEl.classList.remove('hidden');
+      const fullQuote = `"${cleaned}"`;
+      const words = fullQuote.split(/(\s+)/);
+      let idx = 0;
+      quoteEl.innerHTML = words.map(part => {
+        if (/^\s+$/.test(part)) return part;
+        return `<span class="anim-word text-selectable" style="--i:${idx++}">${part}</span>`;
+      }).join('');
+    }
 
-      if (key === "roblox" && !fetchedRightCache.roblox) fetchRightRoblox();
-      if (key === "minecraft" && !fetchedRightCache.minecraft) {
-        fetchRightMinecraft();
-        fetchedRightCache.minecraft = true;
+    let chosenEditorVerb = null;
+    let chosenMusicVerb = null;
+    let chosenGameVerb = null;
+
+    // sync lanyard profile + presence
+    function applyLanyardData(d) {
+      if (!d) return;
+      const user = d.discord_user || {};
+
+      const fetchedUsername = user.username || appState.username;
+      const fetchedDisplayName = user.global_name || user.display_name || user.username || appState.displayName;
+
+      appState.username = fetchedUsername;
+      appState.displayName = fetchedDisplayName;
+
+      if (user.avatar) {
+        const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
+        appState.avatarUrl = `https://cdn.discordapp.com/avatars/${user.id || DISCORD_USER_ID}/${user.avatar}.${ext}?size=128`;
+      }
+
+      document.getElementById('discord-username').textContent = fetchedUsername;
+      document.getElementById('discord-displayname').textContent = fetchedDisplayName;
+      document.getElementById('footer-name').textContent = fetchedDisplayName;
+      document.getElementById('page-title').textContent = fetchedDisplayName;
+
+      const bpUser = document.getElementById('bp-username');
+      const bpDisp = document.getElementById('bp-displayname');
+      if (bpUser) bpUser.textContent = fetchedUsername;
+      if (bpDisp) bpDisp.textContent = fetchedDisplayName;
+
+      const introNameEl = document.getElementById('live-intro-name');
+      if (introNameEl) introNameEl.textContent = fetchedDisplayName;
+
+      const workDiscordNameEl = document.getElementById('work-discord-username');
+      const workDiscordAvatarEl = document.getElementById('work-discord-avatar');
+      if (workDiscordNameEl) workDiscordNameEl.textContent = fetchedUsername;
+      if (workDiscordAvatarEl) workDiscordAvatarEl.src = appState.avatarUrl;
+
+      const status = d.discord_status;
+      const activities = d.activities || [];
+      const customActivity = activities.find(a => a.type === 4 && a.state);
+      const playingActivity = activities.find(a => a.type === 0);
+      const listeningActivity = activities.find(a => a.type === 2);
+
+      updateCustomStatusQuote(customActivity ? customActivity.state : '');
+
+      const actName = playingActivity ? (playingActivity.name || '') : '';
+      const isCodeEditor = /zed|visual studio code|vs\s*code|^code$|cursor|neovim|nvim|intellij|webstorm|pycharm|sublime/i.test(actName);
+
+      let discordAppIcon = '';
+      if (playingActivity?.application_id && playingActivity?.assets?.large_image && !playingActivity.assets.large_image.startsWith('mp:')) {
+        discordAppIcon = `https://cdn.discordapp.com/app-assets/${playingActivity.application_id}/${playingActivity.assets.large_image}.png`;
+      }
+
+      if (isCodeEditor) {
+        if (!chosenEditorVerb) {
+          const verbs = ["right now i'm coding in", "right now i'm working in", "right now i'm developing in"];
+          chosenEditorVerb = verbs[Math.floor(Math.random() * verbs.length)];
+        }
+        const pillHtml = resolveActivityPill(actName);
+        appState.discordStatusHtml = `${chosenEditorVerb} ${pillHtml}.`;
+      } else if (d.listening_to_spotify && d.spotify) {
+        if (!chosenMusicVerb) {
+          const verbs = ["right now i'm vibing to", "right now i'm listening to", "currently vibing to"];
+          chosenMusicVerb = verbs[Math.floor(Math.random() * verbs.length)];
+        }
+        const trackUrl = d.spotify.track_id ? `https://open.spotify.com/track/${d.spotify.track_id}` : 'https://open.spotify.com';
+        const albumImg = d.spotify.album_art_url || 'https://www.google.com/s2/favicons?domain=spotify.com&sz=64';
+        const pillHtml = `<a href="${trackUrl}" target="_blank" rel="noreferrer" data-cursor="link" data-badge="spotify" data-badge-label="spotify.com" class="inline-pill"><img src="${albumImg}" alt="" /><span>${d.spotify.song}</span></a>`;
+        appState.discordStatusHtml = `${chosenMusicVerb} ${pillHtml} by ${d.spotify.artist}.`;
+      } else if (listeningActivity) {
+        if (!chosenMusicVerb) {
+          const verbs = ["right now i'm vibing to", "right now i'm listening to", "currently vibing to"];
+          chosenMusicVerb = verbs[Math.floor(Math.random() * verbs.length)];
+        }
+        const track = listeningActivity.details || listeningActivity.name;
+        const pillHtml = resolveActivityPill(listeningActivity.name);
+        appState.discordStatusHtml = `${chosenMusicVerb} ${track} on ${pillHtml}.`;
+      } else if (playingActivity) {
+        if (!chosenGameVerb) {
+          const verbs = ["right now i'm locked in on", "right now i'm playing"];
+          chosenGameVerb = verbs[Math.floor(Math.random() * verbs.length)];
+        }
+        const pillHtml = resolveActivityPill(actName, null, discordAppIcon);
+        appState.discordStatusHtml = `${chosenGameVerb} ${pillHtml}.`;
+      } else if (status === 'online' || status === 'dnd') {
+        appState.discordStatusHtml = `right now i'm online at my desk.`;
+      } else if (status === 'idle') {
+        appState.discordStatusHtml = `right now i'm idle.`;
+      } else {
+        appState.discordStatusHtml = `right now i'm away from the keyboard.`;
+      }
+
+      const presenceEl = document.getElementById('live-discord-presence');
+      if (presenceEl) {
+        presenceEl.innerHTML = appState.discordStatusHtml;
+        bindBadgeTooltips();
       }
     }
 
-    function closeRightDockWidget(key) {
-      const widget = document.getElementById(`right-dock-${key}`);
-      if (widget) widget.classList.remove("active");
-    }
-
-    async function fetchRightRoblox() {
+    async function fetchLanyardProfile() {
       try {
-        const avatarImgEl = document.getElementById("right-roblox-full-img");
-
-        const cachedAvatar = localStorage.getItem("cached_roblox_avatar");
-        if (cachedAvatar && avatarImgEl && !avatarImgEl.src.includes("rbxcdn")) {
-          avatarImgEl.src = cachedAvatar;
-        }
-
-        const [uRes, fRes, folRes, flwRes, avatarRes] = await Promise.all([
-          fetch(`https://users.roproxy.com/v1/users/${ROBLOX_TARGET_ID}`),
-          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/friends/count`),
-          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/followers/count`),
-          fetch(`https://friends.roproxy.com/v1/users/${ROBLOX_TARGET_ID}/followings/count`),
-          fetch(`https://thumbnails.roproxy.com/v1/users/avatar?userIds=${ROBLOX_TARGET_ID}&size=420x420&format=Png&isCircular=false`)
-        ]);
-
-        if (uRes.ok) {
-          const uData = await uRes.json();
-          const nameEl = document.getElementById("right-roblox-name");
-          if (nameEl) nameEl.textContent = uData.displayName || uData.name;
-        }
-
-        const counts = {
-          friends: fRes.ok ? (await fRes.json()).count : 0,
-          followers: folRes.ok ? (await folRes.json()).count : 0,
-          following: flwRes.ok ? (await flwRes.json()).count : 0
-        };
-
-        ['friends', 'followers', 'following'].forEach(type => {
-          const wrap = document.getElementById(`rbx-stat-${type}`);
-          const val = document.getElementById(`val-rbx-${type}`);
-          if (wrap && val) {
-            if (counts[type] && counts[type] > 0) {
-              val.textContent = Number(counts[type]).toLocaleString();
-              wrap.style.display = "inline-flex";
-            } else {
-              wrap.style.display = "none";
-            }
-          }
-        });
-
-        if (avatarRes.ok) {
-          const aData = await avatarRes.json();
-          const imgUrl = aData?.data?.[0]?.imageUrl;
-          if (imgUrl && avatarImgEl) {
-            avatarImgEl.src = imgUrl;
-            try {
-              localStorage.setItem("cached_roblox_avatar", imgUrl);
-            } catch (e) {}
-          }
-        }
-
-        fetchedRightCache.roblox = true;
+        const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_USER_ID}`);
+        const json = await res.json();
+        if (json.success && json.data) applyLanyardData(json.data);
       } catch (e) {}
     }
 
-    async function fetchRightMinecraft() {
-      const nameEl = document.getElementById("right-mc-name");
+    function connectLanyardSocket() {
+      try {
+        const ws = new WebSocket('wss://api.lanyard.rest/socket');
+        let heartbeat = null;
 
-      const cachedName = localStorage.getItem("cached_mc_name");
-      if (cachedName && nameEl) {
-        nameEl.textContent = cachedName;
+        ws.onmessage = (event) => {
+          const msg = JSON.parse(event.data);
+          if (msg.op === 1) {
+            ws.send(JSON.stringify({
+              op: 2,
+              d: { subscribe_to_id: DISCORD_USER_ID }
+            }));
+            heartbeat = setInterval(() => {
+              if (ws.readyState === WebSocket.OPEN) ws.send(JSON.stringify({ op: 3 }));
+            }, msg.d.heartbeat_interval);
+          } else if (msg.op === 0 && (msg.t === 'INIT_STATE' || msg.t === 'PRESENCE_UPDATE')) {
+            applyLanyardData(msg.d);
+          }
+        };
+
+        ws.onclose = () => {
+          if (heartbeat) clearInterval(heartbeat);
+          setTimeout(connectLanyardSocket, 5000);
+        };
+      } catch (e) {}
+    }
+
+    // pull last.fm stats
+    let prevTopTrackId = null;
+    let prevAlbumsSig = '';
+    let prevArtistsSig = '';
+
+    async function fetchLastFmData() {
+      const base = 'https://ws.audioscrobbler.com/2.0/';
+      const sevenDaysAgo = Math.floor(Date.now() / 1000) - (7 * 24 * 60 * 60);
+      const cb = `&_t=${Date.now()}`;
+
+      try {
+        const [weekTracksRes, weekArtistsRes, recentRes, albumsRes, artistsRes] = await Promise.all([
+          fetch(`${base}?method=user.getrecenttracks&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&from=${sevenDaysAgo}&limit=50&format=json${cb}`),
+          fetch(`${base}?method=user.gettopartists&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&period=7day&limit=1&format=json${cb}`),
+          fetch(`${base}?method=user.getrecenttracks&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&limit=8&format=json${cb}`),
+          fetch(`${base}?method=user.gettopalbums&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&period=1month&limit=5&format=json${cb}`),
+          fetch(`${base}?method=user.gettopartists&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&period=1month&limit=8&format=json${cb}`)
+        ]);
+
+        const [weekTracksData, weekArtistsData, recentData, albumsData, artistsData] = await Promise.all([
+          weekTracksRes.json(),
+          weekArtistsRes.json(),
+          recentRes.json(),
+          albumsRes.json(),
+          artistsRes.json()
+        ]);
+
+        let weekTracksArr = [];
+        if (weekTracksData?.recenttracks) {
+          const attrTotal = parseInt(weekTracksData.recenttracks['@attr']?.total || '0', 10);
+          const rawTracks = weekTracksData.recenttracks.track || [];
+          weekTracksArr = Array.isArray(rawTracks) ? rawTracks : [rawTracks];
+          const isNowPlaying = weekTracksArr[0]?.['@attr']?.nowplaying === 'true' ? 1 : 0;
+          appState.weekScrobbles = attrTotal + isNowPlaying;
+        }
+
+        const topWeekArt = weekArtistsData?.topartists?.artist?.[0] || weekArtistsData?.topartists?.artist;
+        if (topWeekArt && topWeekArt.name) {
+          appState.topArtistWeek = topWeekArt.name;
+          appState.topArtistUrl = topWeekArt.url || `https://www.last.fm/music/${encodeURIComponent(topWeekArt.name)}`;
+          const matchTrack = weekTracksArr.find(t => t?.artist?.['#text']?.toLowerCase() === topWeekArt.name.toLowerCase());
+          if (matchTrack?.image?.[2]?.['#text'] || matchTrack?.image?.[1]?.['#text']) {
+            appState.topArtistImg = matchTrack.image[2]?.['#text'] || matchTrack.image[1]?.['#text'];
+          }
+        }
+
+        if (recentData?.recenttracks?.track) {
+          const tracks = Array.isArray(recentData.recenttracks.track)
+            ? recentData.recenttracks.track
+            : [recentData.recenttracks.track];
+
+          const allTimeTotal = parseInt(recentData.recenttracks['@attr']?.total || '0', 10);
+          if (allTimeTotal) appState.totalPlays = allTimeTotal.toLocaleString();
+
+          if (appState.topArtistWeek === 'music' && tracks[0]?.artist?.['#text']) {
+            appState.topArtistWeek = tracks[0].artist['#text'];
+            appState.topArtistUrl = `https://www.last.fm/music/${encodeURIComponent(appState.topArtistWeek)}`;
+          }
+          if (!appState.topArtistImg && tracks[0]?.image?.[2]?.['#text']) {
+            appState.topArtistImg = tracks[0].image[2]['#text'];
+          }
+
+          renderRecentTracksList(tracks);
+        }
+
+        if (albumsData?.topalbums?.album) {
+          renderTopAlbumsList(albumsData.topalbums.album);
+        }
+
+        if (artistsData?.topartists?.artist) {
+          const totalArt = parseInt(artistsData.topartists['@attr']?.total || '0', 10);
+          if (totalArt) appState.totalArtists = totalArt.toLocaleString();
+          renderTopArtistsList(artistsData.topartists.artist);
+        }
+
+        const weekEl = document.getElementById('live-week-scrobbles');
+        if (weekEl) weekEl.textContent = appState.weekScrobbles.toLocaleString();
+
+        const artistLinkEl = document.getElementById('live-top-artist');
+        const artistNameEl = document.getElementById('live-top-artist-name');
+        const artistImgEl = document.getElementById('live-top-artist-img');
+        if (artistLinkEl) artistLinkEl.href = appState.topArtistUrl;
+        if (artistNameEl) artistNameEl.textContent = appState.topArtistWeek;
+        if (artistImgEl && appState.topArtistImg) artistImgEl.src = appState.topArtistImg;
+
+        const totalPlaysEl = document.getElementById('live-total-plays');
+        if (totalPlaysEl) totalPlaysEl.textContent = appState.totalPlays;
+
+        const totalArtistsEl = document.getElementById('live-total-artists');
+        if (totalArtistsEl) totalArtistsEl.textContent = appState.totalArtists;
+
+      } catch (err) {}
+    }
+
+    function formatRelativeTime(uts) {
+      if (!uts) return '';
+      const diffSec = Math.max(1, Math.floor(Date.now() / 1000) - parseInt(uts, 10));
+      if (diffSec < 60) return `${diffSec}s ago`;
+      const diffMin = Math.floor(diffSec / 60);
+      if (diffMin < 60) return `${diffMin}m ago`;
+      const diffHr = Math.floor(diffMin / 60);
+      if (diffHr < 24) return `${diffHr}h ago`;
+      return `${Math.floor(diffHr / 24)}d ago`;
+    }
+
+    function renderTopAlbumsList(albums) {
+      const list = document.getElementById('top-albums-list');
+      if (!albums || albums.length === 0) {
+        list.innerHTML = `<li class="px-3 text-sm text-muted">no album scrobbles yet this month.</li>`;
+        return;
+      }
+
+      const newSig = albums.map(a => `${a.name}:${a.playcount}`).join('|');
+      if (newSig === prevAlbumsSig) return;
+      prevAlbumsSig = newSig;
+
+      list.innerHTML = albums.map(a => {
+        const img = a.image?.[3]?.['#text'] || a.image?.[2]?.['#text'] || '';
+        const artistName = a.artist?.name || '';
+        const plays = a.playcount || 0;
+        const previewJson = JSON.stringify({
+          type: 'music',
+          title: a.name,
+          sub: `${artistName} · ${plays} plays this month`,
+          img: img
+        }).replace(/'/g, '&#39;');
+
+        return `
+          <li>
+            <a href="${a.url}" data-cursor="link" data-preview='${previewJson}' class="interactive-row block rounded-lg px-3 py-2 hover:bg-accent-soft" target="_blank" rel="noreferrer">
+              <span class="flex items-center gap-3">
+                <span class="h-10 w-10 shrink-0 overflow-hidden rounded-[6px] border border-line bg-[#ecebe5]">
+                  ${img ? `<img src="${img}" alt="" loading="lazy" class="h-full w-full object-cover"/>` : ''}
+                </span>
+                <span class="min-w-0">
+                  <span class="title-editorial block font-medium text-foreground truncate">${a.name}</span>
+                  <span class="block text-sm text-muted truncate">${artistName} · ${plays} plays</span>
+                </span>
+              </span>
+            </a>
+          </li>
+        `;
+      }).join('');
+      bindPreviewCards();
+    }
+
+    function renderTopArtistsList(artists) {
+      const container = document.getElementById('top-artists-list');
+      if (!artists || artists.length === 0) {
+        container.textContent = 'no artists tracked this month.';
+        return;
+      }
+
+      const newSig = artists.map(a => `${a.name}:${a.playcount}`).join('|');
+      if (newSig === prevArtistsSig) return;
+      prevArtistsSig = newSig;
+
+      container.innerHTML = artists.map((art, i) => `
+        <span class="whitespace-nowrap">
+          <a href="${art.url}" data-cursor="link" data-badge="lastfm" data-badge-label="last.fm" target="_blank" rel="noreferrer" class="text-foreground underline decoration-line decoration-2 underline-offset-4 transition-colors hover:decoration-accent">${art.name}</a>
+          <span class="tabular-nums">${art.playcount}</span>${i < artists.length - 1 ? '<span class="mr-0.5 ml-1.5">·</span>' : ''}
+        </span>
+      `).join(' ');
+      bindBadgeTooltips();
+    }
+
+    function renderRecentTracksList(tracks) {
+      const list = document.getElementById('recent-tracks-list');
+      const slice = tracks.slice(0, 8);
+      if (slice.length === 0) return;
+
+      const topTrack = slice[0];
+      const topId = `${topTrack.name}__${topTrack.artist?.['#text']}__${topTrack?.['@attr']?.nowplaying === 'true' ? 'live' : (topTrack.date?.uts || '')}`;
+      const isNewTopTrack = prevTopTrackId !== null && prevTopTrackId !== topId;
+      prevTopTrackId = topId;
+
+      list.innerHTML = slice.map((t, index) => {
+        const isLive = t?.['@attr']?.nowplaying === 'true';
+        const title = t.name || 'Unknown Track';
+        const artist = t.artist?.['#text'] || 'Unknown Artist';
+        const img = t.image?.[3]?.['#text'] || t.image?.[2]?.['#text'] || '';
+        const timeLabel = isLive ? 'now playing' : formatRelativeTime(t.date?.uts);
+        const previewJson = JSON.stringify({
+          type: 'music',
+          title: title,
+          sub: `${artist} · ${timeLabel}`,
+          img: img
+        }).replace(/'/g, '&#39;');
+
+        const enterClass = (index === 0 && isNewTopTrack) ? 'live-track-enter' : '';
+
+        return `
+          <li class="${enterClass} rounded-lg">
+            <a href="${t.url || '#'}" data-cursor="link" data-preview='${previewJson}' class="interactive-row flex items-center justify-between gap-4 rounded-lg px-3 py-2 hover:bg-accent-soft" target="_blank" rel="noreferrer">
+              <span class="flex items-center gap-3 min-w-0">
+                <span class="h-8 w-8 shrink-0 overflow-hidden rounded-[5px] border border-line bg-[#ecebe5]">
+                  ${img ? `<img src="${img}" alt="" loading="lazy" class="h-full w-full object-cover"/>` : ''}
+                </span>
+                <span class="truncate">
+                  <span class="font-medium text-foreground">${title}</span>
+                  <span class="text-muted"> · ${artist}</span>
+                </span>
+              </span>
+              <span class="shrink-0 text-xs ${isLive ? 'text-accent font-medium' : 'text-muted'}">
+                ${isLive ? '● ' : ''}${timeLabel}
+              </span>
+            </a>
+          </li>
+        `;
+      }).join('');
+      bindPreviewCards();
+    }
+
+    // grab server icons and member counts from discord invite api
+    async function fetchDiscordServerCounts() {
+      const servers = [
+        { code: 'zbsq8dAgUt', linkId: 'server1-link', nameId: 'server1-name', statsId: 'server1-stats', descId: 'server1-desc', key: 's1' },
+        { code: 'aQhZRYkFWx', linkId: 'server2-link', nameId: 'server2-name', statsId: 'server2-stats', descId: 'server2-desc', key: 's2' },
+        { code: 'awtGEGpuqp', linkId: 'server3-link', nameId: 'custom-discord-name', statsId: 'custom-discord-stats', descId: 'custom-discord-desc', key: 's3' }
+      ];
+
+      function applyServerData(s, data) {
+        if (!data || !data.guild) return;
+        const g = data.guild;
+        const nameEl = document.getElementById(s.nameId);
+        const descEl = document.getElementById(s.descId);
+        const statsEl = document.getElementById(s.statsId);
+        const linkEl = document.getElementById(s.linkId);
+
+        const iconUrl = g.icon
+          ? `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.${g.icon.startsWith('a_') ? 'gif' : 'png'}?size=512`
+          : 'https://cdn.discordapp.com/embed/avatars/0.png';
+
+        if (nameEl && g.name) nameEl.textContent = g.name;
+        if (descEl && g.description) descEl.textContent = g.description;
+        if (statsEl && data.approximate_member_count) {
+          statsEl.innerHTML = `★ ${data.approximate_member_count.toLocaleString()} members <span class="ml-1 text-xs text-emerald-600" title="online now">● ${data.approximate_presence_count.toLocaleString()} online</span>`;
+        }
+
+        const previewPayload = JSON.stringify({
+          type: 'server',
+          title: g.name || 'discord server',
+          icon: iconUrl
+        });
+
+        if (linkEl) linkEl.setAttribute('data-preview', previewPayload);
+
+        if (s.key === 's1') {
+          appState.server1Name = g.name || appState.server1Name;
+          appState.server1Icon = iconUrl;
+          const introS1Name = document.getElementById('intro-s1-name');
+          const introS1Icon = document.getElementById('intro-s1-icon');
+          const workTitle = document.getElementById('work-server-title');
+          const workIcon = document.getElementById('work-s1-icon');
+          if (introS1Name) introS1Name.textContent = appState.server1Name;
+          if (introS1Icon) introS1Icon.src = iconUrl;
+          if (workTitle && g.name) workTitle.textContent = g.name;
+          if (workIcon) workIcon.src = iconUrl;
+        } else if (s.key === 's2') {
+          appState.server2Name = g.name || appState.server2Name;
+          appState.server2Icon = iconUrl;
+          const introS2Name = document.getElementById('intro-s2-name');
+          const introS2Icon = document.getElementById('intro-s2-icon');
+          const workS2Title = document.getElementById('work-s2-title');
+          const workS2Icon = document.getElementById('work-s2-icon');
+          if (introS2Name) introS2Name.textContent = appState.server2Name;
+          if (introS2Icon) introS2Icon.src = iconUrl;
+          if (workS2Title && g.name) workS2Title.textContent = g.name;
+          if (workS2Icon) workS2Icon.src = iconUrl;
+        }
+      }
+
+      await Promise.all(servers.map(async (s) => {
+        try {
+          const cached = sessionStorage.getItem(`dc_${s.code}`);
+          if (cached) applyServerData(s, JSON.parse(cached));
+
+          const res = await fetch(`https://discord.com/api/v9/invites/${s.code}?with_counts=true`);
+          const data = await res.json();
+          if (data && data.guild) {
+            sessionStorage.setItem(`dc_${s.code}`, JSON.stringify(data));
+            applyServerData(s, data);
+          }
+        } catch (e) {}
+      }));
+
+      bindPreviewCards();
+    }
+
+    // github contribution heatmap
+    function getHeatColor(count) {
+      if (count === 0) return '#eceae3';
+      if (count < 4) return 'oklch(0.877 0.088 var(--heat-hue))';
+      if (count < 8) return 'oklch(0.781 0.148 var(--heat-hue))';
+      if (count < 14) return 'oklch(0.656 0.167 var(--heat-hue))';
+      return 'oklch(0.513 0.145 var(--heat-hue))';
+    }
+
+    function formatContributionDate(isoDate) {
+      const [y, m, d] = isoDate.split('-').map(Number);
+      const dateObj = new Date(y, m - 1, d);
+      return dateObj.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    }
+
+    const ghTooltip = document.getElementById('gh-tooltip');
+    const ghTooltipCount = document.getElementById('gh-tooltip-count');
+    const ghTooltipDate = document.getElementById('gh-tooltip-date');
+    let activeGhCell = null;
+
+    function positionGhTooltip(cell) {
+      if (!cell) return;
+      const rect = cell.getBoundingClientRect();
+      const centerX = Math.min(Math.max(95, rect.left + rect.width / 2), window.innerWidth - 95);
+      ghTooltip.style.left = `${centerX}px`;
+      ghTooltip.style.top = `${rect.top}px`;
+    }
+
+    function hideGhTooltip() {
+      activeGhCell = null;
+      ghTooltip.classList.remove('visible');
+    }
+
+    async function fetchGitHubContributions() {
+      const grid = document.getElementById('heatmap-grid');
+      const totalEl = document.getElementById('heatmap-total');
+      try {
+        const res = await fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`);
+        const data = await res.json();
+        if (data?.contributions) {
+          const days = data.contributions;
+          const total = data.total?.lastYear ?? days.reduce((acc, d) => acc + d.count, 0);
+
+          totalEl.textContent = total < 100
+            ? `${total.toLocaleString()} contributions this year, more coming soon <3`
+            : `${total.toLocaleString()} contributions in the last year`;
+
+          const frag = document.createDocumentFragment();
+          for (let i = 0; i < days.length; i += 7) {
+            const weekSlice = days.slice(i, i + 7);
+            const col = document.createElement('div');
+            col.className = 'flex flex-col gap-[3px]';
+            weekSlice.forEach(day => {
+              const cell = document.createElement('a');
+              cell.href = `https://github.com/${GITHUB_USERNAME}?tab=overview&from=${day.date}&to=${day.date}`;
+              cell.target = '_blank';
+              cell.rel = 'noreferrer';
+              cell.setAttribute('data-cursor', 'link');
+              cell.className = 'gh-cell block h-[10px] w-[10px] rounded-[2px]';
+              cell.style.background = getHeatColor(day.count);
+
+              const countLabel = day.count === 0
+                ? 'No contributions'
+                : `${day.count} contribution${day.count === 1 ? '' : 's'}`;
+              const formattedDate = formatContributionDate(day.date);
+
+              cell.addEventListener('mouseenter', () => {
+                ghTooltipCount.textContent = countLabel;
+                ghTooltipDate.textContent = formattedDate;
+                activeGhCell = cell;
+                positionGhTooltip(cell);
+                ghTooltip.classList.add('visible');
+              });
+
+              cell.addEventListener('mouseleave', hideGhTooltip);
+              col.appendChild(cell);
+            });
+            frag.appendChild(col);
+          }
+          grid.innerHTML = '';
+          grid.appendChild(frag);
+          grid.scrollLeft = grid.scrollWidth;
+          grid.addEventListener('scroll', () => {
+            if (activeGhCell) positionGhTooltip(activeGhCell);
+          }, { passive: true });
+        }
+      } catch (err) {
+        totalEl.textContent = `github.com/${GITHUB_USERNAME}`;
+      }
+    }
+
+    // tab switching logic
+    const validTabs = ['projects', 'work', 'music', 'setup'];
+
+    function navigateToTab(tabId, pushUrl = true) {
+      if (!validTabs.includes(tabId)) tabId = 'projects';
+      appState.currentTab = tabId;
+
+      if (window.getSelection) window.getSelection().removeAllRanges();
+      clearSelectionPills();
+      hideBadgeTooltip();
+      hideGhTooltip();
+
+      if (pushUrl) {
+        const targetPath = tabId === 'projects' ? '/' : `/${tabId}`;
+        try {
+          if (window.location.protocol !== 'file:') {
+            window.history.pushState({ tab: tabId }, '', targetPath);
+          } else {
+            window.history.replaceState({ tab: tabId }, '', `#${tabId}`);
+          }
+        } catch (err) {
+          window.location.hash = tabId;
+        }
+      }
+
+      const lineWrap = document.getElementById('now-line-wrap');
+      const lineBar = document.getElementById('now-line-bar');
+      lineWrap.classList.remove('opacity-0');
+      lineBar.classList.remove('scale-x-0');
+      setTimeout(() => {
+        lineWrap.classList.add('opacity-0');
+        setTimeout(() => lineBar.classList.add('scale-x-0'), 400);
+      }, 420);
+
+      document.querySelectorAll('[data-nav-tab]').forEach(link => {
+        if (link.getAttribute('data-nav-tab') === tabId) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+
+      renderAnimatedIntro(tabId);
+
+      const panelsViewport = document.getElementById('panels-viewport');
+      const panelsInner = document.getElementById('panels-inner');
+
+      animateContainerHeight(panelsViewport, panelsInner, () => {
+        document.querySelectorAll('[data-panel]').forEach(panel => {
+          const isMatch = panel.getAttribute('data-panel') === tabId;
+          panel.hidden = !isMatch;
+          if (isMatch) {
+            panel.querySelectorAll('.stagger-item').forEach(el => {
+              el.style.animation = 'none';
+              void el.offsetHeight;
+              el.style.animation = '';
+            });
+          }
+        });
+      });
+
+      bindBadgeTooltips();
+    }
+
+    function bindInternalNavLinks() {
+      document.querySelectorAll('[data-nav-tab], [data-nav-link]').forEach(el => {
+        if (el.dataset.boundNav) return;
+        el.dataset.boundNav = 'true';
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetTab = el.getAttribute('data-nav-tab') || el.getAttribute('data-nav-link');
+          if (targetTab && targetTab !== appState.currentTab) {
+            navigateToTab(targetTab, true);
+          }
+        });
+      });
+    }
+
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.tab) {
+        navigateToTab(e.state.tab, false);
+        return;
+      }
+      const hashTab = window.location.hash.replace('#', '');
+      if (validTabs.includes(hashTab)) {
+        navigateToTab(hashTab, false);
+        return;
+      }
+      const pathTab = window.location.pathname.replace('/', '');
+      if (validTabs.includes(pathTab)) {
+        navigateToTab(pathTab, false);
+      }
+    });
+
+    // custom text selection pills
+    const selectionLayer = document.getElementById('selection-layer');
+    const pillPool = [];
+
+    function clearSelectionPills() {
+      pillPool.forEach(pill => pill.classList.remove('active'));
+    }
+
+    function getOrCreatePill(index) {
+      if (pillPool[index]) return pillPool[index];
+      const pill = document.createElement('div');
+      pill.className = 'selection-pill';
+      selectionLayer.appendChild(pill);
+      pillPool[index] = pill;
+      return pill;
+    }
+
+    function updateWholeWordSelection() {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0 || sel.isCollapsed) {
+        clearSelectionPills();
+        return;
+      }
+
+      const rawText = sel.toString().trim();
+      if (!rawText) {
+        clearSelectionPills();
+        return;
       }
 
       try {
-        const res = await fetch(`https://playerdb.co/api/player/minecraft/${MC_UUID}`);
-        if (res.ok) {
-          const data = await res.json();
-          const username = data?.data?.player?.username;
-          if (username && nameEl) {
-            nameEl.textContent = username;
-            localStorage.setItem("cached_mc_name", username);
-            return;
-          }
+        const range = sel.getRangeAt(0).cloneRange();
+
+        if (range.startContainer.nodeType === Node.TEXT_NODE) {
+          const text = range.startContainer.textContent || '';
+          let idx = range.startOffset;
+          while (idx > 0 && !/\s/.test(text[idx - 1])) idx--;
+          range.setStart(range.startContainer, idx);
         }
-        throw new Error("Primary API failed");
-      } catch (e) {
-        try {
-          const fallbackRes = await fetch(`https://api.mojang.com/user/profile/${MC_UUID.replace(/-/g, "")}`);
-          if (fallbackRes.ok) {
-            const fbData = await fallbackRes.json();
-            if (fbData?.name && nameEl) {
-              nameEl.textContent = fbData.name;
-              localStorage.setItem("cached_mc_name", fbData.name);
-            }
-          }
-        } catch (err) {
-          if (!cachedName && nameEl) nameEl.textContent = "Minecraft";
+
+        if (range.endContainer.nodeType === Node.TEXT_NODE) {
+          const text = range.endContainer.textContent || '';
+          let idx = range.endOffset;
+          while (idx < text.length && !/\s/.test(text[idx])) idx++;
+          range.setEnd(range.endContainer, idx);
         }
+
+        const rawRects = Array.from(range.getClientRects()).filter(r => r.width > 1 && r.height > 4);
+        if (rawRects.length === 0) {
+          clearSelectionPills();
+          return;
+        }
+
+        const scrollX = window.scrollX || window.pageXOffset;
+        const scrollY = window.scrollY || window.pageYOffset;
+
+        const mergedLines = [];
+        rawRects.forEach(r => {
+          const docTop = r.top + scrollY;
+          const docBottom = r.bottom + scrollY;
+          const docLeft = r.left + scrollX;
+          const docRight = r.right + scrollX;
+
+          const existingLine = mergedLines.find(line => Math.abs(line.top - docTop) < 8);
+          if (existingLine) {
+            existingLine.left = Math.min(existingLine.left, docLeft);
+            existingLine.right = Math.max(existingLine.right, docRight);
+            existingLine.width = existingLine.right - existingLine.left;
+            existingLine.top = Math.min(existingLine.top, docTop);
+            existingLine.bottom = Math.max(existingLine.bottom, docBottom);
+            existingLine.height = existingLine.bottom - existingLine.top;
+          } else {
+            mergedLines.push({
+              left: docLeft,
+              right: docRight,
+              top: docTop,
+              bottom: docBottom,
+              width: r.width,
+              height: r.height
+            });
+          }
+        });
+
+        mergedLines.forEach((line, i) => {
+          const pill = getOrCreatePill(i);
+          pill.style.left = `${line.left - 3}px`;
+          pill.style.top = `${line.top - 1}px`;
+          pill.style.width = `${line.width + 6}px`;
+          pill.style.height = `${line.height + 2}px`;
+          requestAnimationFrame(() => pill.classList.add('active'));
+        });
+
+        for (let i = mergedLines.length; i < pillPool.length; i++) {
+          pillPool[i].classList.remove('active');
+        }
+      } catch (err) {
+        clearSelectionPills();
       }
     }
 
-    var AUDIO_VOLUME = 0.07;
+    document.addEventListener('selectionchange', updateWholeWordSelection);
+    window.addEventListener('resize', updateWholeWordSelection);
 
-    var bgAudio = new Audio('song.mp3');
-    bgAudio.loop = true;
-    bgAudio.volume = AUDIO_VOLUME;
+    // badge tooltips
+    const badgeTooltip = document.getElementById('badge-tooltip');
+    const badgeIconEl = document.getElementById('badge-tooltip-icon');
+    const badgeLabelEl = document.getElementById('badge-tooltip-label');
+    let activeBadgeTarget = null;
 
-    function enterSite() {
-      var overlay = document.getElementById('enter');
-      if (!overlay || overlay.classList.contains('fade-out')) return;
+    function positionBadgeTooltip(el) {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const pos = el.getAttribute('data-badge-pos') || 'top';
+      const tooltipHeight = badgeTooltip.offsetHeight || 28;
+      const centerX = rect.left + rect.width / 2;
 
-      overlay.classList.add('fade-out');
-      bgAudio.play().catch(function () {});
+      let topY;
+      if (pos === 'bottom') {
+        topY = rect.bottom + 10;
+      } else {
+        topY = rect.top - tooltipHeight - 8;
+        if (topY < 24) topY = rect.bottom + 8;
+      }
 
-      setTimeout(function () {
-        document.body.classList.add('ready');
-      }, 180);
-
-      setTimeout(function () {
-        try {
-          overlay.remove();
-        } catch (e) {}
-      }, 550);
+      badgeTooltip.style.left = `${centerX}px`;
+      badgeTooltip.style.top = `${topY}px`;
     }
 
-    document.addEventListener('keydown', function (e) {
-      var overlay = document.getElementById('enter');
-      if (overlay && !overlay.classList.contains('fade-out')) {
-        if (e.key === ' ' || e.key === 'Enter') {
-          enterSite();
+    function hideBadgeTooltip() {
+      activeBadgeTarget = null;
+      badgeTooltip.classList.remove('visible');
+    }
+
+    function bindBadgeTooltips() {
+      document.querySelectorAll('[data-badge], [data-badge-custom-icon]').forEach(el => {
+        if (el.dataset.boundBadge) return;
+        el.dataset.boundBadge = 'true';
+
+        el.addEventListener('mouseenter', () => {
+          const badgeKey = el.getAttribute('data-badge');
+          const customIcon = el.getAttribute('data-badge-custom-icon');
+          const label = el.getAttribute('data-badge-label') || '';
+
+          if (customIcon) {
+            badgeIconEl.innerHTML = `<img src="${customIcon}" class="h-3.5 w-3.5 rounded-[3px] object-cover" alt="" />`;
+          } else if (badgeKey && BRAND_SVGS[badgeKey]) {
+            badgeIconEl.innerHTML = BRAND_SVGS[badgeKey];
+          } else {
+            badgeIconEl.innerHTML = '';
+          }
+
+          badgeLabelEl.textContent = label;
+          activeBadgeTarget = el;
+          positionBadgeTooltip(el);
+          badgeTooltip.classList.add('visible');
+        });
+
+        el.addEventListener('mouseleave', hideBadgeTooltip);
+      });
+    }
+
+    window.addEventListener('scroll', () => {
+      if (activeBadgeTarget) positionBadgeTooltip(activeBadgeTarget);
+      if (activeGhCell) positionGhTooltip(activeGhCell);
+    }, { passive: true });
+
+    // cursor + hover preview cards
+    const cursor = document.getElementById('custom-cursor');
+    const previewCard = document.getElementById('preview-card');
+    const layoutWide = document.getElementById('preview-layout-wide');
+    const layoutServer = document.getElementById('preview-layout-server');
+    const layoutMusic = document.getElementById('preview-layout-music');
+
+    let mouseX = -100, mouseY = -100;
+    let cardX = 0, cardY = 0;
+    let targetCardX = 0, targetCardY = 0;
+    let activeHoverEl = null;
+    let isPreviewVisible = false;
+
+    window.addEventListener('mousedown', () => cursor.classList.add('is-pressed'));
+    window.addEventListener('mouseup', () => cursor.classList.remove('is-pressed'));
+
+    function computeAnchoredCardTarget(el) {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const cardWidth = previewCard.offsetWidth || 248;
+      const cardHeight = previewCard.offsetHeight || 260;
+
+      const relX = (mouseX - (rect.left + rect.width / 2)) * 0.05;
+      const relY = (mouseY - (rect.top + rect.height / 2)) * 0.06;
+
+      let baseLeft = rect.right + 28;
+      if (baseLeft + cardWidth > window.innerWidth - 36) {
+        baseLeft = window.innerWidth - cardWidth - 36;
+      }
+
+      let baseTop = rect.top + rect.height / 2 - cardHeight / 2;
+      baseTop = Math.max(32, Math.min(baseTop, window.innerHeight - cardHeight - 32));
+
+      targetCardX = baseLeft + relX;
+      targetCardY = baseTop + relY;
+    }
+
+    function animatePreviewLoop() {
+      if (isPreviewVisible && activeHoverEl) {
+        computeAnchoredCardTarget(activeHoverEl);
+        const dx = targetCardX - cardX;
+        const dy = targetCardY - cardY;
+        cardX += dx * 0.2;
+        cardY += dy * 0.2;
+
+        const velocityTilt = Math.max(-3, Math.min(3, dx * 0.05));
+        previewCard.style.setProperty('--card-tilt', `${(2.1 + velocityTilt).toFixed(2)}deg`);
+        previewCard.style.left = `${cardX}px`;
+        previewCard.style.top = `${cardY}px`;
+      }
+      requestAnimationFrame(animatePreviewLoop);
+    }
+    requestAnimationFrame(animatePreviewLoop);
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.left = `${mouseX}px`;
+      cursor.style.top = `${mouseY}px`;
+
+      const target = e.target;
+      const clickable = target.closest('a, button');
+      const textNode = target.closest('.text-selectable, p, h1, h2');
+
+      cursor.classList.remove('state-link', 'state-icon', 'state-text');
+
+      if (clickable) {
+        const cursorType = clickable.getAttribute('data-cursor');
+        if (cursorType === 'icon') {
+          cursor.classList.add('state-icon');
+        } else {
+          cursor.classList.add('state-link');
         }
+      } else if (textNode) {
+        cursor.classList.add('state-text');
       }
     });
-    </script>
 
+    function bindPreviewCards() {
+      document.querySelectorAll('[data-preview]').forEach(el => {
+        if (el.dataset.boundPreview) return;
+        el.dataset.boundPreview = 'true';
+
+        el.addEventListener('mouseenter', () => {
+          try {
+            const data = JSON.parse(el.getAttribute('data-preview'));
+            layoutWide.classList.add('hidden');
+            layoutServer.classList.add('hidden');
+            layoutMusic.classList.add('hidden');
+
+            if (data.type === 'wide') {
+              document.getElementById('preview-wide-img').src = data.wideImg || '';
+              document.getElementById('preview-wide-title').textContent = data.title || '';
+              document.getElementById('preview-wide-domain').textContent = data.domain || '';
+              layoutWide.classList.remove('hidden');
+            } else if (data.type === 'server') {
+              const serverImg = document.getElementById('preview-server-img');
+              if (data.icon) {
+                serverImg.src = data.icon;
+                serverImg.parentElement.classList.remove('hidden');
+              } else {
+                serverImg.parentElement.classList.add('hidden');
+              }
+              document.getElementById('preview-server-name').textContent = data.title || 'discord server';
+              layoutServer.classList.remove('hidden');
+            } else if (data.type === 'music') {
+              const musicImg = document.getElementById('preview-music-img');
+              if (data.img) {
+                musicImg.src = data.img;
+                musicImg.parentElement.classList.remove('hidden');
+              } else {
+                musicImg.parentElement.classList.add('hidden');
+              }
+              document.getElementById('preview-music-title').textContent = data.title || '';
+              document.getElementById('preview-music-sub').textContent = data.sub || '';
+              layoutMusic.classList.remove('hidden');
+            }
+
+            activeHoverEl = el;
+            computeAnchoredCardTarget(el);
+
+            if (!isPreviewVisible) {
+              cardX = targetCardX;
+              cardY = targetCardY;
+              previewCard.style.left = `${cardX}px`;
+              previewCard.style.top = `${cardY}px`;
+            }
+
+            isPreviewVisible = true;
+            previewCard.classList.add('show');
+          } catch (err) {}
+        });
+
+        el.addEventListener('mouseleave', () => {
+          isPreviewVisible = false;
+          activeHoverEl = null;
+          previewCard.classList.remove('show');
+        });
+      });
+    }
+
+    // init
+    const initialHash = window.location.hash.replace('#', '');
+    const startTab = validTabs.includes(initialHash) ? initialHash : 'projects';
+    navigateToTab(startTab, false);
+    bindBadgeTooltips();
+    playBlueprintIntro();
+
+    Promise.allSettled([
+      fetchLanyardProfile(),
+      fetchLastFmData(),
+      fetchDiscordServerCounts(),
+      fetchGitHubContributions()
+    ]);
+
+    connectLanyardSocket();
+    setInterval(fetchLastFmData, 10000);
   </script>
 </body>
 </html>
