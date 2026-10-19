@@ -9,20 +9,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title id="page-title">jules</title>
+  <title id="page-title">Jul Caldar</title>
   <meta name="description" content="developpeur • easily distracted" />
-  <meta name="theme-color" content="#D2B48C" />
+  <meta name="theme-color" content="#f8a5c2" />
 
   <!-- discord embed (open graph) -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://gothgirls.lol/" />
   <meta property="og:site_name" content="nobootdev" />
-  <meta property="og:title" content="jules" />
+  <meta property="og:title" content="Jul Caldar" />
   <meta property="og:description" content="developpeur • easily distracted" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta property="og:image" content="https://gothgirls.lol/embed.gif" />
 
-  <link rel="icon" href="https://gothgirls.lol/favicon.png" type="image/png" />
+  <!-- Discord PFP Favicon -->
+  <link id="site-favicon" rel="icon" href="https://dcdn.dstn.to/avatars/488047218138546179" type="image/png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,8 +48,8 @@
             foreground: '#1c1b18',
             muted: '#71706b',
             line: '#dcdad2',
-            accent: '#ea580c',
-            'accent-soft': 'rgba(251, 146, 60, 0.13)',
+            accent: '#e0638c',
+            'accent-soft': 'rgba(244, 143, 177, 0.16)',
           }
         }
       }
@@ -102,7 +103,7 @@
       background-color: rgba(246, 245, 241, 0.84);
       background-image:
         radial-gradient(rgba(28, 27, 24, 0.075) 1px, transparent 0),
-        radial-gradient(rgba(234, 88, 12, 0.045) 1px, transparent 0);
+        radial-gradient(rgba(224, 99, 140, 0.055) 1px, transparent 0);
       background-size: 8px 8px;
       background-position: 0 0, 4px 4px;
     }
@@ -162,7 +163,7 @@
       position: absolute;
       inset: -1px;
       border-radius: 22px;
-      border: 1px solid rgba(234, 88, 12, 0.18);
+      border: 1px solid rgba(224, 99, 140, 0.24);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -207,6 +208,178 @@
       font-style: italic;
       font-weight: 400;
       font-variation-settings: "SOFT" 100, "WONK" 1;
+    }
+
+    /* Smooth Phin -> Phineas style inline name expansion ("Jul Caldar" -> "Jules Caldar") */
+    .expandable-name {
+      display: inline-flex;
+      align-items: baseline;
+      white-space: pre;
+    }
+
+    .name-expand-wrap {
+      display: inline-grid;
+      grid-template-columns: 0fr;
+      vertical-align: baseline;
+      transition: grid-template-columns 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: grid-template-columns;
+    }
+
+    .name-expand-inner {
+      overflow: hidden;
+      display: inline-block;
+      opacity: 0;
+      transform: translate3d(-3px, 1.5px, 0);
+      transition:
+        opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+    }
+
+    .expandable-name:hover .name-expand-wrap,
+    .expandable-name:focus-visible .name-expand-wrap {
+      grid-template-columns: 1fr;
+    }
+
+    .expandable-name:hover .name-expand-inner,
+    .expandable-name:focus-visible .name-expand-inner {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Interactive Japanese name subtitle (click to toggle language) */
+    .jp-subtitle-btn {
+      font-family: 'Noto Sans JP', var(--font-cjk-sans);
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #71706b;
+      background: transparent;
+      border: none;
+      padding: 0;
+      transition:
+        color 0.2s ease,
+        transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .jp-subtitle-btn:hover {
+      color: #1c1b18;
+      transform: translate3d(1.5px, 0, 0);
+    }
+
+    .jp-subtitle-btn:active {
+      transform: scale(0.97);
+    }
+
+    .lang-pill-indicator {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      line-height: 1;
+      padding: 0.16rem 0.34rem;
+      border-radius: 5px;
+      border: 1px solid rgba(220, 217, 208, 0.95);
+      background-color: rgba(251, 250, 247, 0.9);
+      color: #71706b;
+      opacity: 0;
+      transform: translate3d(-4px, 0, 0);
+      transition:
+        opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+        color 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .jp-subtitle-btn:hover .lang-pill-indicator,
+    body.lang-ja .lang-pill-indicator {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    body.lang-ja .lang-pill-indicator {
+      color: #e0638c;
+      border-color: rgba(224, 99, 140, 0.38);
+      background-color: rgba(244, 143, 177, 0.14);
+    }
+
+    /* Kashiwa dotted trigger in bio (5th screenshot style) */
+    .kashiwa-trigger {
+      color: #4a4945;
+      font-weight: 480;
+      text-decoration-line: underline;
+      text-decoration-style: dotted;
+      text-decoration-color: rgba(113, 112, 107, 0.65);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+      transition:
+        color 0.16s ease,
+        text-decoration-color 0.16s ease;
+    }
+
+    .kashiwa-trigger:hover {
+      color: #1c1b18;
+      text-decoration-color: #e0638c;
+    }
+
+    /* Kashiwa location & live JST time hover card (5th screenshot layout in site colors) */
+    #kashiwa-hover-card {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 196px;
+      pointer-events: none;
+      z-index: 8965;
+      opacity: 0;
+      transform: translate3d(-50%, calc(-100% - 4px), 0) scale(0.95);
+      transform-origin: bottom center;
+      transition:
+        opacity 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      background-color: rgba(251, 250, 247, 0.98);
+      border: 1px solid #dfdcd2;
+      border-radius: 13px;
+      padding: 0.72rem 0.92rem;
+      box-shadow:
+        0 18px 38px -10px rgba(28, 27, 24, 0.16),
+        0 3px 10px -2px rgba(28, 27, 24, 0.06);
+      white-space: nowrap;
+      will-change: transform, opacity;
+    }
+
+    #kashiwa-hover-card.visible {
+      opacity: 1;
+      transform: translate3d(-50%, calc(-100% - 10px), 0) scale(1);
+    }
+
+    /* Discord click popup (5th screenshot style, adapted to site colors) */
+    #discord-click-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 196px;
+      pointer-events: none;
+      z-index: 8960;
+      opacity: 0;
+      transform: translate3d(0, 6px, 0) scale(0.95);
+      transform-origin: bottom right;
+      transition:
+        opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      background-color: rgba(251, 250, 247, 0.98);
+      border: 1px solid #dfdcd2;
+      border-radius: 13px;
+      padding: 0.78rem 0.95rem;
+      box-shadow:
+        0 18px 38px -10px rgba(28, 27, 24, 0.16),
+        0 3px 10px -2px rgba(28, 27, 24, 0.06);
+      will-change: transform, opacity;
+    }
+
+    #discord-click-popup.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate3d(0, 0, 0) scale(1);
     }
 
     /* super fancy editorial "soon..." centerpiece for setup tab */
@@ -263,7 +436,7 @@
 
     .fancy-soon-wrap:hover .fancy-soon-line {
       width: 4.5rem;
-      background: linear-gradient(90deg, transparent, rgba(234, 88, 12, 0.45), transparent);
+      background: linear-gradient(90deg, transparent, rgba(224, 99, 140, 0.5), transparent);
     }
 
     .soon-dot {
@@ -273,36 +446,104 @@
       will-change: transform, opacity;
     }
 
-    /* little inline link pills */
+    /*
+     * little inline link pills with phin.jp-inspired metallic glint sweep (Natsuki pink edition)
+     */
     .inline-pill {
+      position: relative;
+      overflow: hidden;
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
       padding: 0.08rem 0.48rem 0.08rem 0.36rem;
       margin: 0 0.08rem;
       border-radius: 7px;
-      border: 1px solid rgba(220, 217, 208, 0.9);
-      background-color: rgba(251, 250, 247, 0.88);
+      border: 1px solid rgba(214, 210, 199, 0.95);
+      background: linear-gradient(180deg, rgba(253, 252, 249, 0.95) 0%, rgba(245, 243, 236, 0.92) 100%);
       color: #1c1b18;
       font-size: 0.86rem;
       line-height: 1.35;
       font-weight: 450;
       vertical-align: baseline;
-      box-shadow: 0 1px 2px rgba(28, 27, 24, 0.03);
+      box-shadow:
+        0 1px 2px rgba(28, 27, 24, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
       transition:
-        border-color 0.16s ease,
-        background-color 0.16s ease,
-        transform 0.16s cubic-bezier(0.22, 1, 0.36, 1),
-        box-shadow 0.16s ease;
+        border-color 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.22s cubic-bezier(0.22, 1, 0.36, 1);
       text-decoration: none !important;
       white-space: nowrap;
+      will-change: transform;
+    }
+
+    /* Diagonal specular glint beam (phin.jp style, Natsuki pink tint) */
+    .inline-pill::before {
+      content: '';
+      position: absolute;
+      top: -35%;
+      bottom: -35%;
+      left: -15%;
+      width: 55%;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(
+        105deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0) 25%,
+        rgba(255, 255, 255, 0.94) 46%,
+        rgba(248, 165, 194, 0.44) 51%,
+        rgba(255, 255, 255, 0.94) 56%,
+        rgba(255, 255, 255, 0) 75%,
+        transparent 100%
+      );
+      transform: translate3d(-170%, 0, 0) rotate(14deg);
+      transition: transform 0s;
+      will-change: transform;
+    }
+
+    /* Subtle top-center radial luster on hover (like phin.jp's top rim light) */
+    .inline-pill::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(
+        85% 110% at 50% -15%,
+        rgba(244, 143, 177, 0.28) 0%,
+        rgba(255, 255, 255, 0) 75%
+      );
+      opacity: 0;
+      transition: opacity 0.24s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .inline-pill:hover {
-      border-color: #c6c2b6;
-      background-color: #ffffff;
+      border-color: rgba(224, 99, 140, 0.42);
+      background: linear-gradient(180deg, #ffffff 0%, #faf3f6 100%);
       transform: translate3d(0, -1px, 0);
-      box-shadow: 0 3px 8px -2px rgba(28, 27, 24, 0.08);
+      box-shadow:
+        0 4px 10px -2px rgba(28, 27, 24, 0.09),
+        0 0 0 1px rgba(244, 143, 177, 0.18),
+        inset 0 1px 0 #ffffff;
+    }
+
+    .inline-pill:hover::before {
+      transform: translate3d(340%, 0, 0) rotate(14deg);
+      transition: transform 0.62s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .inline-pill:hover::after {
+      opacity: 1;
+    }
+
+    .inline-pill img,
+    .inline-pill svg,
+    .inline-pill span {
+      position: relative;
+      z-index: 3;
     }
 
     .inline-pill img,
@@ -333,7 +574,7 @@
     }
     .music-word-trigger:hover {
       color: #1c1b18;
-      text-decoration-color: #ea580c;
+      text-decoration-color: #e0638c;
     }
 
     /* kie.ac style music hover card */
@@ -451,10 +692,10 @@
     .gh-cell:hover {
       transform: scale(1.25);
       z-index: 5;
-      box-shadow: 0 0 0 1.5px #ea580c;
+      box-shadow: 0 0 0 1.5px #e0638c;
     }
 
-    /* custom text selection highlight */
+    /* custom text selection highlight (Natsuki pink) */
     ::selection {
       background-color: transparent;
       color: #1c1b18;
@@ -472,7 +713,7 @@
 
     .selection-pill {
       position: absolute;
-      background-color: rgba(253, 186, 116, 0.48);
+      background-color: rgba(248, 165, 194, 0.45);
       border-radius: 6px;
       pointer-events: none;
       opacity: 0;
@@ -530,7 +771,7 @@
      * All keyframe animations stay paused while `body.intro-locked` is active,
      * then fire in a synchronized cascade the exact millisecond the flying name docks.
      */
-    body.intro-locked #discord-username {
+    body.intro-locked #header-fullname {
       opacity: 0 !important;
     }
 
@@ -720,7 +961,7 @@
       0% {
         opacity: 0;
         transform: translate3d(0, -8px, 0) scale(0.98);
-        background-color: rgba(251, 146, 60, 0.18);
+        background-color: rgba(244, 143, 177, 0.22);
       }
       100% {
         opacity: 1;
@@ -740,7 +981,7 @@
 
     mark.hl {
       background-color: transparent;
-      background-image: linear-gradient(rgba(253, 186, 116, 0.48), rgba(253, 186, 116, 0.48));
+      background-image: linear-gradient(rgba(248, 165, 194, 0.45), rgba(248, 165, 194, 0.45));
       background-repeat: no-repeat;
       background-position: 0 0;
       background-size: 0% 100%;
@@ -751,7 +992,23 @@
       animation-delay: calc(280ms + (var(--choreo-offset, 0ms) * 0.4));
     }
 
-    /* hardware-accelerated custom cursor */
+    /* Smooth text morph helper when toggling EN <-> JA */
+    @keyframes langSwitchSwap {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 4px, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .lang-swap-anim {
+      animation: langSwitchSwap 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* hardware-accelerated custom cursor (Natsuki pink hover states) */
     #custom-cursor-wrap {
       position: fixed;
       top: 0;
@@ -824,7 +1081,7 @@
       height: 26px;
       border-width: 0;
       border-color: transparent;
-      background-color: rgba(253, 186, 116, 0.62);
+      background-color: rgba(248, 165, 194, 0.62);
       border-radius: 9999px;
     }
     .custom-cursor.state-link .cursor-dot {
@@ -841,7 +1098,7 @@
       height: 28px;
       border-width: 0;
       border-color: transparent;
-      background-color: rgba(253, 186, 116, 0.5);
+      background-color: rgba(248, 165, 194, 0.52);
       border-radius: 9999px;
     }
     .custom-cursor.state-icon .cursor-dot {
@@ -884,7 +1141,32 @@
 
   <!-- looskie style center name intro -->
   <div id="intro-splash" aria-hidden="true">
-    <span id="intro-fly-name" class="title-editorial font-medium">nobootdev</span>
+    <span id="intro-fly-name" class="title-editorial font-medium">Jul Caldar</span>
+  </div>
+
+  <!-- Kashiwa location & live JST time hover card (5th screenshot layout in site colors) -->
+  <div id="kashiwa-hover-card" role="tooltip" aria-hidden="true">
+    <p id="kashiwa-card-place" class="text-xs font-medium text-foreground leading-snug">Kashiwa-shi, Chiba</p>
+    <p id="kashiwa-card-time" class="mt-0.5 font-mono text-[13px] font-semibold tracking-wider tabular-nums text-foreground leading-snug">00:00:00 JST</p>
+    <p id="kashiwa-card-diff" class="mt-1 text-[11px] text-muted leading-snug">9 hours ahead of you</p>
+  </div>
+
+  <!-- Discord click popup (5th screenshot layout in site colors) -->
+  <div id="discord-click-popup" role="dialog" aria-label="Discord status" aria-hidden="true">
+    <div class="flex items-center justify-between gap-3">
+      <a id="dc-popup-handle"
+         href="https://discord.com/users/488047218138546179"
+         target="_blank"
+         rel="noreferrer"
+         data-cursor="link"
+         data-sound="hover"
+         class="text-sm font-semibold text-foreground hover:text-accent transition-colors">@nobootdev</a>
+    </div>
+    <p id="dc-popup-id" class="mt-0.5 font-mono text-[11.5px] text-muted text-selectable tracking-tight">488047218138546179</p>
+    <div class="mt-2.5 flex items-center gap-2 text-xs text-muted">
+      <span id="dc-popup-dot" class="h-2.5 w-2.5 shrink-0 rounded-full bg-[#80848e] transition-colors duration-300"></span>
+      <span id="dc-popup-status-text" class="font-medium text-foreground/85">Offline</span>
+    </div>
   </div>
 
   <!-- kie.ac style inline music hover card -->
@@ -932,7 +1214,7 @@
     <div id="gh-tooltip-count" class="text-xs font-semibold text-foreground leading-tight">0 contributions</div>
     <div id="gh-tooltip-date" class="mt-0.5 text-[11px] text-muted leading-tight">Thursday, Aug 6, 2026</div>
     <div class="mt-1 flex items-center gap-1 text-[10px] font-medium text-accent/90 leading-tight">
-      <span>open on github</span>
+      <span id="gh-tooltip-open-label">open on github</span>
       <span>↗</span>
     </div>
   </div>
@@ -992,15 +1274,29 @@
           <div class="flex items-start justify-between gap-4">
             <div class="min-w-0 flex-1">
               <h1 class="title-editorial text-[1.75rem] leading-tight font-medium text-foreground">
-                <span id="discord-username" class="text-selectable inline-block">nobootdev</span>
+                <span id="header-fullname"
+                      data-sound="hover"
+                      class="expandable-name text-selectable"
+                      aria-label="Jules Caldar"><span>Jul</span><span class="name-expand-wrap" aria-hidden="true"><span class="name-expand-inner">es</span></span><span> Caldar</span></span>
               </h1>
-              <p class="subtitle-editorial subtitle-spring mt-0.5 text-lg text-muted">
-                <span id="discord-displayname" class="text-selectable">jules</span>
-              </p>
+              <div class="subtitle-spring mt-0.5">
+                <button id="header-jp-btn"
+                        type="button"
+                        data-cursor="icon"
+                        data-sound="hover"
+                        data-badge="translate"
+                        data-badge-label="日本語に切り替え"
+                        data-badge-pos="bottom"
+                        aria-label="Toggle Japanese translation"
+                        class="jp-subtitle-btn text-lg">
+                  <span id="header-jp-name" class="text-selectable">ジュル・カルダー</span>
+                  <span id="lang-pill-badge" class="lang-pill-indicator">jp</span>
+                </button>
+              </div>
               <p id="discord-custom-quote" class="mt-1 text-xs text-muted/65 leading-relaxed hidden"></p>
             </div>
 
-            <!-- top right socials (spring-pop stagger) -->
+            <!-- top right socials (spring-pop stagger: GitHub, Discord with live status dot, TikTok) -->
             <div class="flex items-center gap-3.5 pt-1.5 text-muted">
               <a href="https://github.com/horribles"
                  data-cursor="icon"
@@ -1014,18 +1310,26 @@
                  target="_blank" rel="noreferrer">
                 <svg viewBox="0 0 24 24" fill="currentColor" class="h-[18px] w-[18px]"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"></path></svg>
               </a>
-              <a href="https://www.instagram.com/loadchunks"
-                 data-cursor="icon"
-                 data-sound="hover"
-                 data-badge="instagram"
-                 data-badge-label="Instagram"
-                 data-badge-pos="bottom"
-                 style="--brand-color: #E1306C; --s-idx: 1"
-                 aria-label="Instagram"
-                 class="social-icon-link social-pop-item p-1 -m-1"
-                 target="_blank" rel="noreferrer">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-[18px] w-[18px]"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg>
-              </a>
+
+              <button id="discord-social-btn"
+                      type="button"
+                      data-cursor="icon"
+                      data-sound="hover"
+                      data-badge="discord"
+                      data-badge-label="Discord"
+                      data-badge-pos="bottom"
+                      style="--brand-color: #5865F2; --s-idx: 1"
+                      aria-label="Discord"
+                      aria-expanded="false"
+                      class="social-icon-link social-pop-item relative p-1 -m-1">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="h-[18px] w-[18px]">
+                  <path d="M20.32 4.37a19.8 19.8 0 0 0-4.93-1.51.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.25a18.27 18.27 0 0 0-5.4 0 12.64 12.64 0 0 0-.62-1.25.08.08 0 0 0-.08-.04 19.74 19.74 0 0 0-4.93 1.51.07.07 0 0 0-.03.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.05 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2a.08.08 0 0 0-.04-.11 13.1 13.1 0 0 1-1.87-.9.08.08 0 0 1-.01-.13c.13-.09.25-.19.37-.29a.08.08 0 0 1 .08-.01c3.93 1.8 8.18 1.8 12.07 0a.08.08 0 0 1 .08.01c.12.1.25.2.37.29a.08.08 0 0 1-.01.13c-.6.35-1.22.65-1.87.9a.08.08 0 0 0-.04.11c.36.7.77 1.37 1.22 2a.08.08 0 0 0 .08.03 19.83 19.83 0 0 0 6-3.03.08.08 0 0 0 .03-.05c.5-5.18-.84-9.68-3.55-13.66a.06.06 0 0 0-.03-.03ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42Zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42Z"></path>
+                </svg>
+                <!-- Tiny status dot on bottom-right of the Discord logo -->
+                <span id="discord-icon-status-dot"
+                      class="pointer-events-none absolute bottom-0.5 right-0.5 h-[7.5px] w-[7.5px] rounded-full bg-[#80848e] ring-[1.8px] ring-[#f6f5f1] transition-colors duration-300"></span>
+              </button>
+
               <a href="https://tiktok.com/@skreenies"
                  data-cursor="icon"
                  data-sound="hover"
@@ -1051,19 +1355,19 @@
             <div>
               <nav aria-label="Sections" class="mb-6 flex gap-5 text-sm">
                 <a href="#projects" data-nav-tab="projects" data-sound="hover" data-cursor="icon" aria-current="page" style="--nav-idx: 0" class="nav-tab-item group relative py-0.5 text-muted transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:font-medium">
-                  projects
+                  <span data-i18n="nav_projects">projects</span>
                   <span class="absolute -bottom-0.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-aria-[current=page]:scale-x-100"></span>
                 </a>
                 <a href="#work" data-nav-tab="work" data-sound="hover" data-cursor="icon" style="--nav-idx: 1" class="nav-tab-item group relative py-0.5 text-muted transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:font-medium">
-                  work
+                  <span data-i18n="nav_work">work</span>
                   <span class="absolute -bottom-0.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-aria-[current=page]:scale-x-100"></span>
                 </a>
                 <a href="#music" data-nav-tab="music" data-sound="hover" data-cursor="icon" style="--nav-idx: 2" class="nav-tab-item group relative py-0.5 text-muted transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:font-medium">
-                  music
+                  <span data-i18n="nav_music">music</span>
                   <span class="absolute -bottom-0.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-aria-[current=page]:scale-x-100"></span>
                 </a>
                 <a href="#setup" data-nav-tab="setup" data-sound="hover" data-cursor="icon" style="--nav-idx: 3" class="nav-tab-item group relative py-0.5 text-muted transition-colors hover:text-foreground aria-[current=page]:text-foreground aria-[current=page]:font-medium">
-                  setup
+                  <span data-i18n="nav_setup">setup</span>
                   <span class="absolute -bottom-0.5 left-0 right-0 h-[1.5px] origin-left scale-x-0 bg-accent transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-aria-[current=page]:scale-x-100"></span>
                 </a>
               </nav>
@@ -1093,9 +1397,9 @@
                              class="interactive-row block rounded-lg px-3 py-2.5 hover:bg-accent-soft" target="_blank" rel="noreferrer">
                             <span class="flex items-baseline gap-2">
                               <span class="title-editorial text-base font-medium text-foreground">gothgirls.lol</span>
-                              <span class="text-sm text-muted">live<span class="ml-1 text-xs text-emerald-600">●</span></span>
+                              <span class="text-sm text-muted"><span data-i18n="proj_live">live</span><span class="ml-1 text-xs text-emerald-600">●</span></span>
                             </span>
-                            <span class="block text-sm text-muted mt-0.5">personal web dashboard, live lanyard status, and experiments</span>
+                            <span data-i18n="proj_goth_desc" class="block text-sm text-muted mt-0.5">personal web dashboard, live lanyard status, and experiments</span>
                           </a>
                         </li>
 
@@ -1105,7 +1409,7 @@
                               <span id="custom-discord-name" class="title-editorial text-base font-medium text-foreground">cloud</span>
                               <span id="custom-discord-stats" class="text-sm text-muted">discord.gg/awtGEGpuqp</span>
                             </span>
-                            <span id="custom-discord-desc" class="block text-sm text-muted mt-0.5">5k+ pfps in all kinds, niche, anime, match etc</span>
+                            <span id="custom-discord-desc" data-i18n="proj_cloud_desc" class="block text-sm text-muted mt-0.5">5k+ pfps in all kinds, niche, anime, match etc</span>
                           </a>
                         </li>
                       </ul>
@@ -1124,11 +1428,11 @@
                   <div data-panel="work" hidden>
                     <ul class="space-y-6">
                       <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:1">
-                        <span class="tabular-nums text-muted text-selectable">May 2026 — Now</span>
+                        <span data-i18n="work_date_1" class="tabular-nums text-muted text-selectable">May 2026 — Now</span>
                         <div>
                           <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                            <span class="font-medium text-foreground text-selectable">Creator &amp; Developer</span>
-                            <span class="text-muted text-selectable">at</span>
+                            <span data-i18n="work_role_1" class="font-medium text-foreground text-selectable">Creator &amp; Developer</span>
+                            <span data-i18n="work_at" class="text-muted text-selectable">at</span>
                             <a href="https://gothgirls.lol"
                                target="_blank" rel="noreferrer"
                                data-sound="hover"
@@ -1140,16 +1444,16 @@
                               <span>gothgirls.lol</span>
                             </a>
                           </div>
-                          <p class="mt-1 text-muted text-selectable">Personal biolink, and learning site</p>
+                          <p data-i18n="work_desc_1" class="mt-1 text-muted text-selectable">Personal biolink, and learning site</p>
                         </div>
                       </li>
 
                       <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:2">
-                        <span class="tabular-nums text-muted text-selectable">Oct 2026 — Now</span>
+                        <span data-i18n="work_date_2" class="tabular-nums text-muted text-selectable">Oct 2026 — Now</span>
                         <div>
                           <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                            <span class="font-medium text-foreground text-selectable">Community Creator</span>
-                            <span class="text-muted text-selectable">at</span>
+                            <span data-i18n="work_role_2" class="font-medium text-foreground text-selectable">Community Creator</span>
+                            <span data-i18n="work_at" class="text-muted text-selectable">at</span>
                             <a id="work-s2-pill"
                                href="https://discord.gg/aQhZRYkFWx"
                                target="_blank" rel="noreferrer"
@@ -1162,16 +1466,16 @@
                               <span id="work-s2-title">evil</span>
                             </a>
                           </div>
-                          <p class="mt-1 text-muted text-selectable">New OGU Community Server that is exclusive</p>
+                          <p data-i18n="work_desc_2" class="mt-1 text-muted text-selectable">New OGU Community Server that is exclusive</p>
                         </div>
                       </li>
 
                       <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:3">
-                        <span class="tabular-nums text-muted text-selectable">Jan 2024 — May 2025</span>
+                        <span data-i18n="work_date_3" class="tabular-nums text-muted text-selectable">Jan 2024 — May 2025</span>
                         <div>
                           <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                            <span class="font-medium text-foreground text-selectable">Minecraft Map Builder</span>
-                            <span class="text-muted text-selectable">at</span>
+                            <span data-i18n="work_role_3" class="font-medium text-foreground text-selectable">Minecraft Map Builder</span>
+                            <span data-i18n="work_at" class="text-muted text-selectable">at</span>
                             <a href="https://minecraft.net"
                                target="_blank" rel="noreferrer"
                                data-sound="hover"
@@ -1183,16 +1487,16 @@
                               <span>Minecraft</span>
                             </a>
                           </div>
-                          <p class="mt-1 text-muted text-selectable">Worked on building custom Maps and Spawns</p>
+                          <p data-i18n="work_desc_3" class="mt-1 text-muted text-selectable">Worked on building custom Maps and Spawns</p>
                         </div>
                       </li>
 
                       <li class="stagger-item grid grid-cols-[7.5rem_1fr] items-baseline gap-x-4 text-sm" style="--stagger:4">
-                        <span class="tabular-nums text-muted text-selectable">Mar 2023 — Nov 2023</span>
+                        <span data-i18n="work_date_4" class="tabular-nums text-muted text-selectable">Mar 2023 — Nov 2023</span>
                         <div>
                           <div class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                            <span class="font-medium text-foreground text-selectable">Roblox Map Builder</span>
-                            <span class="text-muted text-selectable">at</span>
+                            <span data-i18n="work_role_4" class="font-medium text-foreground text-selectable">Roblox Map Builder</span>
+                            <span data-i18n="work_at" class="text-muted text-selectable">at</span>
                             <a href="https://roblox.com"
                                target="_blank" rel="noreferrer"
                                data-sound="hover"
@@ -1204,7 +1508,7 @@
                               <span>Roblox Studio</span>
                             </a>
                           </div>
-                          <p class="mt-1 text-muted text-selectable">Worked on creating Roblox maps for multiple games</p>
+                          <p data-i18n="work_desc_4" class="mt-1 text-muted text-selectable">Worked on creating Roblox maps for multiple games</p>
                         </div>
                       </li>
                     </ul>
@@ -1214,7 +1518,7 @@
                   <div data-panel="music" hidden>
                     <div class="space-y-10">
                       <div class="stagger-item" style="--stagger:1">
-                        <p class="subtitle-editorial mb-2.5 text-base text-muted text-selectable">albums this month</p>
+                        <p data-i18n="music_albums_heading" class="subtitle-editorial mb-2.5 text-base text-muted text-selectable">albums this month</p>
                         <ul id="top-albums-list" class="-mx-3 space-y-0.5">
                           <li class="h-12 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
                           <li class="h-12 animate-pulse rounded-lg bg-[#ecebe5] mx-3"></li>
@@ -1223,7 +1527,7 @@
                       </div>
 
                       <div class="stagger-item" style="--stagger:2">
-                        <p class="subtitle-editorial mb-2.5 text-base text-muted text-selectable">artists this month</p>
+                        <p data-i18n="music_artists_heading" class="subtitle-editorial mb-2.5 text-base text-muted text-selectable">artists this month</p>
                         <p id="top-artists-list" class="text-sm leading-relaxed text-muted">
                           <span class="inline-block h-4 w-48 animate-pulse rounded bg-[#ecebe5]"></span>
                         </p>
@@ -1231,10 +1535,10 @@
 
                       <div class="stagger-item" style="--stagger:3">
                         <div class="mb-2.5 flex items-center justify-between">
-                          <p class="subtitle-editorial text-base text-muted text-selectable">recently played</p>
+                          <p data-i18n="music_recent_heading" class="subtitle-editorial text-base text-muted text-selectable">recently played</p>
                           <span class="inline-flex items-center gap-1.5 text-xs text-muted">
                             <span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
-                            live
+                            <span data-i18n="music_live_badge">live</span>
                           </span>
                         </div>
                         <ul id="recent-tracks-list" class="-mx-3 space-y-0.5 text-sm">
@@ -1251,12 +1555,12 @@
                   <div data-panel="setup" hidden>
                     <div class="space-y-8">
                       <div class="stagger-item" style="--stagger:1">
-                        <h2 class="title-editorial text-base font-medium text-foreground text-selectable mb-4">Apps i use</h2>
+                        <h2 data-i18n="setup_apps_heading" class="title-editorial text-base font-medium text-foreground text-selectable mb-4">Apps i use</h2>
 
                         <div class="space-y-4 text-sm">
                           <!-- dock apps -->
                           <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
-                            <span class="text-muted text-selectable mr-1">dock:</span>
+                            <span data-i18n="setup_dock" class="text-muted text-selectable mr-1">dock:</span>
                             <a href="https://zed.dev"
                                target="_blank" rel="noreferrer"
                                data-sound="hover"
@@ -1275,7 +1579,7 @@
                                data-badge-label="discord.com"
                                class="inline-pill">
                               <svg viewBox="0 0 24 24" fill="#5865F2"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.93-1.51.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.25a18.27 18.27 0 0 0-5.4 0 12.64 12.64 0 0 0-.62-1.25.08.08 0 0 0-.08-.04 19.74 19.74 0 0 0-4.93 1.51.07.07 0 0 0-.03.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.05 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2a.08.08 0 0 0-.04-.11 13.1 13.1 0 0 1-1.87-.9.08.08 0 0 1-.01-.13c.13-.09.25-.19.37-.29a.08.08 0 0 1 .08-.01c3.93 1.8 8.18 1.8 12.07 0a.08.08 0 0 1 .08.01c.12.1.25.2.37.29a.08.08 0 0 1-.01.13c-.6.35-1.22.65-1.87.9a.08.08 0 0 0-.04.11c.36.7.77 1.37 1.22 2a.08.08 0 0 0 .08.03 19.83 19.83 0 0 0 6-3.03.08.08 0 0 0 .03-.05c.5-5.18-.84-9.68-3.55-13.66a.06.06 0 0 0-.03-.03ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42Zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42Z"/></svg>
-                              <span>Discord Developement</span>
+                              <span data-i18n="setup_discord_dev">Discord Developement</span>
                             </a>
                             <a href="https://open.spotify.com"
                                target="_blank" rel="noreferrer"
@@ -1291,7 +1595,7 @@
 
                           <!-- everyday tools -->
                           <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
-                            <span class="text-muted text-selectable mr-1">tools:</span>
+                            <span data-i18n="setup_tools" class="text-muted text-selectable mr-1">tools:</span>
                             <a href="https://mullvad.net"
                                target="_blank" rel="noreferrer"
                                data-sound="hover"
@@ -1343,16 +1647,51 @@
                               <span>Photoshop</span>
                             </a>
                           </div>
+
+                          <!-- games -->
+                          <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
+                            <span data-i18n="setup_games" class="text-muted text-selectable mr-1">games:</span>
+                            <a href="https://www.lunarclient.com"
+                               target="_blank" rel="noreferrer"
+                               data-sound="hover"
+                               data-cursor="link"
+                               data-badge-custom-icon="https://www.google.com/s2/favicons?domain=lunarclient.com&sz=64"
+                               data-badge-label="lunarclient.com"
+                               class="inline-pill">
+                              <img src="https://www.google.com/s2/favicons?domain=lunarclient.com&sz=64" alt="" />
+                              <span>Lunar Client</span>
+                            </a>
+                            <a href="https://sober.vinegarhq.org"
+                               target="_blank" rel="noreferrer"
+                               data-sound="hover"
+                               data-cursor="link"
+                               data-badge-custom-icon="https://www.google.com/s2/favicons?domain=sober.vinegarhq.org&sz=64"
+                               data-badge-label="sober.vinegarhq.org"
+                               class="inline-pill">
+                              <img src="https://www.google.com/s2/favicons?domain=sober.vinegarhq.org&sz=64" alt="" />
+                              <span>Sober</span>
+                            </a>
+                            <a href="https://assettocorsa.gg"
+                               target="_blank" rel="noreferrer"
+                               data-sound="hover"
+                               data-cursor="link"
+                               data-badge-custom-icon="https://www.google.com/s2/favicons?domain=assettocorsa.gg&sz=64"
+                               data-badge-label="assettocorsa.gg"
+                               class="inline-pill">
+                              <img src="https://www.google.com/s2/favicons?domain=assettocorsa.gg&sz=64" alt="" />
+                              <span>Assetto Corsa</span>
+                            </a>
+                          </div>
                         </div>
                       </div>
 
                       <!-- os section (archlinux current, windows in the past) -->
                       <div class="stagger-item" style="--stagger:2">
-                        <h2 class="title-editorial text-base font-medium text-foreground text-selectable mb-4">Operating System:</h2>
+                        <h2 data-i18n="setup_os_heading" class="title-editorial text-base font-medium text-foreground text-selectable mb-4">Operating System:</h2>
 
                         <div class="space-y-4 text-sm">
                           <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
-                            <span class="text-muted text-selectable mr-1">current:</span>
+                            <span data-i18n="setup_os_current" class="text-muted text-selectable mr-1">current:</span>
                             <a href="https://archlinux.org"
                                target="_blank" rel="noreferrer"
                                data-sound="hover"
@@ -1366,7 +1705,7 @@
                           </div>
 
                           <div class="flex flex-wrap items-center gap-y-2 gap-x-1.5 leading-relaxed">
-                            <span class="text-muted text-selectable mr-1">used in the past:</span>
+                            <span data-i18n="setup_os_past" class="text-muted text-selectable mr-1">used in the past:</span>
                             <a href="https://www.microsoft.com/software-download/windows11"
                                target="_blank" rel="noreferrer"
                                data-sound="hover"
@@ -1406,7 +1745,7 @@
                         <div class="fancy-soon-wrap inline-flex items-center gap-4 select-none" data-sound="hover">
                           <span class="fancy-soon-line" aria-hidden="true"></span>
                           <p class="fancy-soon-text text-selectable">
-                            <span>soon</span><span class="soon-dot" style="--d:0">.</span><span class="soon-dot" style="--d:1">.</span><span class="soon-dot" style="--d:2">.</span>
+                            <span data-i18n="setup_soon">soon</span><span class="soon-dot" style="--d:0">.</span><span class="soon-dot" style="--d:1">.</span><span class="soon-dot" style="--d:2">.</span>
                           </p>
                           <span class="fancy-soon-line" aria-hidden="true"></span>
                         </div>
@@ -1427,9 +1766,9 @@
       <footer class="mt-16 pt-6 text-sm text-muted print:hidden relative">
         <div class="footer-line-sweep absolute top-0 left-0 right-0 h-px bg-line" aria-hidden="true"></div>
         <div class="flex items-center justify-between">
-          <span class="footer-item-rise text-selectable" style="--f-idx: 0">© 2026 <span id="footer-name" class="subtitle-editorial">jules</span></span>
+          <span class="footer-item-rise text-selectable" style="--f-idx: 0">© 2026 <span id="footer-name" class="subtitle-editorial">Jul Caldar</span></span>
           <span class="footer-item-rise flex gap-4" style="--f-idx: 1">
-            <a id="footer-home-link" data-cursor="link" data-sound="hover" class="hover:text-foreground transition-colors" href="#projects" data-nav-link="projects" data-scroll-top="true">home</a>
+            <a id="footer-home-link" data-i18n="footer_home" data-cursor="link" data-sound="hover" class="hover:text-foreground transition-colors" href="#projects" data-nav-link="projects" data-scroll-top="true">home</a>
           </span>
         </div>
         <div id="now-line-wrap" class="mt-4 h-px w-full overflow-hidden bg-line transition-opacity duration-500 opacity-0" aria-hidden="true">
@@ -1442,7 +1781,7 @@
   <script>
     /*
      * © 2026 @nobootdev on discord (488047218138546179)
-     * custom lanyard + last.fm + github integration
+     * custom lanyard + last.fm + github + kashiwa jst + full bilingual en/ja integration
      */
 
     const DISCORD_USER_ID = '488047218138546179';
@@ -1451,6 +1790,116 @@
     const GITHUB_USERNAME = 'horribles';
 
     const GOTHGIRLS_FAVICON = 'https://gothgirls.lol/favicon.png';
+
+    // Update browser tab favicon to user's Discord avatar (with circular mask when CORS allows)
+    function updateTabFaviconWithDiscordPfp(avatarUrl) {
+      const favEl = document.getElementById('site-favicon');
+      if (!favEl || !avatarUrl) return;
+
+      // Immediately set direct URL so the Discord PFP appears right away
+      favEl.href = avatarUrl;
+
+      // Render a rounded circular favicon on an offscreen canvas if CORS permits
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 64;
+          canvas.height = 64;
+          const ctx = canvas.getContext('2d');
+          ctx.beginPath();
+          ctx.arc(32, 32, 32, 0, Math.PI * 2);
+          ctx.closePath();
+          ctx.clip();
+          ctx.drawImage(img, 0, 0, 64, 64);
+          favEl.href = canvas.toDataURL('image/png');
+        } catch (e) {
+          favEl.href = avatarUrl;
+        }
+      };
+      img.src = avatarUrl;
+    }
+
+    // Static UI Translation Dictionary (EN <-> JA)
+    const UI_STRINGS = {
+      en: {
+        nav_projects: 'projects',
+        nav_work: 'work',
+        nav_music: 'music',
+        nav_setup: 'setup',
+        proj_live: 'live',
+        proj_goth_desc: 'personal web dashboard, live lanyard status, and experiments',
+        proj_cloud_desc: '5k+ pfps in all kinds, niche, anime, match etc',
+        work_date_1: 'May 2026 — Now',
+        work_role_1: 'Creator & Developer',
+        work_desc_1: 'Personal biolink, and learning site',
+        work_date_2: 'Oct 2026 — Now',
+        work_role_2: 'Community Creator',
+        work_desc_2: 'New OGU Community Server that is exclusive',
+        work_date_3: 'Jan 2024 — May 2025',
+        work_role_3: 'Minecraft Map Builder',
+        work_desc_3: 'Worked on building custom Maps and Spawns',
+        work_date_4: 'Mar 2023 — Nov 2023',
+        work_role_4: 'Roblox Map Builder',
+        work_desc_4: 'Worked on creating Roblox maps for multiple games',
+        work_at: 'at',
+        music_albums_heading: 'albums this month',
+        music_artists_heading: 'artists this month',
+        music_recent_heading: 'recently played',
+        music_live_badge: 'live',
+        setup_apps_heading: 'Apps i use',
+        setup_dock: 'dock:',
+        setup_discord_dev: 'Discord Developement',
+        setup_tools: 'tools:',
+        setup_games: 'games:',
+        setup_os_heading: 'Operating System:',
+        setup_os_current: 'current:',
+        setup_os_past: 'used in the past:',
+        setup_soon: 'soon',
+        footer_home: 'home',
+        gh_open: 'open on github',
+        lang_tooltip: '日本語に切り替え'
+      },
+      ja: {
+        nav_projects: 'プロジェクト',
+        nav_work: '経歴',
+        nav_music: '音楽',
+        nav_setup: '環境',
+        proj_live: '公開中',
+        proj_goth_desc: '個人ウェブダッシュボード、Lanyardリアルタイム連携、各種実験',
+        proj_cloud_desc: '5,000枚以上のアイコン素材（ニッチ・アニメ・ペア画など）',
+        work_date_1: '2026年5月 — 現在',
+        work_role_1: 'クリエイター & 開発者',
+        work_desc_1: '個人バイオリンク兼フロントエンド実験サイト',
+        work_date_2: '2026年10月 — 現在',
+        work_role_2: 'コミュニティ創設者',
+        work_desc_2: '招待制の新しいOGUコミュニティサーバー',
+        work_date_3: '2024年1月 — 2025年5月',
+        work_role_3: 'Minecraft マップビルダー',
+        work_desc_3: 'カスタムマップやスポーン地点の制作を担当',
+        work_date_4: '2023年3月 — 2023年11月',
+        work_role_4: 'Roblox マップビルダー',
+        work_desc_4: '複数のゲーム向けにRobloxマップを制作',
+        work_at: '·',
+        music_albums_heading: '今月のアルバム',
+        music_artists_heading: '今月のアーティスト',
+        music_recent_heading: '最近の再生履歴',
+        music_live_badge: 'ライブ',
+        setup_apps_heading: '使用アプリ',
+        setup_dock: 'ドック:',
+        setup_discord_dev: 'Discord 開発',
+        setup_tools: 'ツール:',
+        setup_games: 'ゲーム:',
+        setup_os_heading: 'オペレーティングシステム:',
+        setup_os_current: '現在:',
+        setup_os_past: '過去に使用:',
+        setup_soon: '準備中',
+        footer_home: 'ホーム',
+        gh_open: 'GitHubで開く',
+        lang_tooltip: 'Switch to English'
+      }
+    };
 
     // hover sound effect (uses hover.mp3 if present, soft web-audio tick fallback)
     const hoverAudio = new Audio('hover.mp3');
@@ -1513,6 +1962,7 @@
 
     // svg icons for tooltips
     const BRAND_SVGS = {
+      translate: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="#e0638c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>`,
       discord: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="#5865F2"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.93-1.51.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.25a18.27 18.27 0 0 0-5.4 0 12.64 12.64 0 0 0-.62-1.25.08.08 0 0 0-.08-.04 19.74 19.74 0 0 0-4.93 1.51.07.07 0 0 0-.03.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.05 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.87-1.3 1.22-2a.08.08 0 0 0-.04-.11 13.1 13.1 0 0 1-1.87-.9.08.08 0 0 1-.01-.13c.13-.09.25-.19.37-.29a.08.08 0 0 1 .08-.01c3.93 1.8 8.18 1.8 12.07 0a.08.08 0 0 1 .08.01c.12.1.25.2.37.29a.08.08 0 0 1-.01.13c-.6.35-1.22.65-1.87.9a.08.08 0 0 0-.04.11c.36.7.77 1.37 1.22 2a.08.08 0 0 0 .08.03 19.83 19.83 0 0 0 6-3.03.08.08 0 0 0 .03-.05c.5-5.18-.84-9.68-3.55-13.66a.06.06 0 0 0-.03-.03ZM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42Zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42Z"/></svg>`,
       github: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="#181717"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.03 1.76 2.69 1.25 3.35.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>`,
       instagram: `<svg viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="#E1306C" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="#E1306C" stroke="none"/></svg>`,
@@ -1530,6 +1980,8 @@
     const KNOWN_ACTIVITIES = [
       { match: /zed/i, name: 'Zed', url: 'https://zed.dev', domain: 'zed.dev' },
       { match: /lunar\s*client/i, name: 'Lunar Client', url: 'https://lunarclient.com', domain: 'lunarclient.com' },
+      { match: /sober/i, name: 'Sober', url: 'https://sober.vinegarhq.org', domain: 'sober.vinegarhq.org' },
+      { match: /assetto\s*corsa/i, name: 'Assetto Corsa', url: 'https://assettocorsa.gg', domain: 'assettocorsa.gg' },
       { match: /feather/i, name: 'Feather Client', url: 'https://feathermc.com', domain: 'feathermc.com' },
       { match: /badlion/i, name: 'Badlion Client', url: 'https://badlion.net', domain: 'badlion.net' },
       { match: /modrinth/i, name: 'Modrinth', url: 'https://modrinth.com', domain: 'modrinth.com' },
@@ -1585,9 +2037,22 @@
       return age;
     }
 
-    // expanded greeting pool with natural variety
-    function pickSessionGreeting() {
+    // expanded greeting pool with natural variety (English & Japanese)
+    function pickSessionGreeting(lang = 'en') {
       const h = new Date().getHours();
+      if (lang === 'ja') {
+        const generalJa = ['ようこそ', 'どうも', 'やあ', 'こんにちは', '来てくれてありがとう'];
+        const timeJa = h >= 5 && h < 12
+          ? ['おはよう', 'おはようございます', '朝早くからどうも']
+          : h >= 12 && h < 17
+          ? ['こんにちは', 'いい午後ですね', 'ようこそ']
+          : h >= 17 && h < 22
+          ? ['こんばんは', 'お疲れさまです', 'ゆっくりしていってね']
+          : ['こんばんは', '夜更かしですね', 'まだ起きてる？', '静かな夜ですね'];
+        const poolJa = [...timeJa, ...generalJa];
+        return poolJa[Math.floor(Math.random() * poolJa.length)];
+      }
+
       const general = ['yo', 'hey', 'hey there', 'sup', "what's good", "what's up", 'hiya', 'glad you stopped by'];
       const timeSpecific = h >= 5 && h < 12
         ? ['morning', 'good morning', 'hey, morning', 'early bird huh', 'morning!', 'hope your morning is chill']
@@ -1600,15 +2065,20 @@
       return pool[Math.floor(Math.random() * pool.length)];
     }
 
-    const SESSION_GREETING = pickSessionGreeting();
+    const SESSION_GREETING_EN = pickSessionGreeting('en');
+    const SESSION_GREETING_JA = pickSessionGreeting('ja');
     const CURRENT_AGE = calculateAge();
 
     const appState = {
+      lang: 'en',
       username: 'nobootdev',
       displayName: 'jules',
-      avatarUrl: 'https://cdn.discordapp.com/embed/avatars/0.png',
+      discordStatus: 'offline',
+      avatarUrl: `https://dcdn.dstn.to/avatars/${DISCORD_USER_ID}`,
       customQuote: '',
-      discordStatusHtml: "right now i'm probably away from my desk.",
+      lastLanyardData: null,
+      discordStatusHtmlEn: "right now i'm probably away from my desk.",
+      discordStatusHtmlJa: "今はたぶんデスクから離れています。",
       weekScrobbles: 0,
       topArtistWeek: 'music',
       topArtistUrl: `https://www.last.fm/user/${LASTFM_USERNAME}`,
@@ -1618,8 +2088,16 @@
       lastTrackTitle: 'No recent track',
       lastTrackArtist: LASTFM_USERNAME,
       lastTrackArt: 'https://www.google.com/s2/favicons?domain=last.fm&sz=64',
-      lastTrackStatus: 'Scrobbling via last.fm',
+      lastTrackUts: null,
       lastTrackLive: false,
+      lastTrackSpotify: false,
+      cachedAlbums: null,
+      cachedArtists: null,
+      cachedRecentTracks: null,
+      cachedGithubTotal: null,
+      cachedGithubNewestRepo: '',
+      cachedGithubNewestUrl: '',
+      serverDataCache: {},
       server2Name: 'evil',
       server2Icon: 'https://cdn.discordapp.com/embed/avatars/1.png',
       server3Name: 'cloud',
@@ -1627,11 +2105,269 @@
       currentTab: 'projects'
     };
 
+    // --- Kashiwa Location & Live JST Clock Hover Card (5th screenshot) ---
+    const kashiwaHoverCard = document.getElementById('kashiwa-hover-card');
+    const kashiwaCardPlace = document.getElementById('kashiwa-card-place');
+    const kashiwaCardTime = document.getElementById('kashiwa-card-time');
+    const kashiwaCardDiff = document.getElementById('kashiwa-card-diff');
+    let activeKashiwaTrigger = null;
+    let kashiwaClockInterval = null;
+
+    function getKashiwaOffsetLabel() {
+      // Tokyo/Kashiwa is always UTC+9 (+540 minutes, no DST)
+      const visitorUtcOffsetMin = -new Date().getTimezoneOffset();
+      const diffHours = Math.round(((540 - visitorUtcOffsetMin) / 60) * 10) / 10;
+
+      if (appState.lang === 'ja') {
+        if (diffHours === 0) return 'あなたと同じ時間帯';
+        if (diffHours > 0) return `現地より${diffHours}時間進んでいます`;
+        return `現地より${Math.abs(diffHours)}時間遅れています`;
+      } else {
+        if (diffHours === 0) return 'Same time as you';
+        const absH = Math.abs(diffHours);
+        const unit = absH === 1 ? 'hour' : 'hours';
+        return diffHours > 0
+          ? `${absH} ${unit} ahead of you`
+          : `${absH} ${unit} behind you`;
+      }
+    }
+
+    function updateKashiwaClockDOM() {
+      const now = new Date();
+      const jstTimeStr = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Tokyo',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }).format(now);
+
+      if (kashiwaCardPlace) {
+        kashiwaCardPlace.textContent = appState.lang === 'ja' ? '千葉県柏市' : 'Kashiwa-shi, Chiba';
+      }
+      if (kashiwaCardTime) {
+        kashiwaCardTime.textContent = `${jstTimeStr} JST`;
+      }
+      if (kashiwaCardDiff) {
+        kashiwaCardDiff.textContent = getKashiwaOffsetLabel();
+      }
+    }
+
+    function positionKashiwaHoverCard(el) {
+      if (!el || !kashiwaHoverCard) return;
+      const rect = el.getBoundingClientRect();
+      const centerX = Math.min(Math.max(110, rect.left + rect.width / 2), window.innerWidth - 110);
+      kashiwaHoverCard.style.left = `${centerX}px`;
+      kashiwaHoverCard.style.top = `${rect.top}px`;
+    }
+
+    function hideKashiwaHoverCard() {
+      activeKashiwaTrigger = null;
+      kashiwaHoverCard?.classList.remove('visible');
+      kashiwaHoverCard?.setAttribute('aria-hidden', 'true');
+      if (kashiwaClockInterval) {
+        clearInterval(kashiwaClockInterval);
+        kashiwaClockInterval = null;
+      }
+    }
+
+    function bindKashiwaHover() {
+      document.querySelectorAll('[data-kashiwa-hover]').forEach(el => {
+        if (el.dataset.boundKashiwa) return;
+        el.dataset.boundKashiwa = 'true';
+
+        el.addEventListener('mouseenter', () => {
+          playHoverSound();
+          activeKashiwaTrigger = el;
+          updateKashiwaClockDOM();
+          positionKashiwaHoverCard(el);
+          kashiwaHoverCard.classList.add('visible');
+          kashiwaHoverCard.setAttribute('aria-hidden', 'false');
+          if (kashiwaClockInterval) clearInterval(kashiwaClockInterval);
+          kashiwaClockInterval = setInterval(updateKashiwaClockDOM, 1000);
+        });
+
+        el.addEventListener('mouseleave', hideKashiwaHoverCard);
+      });
+    }
+
+    // --- Discord status dot & click popup logic ---
+    const STATUS_META = {
+      online: { color: '#23a55a', en: 'Online', ja: 'オンライン' },
+      idle: { color: '#f0b232', en: 'Idle', ja: '退席中' },
+      dnd: { color: '#f23f43', en: 'Do Not Disturb', ja: '取り込み中' },
+      offline: { color: '#80848e', en: 'Offline', ja: 'オフライン' }
+    };
+
+    const discordSocialBtn = document.getElementById('discord-social-btn');
+    const discordClickPopup = document.getElementById('discord-click-popup');
+    const discordIconStatusDot = document.getElementById('discord-icon-status-dot');
+    const dcPopupHandle = document.getElementById('dc-popup-handle');
+    const dcPopupId = document.getElementById('dc-popup-id');
+    const dcPopupDot = document.getElementById('dc-popup-dot');
+    const dcPopupStatusText = document.getElementById('dc-popup-status-text');
+    let isDiscordPopupOpen = false;
+
+    function syncDiscordStatusUI() {
+      const meta = STATUS_META[appState.discordStatus] || STATUS_META.offline;
+      if (discordIconStatusDot) {
+        discordIconStatusDot.style.backgroundColor = meta.color;
+      }
+      if (dcPopupDot) {
+        dcPopupDot.style.backgroundColor = meta.color;
+      }
+      if (dcPopupStatusText) {
+        dcPopupStatusText.textContent = appState.lang === 'ja' ? meta.ja : meta.en;
+      }
+      if (dcPopupHandle) {
+        dcPopupHandle.textContent = `@${appState.username}`;
+      }
+      if (dcPopupId) {
+        dcPopupId.textContent = DISCORD_USER_ID;
+      }
+    }
+
+    function positionDiscordClickPopup() {
+      if (!discordSocialBtn || !discordClickPopup) return;
+      const rect = discordSocialBtn.getBoundingClientRect();
+      const popupW = discordClickPopup.offsetWidth || 200;
+      const popupH = discordClickPopup.offsetHeight || 88;
+
+      let left = rect.right - popupW + 10;
+      left = Math.max(16, Math.min(left, window.innerWidth - popupW - 16));
+
+      let top = rect.top - popupH - 12;
+      if (top < 24) {
+        top = rect.bottom + 12;
+        discordClickPopup.style.transformOrigin = 'top right';
+      } else {
+        discordClickPopup.style.transformOrigin = 'bottom right';
+      }
+
+      discordClickPopup.style.left = `${left}px`;
+      discordClickPopup.style.top = `${top}px`;
+    }
+
+    function toggleDiscordClickPopup(forceState) {
+      isDiscordPopupOpen = typeof forceState === 'boolean' ? forceState : !isDiscordPopupOpen;
+      if (isDiscordPopupOpen) {
+        hideBadgeTooltip();
+        syncDiscordStatusUI();
+        positionDiscordClickPopup();
+        discordClickPopup.classList.add('visible');
+        discordClickPopup.setAttribute('aria-hidden', 'false');
+        discordSocialBtn?.setAttribute('aria-expanded', 'true');
+      } else {
+        discordClickPopup.classList.remove('visible');
+        discordClickPopup.setAttribute('aria-hidden', 'true');
+        discordSocialBtn?.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    if (discordSocialBtn) {
+      discordSocialBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        playHoverSound();
+        toggleDiscordClickPopup();
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!isDiscordPopupOpen) return;
+      if (discordClickPopup && !discordClickPopup.contains(e.target) && !discordSocialBtn.contains(e.target)) {
+        toggleDiscordClickPopup(false);
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isDiscordPopupOpen) {
+        toggleDiscordClickPopup(false);
+      }
+    });
+
+    // --- Full-Site Language Toggle (Click on ジュル・カルダー) ---
+    const headerJpBtn = document.getElementById('header-jp-btn');
+    const langPillBadge = document.getElementById('lang-pill-badge');
+
+    function applyStaticTranslations(animateSwap = false) {
+      const dict = UI_STRINGS[appState.lang] || UI_STRINGS.en;
+      document.documentElement.lang = appState.lang;
+      document.body.classList.toggle('lang-ja', appState.lang === 'ja');
+
+      if (langPillBadge) {
+        langPillBadge.textContent = appState.lang === 'ja' ? 'en' : 'jp';
+      }
+
+      if (headerJpBtn) {
+        headerJpBtn.setAttribute('data-badge-label', dict.lang_tooltip);
+        if (activeBadgeTarget === headerJpBtn) {
+          badgeLabelEl.textContent = dict.lang_tooltip;
+        }
+      }
+
+      const ghOpenEl = document.getElementById('gh-tooltip-open-label');
+      if (ghOpenEl) ghOpenEl.textContent = dict.gh_open;
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (key === 'proj_cloud_desc' && el.dataset.customApiDesc && appState.lang === 'en') {
+          el.textContent = el.dataset.customApiDesc;
+        } else if (dict[key] !== undefined) {
+          el.textContent = dict[key];
+        }
+
+        if (animateSwap) {
+          el.classList.remove('lang-swap-anim');
+          void el.offsetWidth;
+          el.classList.add('lang-swap-anim');
+        }
+      });
+
+      syncDiscordStatusUI();
+      syncMusicHoverCard();
+      updateKashiwaClockDOM();
+      refreshServerStatsLocalization();
+      refreshGithubSummaryLocalization();
+
+      if (appState.cachedAlbums) {
+        prevAlbumsSig = '';
+        renderTopAlbumsList(appState.cachedAlbums);
+      }
+      if (appState.cachedRecentTracks) {
+        renderRecentTracksList(appState.cachedRecentTracks);
+      }
+    }
+
+    function toggleSiteLanguage() {
+      appState.lang = appState.lang === 'en' ? 'ja' : 'en';
+      playHoverSound();
+      hideKashiwaHoverCard();
+
+      const mainOutline = document.getElementById('main-card-outline');
+      if (mainOutline && !document.body.classList.contains('intro-locked')) {
+        mainOutline.classList.add('tab-pulse');
+        clearTimeout(mainOutline._pulseTimer);
+        mainOutline._pulseTimer = setTimeout(() => {
+          mainOutline.classList.remove('tab-pulse');
+        }, 420);
+      }
+
+      applyStaticTranslations(true);
+      renderAnimatedIntro(appState.currentTab);
+    }
+
+    if (headerJpBtn) {
+      headerJpBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleSiteLanguage();
+      });
+    }
+
     // looskie.com style font-cycling & FLIP flight to header, followed by choreographed eruption
     function playLooskieIntro() {
       const splash = document.getElementById('intro-splash');
       const flyName = document.getElementById('intro-fly-name');
-      const targetEl = document.getElementById('discord-username');
+      const targetEl = document.getElementById('header-fullname');
       const mainOutline = document.getElementById('main-card-outline');
 
       const fontSteps = [
@@ -1659,7 +2395,7 @@
       }, 110);
 
       function flyToHeader() {
-        flyName.textContent = targetEl.textContent || appState.username;
+        flyName.textContent = 'Jul Caldar';
         flyName.style.fontFamily = "'Fraunces', var(--font-cjk-serif)";
         flyName.style.fontStyle = 'normal';
         flyName.style.fontWeight = '500';
@@ -1680,17 +2416,14 @@
         flyName.style.transform = `translate3d(${dx}px, ${dy}px, 0) scale(${scale})`;
 
         setTimeout(() => {
-          // Unlock all paused animations simultaneously as the flying name docks
           document.body.classList.remove('intro-locked');
 
-          // Pulse the card outline border on landing impact
           if (mainOutline) {
             mainOutline.classList.add('tab-pulse');
             setTimeout(() => mainOutline.classList.remove('tab-pulse'), 650);
           }
 
-          // Animate the active tab underline sweeping out
-          const activeTab = document.querySelector('[data-nav-tab][aria-current="page"] span');
+          const activeTab = document.querySelector('[data-nav-tab][aria-current="page"] span:last-child');
           if (activeTab) {
             activeTab.style.transform = 'scaleX(0)';
             requestAnimationFrame(() => {
@@ -1704,7 +2437,6 @@
           splash.style.transition = 'opacity 0.18s ease';
           setTimeout(() => splash.remove(), 200);
 
-          // After initial load choreography finishes, remove extra load offset so tab switches are instant
           setTimeout(() => {
             document.body.classList.remove('initial-choreo');
           }, 1100);
@@ -1712,7 +2444,21 @@
       }
     }
 
-    // update the kie.ac style music hover card DOM
+    // update the kie.ac style music hover card DOM (localized for EN & JA)
+    function getLocalizedMusicCardStatus() {
+      if (appState.lastTrackLive) {
+        if (appState.lastTrackSpotify) {
+          return appState.lang === 'ja' ? 'Spotifyで現在再生中' : 'Listening right now on Spotify';
+        }
+        return appState.lang === 'ja' ? '現在再生中' : 'Listening right now';
+      }
+      if (appState.lastTrackUts) {
+        const rel = formatLongRelativeTime(appState.lastTrackUts);
+        return appState.lang === 'ja' ? `最終再生: ${rel}` : `Last played ${rel}`;
+      }
+      return appState.lang === 'ja' ? '最近の再生履歴を確認中...' : 'Scrobbling via last.fm';
+    }
+
     function syncMusicHoverCard() {
       const artEl = document.getElementById('music-card-art');
       const titleEl = document.getElementById('music-card-title');
@@ -1722,9 +2468,13 @@
       const liveDotEl = document.getElementById('music-card-live-dot');
 
       if (artEl && appState.lastTrackArt) artEl.src = appState.lastTrackArt;
-      if (titleEl) titleEl.textContent = appState.lastTrackTitle;
+      if (titleEl) {
+        titleEl.textContent = appState.lastTrackTitle === 'No recent track' && appState.lang === 'ja'
+          ? '最近の再生履歴なし'
+          : appState.lastTrackTitle;
+      }
       if (artistEl) artistEl.textContent = appState.lastTrackArtist;
-      if (statusEl) statusEl.textContent = appState.lastTrackStatus;
+      if (statusEl) statusEl.textContent = getLocalizedMusicCardStatus();
 
       if (appState.lastTrackLive) {
         clockEl?.classList.add('hidden');
@@ -1775,14 +2525,34 @@
       });
     }
 
-    // human, chill intro paragraphs
+    // human, chill intro paragraphs in both English & Japanese
     function getTabIntros() {
       const artistImg = appState.topArtistImg || 'https://www.google.com/s2/favicons?domain=last.fm&sz=64';
 
+      if (appState.lang === 'ja') {
+        return {
+          projects: [
+            `${SESSION_GREETING_JA} — <span id="live-intro-name">ジュル</span>です。<span data-kashiwa-hover="true" data-cursor="link" class="kashiwa-trigger">柏</span>を拠点に活動している<span id="live-intro-age">${CURRENT_AGE}</span>歳で、普段はインターネットで<mark class="hl">モノづくり</mark>をしたり、Discordボットをいじったり、いくつかのコミュニティを運営したりしています。最近は <a href="https://gothgirls.lol" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="gothgirls" data-badge-label="gothgirls.lol" class="inline-pill"><img src="${GOTHGIRLS_FAVICON}" onerror="if(this.src!=='favicon.png')this.src='favicon.png'" alt="" /><span>gothgirls.lol</span></a> に時間を注ぎつつ、<a id="intro-s2-link" href="https://discord.gg/aQhZRYkFWx" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="intro-s2-icon" src="${appState.server2Icon}" alt="" /><span id="intro-s2-name">${appState.server2Name}</span></a> を動かしたり、<a id="intro-s3-link" href="https://discord.gg/awtGEGpuqp" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="intro-s3-icon" src="${appState.server3Icon}" alt="" /><span id="intro-s3-name">${appState.server3Name}</span></a> でまったり過ごしています。`,
+            `もともと趣味でゲームのマップやボットを作り始めて、今でも気が向いたらいろいろ作っています。それ以外の時間はだいたい<a href="#music" data-nav-link="music" data-music-hover="true" data-cursor="link" class="music-word-trigger">音楽</a>を流しているか（今週は<span id="live-week-scrobbles">${appState.weekScrobbles}</span>回再生、よく聴くのは <a id="live-top-artist" href="${appState.topArtistUrl}" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="lastfm" data-badge-label="last.fm" class="inline-pill"><img id="live-top-artist-img" src="${artistImg}" alt="" /><span id="live-top-artist-name">${appState.topArtistWeek}</span></a>）、ゲームに潜っています。<span id="live-discord-presence">${appState.discordStatusHtmlJa}</span>`
+          ],
+          work: [
+            `普段はPythonを書いたり、HTML/CSSを調整したり、ボットを動かしたりしています。すっきりしたレイアウトが好きで、誰も気づかないような細かいマイクロアニメーションやディテールにこだわりすぎるところがあります。`,
+            `今は <a href="https://gothgirls.lol" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="gothgirls" data-badge-label="gothgirls.lol" class="inline-pill"><img src="${GOTHGIRLS_FAVICON}" onerror="if(this.src!=='favicon.png')this.src='favicon.png'" alt="" /><span>gothgirls.lol</span></a> と、その時試しているサイドプロジェクトに集中しています。一緒に何か作りたい時や雑談したい時は、気軽に <a id="work-discord-pill" href="https://discord.com/users/${DISCORD_USER_ID}" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="work-discord-avatar" src="${appState.avatarUrl}" alt="" /><span id="work-discord-username">${appState.username}</span></a> まで声をかけてください — だいたいいつでも返事します。`
+          ],
+          music: [
+            `聴いている音楽はすべて <a href="https://www.last.fm/user/${LASTFM_USERNAME}" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="lastfm" data-badge-label="last.fm" class="inline-pill"><img src="https://www.google.com/s2/favicons?domain=last.fm&sz=64" alt="" /><span>last.fm</span></a> で記録しています — これまでに <span id="live-total-artists">${appState.totalArtists}</span> 組のアーティストで合計 <span id="live-total-plays">${appState.totalPlays}</span> 回再生しました。`,
+            `最近のローテーションはこんな感じです。今聴いている曲があればリアルタイムで更新されます。`
+          ],
+          setup: [
+            `コーディングや編集、普段の作業で毎日使っているツールです。環境はできるだけ速く、軽く、シンプルに保つようにしています。`
+          ]
+        };
+      }
+
       return {
         projects: [
-          `${SESSION_GREETING} — i'm <span id="live-intro-name">${appState.displayName}</span>. i'm <span id="live-intro-age">${CURRENT_AGE}</span> and i mostly just like <mark class="hl">making things</mark> on the internet, messing with discord bots, and running a few communities. lately i've been pouring time into <a href="https://gothgirls.lol" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="gothgirls" data-badge-label="gothgirls.lol" class="inline-pill"><img src="${GOTHGIRLS_FAVICON}" onerror="if(this.src!=='favicon.png')this.src='favicon.png'" alt="" /><span>gothgirls.lol</span></a>, keeping <a id="intro-s2-link" href="https://discord.gg/aQhZRYkFWx" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="intro-s2-icon" src="${appState.server2Icon}" alt="" /><span id="intro-s2-name">${appState.server2Name}</span></a> active, and hanging out in <a id="intro-s3-link" href="https://discord.gg/awtGEGpuqp" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="intro-s3-icon" src="${appState.server3Icon}" alt="" /><span id="intro-s3-name">${appState.server3Name}</span></a>.`,
-          `i started out building game maps and random bots for fun, and honestly still do whenever i get the itch. when i'm not doing that, i've almost always got <a href="#music" data-nav-link="music" data-music-hover="true" data-cursor="link" class="music-word-trigger">music</a> on (<span id="live-week-scrobbles">${appState.weekScrobbles}</span> plays this week, mostly <a id="live-top-artist" href="${appState.topArtistUrl}" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="lastfm" data-badge-label="last.fm" class="inline-pill"><img id="live-top-artist-img" src="${artistImg}" alt="" /><span id="live-top-artist-name">${appState.topArtistWeek}</span></a>) or i'm queued into a game. <span id="live-discord-presence">${appState.discordStatusHtml}</span>`
+          `${SESSION_GREETING_EN} — i'm <span id="live-intro-name">${appState.displayName}</span>. i'm <span id="live-intro-age">${CURRENT_AGE}</span>, based in <span data-kashiwa-hover="true" data-cursor="link" class="kashiwa-trigger">Kashiwa</span>, and i mostly just like <mark class="hl">making things</mark> on the internet, messing with discord bots, and running a few communities. lately i've been pouring time into <a href="https://gothgirls.lol" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="gothgirls" data-badge-label="gothgirls.lol" class="inline-pill"><img src="${GOTHGIRLS_FAVICON}" onerror="if(this.src!=='favicon.png')this.src='favicon.png'" alt="" /><span>gothgirls.lol</span></a>, keeping <a id="intro-s2-link" href="https://discord.gg/aQhZRYkFWx" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="intro-s2-icon" src="${appState.server2Icon}" alt="" /><span id="intro-s2-name">${appState.server2Name}</span></a> active, and hanging out in <a id="intro-s3-link" href="https://discord.gg/awtGEGpuqp" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="discord" data-badge-label="Discord" class="inline-pill"><img id="intro-s3-icon" src="${appState.server3Icon}" alt="" /><span id="intro-s3-name">${appState.server3Name}</span></a>.`,
+          `i started out building game maps and random bots for fun, and honestly still do whenever i get the itch. when i'm not doing that, i've almost always got <a href="#music" data-nav-link="music" data-music-hover="true" data-cursor="link" class="music-word-trigger">music</a> on (<span id="live-week-scrobbles">${appState.weekScrobbles}</span> plays this week, mostly <a id="live-top-artist" href="${appState.topArtistUrl}" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="lastfm" data-badge-label="last.fm" class="inline-pill"><img id="live-top-artist-img" src="${artistImg}" alt="" /><span id="live-top-artist-name">${appState.topArtistWeek}</span></a>) or i'm queued into a game. <span id="live-discord-presence">${appState.discordStatusHtmlEn}</span>`
         ],
         work: [
           `mostly writing python, tweaking html/css, and keeping bots alive. i'm big on clean layouts and probably care way too much about tiny micro-animations and little details nobody else notices.`,
@@ -1816,6 +2586,18 @@
       });
     }
 
+    // Native Japanese word segmenter so JA animations cascade word-by-word just like EN
+    const jaSegmenter = (typeof Intl !== 'undefined' && Intl.Segmenter)
+      ? new Intl.Segmenter('ja', { granularity: 'word' })
+      : null;
+
+    function splitTextTokens(text) {
+      if (appState.lang === 'ja' && jaSegmenter) {
+        return Array.from(jaSegmenter.segment(text), s => s.segment);
+      }
+      return text.split(/(\s+)/);
+    }
+
     function renderAnimatedIntro(tabId) {
       const viewport = document.getElementById('intro-viewport');
       const container = document.getElementById('intro-container');
@@ -1825,7 +2607,7 @@
       function wrapWordsInNode(node) {
         if (node.nodeType === Node.TEXT_NODE) {
           const frag = document.createDocumentFragment();
-          const parts = node.textContent.split(/(\s+)/);
+          const parts = splitTextTokens(node.textContent);
           parts.forEach(part => {
             if (!part) return;
             if (/^\s+$/.test(part)) {
@@ -1840,7 +2622,12 @@
           });
           return frag;
         } else if (node.nodeType === Node.ELEMENT_NODE) {
-          if (node.classList && (node.classList.contains('inline-pill') || node.classList.contains('music-word-trigger'))) {
+          if (
+            node.classList &&
+            (node.classList.contains('inline-pill') ||
+             node.classList.contains('music-word-trigger') ||
+             node.classList.contains('kashiwa-trigger'))
+          ) {
             const pillClone = node.cloneNode(true);
             pillClone.classList.add('anim-word');
             pillClone.style.setProperty('--i', wordIndex++);
@@ -1868,6 +2655,7 @@
       bindBadgeTooltips();
       bindInternalNavLinks();
       bindMusicWordHover();
+      bindKashiwaHover();
       bindHoverSounds();
     }
 
@@ -1897,32 +2685,23 @@
     let chosenMusicVerb = null;
     let chosenGameVerb = null;
 
-    // sync lanyard profile + presence
+    // sync lanyard profile + presence + live Discord PFP favicon
     function applyLanyardData(d) {
       if (!d) return;
+      appState.lastLanyardData = d;
       const user = d.discord_user || {};
 
       const fetchedUsername = user.username || appState.username;
-      const fetchedDisplayName = user.global_name || user.display_name || user.username || appState.displayName;
-
       appState.username = fetchedUsername;
-      appState.displayName = fetchedDisplayName;
+      appState.discordStatus = d.discord_status || 'offline';
 
       if (user.avatar) {
         const ext = user.avatar.startsWith('a_') ? 'gif' : 'png';
         appState.avatarUrl = `https://cdn.discordapp.com/avatars/${user.id || DISCORD_USER_ID}/${user.avatar}.${ext}?size=128`;
+        updateTabFaviconWithDiscordPfp(appState.avatarUrl);
       }
 
-      document.getElementById('discord-username').textContent = fetchedUsername;
-      document.getElementById('discord-displayname').textContent = fetchedDisplayName;
-      document.getElementById('footer-name').textContent = fetchedDisplayName;
-      document.getElementById('page-title').textContent = fetchedDisplayName;
-
-      const flyName = document.getElementById('intro-fly-name');
-      if (flyName) flyName.textContent = fetchedUsername;
-
-      const introNameEl = document.getElementById('live-intro-name');
-      if (introNameEl) introNameEl.textContent = fetchedDisplayName;
+      syncDiscordStatusUI();
 
       const workDiscordNameEl = document.getElementById('work-discord-username');
       const workDiscordAvatarEl = document.getElementById('work-discord-avatar');
@@ -1941,8 +2720,8 @@
         appState.lastTrackTitle = d.spotify.song || appState.lastTrackTitle;
         appState.lastTrackArtist = d.spotify.artist || appState.lastTrackArtist;
         appState.lastTrackArt = d.spotify.album_art_url || appState.lastTrackArt;
-        appState.lastTrackStatus = 'Listening right now on Spotify';
         appState.lastTrackLive = true;
+        appState.lastTrackSpotify = true;
         syncMusicHoverCard();
       }
 
@@ -1960,7 +2739,8 @@
           chosenEditorVerb = verbs[Math.floor(Math.random() * verbs.length)];
         }
         const pillHtml = resolveActivityPill(actName);
-        appState.discordStatusHtml = `${chosenEditorVerb} ${pillHtml}.`;
+        appState.discordStatusHtmlEn = `${chosenEditorVerb} ${pillHtml}.`;
+        appState.discordStatusHtmlJa = `今は ${pillHtml} でコードを書いています。`;
       } else if (d.listening_to_spotify && d.spotify) {
         if (!chosenMusicVerb) {
           const verbs = ["right now i'm vibing to", "right now i've got", "currently listening to"];
@@ -1969,7 +2749,8 @@
         const trackUrl = d.spotify.track_id ? `https://open.spotify.com/track/${d.spotify.track_id}` : 'https://open.spotify.com';
         const albumImg = d.spotify.album_art_url || 'https://www.google.com/s2/favicons?domain=spotify.com&sz=64';
         const pillHtml = `<a href="${trackUrl}" target="_blank" rel="noreferrer" data-sound="hover" data-cursor="link" data-badge="spotify" data-badge-label="spotify.com" class="inline-pill"><img src="${albumImg}" alt="" /><span>${d.spotify.song}</span></a>`;
-        appState.discordStatusHtml = `${chosenMusicVerb} ${pillHtml} by ${d.spotify.artist}.`;
+        appState.discordStatusHtmlEn = `${chosenMusicVerb} ${pillHtml} by ${d.spotify.artist}.`;
+        appState.discordStatusHtmlJa = `今は ${d.spotify.artist} の ${pillHtml} を聴いています。`;
       } else if (listeningActivity) {
         if (!chosenMusicVerb) {
           const verbs = ["right now i'm vibing to", "right now i'm listening to", "currently vibing to"];
@@ -1977,25 +2758,30 @@
         }
         const track = listeningActivity.details || listeningActivity.name;
         const pillHtml = resolveActivityPill(listeningActivity.name);
-        appState.discordStatusHtml = `${chosenMusicVerb} ${track} on ${pillHtml}.`;
+        appState.discordStatusHtmlEn = `${chosenMusicVerb} ${track} on ${pillHtml}.`;
+        appState.discordStatusHtmlJa = `今は ${pillHtml} で ${track} を聴いています。`;
       } else if (playingActivity) {
         if (!chosenGameVerb) {
           const verbs = ["right now i'm locked in on", "right now i'm playing", "currently on"];
           chosenGameVerb = verbs[Math.floor(Math.random() * verbs.length)];
         }
         const pillHtml = resolveActivityPill(actName, null, discordAppIcon);
-        appState.discordStatusHtml = `${chosenGameVerb} ${pillHtml}.`;
+        appState.discordStatusHtmlEn = `${chosenGameVerb} ${pillHtml}.`;
+        appState.discordStatusHtmlJa = `今は ${pillHtml} をプレイ中です。`;
       } else if (status === 'online' || status === 'dnd') {
-        appState.discordStatusHtml = `right now i'm around at my desk.`;
+        appState.discordStatusHtmlEn = `right now i'm around at my desk.`;
+        appState.discordStatusHtmlJa = `今はデスクの前にいます。`;
       } else if (status === 'idle') {
-        appState.discordStatusHtml = `right now i'm idle, probably tabbed out.`;
+        appState.discordStatusHtmlEn = `right now i'm idle, probably tabbed out.`;
+        appState.discordStatusHtmlJa = `今は離席中か、別タブを開いています。`;
       } else {
-        appState.discordStatusHtml = `right now i'm away from my desk.`;
+        appState.discordStatusHtmlEn = `right now i'm away from my desk.`;
+        appState.discordStatusHtmlJa = `今はデスクから離れています。`;
       }
 
       const presenceEl = document.getElementById('live-discord-presence');
       if (presenceEl) {
-        presenceEl.innerHTML = appState.discordStatusHtml;
+        presenceEl.innerHTML = appState.lang === 'ja' ? appState.discordStatusHtmlJa : appState.discordStatusHtmlEn;
         bindBadgeTooltips();
         bindHoverSounds();
       }
@@ -2042,8 +2828,17 @@
     let prevArtistsSig = '';
 
     function formatLongRelativeTime(uts) {
-      if (!uts) return 'recently';
+      if (!uts) return appState.lang === 'ja' ? '最近' : 'recently';
       const diffSec = Math.max(1, Math.floor(Date.now() / 1000) - parseInt(uts, 10));
+      if (appState.lang === 'ja') {
+        if (diffSec < 60) return 'たった今';
+        const diffMin = Math.floor(diffSec / 60);
+        if (diffMin < 60) return `${diffMin}分前`;
+        const diffHr = Math.floor(diffMin / 60);
+        if (diffHr < 24) return `${diffHr}時間前`;
+        const diffDays = Math.floor(diffHr / 24);
+        return `${diffDays}日前`;
+      }
       if (diffSec < 60) return 'just now';
       const diffMin = Math.floor(diffSec / 60);
       if (diffMin < 60) return `${diffMin} minute${diffMin === 1 ? '' : 's'} ago`;
@@ -2099,19 +2894,19 @@
             ? recentData.recenttracks.track
             : [recentData.recenttracks.track];
 
+          appState.cachedRecentTracks = tracks;
+
           const allTimeTotal = parseInt(recentData.recenttracks['@attr']?.total || '0', 10);
           if (allTimeTotal) appState.totalPlays = allTimeTotal.toLocaleString();
 
           const latest = tracks[0];
-          if (latest) {
+          if (latest && !appState.lastTrackSpotify) {
             const isNow = latest?.['@attr']?.nowplaying === 'true';
             appState.lastTrackTitle = latest.name || 'Unknown Track';
             appState.lastTrackArtist = latest.artist?.['#text'] || 'Unknown Artist';
             appState.lastTrackArt = latest.image?.[3]?.['#text'] || latest.image?.[2]?.['#text'] || appState.lastTrackArt;
             appState.lastTrackLive = isNow;
-            appState.lastTrackStatus = isNow
-              ? 'Listening right now'
-              : `Last played ${formatLongRelativeTime(latest.date?.uts)}`;
+            appState.lastTrackUts = latest.date?.uts || null;
             syncMusicHoverCard();
           }
 
@@ -2127,10 +2922,12 @@
         }
 
         if (albumsData?.topalbums?.album) {
+          appState.cachedAlbums = albumsData.topalbums.album;
           renderTopAlbumsList(albumsData.topalbums.album);
         }
 
         if (artistsData?.topartists?.artist) {
+          appState.cachedArtists = artistsData.topartists.artist;
           const totalArt = parseInt(artistsData.topartists['@attr']?.total || '0', 10);
           if (totalArt) appState.totalArtists = totalArt.toLocaleString();
           renderTopArtistsList(artistsData.topartists.artist);
@@ -2158,6 +2955,14 @@
     function formatRelativeTime(uts) {
       if (!uts) return '';
       const diffSec = Math.max(1, Math.floor(Date.now() / 1000) - parseInt(uts, 10));
+      if (appState.lang === 'ja') {
+        if (diffSec < 60) return `${diffSec}秒前`;
+        const diffMin = Math.floor(diffSec / 60);
+        if (diffMin < 60) return `${diffMin}分前`;
+        const diffHr = Math.floor(diffMin / 60);
+        if (diffHr < 24) return `${diffHr}時間前`;
+        return `${Math.floor(diffHr / 24)}日前`;
+      }
       if (diffSec < 60) return `${diffSec}s ago`;
       const diffMin = Math.floor(diffSec / 60);
       if (diffMin < 60) return `${diffMin}m ago`;
@@ -2169,11 +2974,11 @@
     function renderTopAlbumsList(albums) {
       const list = document.getElementById('top-albums-list');
       if (!albums || albums.length === 0) {
-        list.innerHTML = `<li class="px-3 text-sm text-muted">no album scrobbles yet this month.</li>`;
+        list.innerHTML = `<li class="px-3 text-sm text-muted">${appState.lang === 'ja' ? '今月のアルバム再生履歴はまだありません。' : 'no album scrobbles yet this month.'}</li>`;
         return;
       }
 
-      const newSig = albums.map(a => `${a.name}:${a.playcount}`).join('|');
+      const newSig = `${appState.lang}|` + albums.map(a => `${a.name}:${a.playcount}`).join('|');
       if (newSig === prevAlbumsSig) return;
       prevAlbumsSig = newSig;
 
@@ -2181,10 +2986,17 @@
         const img = a.image?.[3]?.['#text'] || a.image?.[2]?.['#text'] || '';
         const artistName = a.artist?.name || '';
         const plays = a.playcount || 0;
+        const subModalText = appState.lang === 'ja'
+          ? `${artistName} · 今月 ${plays}回再生`
+          : `${artistName} · ${plays} plays this month`;
+        const rowSubText = appState.lang === 'ja'
+          ? `${artistName} · ${plays}回再生`
+          : `${artistName} · ${plays} plays`;
+
         const previewJson = JSON.stringify({
           type: 'music',
           title: a.name,
-          sub: `${artistName} · ${plays} plays this month`,
+          sub: subModalText,
           img: img
         }).replace(/'/g, '&#39;');
 
@@ -2197,7 +3009,7 @@
                 </span>
                 <span class="min-w-0">
                   <span class="title-editorial block font-medium text-foreground truncate">${a.name}</span>
-                  <span class="block text-sm text-muted truncate">${artistName} · ${plays} plays</span>
+                  <span class="block text-sm text-muted truncate">${rowSubText}</span>
                 </span>
               </span>
             </a>
@@ -2211,7 +3023,7 @@
     function renderTopArtistsList(artists) {
       const container = document.getElementById('top-artists-list');
       if (!artists || artists.length === 0) {
-        container.textContent = 'no artists tracked this month.';
+        container.textContent = appState.lang === 'ja' ? '今月のアーティスト履歴はありません。' : 'no artists tracked this month.';
         return;
       }
 
@@ -2244,7 +3056,9 @@
         const title = t.name || 'Unknown Track';
         const artist = t.artist?.['#text'] || 'Unknown Artist';
         const img = t.image?.[3]?.['#text'] || t.image?.[2]?.['#text'] || '';
-        const timeLabel = isLive ? 'now playing' : formatRelativeTime(t.date?.uts);
+        const timeLabel = isLive
+          ? (appState.lang === 'ja' ? '再生中' : 'now playing')
+          : formatRelativeTime(t.date?.uts);
         const previewJson = JSON.stringify({
           type: 'music',
           title: title,
@@ -2278,14 +3092,33 @@
     }
 
     // grab server icons and member counts from discord invite api
-    async function fetchDiscordServerCounts() {
-      const servers = [
-        { code: 'aQhZRYkFWx', linkId: 'server2-link', nameId: 'server2-name', statsId: 'server2-stats', descId: 'server2-desc', key: 's2' },
-        { code: 'awtGEGpuqp', linkId: 'server3-link', nameId: 'custom-discord-name', statsId: 'custom-discord-stats', descId: 'custom-discord-desc', key: 's3' }
-      ];
+    const DISCORD_SERVERS = [
+      { code: 'aQhZRYkFWx', linkId: 'server2-link', nameId: 'server2-name', statsId: 'server2-stats', descId: 'server2-desc', key: 's2' },
+      { code: 'awtGEGpuqp', linkId: 'server3-link', nameId: 'custom-discord-name', statsId: 'custom-discord-stats', descId: 'custom-discord-desc', key: 's3' }
+    ];
 
+    function formatServerStatsHtml(memberCount, onlineCount) {
+      if (appState.lang === 'ja') {
+        return `★ ${memberCount.toLocaleString()} メンバー <span class="ml-1 text-xs text-emerald-600" title="現在オンライン">● ${onlineCount.toLocaleString()} オンライン</span>`;
+      }
+      return `★ ${memberCount.toLocaleString()} members <span class="ml-1 text-xs text-emerald-600" title="online now">● ${onlineCount.toLocaleString()} online</span>`;
+    }
+
+    function refreshServerStatsLocalization() {
+      DISCORD_SERVERS.forEach(s => {
+        const data = appState.serverDataCache[s.code];
+        if (!data || !data.guild) return;
+        const statsEl = document.getElementById(s.statsId);
+        if (statsEl && data.approximate_member_count) {
+          statsEl.innerHTML = formatServerStatsHtml(data.approximate_member_count, data.approximate_presence_count || 0);
+        }
+      });
+    }
+
+    async function fetchDiscordServerCounts() {
       function applyServerData(s, data) {
         if (!data || !data.guild) return;
+        appState.serverDataCache[s.code] = data;
         const g = data.guild;
         const nameEl = document.getElementById(s.nameId);
         const descEl = document.getElementById(s.descId);
@@ -2297,9 +3130,12 @@
           : 'https://cdn.discordapp.com/embed/avatars/0.png';
 
         if (nameEl && g.name) nameEl.textContent = g.name;
-        if (descEl && g.description) descEl.textContent = g.description;
+        if (descEl && g.description) {
+          descEl.dataset.customApiDesc = g.description;
+          if (appState.lang === 'en') descEl.textContent = g.description;
+        }
         if (statsEl && data.approximate_member_count) {
-          statsEl.innerHTML = `★ ${data.approximate_member_count.toLocaleString()} members <span class="ml-1 text-xs text-emerald-600" title="online now">● ${data.approximate_presence_count.toLocaleString()} online</span>`;
+          statsEl.innerHTML = formatServerStatsHtml(data.approximate_member_count, data.approximate_presence_count || 0);
         }
 
         const previewPayload = JSON.stringify({
@@ -2331,7 +3167,7 @@
         }
       }
 
-      await Promise.all(servers.map(async (s) => {
+      await Promise.all(DISCORD_SERVERS.map(async (s) => {
         try {
           const cached = sessionStorage.getItem(`dc_${s.code}`);
           if (cached) applyServerData(s, JSON.parse(cached));
@@ -2360,12 +3196,51 @@
     function formatContributionDate(isoDate) {
       const [y, m, d] = isoDate.split('-').map(Number);
       const dateObj = new Date(y, m - 1, d);
+      if (appState.lang === 'ja') {
+        return dateObj.toLocaleDateString('ja-JP', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          weekday: 'short'
+        });
+      }
       return dateObj.toLocaleDateString('en-US', {
         weekday: 'long',
         month: 'short',
         day: 'numeric',
         year: 'numeric'
       });
+    }
+
+    function formatContributionCount(count) {
+      if (appState.lang === 'ja') {
+        return count === 0 ? 'コントリビューションなし' : `${count}件のコントリビューション`;
+      }
+      return count === 0 ? 'No contributions' : `${count} contribution${count === 1 ? '' : 's'}`;
+    }
+
+    function refreshGithubSummaryLocalization() {
+      const totalEl = document.getElementById('heatmap-total');
+      const latestEventEl = document.getElementById('heatmap-latest-event');
+
+      if (totalEl && appState.cachedGithubTotal !== null) {
+        const total = appState.cachedGithubTotal;
+        if (appState.lang === 'ja') {
+          totalEl.textContent = total < 100
+            ? `今年 ${total.toLocaleString()} 件のコントリビューション、これからもっと増えます <3`
+            : `過去1年間で ${total.toLocaleString()} 件のコントリビューション`;
+        } else {
+          totalEl.textContent = total < 100
+            ? `${total.toLocaleString()} contributions this year, more coming soon <3`
+            : `${total.toLocaleString()} contributions in the last year`;
+        }
+      }
+
+      if (latestEventEl && appState.cachedGithubNewestRepo) {
+        latestEventEl.textContent = appState.lang === 'ja'
+          ? `最新: ${appState.cachedGithubNewestRepo} ↗`
+          : `latest: ${appState.cachedGithubNewestRepo} ↗`;
+      }
     }
 
     function getLocalIsoDate(dateObj = new Date()) {
@@ -2482,7 +3357,8 @@
         }
 
         if (newestRepoName && latestEventEl) {
-          latestEventEl.textContent = `latest: ${newestRepoName} ↗`;
+          appState.cachedGithubNewestRepo = newestRepoName;
+          appState.cachedGithubNewestUrl = newestRepoUrl;
           latestEventEl.href = newestRepoUrl;
           latestEventEl.classList.remove('hidden');
         }
@@ -2519,10 +3395,8 @@
             .map(([date, count]) => ({ date, count }));
 
           const total = days.reduce((acc, d) => acc + d.count, 0);
-
-          totalEl.textContent = total < 100
-            ? `${total.toLocaleString()} contributions this year, more coming soon <3`
-            : `${total.toLocaleString()} contributions in the last year`;
+          appState.cachedGithubTotal = total;
+          refreshGithubSummaryLocalization();
 
           const frag = document.createDocumentFragment();
           let colIndex = 0;
@@ -2544,16 +3418,13 @@
               cell.setAttribute('data-cursor', 'link');
               cell.className = 'gh-cell block h-[10px] w-[10px] rounded-[2px]';
               cell.style.background = getHeatColor(day.count);
-
-              const countLabel = day.count === 0
-                ? 'No contributions'
-                : `${day.count} contribution${day.count === 1 ? '' : 's'}`;
-              const formattedDate = formatContributionDate(day.date);
+              cell.dataset.dayDate = day.date;
+              cell.dataset.dayCount = day.count;
 
               cell.addEventListener('mouseenter', () => {
                 playHoverSound();
-                ghTooltipCount.textContent = countLabel;
-                ghTooltipDate.textContent = formattedDate;
+                ghTooltipCount.textContent = formatContributionCount(day.count);
+                ghTooltipDate.textContent = formatContributionDate(day.date);
                 activeGhCell = cell;
                 positionGhTooltip(cell);
                 ghTooltip.classList.add('visible');
@@ -2594,6 +3465,7 @@
       hideBadgeTooltip();
       hideGhTooltip();
       hideMusicHoverCard();
+      hideKashiwaHoverCard();
 
       if (pushUrl) {
         const targetPath = tabId === 'projects' ? '/' : `/${tabId}`;
@@ -2821,6 +3693,8 @@
     window.addEventListener('resize', () => {
       scheduleSelectionUpdate();
       scrollHeatmapToLatest();
+      if (isDiscordPopupOpen) positionDiscordClickPopup();
+      if (activeKashiwaTrigger) positionKashiwaHoverCard(activeKashiwaTrigger);
     }, { passive: true });
 
     // snap the real browser selection to the full word when mouse finishes dragging
@@ -2886,6 +3760,7 @@
         el.dataset.boundBadge = 'true';
 
         el.addEventListener('mouseenter', () => {
+          if (el === discordSocialBtn && isDiscordPopupOpen) return;
           const badgeKey = el.getAttribute('data-badge');
           const customIcon = el.getAttribute('data-badge-custom-icon');
           const label = el.getAttribute('data-badge-label') || '';
@@ -2912,6 +3787,8 @@
       if (activeBadgeTarget) positionBadgeTooltip(activeBadgeTarget);
       if (activeGhCell) positionGhTooltip(activeGhCell);
       if (activeMusicTrigger) positionMusicHoverCard(activeMusicTrigger);
+      if (activeKashiwaTrigger) positionKashiwaHoverCard(activeKashiwaTrigger);
+      if (isDiscordPopupOpen) positionDiscordClickPopup();
     }, { passive: true });
 
     // GPU cursor + on-demand preview card loop (only runs when preview is visible)
@@ -2980,7 +3857,7 @@
       const target = e.target;
       if (!target || !target.closest) return;
 
-      const clickable = target.closest('a, button');
+      const clickable = target.closest('a, button, [data-kashiwa-hover]');
       const textNode = target.closest('.text-selectable, p, h1, h2');
 
       if (clickable) {
@@ -3073,6 +3950,7 @@
     // init
     const initialHash = window.location.hash.replace('#', '');
     const startTab = validTabs.includes(initialHash) ? initialHash : 'projects';
+    updateTabFaviconWithDiscordPfp(appState.avatarUrl);
     navigateToTab(startTab, false);
     bindBadgeTooltips();
     bindHoverSounds();
