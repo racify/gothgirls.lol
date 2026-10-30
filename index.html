@@ -953,18 +953,29 @@
     }
 
     function renderDiscordBio(rawBio) {
-      const bioEl = document.getElementById("bio-line");
-      const trimmed = String(rawBio || "").trim();
-      if (!trimmed) {
-        bioEl.innerHTML = "";
-        return;
-      }
-      bioEl.innerHTML = escapeHTML(trimmed).replace(
-        /&lt;(a?):([a-zA-Z0-9_]+):(\d+)&gt;/g,
-        (_, anim, name, id) =>
-          `<img class="bio-emoji" src="https://cdn.discordapp.com/emojis/${id}.${anim === "a" ? "gif" : "webp"}?size=32" alt=":${name}:" loading="lazy" decoding="async" />`
-      );
-    }
+          const bioEl = document.getElementById("bio-line");
+          const trimmed = String(rawBio || "").trim();
+          if (!trimmed) {
+            bioEl.innerHTML = "";
+            return;
+          }
+
+          // Remove URLs (http/https/www) and clean up leftover trailing spaces/newlines
+          const cleanBio = trimmed
+            .replace(/https?:\/\/[^\s]+|www\.[^\s]+/g, "")
+            .trim();
+
+          if (!cleanBio) {
+            bioEl.innerHTML = "";
+            return;
+          }
+
+          bioEl.innerHTML = escapeHTML(cleanBio).replace(
+            /&lt;(a?):([a-zA-Z0-9_]+):(\d+)&gt;/g,
+            (_, anim, name, id) =>
+              `<img class="bio-emoji" src="https://cdn.discordapp.com/emojis/${id}.${anim === "a" ? "gif" : "webp"}?size=32" alt=":${name}:" loading="lazy" decoding="async" />`
+          );
+        }
 
     function updateUserHeader(user, fullProfileData = null) {
       if (!user) return;
