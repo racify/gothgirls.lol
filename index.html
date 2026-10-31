@@ -6,12 +6,17 @@
   <title>Zack</title>
   <link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/png" />
 
-  <link rel="preconnect" href="https://api.lanyard.rest" crossorigin />
-  <link rel="preconnect" href="https://dcdn.dstn.to" crossorigin />
-  <link rel="preconnect" href="https://ws.audioscrobbler.com" crossorigin />
-  <link rel="preconnect" href="https://cdn.discordapp.com" crossorigin />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://api.lanyard.rest" />
+    <link rel="dns-prefetch" href="https://dcdn.dstn.to" />
+    <link rel="dns-prefetch" href="https://ws.audioscrobbler.com" />
+    <link rel="dns-prefetch" href="https://cdn.discordapp.com" />
+    <link rel="dns-prefetch" href="https://itunes.apple.com" />
+
+    <link rel="preconnect" href="https://api.lanyard.rest" crossorigin />
+    <link rel="preconnect" href="https://dcdn.dstn.to" crossorigin />
+    <link rel="preconnect" href="https://ws.audioscrobbler.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.discordapp.com" crossorigin />
+    <link rel="preconnect" href="https://itunes.apple.com" crossorigin />
 
   <!-- Kick off all API fetches immediately in <head> before body parses -->
   <script>
@@ -704,6 +709,23 @@
           height: 16px;
           fill: currentColor;
         }
+
+        .display-name.has-gradient {
+              background: linear-gradient(var(--name-angle, 90deg), var(--color-1, #ffffff), var(--color-2, #22c55e));
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            }
+
+            .display-name.has-gradient.animated {
+              background-size: 200% auto;
+              animation: nameGradientMove 4s linear infinite;
+            }
+
+            @keyframes nameGradientMove {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+            }
   </style>
 </head>
 <body>
@@ -1011,9 +1033,10 @@
             return;
           }
 
-          // Remove URLs (http/https/www) and clean up leftover trailing spaces/newlines
+          // Remove URLs, strip out -# markdown tags, and clean up empty lines/spaces
           const cleanBio = trimmed
             .replace(/https?:\/\/[^\s]+|www\.[^\s]+/g, "")
+            .replace(/-\s*#/g, "")
             .trim();
 
           if (!cleanBio) {
@@ -1028,47 +1051,62 @@
           );
         }
 
-    function updateUserHeader(user, fullProfileData = null) {
-      if (!user) return;
-      const rawName = (user.global_name || user.display_name || user.username || "Zack").trim();
-      const formattedName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
+        function updateUserHeader(user, fullProfileData = null) {
+              if (!user) return;
+              const rawName = (user.global_name || user.display_name || user.username || "Zack").trim();
+              const formattedName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
 
-      document.getElementById("username").textContent = formattedName;
-      document.title = formattedName;
+              const nameEl = document.getElementById("username");
+              nameEl.textContent = formattedName;
+              document.title = formattedName;
 
-      if (user.username) {
-        currentDiscordUsername = user.username;
-        const stEl = document.getElementById("status-text");
-        if (!stEl.classList.contains("copied")) stEl.textContent = user.username;
-      }
+              // Pull display name gradient and animation settings from dstn / dcdn profile payload
+              const nameStyle = fullProfileData?.user_profile?.display_name_style || user.display_name_style;
 
-      if (user.avatar) {
-        const uid = user.id || DISCORD_ID;
-        const ext = user.avatar.startsWith("a_") ? "gif" : "png";
-        const avatarSrc = `https://cdn.discordapp.com/avatars/${uid}/${user.avatar}.${ext}?size=256`;
-        latestAvatarUrl = avatarSrc;
-        const avEl = document.getElementById("avatar");
-        if (avEl.src !== avatarSrc) avEl.src = avatarSrc;
-      }
+              if (nameStyle && nameStyle.colors && nameStyle.colors.length >= 2) {
+                nameEl.style.setProperty("--color-1", nameStyle.colors[0]);
+                nameEl.style.setProperty("--color-2", nameStyle.colors[1]);
+                nameEl.style.setProperty("--name-angle", (nameStyle.angle || 90) + "deg");
+                nameEl.classList.add("has-gradient");
 
-      const decoEl = document.getElementById("avatar-decoration");
-      const asset = user.avatar_decoration_data?.asset;
-      if (asset) {
-        const src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=160&passthrough=true`;
-        if (decoEl.src !== src) decoEl.src = src;
-        decoEl.style.display = "block";
-      } else {
-        decoEl.style.display = "none";
-      }
+                if (nameStyle.animated || nameStyle.effect === "animated") {
+                  nameEl.classList.add("animated");
+                }
+              }
 
-      const clanData =
-        user.clan ||
-        user.primary_guild ||
-        fullProfileData?.user_profile?.clan ||
-        fullProfileData?.user_profile?.primary_guild ||
-        null;
-      if (clanData || fullProfileData) updateClanTag(clanData);
-    }
+              if (user.username) {
+                currentDiscordUsername = user.username;
+                const stEl = document.getElementById("status-text");
+                if (!stEl.classList.contains("copied")) stEl.textContent = user.username;
+              }
+
+              if (user.avatar) {
+                const uid = user.id || DISCORD_ID;
+                const ext = user.avatar.startsWith("a_") ? "gif" : "png";
+                const avatarSrc = `https://cdn.discordapp.com/avatars/${uid}/${user.avatar}.${ext}?size=256`;
+                latestAvatarUrl = avatarSrc;
+                const avEl = document.getElementById("avatar");
+                if (avEl.src !== avatarSrc) avEl.src = avatarSrc;
+              }
+
+              const decoEl = document.getElementById("avatar-decoration");
+              const asset = user.avatar_decoration_data?.asset;
+              if (asset) {
+                const src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=160&passthrough=true`;
+                if (decoEl.src !== src) decoEl.src = src;
+                decoEl.style.display = "block";
+              } else {
+                decoEl.style.display = "none";
+              }
+
+              const clanData =
+                user.clan ||
+                user.primary_guild ||
+                fullProfileData?.user_profile?.clan ||
+                fullProfileData?.user_profile?.primary_guild ||
+                null;
+              if (clanData || fullProfileData) updateClanTag(clanData);
+            }
 
     function applyDstnPayload(data) {
       if (!data) return;
@@ -1339,8 +1377,9 @@
           thumbImg.onerror = () => { thumbImg.onerror = null; thumbImg.src = FALLBACK_COVER; };
 
           if (!hasValidImg && !cachedArt) {
-            resolveTrackCover(rawArtist, rawName, [bgImg, thumbImg]);
-          }
+                      // Kick off iTunes queries concurrently instead of waiting
+                      setTimeout(() => resolveTrackCover(rawArtist, rawName, [bgImg, thumbImg]), 0);
+                    }
 
           if (isNow) {
             const pip = document.createElement("span");
@@ -1435,18 +1474,15 @@
       // 3. Connect live WebSocket immediately
       connectLanyardWS();
 
-      // 4. Wait for fresh data (or fast timeout if warm cache exists) + avatar image preload before fading in
-      if (hasWarmCache) {
-        await Promise.race([
-          Promise.allSettled([pLanyard, pDstn, pLastFm]),
-          new Promise(r => setTimeout(r, 260))
-        ]);
-      } else {
-        await Promise.race([
-          Promise.allSettled([pLanyard, pDstn, pLastFm]),
-          new Promise(r => setTimeout(r, 1100))
-        ]);
-      }
+      // Reveal the site instantly (or after 200ms max) so cached data renders immediately
+            if (hasWarmCache) {
+              revealSite();
+            } else {
+              await Promise.race([
+                Promise.allSettled([pLanyard, pDstn, pLastFm]),
+                new Promise(r => setTimeout(r, 200))
+              ]);
+            }
 
       if (latestAvatarUrl) await preloadImage(latestAvatarUrl, 350);
       revealSite();
