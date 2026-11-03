@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
   <title>Zack</title>
   <link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/png" />
 
@@ -12,26 +13,62 @@
   <link rel="preconnect" href="https://dcdn.dstn.to" crossorigin />
   <link rel="preconnect" href="https://ws.audioscrobbler.com" crossorigin />
   <link rel="preconnect" href="https://cdn.discordapp.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://cdn.simpleicons.org" crossorigin />
   <link rel="preconnect" href="https://i.scdn.co" crossorigin />
+  <link rel="preconnect" href="https://mc-heads.net" crossorigin />
 
   <script>
     const DISCORD_ID = "488047218138546179";
     const CLOUD_INVITE = "2rYtaG23ht";
     const LASTFM_API_KEY = "56f986f70954d1ad8c8b3ec3aec33f83";
     const LASTFM_USERNAME = "renumerate";
+    const MC_UUID = "d10dfb5e-4a7b-4d1e-9c74-a812e216e89e";
+    const ROBLOX_USER_ID = "9769080868";
     const BG_VIDEO_URL = "background.mp4";
-    const CACHE_KEY = "zack_cache_v6";
+    const CACHE_KEY = "zack_cache_v9";
+    const BOOT_MIN_MS = 500;
+    const BOOT_START = performance.now();
 
-    const fetchJson = (url, noStore = false) =>
-      fetch(url, { cache: noStore ? "no-store" : "default" })
-        .then(r => (r.ok ? r.json() : null))
-        .catch(() => null);
+    const fetchJson = async (url, noStore = false, timeoutMs = 5500) => {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+      try {
+        const res = await fetch(url, {
+          cache: noStore ? "no-store" : "default",
+          signal: ctrl.signal
+        });
+        return res.ok ? await res.json() : null;
+      } catch {
+        return null;
+      } finally {
+        clearTimeout(timer);
+      }
+    };
+
+    const fetchRobloxEarly = () => {
+      const target = `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${ROBLOX_USER_ID}&size=150x150&format=Png&isCircular=false`;
+      const urls = [
+        `https://thumbnails.roproxy.com/v1/users/avatar-headshot?userIds=${ROBLOX_USER_ID}&size=150x150&format=Png&isCircular=false`,
+        `https://corsproxy.io/?${encodeURIComponent(target)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`
+      ];
+      return Promise.any(
+        urls.map(async u => {
+          const d = await fetchJson(u, false, 4500);
+          const img = d?.data?.[0]?.imageUrl;
+          if (img && img.startsWith("http")) return img;
+          throw new Error("Invalid thumbnail");
+        })
+      ).catch(() => null);
+    };
 
     const EARLY = {
       lanyard: fetchJson(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`, true),
       dstn: fetchJson(`https://dcdn.dstn.to/profile/${DISCORD_ID}`, true),
       lastfm: fetchJson(`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&format=json&limit=10`, true),
-      invite: fetchJson(`https://discord.com/api/v10/invites/${CLOUD_INVITE}?with_counts=true`)
+      invite: fetchJson(`https://discord.com/api/v10/invites/${CLOUD_INVITE}?with_counts=true`),
+      roblox: fetchRobloxEarly()
     };
   </script>
 
@@ -40,16 +77,25 @@
   <style>
     :root {
       --bg: #050507;
-      --surface: #0e0e12;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(255, 255, 255, 0.24);
+      --surface: #0c0c10;
+      --border: rgba(255, 255, 255, 0.075);
+      --border-hover: rgba(255, 255, 255, 0.22);
       --text-strong: #fafafa;
       --text-main: #e4e4e7;
-      --text-muted: #8e8e98;
-      --accent: #22c55e;
-      --tag-bg: rgba(255, 255, 255, 0.05);
-      --tag-border: rgba(255, 255, 255, 0.09);
+      --text-muted: #8a8a95;
+
+      /* Dark Red Accent Theme */
+      --accent-deep: #991b1b;
+      --accent: #dc2626;
+      --accent-bright: #ef4444;
+      --accent-border: rgba(220, 38, 38, 0.5);
+      --accent-border-strong: rgba(239, 68, 68, 0.65);
+      --accent-glow: rgba(220, 38, 38, 0.65);
+
+      --tag-bg: rgba(255, 255, 255, 0.045);
+      --tag-border: rgba(255, 255, 255, 0.085);
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M7 0h2v7h7v2H9v7H7V9H0V7h7V0z' fill='%23ffffff'/%3E%3C/svg%3E") 8 8, crosshair;
     }
 
@@ -57,11 +103,24 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      user-select: none;
+      user-select: text;
+      -webkit-user-select: text;
       cursor: var(--cursor);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      text-rendering: optimizeLegibility;
+      text-rendering: geometricPrecision;
+    }
+
+    ::selection {
+      background: rgba(220, 38, 38, 0.35);
+      color: #ffffff;
+      -webkit-text-fill-color: #ffffff;
+    }
+
+    img, video, svg, .status-dot, .play-live-pip, .eq-bars {
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: none;
     }
 
     a, button, .clickable {
@@ -76,9 +135,9 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       font-optical-sizing: auto;
       font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-      font-size: 13.5px;
+      font-size: 14px;
       line-height: 1.45;
-      letter-spacing: -0.011em;
+      letter-spacing: -0.01em;
       overflow-x: hidden;
     }
 
@@ -90,6 +149,49 @@
       position: relative;
     }
 
+    /* Fullscreen Black Boot Loader with Pulsing Dot */
+    #boot-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.5s var(--ease-out), visibility 0.5s var(--ease-out);
+      will-change: opacity;
+    }
+
+    #boot-loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.85), 0 0 28px rgba(220, 38, 38, 0.35);
+      animation: dotPulse 0.85s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+      will-change: transform, opacity;
+    }
+
+    @keyframes dotPulse {
+      0% {
+        transform: scale(0.65);
+        opacity: 0.3;
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+
+    /* Background Video */
     .bg-video-wrap {
       position: fixed;
       inset: 0;
@@ -97,7 +199,8 @@
       pointer-events: none;
       overflow: hidden;
       opacity: 0;
-      transition: opacity 0.6s var(--ease);
+      transition: opacity 0.8s var(--ease-out);
+      will-change: opacity;
     }
 
     .bg-video-wrap.ready {
@@ -108,73 +211,42 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transform: scale(1.02);
-      filter: brightness(0.45) contrast(1.05);
+      transform: scale(1.02) translateZ(0);
+      filter: brightness(0.42) contrast(1.06);
     }
 
     .bg-video-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(5, 5, 7, 0.35) 0%, rgba(5, 5, 7, 0.82) 100%);
+      background: radial-gradient(circle at center, rgba(5, 5, 7, 0.35) 0%, rgba(5, 5, 7, 0.85) 100%);
     }
 
-    #boot-loader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.28s var(--ease), visibility 0.28s var(--ease);
-    }
-
-    #boot-loader.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .loader-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
-      animation: dotPulse 0.8s ease-in-out infinite alternate;
-    }
-
-    @keyframes dotPulse {
-      from { transform: scale(0.75); opacity: 0.4; }
-      to { transform: scale(1.15); opacity: 1; }
-    }
-
+    /* Main Container — Native 1:1 pixel grid */
     .page-wrap {
       position: relative;
       z-index: 2;
       width: 100%;
-      max-width: 476px;
+      max-width: 492px;
       margin: auto;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 21px;
       opacity: 0;
-      transform: translateY(5px) scale(1.01);
-      transform-origin: center center;
-      transition: opacity 0.38s var(--ease), transform 0.38s var(--ease);
+      transform: translateY(8px);
+      transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
     }
 
     body.loaded .page-wrap {
       opacity: 1;
-      transform: translateY(0) scale(1.035);
+      transform: none;
     }
 
     @media (max-width: 540px) {
       body { padding: 32px 16px; }
       .page-wrap { gap: 18px; }
-      body.loaded .page-wrap { transform: translateY(0) scale(1); }
     }
 
+    /* Profile Header */
     .profile-top {
       display: flex;
       flex-direction: column;
@@ -189,8 +261,8 @@
 
     .avatar-wrap {
       position: relative;
-      width: 68px;
-      height: 68px;
+      width: 70px;
+      height: 70px;
       flex-shrink: 0;
     }
 
@@ -243,16 +315,17 @@
     }
 
     .display-name {
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 600;
       color: var(--text-strong);
-      letter-spacing: -0.028em;
+      letter-spacing: -0.025em;
       line-height: 1.2;
     }
 
     .display-name.has-gradient {
-      background: linear-gradient(var(--name-angle, 90deg), var(--color-1, #ffffff), var(--color-2, #22c55e));
+      background: linear-gradient(var(--name-angle, 90deg), var(--color-1, #ffffff), var(--color-2, var(--accent)));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -282,7 +355,7 @@
       align-items: center;
       color: var(--text-muted);
       font-weight: 400;
-      transition: color 0.2s var(--ease);
+      transition: color 0.2s var(--ease-out);
     }
 
     .handle-copy:hover {
@@ -292,50 +365,45 @@
     .handle-text,
     .handle-copied {
       grid-area: 1 / 1;
-      transition: transform 0.28s var(--ease), opacity 0.28s var(--ease), filter 0.28s var(--ease);
-      will-change: transform, opacity, filter;
+      transition: transform 0.26s var(--ease-out), opacity 0.26s var(--ease-out);
     }
 
     .handle-text {
       opacity: 1;
       transform: translateY(0) scale(1);
-      filter: blur(0);
     }
 
     .handle-copied {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      color: var(--accent);
+      color: var(--accent-bright);
       font-weight: 500;
       opacity: 0;
       transform: translateY(6px) scale(0.95);
-      filter: blur(2px);
       pointer-events: none;
     }
 
     .handle-copy.copied .handle-text {
       opacity: 0;
       transform: translateY(-6px) scale(0.95);
-      filter: blur(2px);
     }
 
     .handle-copy.copied .handle-copied {
       opacity: 1;
       transform: translateY(0) scale(1);
-      filter: blur(0);
     }
 
     .clan-tag {
       display: none;
       align-items: center;
       gap: 5px;
-      padding: 1.5px 6.5px;
+      padding: 2px 7px;
       border-radius: 5px;
       background: var(--tag-bg);
       border: 1px solid var(--tag-border);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 500;
       color: var(--text-main);
       letter-spacing: -0.01em;
@@ -359,11 +427,11 @@
     .discord-badges:empty { display: none; }
 
     .discord-badge-icon {
-      width: 17px;
-      height: 17px;
+      width: 18px;
+      height: 18px;
       object-fit: contain;
       display: block;
-      transition: transform 0.22s var(--ease);
+      transition: transform 0.22s var(--ease-out);
     }
 
     .discord-badge-icon:hover {
@@ -371,7 +439,7 @@
     }
 
     .bio-line {
-      font-size: 13.5px;
+      font-size: 14px;
       color: var(--text-main);
       line-height: 1.5;
       letter-spacing: -0.01em;
@@ -389,6 +457,7 @@
       display: inline-block;
     }
 
+    /* Section Blocks */
     .sec-block {
       display: flex;
       flex-direction: column;
@@ -412,20 +481,21 @@
       gap: 5px;
       color: var(--text-muted);
       text-decoration: none;
-      transition: color 0.2s var(--ease);
+      transition: color 0.2s var(--ease-out);
     }
 
     .sec-head-right:hover {
       color: var(--text-strong);
     }
 
+    /* Project Row */
     .project-row {
       display: flex;
       align-items: center;
       gap: 12px;
       text-decoration: none;
       padding: 2px 0;
-      transition: transform 0.22s var(--ease);
+      transition: transform 0.22s var(--ease-out);
     }
 
     .project-row:hover {
@@ -433,8 +503,8 @@
     }
 
     .project-icon {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
       border-radius: 8px;
       object-fit: cover;
       background: var(--surface);
@@ -450,7 +520,7 @@
     }
 
     .project-title {
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 600;
       letter-spacing: -0.015em;
       color: var(--text-strong);
@@ -460,13 +530,14 @@
     }
 
     .project-desc {
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--text-muted);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
+    /* Activity List */
     .activity-list {
       display: flex;
       flex-direction: column;
@@ -491,8 +562,8 @@
     }
 
     .activity-icon {
-      width: 25px;
-      height: 25px;
+      width: 26px;
+      height: 26px;
       border-radius: 6px;
       object-fit: cover;
       background: var(--surface);
@@ -522,7 +593,7 @@
 
     .activity-detail {
       color: var(--text-muted);
-      font-size: 12.5px;
+      font-size: 13px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -531,9 +602,9 @@
     .activity-right {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
+      font-size: 11px;
       color: var(--text-muted);
       flex-shrink: 0;
     }
@@ -544,13 +615,28 @@
       gap: 4px;
     }
 
+    .activity-player-head {
+      width: 17px;
+      height: 17px;
+      border-radius: 4px;
+      object-fit: cover;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .activity-player-head.mc-head {
+      image-rendering: pixelated;
+    }
+
     .activity-link-arrow {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       color: var(--text-muted);
       text-decoration: none;
-      transition: color 0.2s var(--ease), transform 0.2s var(--ease);
+      transition: color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
     }
 
     a.activity-link-arrow:hover {
@@ -558,7 +644,7 @@
       transform: translate(1.5px, -1.5px);
     }
 
-    /* Recent Plays — Single Row of 10 */
+    /* Recent Plays — Single Row of 10 (Dark Red Live Theme) */
     .plays-stack {
       display: flex;
       flex-direction: column;
@@ -569,54 +655,55 @@
       display: flex;
       align-items: stretch;
       gap: 5px;
-      height: 46px;
+      height: 48px;
       width: 100%;
-      transition: height 0.34s var(--ease);
+      transition: height 0.34s var(--ease-out);
     }
 
     .plays-row.has-live,
     .plays-row:hover {
-      height: 62px;
+      height: 64px;
     }
 
     .play-card {
       position: relative;
-      flex: 1;
+      flex: 1 1 0%;
       min-width: 0;
       border-radius: 8px;
       overflow: hidden;
+      contain: paint;
       background: var(--surface);
       border: 1px solid var(--border);
       text-decoration: none;
       display: flex;
       align-items: center;
-      will-change: flex;
-      transition: flex 0.38s var(--ease),
-                  border-color 0.22s var(--ease),
-                  opacity 0.24s var(--ease),
-                  filter 0.24s var(--ease),
-                  box-shadow 0.24s var(--ease);
+      transition: flex-grow 0.36s var(--ease-out),
+                  border-color 0.22s var(--ease-out),
+                  opacity 0.24s var(--ease-out),
+                  filter 0.24s var(--ease-out),
+                  box-shadow 0.24s var(--ease-out);
     }
 
     .play-card.now-playing {
-      border-color: rgba(34, 197, 94, 0.5);
+      border-color: var(--accent-border);
     }
 
     .plays-row.has-live:not(:hover) .play-card.now-playing,
     .play-card:hover {
-      flex: 6.5;
+      flex-grow: 6.5;
       border-color: var(--border-hover);
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.65);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7);
       z-index: 5;
     }
 
     .plays-row.has-live:not(:hover) .play-card.now-playing {
-      border-color: rgba(34, 197, 94, 0.55);
+      border-color: var(--accent-border-strong);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.7), 0 0 18px rgba(220, 38, 38, 0.14);
     }
 
     .plays-row:hover .play-card:not(:hover) {
-      opacity: 0.48;
-      filter: saturate(0.75);
+      opacity: 0.46;
+      filter: saturate(0.72);
     }
 
     .play-bg {
@@ -625,14 +712,16 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.38s var(--ease), filter 0.28s var(--ease);
+      backface-visibility: hidden;
+      transform: translateZ(0);
+      transition: transform 0.36s var(--ease-out), filter 0.26s var(--ease-out);
       display: block;
     }
 
     .plays-row.has-live:not(:hover) .play-card.now-playing .play-bg,
     .play-card:hover .play-bg {
-      filter: brightness(0.24) blur(10px) saturate(1.3);
-      transform: scale(1.14);
+      filter: brightness(0.22) blur(10px) saturate(1.25);
+      transform: translateZ(0) scale(1.14);
     }
 
     .play-live-pip {
@@ -642,10 +731,10 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 8px #22c55e;
+      background: var(--accent-bright);
+      box-shadow: 0 0 8px var(--accent-glow);
       z-index: 2;
-      transition: opacity 0.18s var(--ease);
+      transition: opacity 0.18s var(--ease-out);
     }
 
     .plays-row.has-live:not(:hover) .play-card.now-playing .play-live-pip,
@@ -665,14 +754,14 @@
       opacity: 0;
       transform: translateX(-4px);
       pointer-events: none;
-      transition: opacity 0.22s var(--ease) 0.03s, transform 0.24s var(--ease) 0.03s;
+      transition: opacity 0.2s var(--ease-out) 0.02s, transform 0.22s var(--ease-out) 0.02s;
       min-width: 0;
     }
 
     .plays-row.has-live:not(:hover) .play-card.now-playing .play-expanded,
     .play-card:hover .play-expanded {
       opacity: 1;
-      transform: translateX(0);
+      transform: none;
       pointer-events: auto;
     }
 
@@ -691,7 +780,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 1.5px;
+      gap: 2px;
       min-width: 0;
       flex: 1;
     }
@@ -701,7 +790,7 @@
       align-items: center;
       gap: 5px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.58);
       text-transform: uppercase;
@@ -711,35 +800,47 @@
     .play-now-badge {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      color: #22c55e;
+      gap: 5px;
+      color: var(--accent-bright);
       font-weight: 600;
     }
 
+    .play-app-icon {
+      width: 12px;
+      height: 12px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* GPU-composited Equalizer Bars (scaleY instead of layout-thrashing height) */
     .eq-bars {
       display: inline-flex;
       align-items: flex-end;
       gap: 1.5px;
-      height: 8px;
+      height: 9px;
     }
 
     .eq-bars span {
       width: 2px;
-      background: #22c55e;
+      height: 9px;
+      background: var(--accent-bright);
       border-radius: 1px;
-      animation: eqBounce 0.75s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+      animation: eqBounce 0.68s ease-in-out infinite alternate;
+      will-change: transform;
     }
 
     .eq-bars span:nth-child(2) { animation-delay: 0.18s; }
     .eq-bars span:nth-child(3) { animation-delay: 0.36s; }
 
     @keyframes eqBounce {
-      0% { height: 2px; }
-      100% { height: 8px; }
+      0% { transform: scaleY(0.22); }
+      100% { transform: scaleY(1); }
     }
 
     .play-title {
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 600;
       letter-spacing: -0.015em;
       color: #ffffff;
@@ -752,7 +853,7 @@
     .play-artist {
       font-size: 11px;
       font-weight: 400;
-      color: rgba(255, 255, 255, 0.74);
+      color: rgba(255, 255, 255, 0.76);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -765,12 +866,11 @@
       bottom: 0;
       height: 2px;
       width: 100%;
-      background: linear-gradient(90deg, #22c55e, #4ade80);
-      box-shadow: 0 0 8px rgba(34, 197, 94, 0.7);
+      background: linear-gradient(90deg, var(--accent-deep), var(--accent), var(--accent-bright));
+      box-shadow: 0 0 8px var(--accent-glow);
       z-index: 4;
       transform-origin: left center;
       transform: scaleX(0);
-      transition: transform 0.5s linear;
       will-change: transform;
     }
 
@@ -782,6 +882,7 @@
       .play-expanded { padding: 6px 8px; gap: 8px; }
     }
 
+    /* Footer */
     .page-footer {
       display: flex;
       align-items: center;
@@ -801,7 +902,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.2s var(--ease), transform 0.2s var(--ease);
+      transition: color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
     }
 
     .social-link:hover {
@@ -917,9 +1018,25 @@
 
   <script>
     const BADGE_CDN_BASE = "https://cdn.jsdelivr.net/gh/mezotv/discord-badges@main/assets";
+    const RUBY_5YR_BADGE_URL = `${BADGE_CDN_BASE}/subscriptions/badges/ruby.png`;
 
     const DEFAULT_VINYL_SVG =
-      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23121217'/%3E%3Ccircle cx='150' cy='150' r='58' fill='none' stroke='%2327272a' stroke-width='6'/%3E%3Ccircle cx='150' cy='150' r='16' fill='%2327272a'/%3E%3C/svg%3E";
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23101014'/%3E%3Ccircle cx='150' cy='150' r='58' fill='none' stroke='%2327272a' stroke-width='6'/%3E%3Ccircle cx='150' cy='150' r='16' fill='%23dc2626'/%3E%3C/svg%3E";
+
+    const MUSIC_APP_ICONS = {
+      spotify: {
+        primary: "https://cdn.simpleicons.org/spotify/1ED760",
+        fallback: "https://www.google.com/s2/favicons?domain=open.spotify.com&sz=64"
+      },
+      soundcloud: {
+        primary: "https://cdn.simpleicons.org/soundcloud/FF5500",
+        fallback: "https://www.google.com/s2/favicons?domain=soundcloud.com&sz=64"
+      },
+      "youtube music": {
+        primary: "https://cdn.simpleicons.org/youtubemusic/FF0000",
+        fallback: "https://www.google.com/s2/favicons?domain=music.youtube.com&sz=64"
+      }
+    };
 
     const DISCORD_SVG_BADGE_MAP = {
       active_developer: "activedeveloper.svg",
@@ -940,7 +1057,7 @@
     };
 
     const STATUS_SVGS = {
-      online: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#22c55e"/></svg>',
+      online: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#dc2626"/></svg>',
       idle: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#f59e0b"/></svg>',
       dnd: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#ef4444"/><rect x="3" y="6.5" width="10" height="3" rx="1.5" fill="var(--bg)"/></svg>',
       offline: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/><circle cx="8" cy="8" r="4" fill="var(--bg)"/></svg>'
@@ -960,10 +1077,37 @@
       { match: ["photoshop"], url: "https://www.adobe.com/products/photoshop.html" },
       { match: ["spotify"], url: "https://open.spotify.com" },
       { match: ["soundcloud"], url: "https://soundcloud.com" },
+      { match: ["youtube music", "yt music", "youtubemusic"], url: "https://music.youtube.com" },
       { match: ["steam"], url: "https://store.steampowered.com" },
       { match: ["github"], url: "https://github.com" },
       { match: ["kitty"], url: "https://sw.kovidgoyal.net/kitty/" }
     ];
+
+    const ARROW_SVG = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>`;
+    const CLOCK_SVG = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+    const PAD_SVG = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4m-2-2v4m7-1h.01M18 11h.01"/></svg>`;
+
+    /* Cached DOM References */
+    const DOM = {
+      loader: document.getElementById("boot-loader"),
+      avatar: document.getElementById("avatar"),
+      avatarDeco: document.getElementById("avatar-decoration"),
+      statusBadge: document.getElementById("status-badge"),
+      username: document.getElementById("username"),
+      statusText: document.getElementById("status-text"),
+      handleName: document.getElementById("handle-name"),
+      clanTag: document.getElementById("clan-tag"),
+      clanTagIcon: document.getElementById("clan-tag-icon"),
+      clanTagText: document.getElementById("clan-tag-text"),
+      discordBadges: document.getElementById("discord-badges"),
+      bioLine: document.getElementById("bio-line"),
+      cloudIcon: document.getElementById("cloud-proj-icon"),
+      cloudName: document.getElementById("cloud-proj-name"),
+      cloudDesc: document.getElementById("cloud-proj-desc"),
+      activityList: document.getElementById("activity-list"),
+      lastfmGrid: document.getElementById("lastfm-grid"),
+      lastfmStats: document.getElementById("lastfm-stats-label")
+    };
 
     /* Background MP4 Setup */
     (function initBackgroundVideo() {
@@ -983,10 +1127,13 @@
       document.addEventListener("visibilitychange", () => {
         if (!document.hidden && wrap.classList.contains("ready")) {
           video.play().catch(() => {});
+        } else if (document.hidden) {
+          video.pause();
         }
       });
     })();
 
+    /* Debounced LocalStorage State Cache */
     const stateCache = (() => {
       try {
         return JSON.parse(localStorage.getItem(CACHE_KEY)) || {};
@@ -995,11 +1142,15 @@
       }
     })();
 
+    let saveCacheTimer = null;
     function saveCache(patch) {
       Object.assign(stateCache, patch);
-      try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify(stateCache));
-      } catch {}
+      clearTimeout(saveCacheTimer);
+      saveCacheTimer = setTimeout(() => {
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify(stateCache));
+        } catch {}
+      }, 250);
     }
 
     function escapeHTML(str) {
@@ -1008,23 +1159,70 @@
       })[m]);
     }
 
+    /* Parallel Roblox Avatar Headshot Resolver */
+    let robloxHeadshotUrl = stateCache.robloxHeadshot || "";
+    let isFetchingRoblox = false;
+
+    function applyRobloxHeadshot(imgUrl) {
+      if (!imgUrl || !imgUrl.startsWith("http") || imgUrl === robloxHeadshotUrl) return;
+      robloxHeadshotUrl = imgUrl;
+      saveCache({ robloxHeadshot: imgUrl });
+      document.querySelectorAll("img.activity-player-head[data-player-type='roblox']").forEach(img => {
+        if (img.src !== imgUrl) img.src = imgUrl;
+      });
+    }
+
+    async function ensureRobloxHeadshot() {
+      if (robloxHeadshotUrl || isFetchingRoblox) return robloxHeadshotUrl;
+      isFetchingRoblox = true;
+      try {
+        const earlyImg = await EARLY.roblox;
+        if (earlyImg) {
+          applyRobloxHeadshot(earlyImg);
+          return earlyImg;
+        }
+        const retryImg = await fetchRobloxEarly();
+        if (retryImg) applyRobloxHeadshot(retryImg);
+        return retryImg;
+      } finally {
+        isFetchingRoblox = false;
+      }
+    }
+
     let currentDiscordUsername = stateCache.dstnUser?.username || stateCache.presence?.discord_user?.username || "byeu_u";
     let lastBadgesSig = "";
     let lastBioSig = "";
     let lastActivitySig = "";
     let copyTimer = null;
 
-    document.getElementById("status-text").addEventListener("click", function () {
+    DOM.statusText.addEventListener("click", function () {
+      if (!navigator.clipboard) return;
       navigator.clipboard.writeText(currentDiscordUsername).then(() => {
         clearTimeout(copyTimer);
         this.classList.add("copied");
         copyTimer = setTimeout(() => {
           this.classList.remove("copied");
         }, 1250);
-      });
+      }).catch(() => {});
     });
 
+    function isNitroOrGoldTenureBadge(b) {
+      const id = String(b.id || "").toLowerCase();
+      const desc = String(b.description || "").toLowerCase();
+      return (
+        id.startsWith("premium_tenure") ||
+        id === "premium" ||
+        desc.includes("subscriber since")
+      );
+    }
+
     function resolveBadgeAssets(b) {
+      if (isNitroOrGoldTenureBadge(b)) {
+        return {
+          primaryUrl: RUBY_5YR_BADGE_URL,
+          fallbackUrl: `${BADGE_CDN_BASE}/discordnitro.svg`
+        };
+      }
       const id = String(b.id || "").toLowerCase();
       const rawIcon = b.icon || b.asset || "";
       let dcdnUrl = b.icon_url || b.iconUrl || "";
@@ -1036,15 +1234,15 @@
     }
 
     function renderDiscordBadges(badgesArray) {
-      const container = document.getElementById("discord-badges");
-      if (!container || !Array.isArray(badgesArray)) return;
+      if (!DOM.discordBadges || !Array.isArray(badgesArray)) return;
 
       const seen = new Set();
       const normalized = [];
 
       badgesArray.forEach(b => {
         if (!b || b.hidden === true || b.visible === false) return;
-        const id = b.id || b.icon || b.description;
+        const isTenure = isNitroOrGoldTenureBadge(b);
+        const id = isTenure ? "ruby_5yr_tenure" : (b.id || b.icon || b.description);
         if (!id || seen.has(id)) return;
         const { primaryUrl, fallbackUrl } = resolveBadgeAssets(b);
         if (!primaryUrl) return;
@@ -1056,7 +1254,7 @@
       if (sig === lastBadgesSig) return;
       lastBadgesSig = sig;
 
-      container.innerHTML = "";
+      const frag = document.createDocumentFragment();
       normalized.forEach(b => {
         const img = document.createElement("img");
         img.className = "discord-badge-icon";
@@ -1067,32 +1265,29 @@
           if (b.fallbackUrl && img.src !== b.fallbackUrl) img.src = b.fallbackUrl;
           else img.remove();
         };
-        container.appendChild(img);
+        frag.appendChild(img);
       });
+      DOM.discordBadges.replaceChildren(frag);
     }
 
     function updateClanTag(clanObj) {
-      const clanEl = document.getElementById("clan-tag");
-      const clanTextEl = document.getElementById("clan-tag-text");
-      const clanIconEl = document.getElementById("clan-tag-icon");
       if (clanObj && clanObj.tag && clanObj.identity_enabled !== false) {
-        if (clanTextEl.textContent !== clanObj.tag) clanTextEl.textContent = clanObj.tag;
+        if (DOM.clanTagText.textContent !== clanObj.tag) DOM.clanTagText.textContent = clanObj.tag;
         if (clanObj.identity_guild_id && clanObj.badge) {
           const url = `https://cdn.discordapp.com/clan-badges/${clanObj.identity_guild_id}/${clanObj.badge}.png?size=32`;
-          if (clanIconEl.src !== url) clanIconEl.src = url;
-          clanIconEl.style.display = "block";
-          clanIconEl.onerror = () => { clanIconEl.style.display = "none"; };
+          if (DOM.clanTagIcon.src !== url) DOM.clanTagIcon.src = url;
+          DOM.clanTagIcon.style.display = "block";
+          DOM.clanTagIcon.onerror = () => { DOM.clanTagIcon.style.display = "none"; };
         } else {
-          clanIconEl.style.display = "none";
+          DOM.clanTagIcon.style.display = "none";
         }
-        clanEl.style.display = "inline-flex";
+        DOM.clanTag.style.display = "inline-flex";
       } else {
-        clanEl.style.display = "none";
+        DOM.clanTag.style.display = "none";
       }
     }
 
     function renderDiscordBio(rawBio) {
-      const bioEl = document.getElementById("bio-line");
       const cleanBio = String(rawBio || "")
         .replace(/https?:\/\/[^\s]+|www\.[^\s]+/g, "")
         .replace(/-\s*#/g, "")
@@ -1102,11 +1297,11 @@
       lastBioSig = cleanBio;
 
       if (!cleanBio) {
-        bioEl.innerHTML = "";
+        DOM.bioLine.innerHTML = "";
         return;
       }
 
-      bioEl.innerHTML = escapeHTML(cleanBio).replace(
+      DOM.bioLine.innerHTML = escapeHTML(cleanBio).replace(
         /&lt;(a?):([a-zA-Z0-9_]+):(\d+)&gt;/g,
         (_, anim, name, id) =>
           `<img class="bio-emoji" src="https://cdn.discordapp.com/emojis/${id}.${anim === "a" ? "gif" : "webp"}?size=32" alt=":${name}:" loading="lazy" decoding="async" />`
@@ -1118,45 +1313,41 @@
       const rawName = (user.global_name || user.display_name || user.username || "Zack").trim();
       const formattedName = rawName.charAt(0).toUpperCase() + rawName.slice(1);
 
-      const nameEl = document.getElementById("username");
-      if (nameEl.textContent !== formattedName) {
-        nameEl.textContent = formattedName;
+      if (DOM.username.textContent !== formattedName) {
+        DOM.username.textContent = formattedName;
         document.title = formattedName;
       }
 
       const nameStyle = fullProfileData?.user_profile?.display_name_style || user.display_name_style;
       if (nameStyle && nameStyle.colors && nameStyle.colors.length >= 2) {
-        nameEl.style.setProperty("--color-1", nameStyle.colors[0]);
-        nameEl.style.setProperty("--color-2", nameStyle.colors[1]);
-        nameEl.style.setProperty("--name-angle", (nameStyle.angle || 90) + "deg");
-        nameEl.classList.add("has-gradient");
+        DOM.username.style.setProperty("--color-1", nameStyle.colors[0]);
+        DOM.username.style.setProperty("--color-2", nameStyle.colors[1]);
+        DOM.username.style.setProperty("--name-angle", (nameStyle.angle || 90) + "deg");
+        DOM.username.classList.add("has-gradient");
         if (nameStyle.animated || nameStyle.effect === "animated") {
-          nameEl.classList.add("animated");
+          DOM.username.classList.add("animated");
         }
       }
 
       if (user.username) {
         currentDiscordUsername = user.username;
-        const handleEl = document.getElementById("handle-name");
-        if (handleEl.textContent !== user.username) handleEl.textContent = user.username;
+        if (DOM.handleName.textContent !== user.username) DOM.handleName.textContent = user.username;
       }
 
       if (user.avatar) {
         const uid = user.id || DISCORD_ID;
         const ext = user.avatar.startsWith("a_") ? "gif" : "png";
         const avatarSrc = `https://cdn.discordapp.com/avatars/${uid}/${user.avatar}.${ext}?size=256`;
-        const avEl = document.getElementById("avatar");
-        if (avEl.src !== avatarSrc) avEl.src = avatarSrc;
+        if (DOM.avatar.src !== avatarSrc) DOM.avatar.src = avatarSrc;
       }
 
-      const decoEl = document.getElementById("avatar-decoration");
       const asset = user.avatar_decoration_data?.asset;
       if (asset) {
         const src = `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png?size=160&passthrough=true`;
-        if (decoEl.src !== src) decoEl.src = src;
-        decoEl.style.display = "block";
+        if (DOM.avatarDeco.src !== src) DOM.avatarDeco.src = src;
+        DOM.avatarDeco.style.display = "block";
       } else {
-        decoEl.style.display = "none";
+        DOM.avatarDeco.style.display = "none";
       }
 
       const clanData =
@@ -1195,20 +1386,21 @@
     }
 
     /* ====================================================
-       RECENT PLAYS + DISCORD SPOTIFY SEAMLESS QUEUE
+       RECENT PLAYS + DISCORD MUSIC SEAMLESS QUEUE
        ==================================================== */
     const rawArtworks = stateCache.artworks || {};
     const artworkCache = new Map(
       Object.entries(rawArtworks).filter(([, v]) => typeof v === "string" && v.startsWith("http"))
     );
+    const missingArtworkCache = new Map();
     const inflightArtwork = new Map();
 
-    // Persistent history of tracks played on Discord so finished songs immediately shift to slot #2
     let recentDiscordHistory = Array.isArray(stateCache.discordHistory) ? stateCache.discordHistory : [];
     let activeSpotifyTrack = null;
     let activeSpotifyKey = "";
+    let currentListeningApp = "spotify";
     let songEndTimeout = null;
-    let progressInterval = null;
+    let progressRafId = null;
     let lastFmTracks = Array.isArray(stateCache.tracks) ? stateCache.tracks : [];
     let lastFmTotal = stateCache.totalScrobbles || null;
     let lastTracksSig = "";
@@ -1253,8 +1445,13 @@
     function rememberTrackArt(artistRaw, trackRaw, url) {
       if (!url || !url.startsWith("http")) return;
       const key = getTrackCacheKey(artistRaw, trackRaw);
+      missingArtworkCache.delete(key);
       if (artworkCache.get(key) !== url) {
         artworkCache.set(key, url);
+        if (artworkCache.size > 140) {
+          const oldestKey = artworkCache.keys().next().value;
+          artworkCache.delete(oldestKey);
+        }
         saveCache({ artworks: Object.fromEntries(artworkCache) });
       }
     }
@@ -1274,7 +1471,6 @@
         uts: nowUts
       };
 
-      // Avoid duplicating if the exact same song is already at the top of recentDiscordHistory within 90s
       if (
         recentDiscordHistory.length > 0 &&
         isSameSong(recentDiscordHistory[0].artist, recentDiscordHistory[0].name, entry.artist, entry.name) &&
@@ -1296,6 +1492,14 @@
         if (act.details) return `https://open.spotify.com/search/${encodeURIComponent(act.details + " " + (act.state || ""))}`;
         return "https://open.spotify.com";
       }
+      if (lower.includes("soundcloud")) {
+        if (act.details) return `https://soundcloud.com/search?q=${encodeURIComponent(act.details + " " + (act.state || ""))}`;
+        return "https://soundcloud.com";
+      }
+      if (lower.includes("youtube music") || lower.includes("yt music") || lower.includes("youtubemusic")) {
+        if (act.details) return `https://music.youtube.com/search?q=${encodeURIComponent(act.details + " " + (act.state || ""))}`;
+        return "https://music.youtube.com";
+      }
       if (act.url && /^https?:\/\//i.test(act.url)) return act.url;
       for (const entry of APP_URL_MAP) {
         if (entry.match.some(k => lower.includes(k))) return entry.url;
@@ -1304,31 +1508,100 @@
     }
 
     function resolveActivityIcon(act) {
-      if (act.assets?.large_image) {
-        const img = act.assets.large_image;
-        if (img.startsWith("mp:external/")) return `https://media.discordapp.net/${img.replace("mp:", "")}`;
-        if (img.startsWith("spotify:")) return `https://i.scdn.co/image/${img.replace("spotify:", "")}`;
-        if (act.application_id) return `https://cdn.discordapp.com/app-assets/${act.application_id}/${img}.png`;
+      const rawImg = act.assets?.large_image || act.assets?.small_image;
+      if (rawImg) {
+        if (rawImg.startsWith("mp:external/")) return `https://media.discordapp.net/${rawImg.replace("mp:", "")}`;
+        if (rawImg.startsWith("spotify:")) return `https://i.scdn.co/image/${rawImg.replace("spotify:", "")}`;
+        if (rawImg.startsWith("http")) return rawImg;
+        if (act.application_id) return `https://cdn.discordapp.com/app-assets/${act.application_id}/${rawImg}.png`;
       }
       const lower = (act.name || "").toLowerCase();
       if (lower.includes("zed")) return "https://www.google.com/s2/favicons?domain=zed.dev&sz=64";
       if (lower.includes("code")) return "https://www.google.com/s2/favicons?domain=code.visualstudio.com&sz=64";
       if (lower.includes("roblox") || lower.includes("sober")) return "https://www.google.com/s2/favicons?domain=roblox.com&sz=64";
+      if (lower.includes("modrinth")) return "https://www.google.com/s2/favicons?domain=modrinth.com&sz=64";
       if (lower.includes("lunar") || lower.includes("minecraft")) return "https://www.google.com/s2/favicons?domain=lunarclient.com&sz=64";
       if (lower.includes("assetto")) return "https://www.google.com/s2/favicons?domain=assettocorsa.gg&sz=64";
+      if (lower.includes("soundcloud")) return "https://www.google.com/s2/favicons?domain=soundcloud.com&sz=64";
+      if (lower.includes("youtube music") || lower.includes("yt music")) return "https://www.google.com/s2/favicons?domain=music.youtube.com&sz=64";
       if (lower.includes("spotify")) return "https://www.google.com/s2/favicons?domain=spotify.com&sz=64";
       return null;
+    }
+
+    function isMinecraftActivity(act) {
+      const hay = `${act.name || ""} ${act.details || ""} ${act.state || ""} ${act.assets?.large_text || ""}`.toLowerCase();
+      return [
+        "minecraft",
+        "lunar client",
+        "lunarclient",
+        "lunar",
+        "modrinth",
+        "feather",
+        "badlion",
+        "prism launcher",
+        "prismlauncher",
+        "multimc",
+        "curseforge"
+      ].some(k => hay.includes(k));
+    }
+
+    function isRobloxActivity(act) {
+      const hay = `${act.name || ""} ${act.details || ""} ${act.state || ""} ${act.assets?.large_text || ""}`.toLowerCase();
+      return ["roblox", "sober", "vinegar", "bloxstrap"].some(k => hay.includes(k));
+    }
+
+    function detectMusicApp(act, data) {
+      const hay = `${act?.name || ""} ${act?.assets?.large_text || ""} ${act?.assets?.small_text || ""} ${act?.id || ""}`.toLowerCase();
+      if (hay.includes("soundcloud")) return "soundcloud";
+      if (hay.includes("youtube music") || hay.includes("yt music") || hay.includes("youtubemusic")) return "youtube music";
+      if (hay.includes("spotify") || data?.spotify) return "spotify";
+      return "spotify";
+    }
+
+    function getListeningAppIconHTML(appName) {
+      const key = String(appName || "spotify").toLowerCase();
+      const cfg = MUSIC_APP_ICONS[key] || MUSIC_APP_ICONS.spotify;
+      return `<img class="play-app-icon" src="${escapeHTML(cfg.primary)}" alt="${escapeHTML(key)}" decoding="async" onerror="this.onerror=null;this.src='${escapeHTML(cfg.fallback)}';" />`;
     }
 
     function extractLiveSpotifyFromPresence(data) {
       if (!data) return null;
       const acts = Array.isArray(data.activities) ? data.activities : [];
-      const spAct = acts.find(a => a && (String(a.name).toLowerCase() === "spotify" || a.id === "spotify:1" || a.type === 2));
+      const musicAct = acts.find(a => {
+        if (!a) return false;
+        const n = String(a.name || "").toLowerCase();
+        return (
+          n === "spotify" ||
+          n.includes("soundcloud") ||
+          n.includes("youtube music") ||
+          n.includes("yt music") ||
+          n.includes("youtubemusic") ||
+          a.id === "spotify:1" ||
+          a.type === 2
+        );
+      });
+
+      const detectedApp = detectMusicApp(musicAct, data);
+      currentListeningApp = detectedApp;
+
+      if (musicAct && detectedApp !== "spotify" && musicAct.details) {
+        const artist = String(musicAct.state || "").replace(/;\s*/g, ", ").trim();
+        const art = resolveActivityIcon(musicAct) || "";
+        return {
+          song: musicAct.details,
+          artist: artist || "Unknown Artist",
+          art,
+          url: resolveActivityUrl(musicAct) || `https://www.last.fm/user/${LASTFM_USERNAME}`,
+          timestamps: musicAct.timestamps || null,
+          trackId: musicAct.sync_id || `${musicAct.details}:${artist}`,
+          app: detectedApp
+        };
+      }
 
       if (data.spotify && data.spotify.song) {
         const sp = data.spotify;
         const artist = String(sp.artist || "").replace(/;\s*/g, ", ").trim();
-        const art = sp.album_art_url || (spAct ? resolveActivityIcon(spAct) : "");
+        const art = sp.album_art_url || (musicAct ? resolveActivityIcon(musicAct) : "");
         const url = sp.track_id
           ? `https://open.spotify.com/track/${sp.track_id}`
           : `https://open.spotify.com/search/${encodeURIComponent(sp.song + " " + artist)}`;
@@ -1337,21 +1610,23 @@
           artist: artist || "Unknown Artist",
           art: art || "",
           url,
-          timestamps: sp.timestamps || spAct?.timestamps || null,
-          trackId: sp.track_id || `${sp.song}:${artist}`
+          timestamps: sp.timestamps || musicAct?.timestamps || null,
+          trackId: sp.track_id || `${sp.song}:${artist}`,
+          app: "spotify"
         };
       }
 
-      if (spAct && spAct.details) {
-        const artist = String(spAct.state || "").replace(/;\s*/g, ", ").trim();
-        const art = resolveActivityIcon(spAct) || "";
+      if (musicAct && musicAct.details) {
+        const artist = String(musicAct.state || "").replace(/;\s*/g, ", ").trim();
+        const art = resolveActivityIcon(musicAct) || "";
         return {
-          song: spAct.details,
+          song: musicAct.details,
           artist: artist || "Unknown Artist",
           art,
-          url: resolveActivityUrl(spAct) || `https://open.spotify.com/search/${encodeURIComponent(spAct.details)}`,
-          timestamps: spAct.timestamps || null,
-          trackId: spAct.sync_id || `${spAct.details}:${artist}`
+          url: resolveActivityUrl(musicAct) || `https://open.spotify.com/search/${encodeURIComponent(musicAct.details)}`,
+          timestamps: musicAct.timestamps || null,
+          trackId: musicAct.sync_id || `${musicAct.details}:${artist}`,
+          app: detectedApp
         };
       }
 
@@ -1380,64 +1655,151 @@
       }
     }
 
-    function updateLiveProgressBar() {
-      const bar = document.getElementById("live-play-progress");
-      if (!bar || !activeSpotifyTrack?.timestamps?.start || !activeSpotifyTrack?.timestamps?.end) return;
-      const { start, end } = activeSpotifyTrack.timestamps;
-      const ratio = Math.max(0, Math.min(1, (Date.now() - start) / Math.max(1, end - start)));
-      bar.style.transform = `scaleX(${ratio.toFixed(4)})`;
+    /* High-Precision requestAnimationFrame Progress Loop */
+    function stopProgressLoop() {
+      if (progressRafId) {
+        cancelAnimationFrame(progressRafId);
+        progressRafId = null;
+      }
     }
 
+    function tickLiveProgress() {
+      progressRafId = null;
+      if (document.hidden || !activeSpotifyTrack?.timestamps?.start || !activeSpotifyTrack?.timestamps?.end) return;
+      const bar = document.getElementById("live-play-progress");
+      if (!bar) return;
+      const { start, end } = activeSpotifyTrack.timestamps;
+      const ratio = Math.max(0, Math.min(1, (Date.now() - start) / Math.max(1, end - start)));
+      bar.style.transform = `scaleX(${ratio.toFixed(5)})`;
+      if (ratio < 1) {
+        progressRafId = requestAnimationFrame(tickLiveProgress);
+      }
+    }
+
+    function startProgressLoop() {
+      stopProgressLoop();
+      if (!document.hidden && activeSpotifyTrack?.timestamps?.start && activeSpotifyTrack?.timestamps?.end) {
+        progressRafId = requestAnimationFrame(tickLiveProgress);
+      }
+    }
+
+    /* In-Place Activity Feed Diffing (Zero Image Flicker) */
     function renderActivityFeed(liveActivities = []) {
-      const container = document.getElementById("activity-list");
       const items = liveActivities.filter(a => a && a.type !== 4);
 
-      const sig = items.map(a => `${a.name}:${a.details || ""}:${a.state || ""}:${a.assets?.large_image || ""}`).join("|");
-      if (sig === lastActivitySig && container.children.length > 0) return;
+      const sig = items.map(a => {
+        const hrs = a.timestamps?.start ? Math.floor((Date.now() - a.timestamps.start) / 3600000) : 0;
+        return `${a.name}:${a.details || ""}:${a.state || ""}:${a.assets?.large_image || ""}:${hrs}:${robloxHeadshotUrl}`;
+      }).join("|");
+
+      if (sig === lastActivitySig && DOM.activityList.children.length > 0) return;
       lastActivitySig = sig;
 
       if (items.length === 0) {
-        container.innerHTML = `
-          <div class="activity-row" style="justify-content: center; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 11.5px;">
+        DOM.activityList.innerHTML = `
+          <div class="activity-row" data-empty="true" style="justify-content: center; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; font-size: 11.5px;">
             <span>idle / nothing playing</span>
           </div>`;
         return;
       }
 
-      const arrowSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>`;
-      const clockSvg = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
-      const padSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4m-2-2v4m7-1h.01M18 11h.01"/></svg>`;
+      if (DOM.activityList.querySelector("[data-empty='true']")) {
+        DOM.activityList.innerHTML = "";
+      }
 
-      container.innerHTML = items.map(act => {
+      while (DOM.activityList.children.length > items.length) {
+        DOM.activityList.lastElementChild.remove();
+      }
+
+      while (DOM.activityList.children.length < items.length) {
+        const row = document.createElement("div");
+        row.className = "activity-row";
+        row.innerHTML = `
+          <div class="activity-left">
+            <div class="activity-icon-slot"></div>
+            <div class="activity-text">
+              <span class="activity-name"></span>
+              <span class="activity-detail"></span>
+            </div>
+          </div>
+          <div class="activity-right">
+            <span class="activity-duration" style="display:none;"></span>
+            <img class="activity-player-head" alt="" decoding="async" style="display:none;" />
+            <a class="activity-link-arrow" target="_blank" rel="noopener noreferrer">${ARROW_SVG}</a>
+          </div>`;
+        DOM.activityList.appendChild(row);
+      }
+
+      items.forEach((act, idx) => {
+        const row = DOM.activityList.children[idx];
         const detail = [act.details, act.state].filter(Boolean).join(" — ") || "Active session";
         const icon = resolveActivityIcon(act);
         const url = resolveActivityUrl(act);
         const hrs = act.timestamps?.start ? Math.floor((Date.now() - act.timestamps.start) / 3600000) : 0;
-        const durationHTML = hrs >= 1 ? `<span class="activity-duration">${clockSvg} ${hrs}h Marathon</span>` : "";
 
-        const iconHTML = icon
-          ? `<img class="activity-icon" src="${escapeHTML(icon)}" alt="" loading="lazy" decoding="async" />`
-          : `<div class="activity-icon">${padSvg}</div>`;
+        const iconSlot = row.querySelector(".activity-icon-slot");
+        if (icon) {
+          let img = iconSlot.querySelector("img.activity-icon");
+          if (!img) {
+            iconSlot.innerHTML = `<img class="activity-icon" alt="" decoding="async" />`;
+            img = iconSlot.firstElementChild;
+          }
+          if (img.getAttribute("src") !== icon) img.src = icon;
+        } else if (!iconSlot.querySelector("div.activity-icon")) {
+          iconSlot.innerHTML = `<div class="activity-icon">${PAD_SVG}</div>`;
+        }
 
-        const linkHTML = url
-          ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" class="activity-link-arrow">${arrowSvg}</a>`
-          : `<span class="activity-link-arrow" style="opacity: 0.45;">${arrowSvg}</span>`;
+        const nameEl = row.querySelector(".activity-name");
+        const detailEl = row.querySelector(".activity-detail");
+        if (nameEl.textContent !== (act.name || "")) nameEl.textContent = act.name || "";
+        if (detailEl.textContent !== detail) detailEl.textContent = detail;
 
-        return `
-          <div class="activity-row">
-            <div class="activity-left">
-              ${iconHTML}
-              <div class="activity-text">
-                <span class="activity-name">${escapeHTML(act.name)}</span>
-                <span class="activity-detail">${escapeHTML(detail)}</span>
-              </div>
-            </div>
-            <div class="activity-right">
-              ${durationHTML}
-              ${linkHTML}
-            </div>
-          </div>`;
-      }).join("");
+        const durEl = row.querySelector(".activity-duration");
+        if (hrs >= 1) {
+          const durHTML = `${CLOCK_SVG} ${hrs}h Marathon`;
+          if (durEl.innerHTML !== durHTML) durEl.innerHTML = durHTML;
+          durEl.style.display = "inline-flex";
+        } else {
+          durEl.style.display = "none";
+        }
+
+        const headImg = row.querySelector(".activity-player-head");
+        if (isMinecraftActivity(act)) {
+          const mcPrimary = `https://mc-heads.net/avatar/${MC_UUID}/64`;
+          const mcFallback = `https://minotar.net/helm/${MC_UUID}/64.png`;
+          headImg.className = "activity-player-head mc-head";
+          headImg.dataset.playerType = "minecraft";
+          headImg.onerror = () => {
+            if (headImg.src !== mcFallback) headImg.src = mcFallback;
+          };
+          if (headImg.getAttribute("src") !== mcPrimary && headImg.getAttribute("src") !== mcFallback) {
+            headImg.src = mcPrimary;
+          }
+          headImg.style.display = "block";
+        } else if (isRobloxActivity(act)) {
+          const rbxSrc = robloxHeadshotUrl || `https://www.roblox.com/headshot-thumbnail/image?userId=${ROBLOX_USER_ID}&width=150&height=150&format=png`;
+          headImg.className = "activity-player-head";
+          headImg.dataset.playerType = "roblox";
+          headImg.onerror = null;
+          if (headImg.getAttribute("src") !== rbxSrc) headImg.src = rbxSrc;
+          headImg.style.display = "block";
+          if (!robloxHeadshotUrl) ensureRobloxHeadshot();
+        } else {
+          headImg.style.display = "none";
+          headImg.removeAttribute("data-player-type");
+        }
+
+        const arrowEl = row.querySelector(".activity-link-arrow");
+        if (url) {
+          if (arrowEl.getAttribute("href") !== url) arrowEl.href = url;
+          arrowEl.style.opacity = "";
+          arrowEl.style.pointerEvents = "";
+        } else {
+          arrowEl.removeAttribute("href");
+          arrowEl.style.opacity = "0.45";
+          arrowEl.style.pointerEvents = "none";
+        }
+      });
     }
 
     let lastStatusBadge = "";
@@ -1447,16 +1809,15 @@
       const st = data.discord_status || "offline";
       if (st !== lastStatusBadge) {
         lastStatusBadge = st;
-        document.getElementById("status-badge").innerHTML = STATUS_SVGS[st] || STATUS_SVGS.offline;
+        DOM.statusBadge.innerHTML = STATUS_SVGS[st] || STATUS_SVGS.offline;
       }
       renderActivityFeed(data.activities || []);
 
       const prevTrack = activeSpotifyTrack;
       const prevKey = activeSpotifyKey;
       const liveSp = extractLiveSpotifyFromPresence(data);
-      const nextKey = liveSp ? `${liveSp.trackId}:${liveSp.song}` : "";
+      const nextKey = liveSp ? `${liveSp.trackId}:${liveSp.song}:${liveSp.app}` : "";
 
-      // If a song was playing on Discord and just finished or switched to a new song, push it to history so it slides to #2
       if (prevTrack && prevKey && prevKey !== nextKey) {
         pushToDiscordHistory(prevTrack);
       }
@@ -1480,7 +1841,7 @@
         setTimeout(() => fetchLastFmGrid(true), 1500);
         setTimeout(() => fetchLastFmGrid(true), 3500);
       } else {
-        updateLiveProgressBar();
+        startProgressLoop();
       }
 
       saveCache({ presence: data });
@@ -1500,16 +1861,28 @@
 
     let socket = null;
     let heartbeatInterval = null;
+    let wsReconnectAttempts = 0;
+    let wsReconnectTimer = null;
 
     function connectLanyardWS() {
+      clearTimeout(wsReconnectTimer);
       if (socket) {
         socket.onclose = null;
         socket.close();
       }
       socket = new WebSocket("wss://api.lanyard.rest/socket");
 
+      socket.onopen = () => {
+        wsReconnectAttempts = 0;
+      };
+
       socket.onmessage = event => {
-        const msg = JSON.parse(event.data);
+        let msg;
+        try {
+          msg = JSON.parse(event.data);
+        } catch {
+          return;
+        }
         if (msg.op === 1) {
           clearInterval(heartbeatInterval);
           heartbeatInterval = setInterval(() => {
@@ -1524,37 +1897,42 @@
 
       socket.onclose = () => {
         clearInterval(heartbeatInterval);
-        setTimeout(connectLanyardWS, 1500);
+        const delay = Math.min(10000, 1200 * Math.pow(1.4, wsReconnectAttempts++));
+        wsReconnectTimer = setTimeout(connectLanyardWS, delay);
       };
     }
 
     function applyCloudServer(guild, online, members) {
       if (!guild) return;
-      if (guild.name) document.getElementById("cloud-proj-name").textContent = guild.name;
+      if (guild.name) DOM.cloudName.textContent = guild.name;
       if (guild.icon) {
         const ext = guild.icon.startsWith("a_") ? "gif" : "png";
-        document.getElementById("cloud-proj-icon").src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${ext}?size=128`;
+        DOM.cloudIcon.src = `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.${ext}?size=128`;
       }
-      document.getElementById("cloud-proj-desc").textContent = guild.description
+      DOM.cloudDesc.textContent = guild.description
         ? `${guild.description} (${Number(members || 0).toLocaleString()} members)`
         : `${Number(online || 0).toLocaleString()} online · ${Number(members || 0).toLocaleString()} members`;
     }
 
     /* ====================================================
-       LAST.FM FIRST ARTWORK RESOLVER (NO WRONG COVERS)
+       LAST.FM + ITUNES ARTWORK RESOLVER (WITH NEGATIVE CACHE)
        ==================================================== */
     function fetchTrackCoverUrl(artistRaw, trackRaw) {
       const cached = getCachedTrackArt(artistRaw, trackRaw);
       if (cached) return Promise.resolve(cached);
 
       const key = getTrackCacheKey(artistRaw, trackRaw);
+      const negTs = missingArtworkCache.get(key);
+      if (negTs && Date.now() - negTs < 600000) {
+        return Promise.resolve(null);
+      }
+
       if (inflightArtwork.has(key)) return inflightArtwork.get(key);
 
       const firstArtist = String(artistRaw || "").split(/[;,/]/)[0].trim();
 
       const promise = (async () => {
         try {
-          // 1. Primary: Last.fm track.getInfo (gets official Last.fm track/album cover)
           const trackInfo = await fetchJson(
             `https://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key=${LASTFM_API_KEY}&artist=${encodeURIComponent(firstArtist)}&track=${encodeURIComponent(trackRaw)}&autocorrect=1&format=json`
           );
@@ -1570,13 +1948,12 @@
             }
           }
 
-          // 2. Secondary: iTunes Search ONLY if artist & track name strictly match
           const query = `${normalizeStr(firstArtist)} ${normalizeStr(trackRaw)}`.trim();
           const itunesData = await fetchJson(`https://itunes.apple.com/search?term=${encodeURIComponent(query)}&media=music&entity=song&limit=5`);
-          if (Array.isArray(itunesData?.results)) {
-            const matched = itunesData.results.find(r =>
-              isSameSong(r.artistName, r.trackName, firstArtist, trackRaw)
-            );
+          if (Array.isArray(itunesData?.results) && itunesData.results.length > 0) {
+            const matched =
+              itunesData.results.find(r => isSameSong(r.artistName, r.trackName, firstArtist, trackRaw)) ||
+              itunesData.results.find(r => normalizeStr(r.trackName) === normalizeStr(trackRaw));
             if (matched?.artworkUrl100) {
               const hiRes = matched.artworkUrl100.replace("100x100bb", "300x300bb");
               rememberTrackArt(artistRaw, trackRaw, hiRes);
@@ -1584,6 +1961,7 @@
             }
           }
         } catch {}
+        missingArtworkCache.set(key, Date.now());
         return null;
       })();
 
@@ -1614,8 +1992,6 @@
     function buildCombinedTrackList() {
       const result = [];
       const lfmSource = Array.isArray(lastFmTracks) ? lastFmTracks : [];
-
-      // 1. If a song is currently playing on Discord OR Last.fm reports nowplaying
       const lfmNow = lfmSource.find(t => t?.["@attr"]?.nowplaying === "true");
 
       if (activeSpotifyTrack) {
@@ -1633,6 +2009,7 @@
           url: activeSpotifyTrack.url || lfmNow?.url || `https://www.last.fm/user/${LASTFM_USERNAME}`,
           art: bestLiveArt,
           isNow: true,
+          app: activeSpotifyTrack.app || currentListeningApp || "spotify",
           uts: null,
           timestamps: activeSpotifyTrack.timestamps || null
         });
@@ -1646,12 +2023,12 @@
           url: lfmNow.url || `https://www.last.fm/user/${LASTFM_USERNAME}`,
           art: lfmImg || getCachedTrackArt(rawArtist, lfmNow.name) || "",
           isNow: true,
+          app: currentListeningApp || "spotify",
           uts: null,
           timestamps: null
         });
       }
 
-      // 2. Past tracks from Last.fm (excluding any track with @attr.nowplaying)
       const pastLfm = lfmSource
         .filter(t => t && t["@attr"]?.nowplaying !== "true")
         .map(t => {
@@ -1669,15 +2046,12 @@
           };
         });
 
-      // 3. Merge recentDiscordHistory items that finished recently but haven't appeared on Last.fm yet
       const topLfm = pastLfm[0];
       const unSyncedDiscord = [];
       for (const h of recentDiscordHistory) {
-        // Skip if it's currently the live playing track and hasn't finished
         if (result[0]?.isNow && isSameSong(result[0].artist, result[0].name, h.artist, h.name) && Math.abs(Math.floor(Date.now() / 1000) - h.uts) < 15) {
           continue;
         }
-        // Check if Last.fm already scrobbled this play
         const alreadyInLfm = pastLfm.some(
           p => isSameSong(p.artist, p.name, h.artist, h.name) && Math.abs((p.uts || 0) - (h.uts || 0)) < 240
         );
@@ -1704,36 +2078,49 @@
       renderTracksDOM(combined, lastFmTotal, force);
     }
 
+    function refreshRelativeTimeLabels(rowEl, tracks) {
+      if (!rowEl) return;
+      tracks.forEach((track, idx) => {
+        if (track.isNow) return;
+        const card = rowEl.children[idx];
+        const metaTop = card?.querySelector(".play-meta-top");
+        if (metaTop) {
+          const relText = getRelativeTime(track.uts);
+          if (metaTop.textContent !== relText) {
+            metaTop.innerHTML = `<span>${escapeHTML(relText)}</span>`;
+          }
+        }
+      });
+    }
+
     function renderTracksDOM(list, totalScrobbles, force = false) {
-      const gridEl = document.getElementById("lastfm-grid");
-      const statsEl = document.getElementById("lastfm-stats-label");
-      if (totalScrobbles && statsEl) {
+      if (totalScrobbles && DOM.lastfmStats) {
         const formatted = `${Number(totalScrobbles).toLocaleString()} scrobbles`;
-        if (statsEl.textContent !== formatted) statsEl.textContent = formatted;
+        if (DOM.lastfmStats.textContent !== formatted) DOM.lastfmStats.textContent = formatted;
       }
       if (!Array.isArray(list) || list.length === 0) return;
 
       const tracks = list.slice(0, 10);
       const sig = tracks
-        .map(t => `${t.name}:${t.artist}:${t.isNow ? "LIVE" : t.uts}:${t.art || ""}`)
+        .map(t => `${t.name}:${t.artist}:${t.isNow ? `NOW_${t.app || "spotify"}` : t.uts}:${t.art || ""}`)
         .join("|");
 
-      if (!force && sig === lastTracksSig) {
-        updateLiveProgressBar();
+      let rowEl = DOM.lastfmGrid.querySelector(".plays-row");
+      if (!force && sig === lastTracksSig && rowEl) {
+        refreshRelativeTimeLabels(rowEl, tracks);
+        startProgressLoop();
         return;
       }
       lastTracksSig = sig;
 
       const rowHasLive = tracks.some(t => t.isNow);
-      let rowEl = gridEl.querySelector(".plays-row");
       if (!rowEl) {
         rowEl = document.createElement("div");
-        gridEl.innerHTML = "";
-        gridEl.appendChild(rowEl);
+        DOM.lastfmGrid.innerHTML = "";
+        DOM.lastfmGrid.appendChild(rowEl);
       }
       rowEl.className = `plays-row${rowHasLive ? " has-live" : ""}`;
 
-      // Ensure exactly `tracks.length` card elements exist so updates never flicker
       while (rowEl.children.length > tracks.length) {
         rowEl.lastElementChild.remove();
       }
@@ -1800,7 +2187,7 @@
         pip.style.display = isNow ? "block" : "none";
 
         const statusHTML = isNow
-          ? `<span class="play-now-badge"><span class="eq-bars"><span></span><span></span><span></span></span>LIVE</span>`
+          ? `<span class="play-now-badge"><span class="eq-bars"><span></span><span></span><span></span></span>${getListeningAppIconHTML(track.app)}</span>`
           : `<span>${escapeHTML(getRelativeTime(track.uts))}</span>`;
 
         if (metaTop.innerHTML !== statusHTML) metaTop.innerHTML = statusHTML;
@@ -1816,11 +2203,7 @@
         }
       });
 
-      clearInterval(progressInterval);
-      if (activeSpotifyTrack?.timestamps?.start && activeSpotifyTrack?.timestamps?.end) {
-        updateLiveProgressBar();
-        progressInterval = setInterval(updateLiveProgressBar, 500);
-      }
+      startProgressLoop();
     }
 
     function applyLastFmPayload(data) {
@@ -1849,21 +2232,26 @@
       }
     }
 
+    let siteRevealed = false;
     function revealSite() {
-      const loader = document.getElementById("boot-loader");
-      if (loader && !loader.classList.contains("hidden")) {
-        loader.classList.add("hidden");
-        document.body.classList.add("loaded");
-        setTimeout(() => loader.remove(), 320);
-      }
+      if (siteRevealed) return;
+      siteRevealed = true;
+      const elapsed = performance.now() - BOOT_START;
+      const waitMs = Math.max(0, BOOT_MIN_MS - elapsed);
+
+      setTimeout(() => {
+        if (DOM.loader && !DOM.loader.classList.contains("hidden")) {
+          DOM.loader.classList.add("hidden");
+          document.body.classList.add("loaded");
+          setTimeout(() => DOM.loader.remove(), 550);
+        }
+      }, waitMs);
     }
 
     (async function init() {
-      const hasWarmCache = Boolean(
-        (stateCache.dstnUser || stateCache.presence) &&
-        Array.isArray(stateCache.tracks) &&
-        stateCache.tracks.length > 0
-      );
+      EARLY.roblox.then(imgUrl => {
+        if (imgUrl) applyRobloxHeadshot(imgUrl);
+      });
 
       if (stateCache.dstnUser) updateUserHeader(stateCache.dstnUser, stateCache.dstnFull);
       if (stateCache.bio) renderDiscordBio(stateCache.bio);
@@ -1872,8 +2260,6 @@
       else renderActivityFeed([]);
       if (stateCache.cloud) applyCloudServer(stateCache.cloud.guild, stateCache.cloud.online, stateCache.cloud.members);
       if (lastFmTracks.length > 0) syncLiveAndRenderTracks();
-
-      if (hasWarmCache) revealSite();
 
       const pLanyard = EARLY.lanyard.then(res => { if (res?.data) applyPresenceData(res.data); });
       const pDstn = EARLY.dstn.then(data => { if (data) applyDstnPayload(data); });
@@ -1887,28 +2273,43 @@
 
       connectLanyardWS();
 
-      if (!hasWarmCache) {
+      await Promise.race([
+        Promise.allSettled([pLanyard, pDstn, pLastFm]),
+        new Promise(r => setTimeout(r, 1000))
+      ]);
+
+      if (DOM.avatar.src && DOM.avatar.src.startsWith("http") && DOM.avatar.decode) {
         await Promise.race([
-          Promise.allSettled([pLanyard, pDstn, pLastFm]),
-          new Promise(r => setTimeout(r, 120))
+          DOM.avatar.decode().catch(() => {}),
+          new Promise(r => setTimeout(r, 220))
         ]);
-        revealSite();
       }
 
-      // High-frequency non-overlapping sync loops for instant stats/profile updates
-      setInterval(() => fetchLastFmGrid(), 4000);
-      setInterval(() => fetchDiscordProfile(), 8000);
+      revealSite();
+
+      setInterval(() => fetchLastFmGrid(), 4500);
+      setInterval(() => fetchDiscordProfile(), 8500);
       setInterval(() => {
-        if (!socket || socket.readyState !== WebSocket.OPEN) {
+        if (!document.hidden && (!socket || socket.readyState !== WebSocket.OPEN)) {
           fetchLanyardFastREST();
         }
-      }, 4000);
+      }, 4500);
+
+      window.addEventListener("online", () => {
+        connectLanyardWS();
+        fetchLanyardFastREST();
+        fetchDiscordProfile();
+        fetchLastFmGrid(true);
+      });
 
       document.addEventListener("visibilitychange", () => {
         if (!document.hidden) {
+          startProgressLoop();
           fetchLanyardFastREST();
           fetchDiscordProfile();
           fetchLastFmGrid(true);
+        } else {
+          stopProgressLoop();
         }
       });
     })();
