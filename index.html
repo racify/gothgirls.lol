@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#050505" />
   <title>Zack</title>
   <link id="dynamic-favicon" rel="icon" href="favicon.png" type="image/png" />
 
@@ -26,7 +26,7 @@
     const MC_UUID = "d10dfb5e-4a7b-4d1e-9c74-a812e216e89e";
     const ROBLOX_USER_ID = "9769080868";
     const BG_VIDEO_URL = "background.mp4";
-    const CACHE_KEY = "zack_cache_v12";
+    const CACHE_KEY = "zack_cache_v13";
     const BOOT_MIN_MS = 140;
     const BOOT_START = performance.now();
 
@@ -89,27 +89,29 @@
 
   <style>
     :root {
-      --bg: #050507;
-      --surface: rgba(16, 16, 23, 0.64);
-      --surface-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.085) 0%, rgba(255, 255, 255, 0.02) 100%);
+      /* Onyx Background & Surfaces */
+      --bg: #050505;
+      --surface: rgba(12, 12, 14, 0.74);
+      --surface-glass: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.018) 100%);
       --border: rgba(255, 255, 255, 0.1);
-      --border-hover: rgba(255, 255, 255, 0.28);
-      --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 0 rgba(255, 255, 255, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+      --border-hover: rgba(255, 255, 255, 0.26);
+      --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.16), inset 0 -1px 0 0 rgba(255, 255, 255, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.03);
       --text-strong: #fafafa;
       --text-main: #e4e4e7;
-      --text-muted: #8a8a95;
+      --text-muted: #8e8e93;
 
-      /* Purple Accent Theme */
-      --accent-deep: #6b21a8;
-      --accent: #9333ea;
-      --accent-bright: #c084fc;
-      --accent-border: rgba(168, 85, 247, 0.54);
-      --accent-border-strong: rgba(192, 132, 252, 0.76);
-      --accent-glow: rgba(168, 85, 247, 0.65);
+      /* Gold Accent Theme */
+      --accent-deep: #b45309;
+      --accent: #eab308;
+      --accent-bright: #fde047;
+      --accent-border: rgba(234, 179, 8, 0.55);
+      --accent-border-strong: rgba(250, 204, 21, 0.85);
+      --accent-glow: rgba(234, 179, 8, 0.65);
+      --accent-glow-soft: rgba(234, 179, 8, 0.22);
 
-      --tag-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.025));
+      --tag-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02));
       --tag-border: rgba(255, 255, 255, 0.14);
-      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out: cubic-bezier(0.25, 0.8, 0.25, 1);
       --cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M5.25 1.5h1.5v3.75h3.75v1.5H6.75v3.75h-1.5V6.75H1.5v-1.5h3.75V1.5z' fill='%23ffffff'/%3E%3C/svg%3E") 6 6, crosshair;
     }
 
@@ -125,7 +127,7 @@
     }
 
     ::selection {
-      background: rgba(168, 85, 247, 0.35);
+      background: rgba(234, 179, 8, 0.32);
       color: #ffffff;
       -webkit-text-fill-color: #ffffff;
     }
@@ -162,18 +164,18 @@
       position: relative;
     }
 
-    /* Fullscreen Black Boot Loader with Pulsing Dot */
+    /* Fullscreen Onyx Boot Loader with Pulsing Dot */
     #boot-loader {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background-color: #000000;
+      background-color: #050505;
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 1;
       visibility: visible;
-      transition: opacity 0.36s var(--ease-out), visibility 0.36s var(--ease-out);
+      transition: opacity 0.45s var(--ease-out), visibility 0.45s var(--ease-out);
       contain: strict;
     }
 
@@ -188,8 +190,8 @@
       height: 8px;
       border-radius: 50%;
       background-color: #ffffff;
-      box-shadow: 0 0 14px rgba(255, 255, 255, 0.85), 0 0 28px rgba(168, 85, 247, 0.45);
-      animation: dotPulse 0.85s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.85), 0 0 28px rgba(234, 179, 8, 0.48);
+      animation: dotPulse 0.95s ease-in-out infinite alternate;
     }
 
     @keyframes dotPulse {
@@ -205,7 +207,7 @@
       pointer-events: none;
       overflow: hidden;
       opacity: 0;
-      transition: opacity 0.65s var(--ease-out);
+      transition: opacity 0.75s var(--ease-out);
       contain: strict;
     }
 
@@ -223,7 +225,7 @@
     .bg-video-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(5, 5, 7, 0.62) 0%, rgba(5, 5, 7, 0.91) 100%);
+      background: radial-gradient(circle at center, rgba(5, 5, 5, 0.68) 0%, rgba(5, 5, 5, 0.94) 100%);
     }
 
     /* Main Container */
@@ -238,7 +240,7 @@
       gap: 21px;
       opacity: 0;
       transform: translateY(6px);
-      transition: opacity 0.42s var(--ease-out), transform 0.42s var(--ease-out);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
     }
 
     body.loaded .page-wrap {
@@ -362,7 +364,7 @@
       align-items: center;
       color: var(--text-muted);
       font-weight: 400;
-      transition: color 0.18s var(--ease-out);
+      transition: color 0.28s var(--ease-out);
     }
 
     .handle-copy:hover {
@@ -372,7 +374,7 @@
     .handle-text,
     .handle-copied {
       grid-area: 1 / 1;
-      transition: transform 0.22s var(--ease-out), opacity 0.22s var(--ease-out);
+      transition: transform 0.32s var(--ease-out), opacity 0.32s var(--ease-out);
     }
 
     .handle-text {
@@ -409,7 +411,7 @@
       border-radius: 6px;
       background: var(--tag-bg);
       border: 1px solid var(--tag-border);
-      box-shadow: var(--glass-highlight), 0 4px 10px rgba(0, 0, 0, 0.24);
+      box-shadow: var(--glass-highlight), 0 4px 10px rgba(0, 0, 0, 0.28);
       backdrop-filter: blur(8px) saturate(135%);
       -webkit-backdrop-filter: blur(8px) saturate(135%);
       font-family: 'JetBrains Mono', monospace;
@@ -441,11 +443,11 @@
       height: 18px;
       object-fit: contain;
       display: block;
-      transition: transform 0.2s var(--ease-out);
+      transition: transform 0.32s var(--ease-out);
     }
 
     .discord-badge-icon:hover {
-      transform: scale(1.14);
+      transform: scale(1.1);
     }
 
     .bio-line {
@@ -492,7 +494,7 @@
       gap: 5px;
       color: var(--text-muted);
       text-decoration: none;
-      transition: color 0.18s var(--ease-out);
+      transition: color 0.28s var(--ease-out);
     }
 
     .sec-head-right:hover {
@@ -506,7 +508,7 @@
       gap: 12px;
       text-decoration: none;
       padding: 2px 0;
-      transition: transform 0.2s var(--ease-out);
+      transition: transform 0.35s var(--ease-out);
     }
 
     .project-row:hover {
@@ -520,7 +522,7 @@
       object-fit: cover;
       background: var(--surface);
       border: 1px solid var(--border);
-      box-shadow: var(--glass-highlight), 0 4px 12px rgba(0, 0, 0, 0.32);
+      box-shadow: var(--glass-highlight), 0 4px 12px rgba(0, 0, 0, 0.36);
       flex-shrink: 0;
     }
 
@@ -651,7 +653,7 @@
       justify-content: center;
       color: var(--text-muted);
       text-decoration: none;
-      transition: color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+      transition: color 0.28s var(--ease-out), transform 0.28s var(--ease-out);
     }
 
     a.activity-link-arrow:hover {
@@ -659,7 +661,7 @@
       transform: translate(1.5px, -1.5px);
     }
 
-    /* Recent Plays — Single Row of 10 (Liquid Glass & Purple Live Theme) */
+    /* Recent Plays — Single Row of 10 (Onyx Glass & Gold Live Theme) */
     .plays-stack {
       display: flex;
       flex-direction: column;
@@ -672,7 +674,7 @@
       gap: 5px;
       height: 48px;
       width: 100%;
-      transition: height 0.28s var(--ease-out);
+      transition: height 0.42s var(--ease-out);
     }
 
     .plays-row.has-live,
@@ -693,9 +695,10 @@
       text-decoration: none;
       display: flex;
       align-items: center;
-      transition: flex-grow 0.3s var(--ease-out),
-                  border-color 0.18s var(--ease-out),
-                  opacity 0.18s var(--ease-out);
+      transition: flex-grow 0.45s var(--ease-out),
+                  border-color 0.35s var(--ease-out),
+                  box-shadow 0.35s var(--ease-out),
+                  opacity 0.35s var(--ease-out);
     }
 
     .play-card::after {
@@ -703,30 +706,32 @@
       position: absolute;
       inset: 0;
       border-radius: inherit;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 45%, transparent 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.02) 45%, transparent 100%);
       pointer-events: none;
       z-index: 2;
     }
 
     .play-card.now-playing {
-      border-color: var(--accent-border);
+      border-color: var(--accent-border-strong);
+      box-shadow: var(--glass-highlight), 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 14px var(--accent-glow-soft);
     }
 
     .plays-row.has-live:not(:hover) .play-card.now-playing,
     .play-card:hover {
       flex-grow: 6.5;
-      border-color: var(--border-hover);
-      box-shadow: var(--glass-highlight), 0 10px 24px rgba(0, 0, 0, 0.65);
+      border-color: var(--accent-border);
+      box-shadow: var(--glass-highlight), 0 10px 24px rgba(0, 0, 0, 0.72), 0 0 14px rgba(234, 179, 8, 0.14);
       z-index: 5;
     }
 
-    .plays-row.has-live:not(:hover) .play-card.now-playing {
+    .plays-row.has-live:not(:hover) .play-card.now-playing,
+    .play-card.now-playing:hover {
       border-color: var(--accent-border-strong);
-      box-shadow: var(--glass-highlight), 0 10px 24px rgba(0, 0, 0, 0.65), 0 0 18px rgba(168, 85, 247, 0.18);
+      box-shadow: var(--glass-highlight), 0 10px 24px rgba(0, 0, 0, 0.72), 0 0 20px var(--accent-glow-soft);
     }
 
     .plays-row:hover .play-card:not(:hover) {
-      opacity: 0.46;
+      opacity: 0.52;
     }
 
     .play-bg {
@@ -737,21 +742,21 @@
       object-fit: cover;
       backface-visibility: hidden;
       transform: translateZ(0);
-      transition: transform 0.3s var(--ease-out), filter 0.2s var(--ease-out);
+      transition: transform 0.45s var(--ease-out), filter 0.35s var(--ease-out);
       display: block;
     }
 
     .plays-row.has-live:not(:hover) .play-card.now-playing .play-bg,
     .play-card:hover .play-bg {
-      filter: brightness(0.24) blur(7px) saturate(1.2);
-      transform: translateZ(0) scale(1.12);
+      filter: brightness(0.24) blur(7px) saturate(1.15);
+      transform: translateZ(0) scale(1.1);
     }
 
     /* Adaptive Light Song Background Mode */
     .plays-row.has-live:not(:hover) .play-card.now-playing.light-bg .play-bg,
     .play-card.light-bg:hover .play-bg {
-      filter: brightness(0.84) blur(7px) saturate(1.1);
-      transform: translateZ(0) scale(1.12);
+      filter: brightness(0.84) blur(7px) saturate(1.08);
+      transform: translateZ(0) scale(1.1);
     }
 
     .play-live-pip {
@@ -764,7 +769,7 @@
       background: var(--accent-bright);
       box-shadow: 0 0 8px var(--accent-glow);
       z-index: 3;
-      transition: opacity 0.16s var(--ease-out);
+      transition: opacity 0.3s var(--ease-out);
     }
 
     .plays-row.has-live:not(:hover) .play-card.now-playing .play-live-pip,
@@ -784,7 +789,7 @@
       opacity: 0;
       transform: translateX(-4px);
       pointer-events: none;
-      transition: opacity 0.18s var(--ease-out), transform 0.2s var(--ease-out);
+      transition: opacity 0.32s var(--ease-out), transform 0.35s var(--ease-out);
       min-width: 0;
     }
 
@@ -803,7 +808,7 @@
       flex-shrink: 0;
       background: var(--surface);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     }
 
     .play-card.light-bg .play-thumb {
@@ -872,15 +877,15 @@
       background: var(--accent-bright);
       border-radius: 1px;
       transform-origin: bottom center;
-      animation: eqBounce 0.68s ease-in-out infinite alternate;
+      animation: eqBounce 0.75s ease-in-out infinite alternate;
     }
 
     .play-card.light-bg .eq-bars span {
       background: var(--accent-deep);
     }
 
-    .eq-bars span:nth-child(2) { animation-delay: 0.18s; }
-    .eq-bars span:nth-child(3) { animation-delay: 0.36s; }
+    .eq-bars span:nth-child(2) { animation-delay: 0.2s; }
+    .eq-bars span:nth-child(3) { animation-delay: 0.4s; }
 
     @keyframes eqBounce {
       0% { transform: scaleY(0.22); }
@@ -957,7 +962,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+      transition: color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
     }
 
     .social-link:hover {
@@ -1058,7 +1063,7 @@
         <a href="https://instagram.com/byew_p" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
-        <a href="https://t.me/byeu_w" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Telegram">
+        <a href="https://t.me/misrepent" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Telegram">
           <svg viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.534.26l.213-3.053 5.56-5.023c.242-.213-.054-.334-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.832.941z"/></svg>
         </a>
         <a href="https://tiktok.com/@skreenies" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
@@ -1071,10 +1076,9 @@
 
   <script>
     const BADGE_CDN_BASE = "https://cdn.jsdelivr.net/gh/mezotv/discord-badges@main/assets";
-    const DIAMOND_BADGE_URL = `${BADGE_CDN_BASE}/subscriptions/badges/diamond.png`;
 
     const DEFAULT_VINYL_SVG =
-      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%23101014'/%3E%3Ccircle cx='150' cy='150' r='58' fill='none' stroke='%2327272a' stroke-width='6'/%3E%3Ccircle cx='150' cy='150' r='16' fill='%23a855f7'/%3E%3C/svg%3E";
+      "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Crect width='300' height='300' fill='%230a0a0c'/%3E%3Ccircle cx='150' cy='150' r='58' fill='none' stroke='%2327272a' stroke-width='6'/%3E%3Ccircle cx='150' cy='150' r='16' fill='%23eab308'/%3E%3C/svg%3E";
 
     const MONO_MUSIC_SVGS = {
       spotify: `<svg class="play-app-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>`,
@@ -1101,7 +1105,7 @@
     };
 
     const STATUS_SVGS = {
-      online: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#a855f7"/></svg>',
+      online: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#eab308"/></svg>',
       idle: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#f59e0b"/></svg>',
       dnd: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#ef4444"/><rect x="3" y="6.5" width="10" height="3" rx="1.5" fill="var(--bg)"/></svg>',
       offline: '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#52525b"/><circle cx="8" cy="8" r="4" fill="var(--bg)"/></svg>'
@@ -1250,23 +1254,7 @@
       }).catch(() => {});
     });
 
-    function isNitroOrGoldTenureBadge(b) {
-      const id = String(b.id || "").toLowerCase();
-      const desc = String(b.description || "").toLowerCase();
-      return (
-        id.startsWith("premium_tenure") ||
-        id === "premium" ||
-        desc.includes("subscriber since")
-      );
-    }
-
     function resolveBadgeAssets(b) {
-      if (isNitroOrGoldTenureBadge(b)) {
-        return {
-          primaryUrl: DIAMOND_BADGE_URL,
-          fallbackUrl: `${BADGE_CDN_BASE}/discordnitro.svg`
-        };
-      }
       const id = String(b.id || "").toLowerCase();
       const rawIcon = b.icon || b.asset || "";
       let dcdnUrl = b.icon_url || b.iconUrl || "";
@@ -1286,8 +1274,7 @@
       for (let i = 0; i < badgesArray.length; i++) {
         const b = badgesArray[i];
         if (!b || b.hidden === true || b.visible === false) continue;
-        const isTenure = isNitroOrGoldTenureBadge(b);
-        const id = isTenure ? "diamond_tenure" : (b.id || b.icon || b.description);
+        const id = b.id || b.icon || b.description;
         if (!id || seen.has(id)) continue;
         const { primaryUrl, fallbackUrl } = resolveBadgeAssets(b);
         if (!primaryUrl) continue;
@@ -1413,7 +1400,7 @@
         ...(Array.isArray(data.badges) ? data.badges : []),
         ...(Array.isArray(data.user_profile?.badges) ? data.user_profile.badges : [])
       ];
-      const sig = `${user.username}:${user.global_name}:${user.avatar}:${user.avatar_decoration_data?.asset}:${ user.clan?.tag || ""}:${bio}:${badges.length}`;
+      const sig = `${user.username}:${user.global_name}:${user.avatar}:${user.avatar_decoration_data?.asset}:${user.clan?.tag || ""}:${bio}:${badges.map(b => b.icon || b.id).join(",")}`;
       if (sig === lastDstnSig) return;
       lastDstnSig = sig;
 
@@ -2410,7 +2397,7 @@
         if (DOM.loader && !DOM.loader.classList.contains("hidden")) {
           DOM.loader.classList.add("hidden");
           document.body.classList.add("loaded");
-          setTimeout(() => DOM.loader.remove(), 400);
+          setTimeout(() => DOM.loader.remove(), 450);
         }
       }, waitMs);
     }
